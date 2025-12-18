@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELITE LEAGUE // GOU ATHLETICS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#01030a] text-white overflow-x-hidden custom-scrollbar">
+
+    <div id="loader" class="fixed inset-0 z-[1000] bg-[#01030a] flex items-center justify-center transition-transform duration-1000">
+        <div class="text-center">
+            <div class="w-16 h-16 border-4 border-blue-900 border-t-blue-500 rounded-full animate-spin mb-4 mx-auto"></div>
+            <p class="font-sync font-bold text-[10px] tracking-[0.5em] text-blue-700 animate-pulse uppercase">Uplink Established</p>
+        </div>
+    </div>
+
+    <div class="relative z-[100] bg-blue-600/5 border-b border-white/5 backdrop-blur-md py-2 overflow-hidden">
+        <div class="flex whitespace-nowrap animate-marquee items-center gap-12">
+            <span class="text-[9px] font-sync font-bold italic uppercase"><span class="text-blue-500 mr-2">●</span> Result: CSC 200 [5] vs MSS 100 [2]</span>
+            <span class="text-[9px] font-sync font-bold italic uppercase text-gray-500"><span class="text-blue-500 mr-2">●</span> Next Kickoff: LAW 500 vs CSC 300 on JAN</span>
+            <span class="text-[9px] font-sync font-bold italic uppercase"><span class="text-blue-500 mr-2">●</span> Chukwuemeka leads Golden Boot with 6 goals</span>
+            <span class="text-[9px] font-sync font-bold italic uppercase"><span class="text-blue-500 mr-2">●</span> System Status: 100% Stable</span>
+        </div>
+    </div>
+
+    <div class="fixed inset-0 z-0">
+        <div class="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-900/10 rounded-full blur-[150px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-800/5 rounded-full blur-[120px]"></div>
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#01030a_90%)]"></div>
+    </div>
+
+    <main class="relative z-10 min-h-screen w-full flex flex-col items-center pt-10 md:pt-20 pb-20 px-4">
+        
+        <div class="w-full max-w-7xl flex justify-between items-center mb-12 md:absolute md:top-14 md:px-10">
+            <div class="flex items-center gap-3 bg-white/[0.02] px-4 py-2 rounded-full border border-white/5">
+                <div class="w-2 h-2 bg-blue-500 rounded-full animate-ping shadow-[0_0_10px_#3b82f6]"></div>
+                <span class="font-sync text-[8px] md:text-[10px] tracking-[0.3em] text-blue-400 font-bold uppercase">ACTIVE ELITE</span>
+            </div>
+            <div class="hidden md:flex items-center gap-2">
+                <span class="text-[9px] text-gray-600 font-black uppercase tracking-widest">NXXT // Section 2026</span>
+            </div>
+        </div>
+
+        <div class="relative mb-12 group mt-8">
+            <div class="absolute inset-0 bg-blue-600/5 blur-[80px] rounded-full group-hover:bg-blue-600/15 transition-all duration-700"></div>
+            <div class="relative w-40 h-40 md:w-56 md:h-56 border border-white/5 rounded-full flex items-center justify-center p-4 backdrop-blur-sm">
+                <div class="w-full h-full bg-[#01030a] rounded-full flex items-center justify-center shadow-2xl border border-blue-900/30 relative overflow-hidden group-hover:border-blue-500/50 transition-colors duration-500">
+                    <img src="elite logo.png" alt="Elite Logo" class="w-2/3 h-2/3 object-contain z-10 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-950/40 to-transparent"></div>
+                </div>
+                <div class="absolute top-0 left-0 w-2.5 h-2.5 bg-blue-500 rounded-full blur-[1px] animate-orbit origin-[80px_80px] md:origin-[112px_112px]"></div>
+            </div>
+        </div>
+
+        <div class="text-center animate-in w-full max-w-4xl px-2">
+            <h1 class="text-6xl md:text-9xl font-black font-sync italic tracking-tighter leading-none mb-6">
+                ELITE <span class="text-transparent outline-text">LEAGUE</span>
+            </h1>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-24 px-4">
+              <button onclick="initializeElite(event)" class="elite-btn w-full sm:w-auto min-w-[280px]">
+                    <span class="relative z-10 flex items-center justify-center gap-3 tracking-[0.4em]">
+                        ENTER TERMINAL <i class="fas fa-arrow-right text-[10px]"></i>
+                    </span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+        </div>
+
+        <div class="w-full max-w-6xl mb-24">
+            <h3 class="font-sync text-center text-[10px] text-blue-900 tracking-[0.5em] uppercase mb-10">Departmental Roster</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-8 group hover:border-blue-500/30 transition-all">
+                    <i class="fas fa-code text-blue-500 text-2xl mb-4 opacity-50"></i>
+                    <h4 class="font-sync text-xs font-bold mb-4 tracking-widest text-blue-400">COMP. SCIENCE</h4>
+                    <div class="grid grid-cols-2 gap-2">
+                        <span class="px-3 py-1 bg-white/5 rounded text-[10px] font-black uppercase">CSC 100</span>
+                        <span class="px-3 py-1 bg-white/5 rounded text-[10px] font-black uppercase">CSC 200</span>
+                        <span class="px-3 py-1 bg-white/5 rounded text-[10px] font-black uppercase">CSC 300</span>
+                        <span class="px-3 py-1 bg-white/5 rounded text-[10px] font-black uppercase">CSC 400</span>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8 group hover:border-blue-500/30 transition-all">
+                    <i class="fas fa-gavel text-blue-500 text-2xl mb-4 opacity-50"></i>
+                    <h4 class="font-sync text-xs font-bold mb-4 tracking-widest text-blue-400">LAW FACULTY</h4>
+                    <div class="grid grid-cols-3 gap-2">
+                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-black uppercase">LAW 100</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-black uppercase">LAW 200</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-black uppercase">LAW 300</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-black uppercase">LAW 400</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-black uppercase">LAW 500</span>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8 group hover:border-blue-500/30 transition-all">
+                    <i class="fas fa-coins text-blue-500 text-2xl mb-4 opacity-50"></i>
+                    <h4 class="font-sync text-xs font-bold mb-4 tracking-widest text-blue-400">MGT. SCIENCES</h4>
+                    <div class="grid grid-cols-2 gap-2">
+                        <span class="px-3 py-1 bg-white/5 rounded text-[10px] font-black uppercase">MSS 100</span>
+                        <span class="px-3 py-1 bg-white/5 rounded text-[10px] font-black uppercase">MSS 200</span>
+                        <span class="px-3 py-1 bg-white/5 rounded text-[10px] font-black uppercase">MSS 300</span>
+                        <span class="px-3 py-1 bg-white/5 rounded text-[10px] font-black uppercase">MSS 400</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24">
+            <div class="glass-card p-8 border-r-2 border-blue-900/20">
+                <h4 class="font-sync text-xs text-blue-400 uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
+                    <span class="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span>
+                    Live Standings Preview
+                </h4>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center p-4 bg-[#01030a] rounded-xl border border-white/5 group hover:border-blue-500/40 transition-all">
+                        <span class="text-[11px] font-black italic uppercase"><span class="text-gray-600 mr-2">--</span> LAW 400</span>
+                        <span class="text-[11px] text-gray-600 font-mono font-bold tracking-tighter">00 PTS</span>
+                    </div>
+                    <div class="flex justify-between items-center p-4 bg-[#01030a] rounded-xl border border-white/5 group hover:border-blue-500/40 transition-all">
+                        <span class="text-[11px] font-black italic uppercase"><span class="text-gray-600 mr-2">--</span> CSC 300</span>
+                        <span class="text-[11px] text-gray-600 font-mono font-bold tracking-tighter">00 PTS</span>
+                    </div>
+                    <div class="flex justify-between items-center p-4 bg-[#01030a] rounded-xl border border-white/5 group hover:border-blue-500/40 transition-all">
+                        <span class="text-[11px] font-black italic uppercase"><span class="text-gray-600 mr-2">--</span> MSS 400</span>
+                        <span class="text-[11px] text-gray-600 font-mono font-bold tracking-tighter">00 PTS</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-8 bg-gradient-to-br from-blue-950/30 to-transparent flex flex-col justify-center text-center relative overflow-hidden group">
+                <i class="fas fa-trophy absolute -right-5 -bottom-5 text-8xl text-blue-500/5 rotate-12 group-hover:rotate-0 transition-transform duration-700"></i>
+                <i class="fas fa-crown text-4xl text-blue-500 mb-6 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]"></i>
+                <h4 class="font-sync text-sm text-white font-bold uppercase tracking-[0.2em] mb-2">ELITE MIKOKO SUPER CUP</h4>
+                <p class="text-[9px] text-blue-400 font-sync uppercase tracking-widest mb-6">The Ultimate Convergence</p>
+                <div class="bg-blue-500/5 border border-blue-500/20 rounded-lg p-4 backdrop-blur-md">
+                    <p class="text-[10px] text-gray-400 uppercase tracking-tighter leading-relaxed">
+                        Winner of <span class="text-white font-bold italic">Elite Glory Cup</span> 
+                        <span class="mx-2 text-blue-500">VS</span> 
+                        Winner of <span class="text-white font-bold italic">Mikoko Glory Cup</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full max-w-6xl mb-24 grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 relative group overflow-hidden rounded-[2rem] border border-white/5">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#01030a] via-transparent to-transparent z-10"></div>
+                <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=2000" alt="Match Action" class="w-full h-[400px] object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute bottom-0 left-0 p-8 z-20">
+                    <span class="px-3 py-1 bg-blue-600 text-[8px] font-sync font-bold uppercase tracking-widest rounded mb-4 inline-block">Featured Intel</span>
+                    <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter leading-none mb-4">The Battle for <br><span class="text-blue-500">Departmental Supremacy</span></h2>
+                    <p class="text-gray-400 text-xs uppercase tracking-wider max-w-lg">As Kickoff approaches, LAW 500 veterans prepare to face the rapid CSC 300 squad in the season opener.</p>
+                </div>
+            </div>
+
+            <div class="glass-card p-8 flex flex-col justify-center items-center text-center bg-gradient-to-b from-blue-900/20 to-transparent border-t-2 border-blue-500">
+                <h4 class="font-sync text-[10px] text-blue-400 tracking-[0.4em] uppercase mb-8">Next Kickoff</h4>
+                <div class="flex gap-4 mb-8">
+                    <div class="text-center"><span class="text-4xl font-black italic block">03</span><span class="text-[8px] font-sync text-gray-500 uppercase">Days</span></div>
+                    <span class="text-2xl text-blue-800 font-black">:</span>
+                    <div class="text-center"><span class="text-4xl font-black italic block">14</span><span class="text-[8px] font-sync text-gray-500 uppercase">Hrs</span></div>
+                </div>
+                <div class="w-full py-4 border-y border-white/5 mb-6 text-[11px] font-black italic uppercase">LAW 500 <span class="text-blue-500 mx-2">VS</span> CSC 300</div>
+                <button onclick="toggleIntel()" class="w-full py-4 bg-white text-black text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-blue-500 hover:text-white transition-all shadow-[0_10px_30px_rgba(255,255,255,0.1)]">
+    Match Intel
+</button>
+            </div>
+        </div>
+<div id="intelModal" class="fixed inset-0 z-[1100] hidden flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-[#01030a]/90 backdrop-blur-xl" onclick="toggleIntel()"></div>
+    
+    <div class="relative w-full max-w-lg bg-[#01030a] rounded-[2.5rem] border border-white/10 shadow-[0_0_80px_rgba(59,130,246,0.15)] overflow-hidden animate-in">
+        <div class="p-6 border-b border-white/5 bg-gradient-to-r from-blue-900/10 to-transparent flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <i class="fas fa-shield-halved text-blue-400"></i>
+                <h4 class="font-sync text-[10px] text-white tracking-[0.2em] uppercase">Tactical Briefing</h4>
+            </div>
+            <button onclick="toggleIntel()" class="text-gray-500 hover:text-white transition-colors">
+                <i class="fas fa-times text-xs"></i>
+            </button>
+        </div>
+
+        <div class="p-8 space-y-6">
+            <div class="glass-card p-6 border-blue-500/20">
+                <p class="text-[9px] font-sync text-blue-400 uppercase tracking-widest mb-2">Upcoming Clash</p>
+                <h3 class="text-xl font-bold font-sync italic underline decoration-blue-500">CSC 300 VS LAW 500</h3>
+                <p class="text-xs text-gray-400 mt-2 font-mono">STADIUM: LAW FACULTY // 16:00 HRS</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                    <p class="text-[8px] text-gray-500 font-sync uppercase mb-1">Win Probability</p>
+                    <p class="text-lg font-bold text-blue-400">64% / 36%</p>
+                </div>
+                <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                    <p class="text-[8px] text-gray-500 font-sync uppercase mb-1">Intensity Level</p>
+                    <p class="text-lg font-bold text-red-500 font-sync uppercase">Critical</p>
+                </div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-blue-600/5 border border-blue-500/20">
+                <p class="text-[10px] leading-relaxed text-blue-100/70 italic">
+                    " scouting report indicates a heavy midfield battle. Expect high physical pressure from the Law defense."
+                </p>
+            </div>
+        </div>
+
+        <button onclick="toggleIntel()" class="w-full py-5 bg-blue-600 text-white font-sync text-[10px] tracking-[0.4em] uppercase hover:bg-blue-500 transition-colors">
+            Acknowledge
+        </button>
+    </div>
+</div>
+        <div class="w-full max-w-6xl mb-24">
+            <h3 class="font-sync text-[12px] text-white tracking-[0.5em] uppercase mb-8 flex items-center gap-4">
+                <i class="fas fa-history text-blue-500"></i> Recent Protocols
+            </h3>
+            <div class="glass-card p-6 border-l-4 border-blue-500 hover:border-blue-400 transition-all overflow-hidden relative">
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-blue-600/5 blur-[50px] pointer-events-none"></div>
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-[8px] font-sync text-gray-500 uppercase tracking-[0.2em]">// Match Result</span>
+                    <span class="text-[8px] font-sync text-blue-400 uppercase tracking-[0.2em]">Full Time</span>
+                </div>
+                <div class="flex justify-between items-center px-2 relative z-10">
+                    <div class="text-center flex-1 flex flex-col items-center">
+                        <div class="w-14 h-14 md:w-20 md:h-20 bg-black/40 rounded-full border border-white/10 flex items-center justify-center mb-3">
+                            <img src="CSC 200.jpeg" alt="CSC 200" class="w-2/3 h-2/3 object-contain">
+                        </div>
+                        <p class="text-[11px] md:text-[13px] font-black italic uppercase tracking-tighter">CSC 200</p>
+                    </div>
+                    <div class="flex-1 flex flex-col items-center justify-center">
+                        <div class="flex items-center gap-3 md:gap-5">
+                            <span class="text-3xl md:text-5xl font-black italic text-white">5</span>
+                            <span class="text-xl font-black italic text-blue-900">:</span>
+                            <span class="text-3xl md:text-5xl font-black italic text-white">2</span>
+                        </div>
+                        <span class="text-[7px] font-sync text-gray-600 mt-2 tracking-widest uppercase">Protocol Completed</span>
+                    </div>
+                    <div class="text-center flex-1 flex flex-col items-center">
+                        <div class="w-14 h-14 md:w-20 md:h-20 bg-black/40 rounded-full border border-white/10 flex items-center justify-center mb-3">
+                            <img src="MSS 100.jpeg" alt="MSS 100" class="w-2/3 h-2/3 object-contain">
+                        </div>
+                        <p class="text-[11px] md:text-[13px] font-black italic uppercase tracking-tighter">MSS 100</p>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center text-[9px] text-gray-600 uppercase mt-6 tracking-[0.3em] italic">CSC 200 secures dominant 3-point lead</p>
+        </div>
+
+        <div class="w-full max-w-6xl mb-24 grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+                <h3 class="font-sync text-[12px] text-white tracking-[0.5em] uppercase mb-8 flex items-center gap-4">
+                    <i class="fas fa-fire text-orange-500"></i> Elite Scorers
+                </h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-4 glass-card group hover:bg-blue-600/10 transition-all">
+                        <div class="flex items-center gap-4">
+                            <span class="font-sync text-lg italic text-blue-900 group-hover:text-blue-500">01</span>
+                            <div><p class="text-[11px] font-black uppercase italic">Chukwuemeka</p><p class="text-[9px] text-gray-500 uppercase">CSC 100</p></div>
+                        </div>
+                        <span class="font-sync text-xs font-bold text-blue-400">6 Goals</span>
+                    </div>
+                    <div class="flex items-center justify-between p-4 glass-card group hover:bg-blue-600/10 transition-all">
+                        <div class="flex items-center gap-4">
+                            <span class="font-sync text-lg italic text-blue-900 group-hover:text-blue-500">02</span>
+                            <div><p class="text-[11px] font-black uppercase italic">Austin</p><p class="text-[9px] text-gray-500 uppercase">NUR 200</p></div>
+                        </div>
+                        <span class="font-sync text-xs font-bold text-blue-400">5 Goals</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3 class="font-sync text-[12px] text-white tracking-[0.5em] uppercase mb-8 flex items-center gap-4">
+                    <i class="fas fa-magic text-cyan-400"></i> Elite Playmakers
+                </h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-4 glass-card group hover:bg-cyan-600/10 transition-all">
+                        <div class="flex items-center gap-4">
+                            <span class="font-sync text-lg italic text-blue-900 group-hover:text-cyan-500">01</span>
+                            <div><p class="text-[11px] font-black uppercase italic">Chukwuemeka</p><p class="text-[9px] text-gray-500 uppercase">CSC 100</p></div>
+                        </div>
+                        <div class="text-right"><span class="font-sync text-xs font-bold text-cyan-400">6 Assists</span><p class="text-[7px] text-gray-600 uppercase tracking-widest mt-1">Vision: A+</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 glass-card group hover:bg-cyan-600/10 transition-all">
+                        <div class="flex items-center gap-4">
+                            <span class="font-sync text-lg italic text-blue-900 group-hover:text-cyan-500">02</span>
+                            <div><p class="text-[11px] font-black uppercase italic">OBI</p><p class="text-[9px] text-gray-500 uppercase">CSC 400</p></div>
+                        </div>
+                        <div class="text-right"><span class="font-sync text-xs font-bold text-cyan-400">4 Assists</span><p class="text-[7px] text-gray-600 uppercase tracking-widest mt-1">Vision: A</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full max-w-6xl mb-24">
+            <h3 class="font-sync text-[10px] text-blue-500 tracking-[0.5em] uppercase mb-8">UPCOMING Schedule</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="glass-card p-1 relative group overflow-hidden border-none bg-gradient-to-r from-blue-900/40 to-white/5">
+                    <div class="bg-[#01030a] rounded-[1.9rem] p-6 flex flex-col md:flex-row items-center justify-between gap-6 border border-white/5">
+                        <div class="text-center md:text-left md:border-r border-white/10 md:pr-8">
+                            <p class="font-sync text-[14px] font-bold text-white">JAN NIL</p>
+                            <p class="font-sync text-[8px] text-blue-500 tracking-widest mt-1">16:00 GMT</p>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <div class="text-center"><img src="LAW 500.jpeg" class="w-12 h-12 mb-2"><p class="text-[10px] font-black uppercase italic">LAW 500</p></div>
+                            <span class="font-sync text-[10px] text-gray-700 italic">VS</span>
+                            <div class="text-center"><img src="CSC 300.jpeg" class="w-12 h-12 mb-2"><p class="text-[10px] font-black uppercase italic">CSC 300</p></div>
+                        </div>
+                        <button class="px-6 py-3 bg-white/5 hover:bg-white text-white hover:text-black rounded-xl text-[8px] font-sync font-bold uppercase tracking-widest transition-all">Match Intel</button>
+                    </div>
+                    <div class="absolute top-1/2 -left-3 w-6 h-6 bg-[#01030a] rounded-full -translate-y-1/2 border border-white/5"></div>
+                    <div class="absolute top-1/2 -right-3 w-6 h-6 bg-[#01030a] rounded-full -translate-y-1/2 border border-white/5"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full max-w-6xl mb-24">
+            <div class="flex items-center gap-4 mb-8"><div class="h-[1px] flex-grow bg-blue-900/30"></div><h3 class="font-sync text-[10px] text-gray-500 tracking-[0.5em] uppercase">Terminal Version 2.1.0</h3><div class="h-[1px] flex-grow bg-blue-900/30"></div></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="glass-card p-8 border-t-2 border-blue-500/50">
+                    <h4 class="font-sync text-[11px] text-white mb-6 tracking-widest uppercase italic underline underline-offset-8 decoration-blue-500">Upgrade Log</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-4"><i class="fas fa-check-double text-blue-500 text-[10px] mt-1"></i><div><p class="text-[11px] font-bold uppercase tracking-wider">Blue-Shift UI Integration</p><p class="text-[9px] text-gray-500 uppercase mt-0.5">High-contrast navy & cyan aesthetic replacing legacy red.</p></div></li>
+                        <li class="flex items-start gap-4"><i class="fas fa-check-double text-blue-500 text-[10px] mt-1"></i><div><p class="text-[11px] font-bold uppercase tracking-wider">Multi-Departmental Hub</p><p class="text-[9px] text-gray-500 uppercase mt-0.5">Automated tracking for Law (5 levels), CSC, and MSS.</p></div></li>
+                        <li class="flex items-start gap-4"><i class="fas fa-check-double text-blue-500 text-[10px] mt-1"></i><div><p class="text-[11px] font-bold uppercase tracking-wider">Mobile Apex Engine</p><p class="text-[9px] text-gray-500 uppercase mt-0.5">Fully optimized touch-responsive grids and orbital animations.</p></div></li>
+                    </ul>
+                </div>
+                <div class="glass-card p-8 flex flex-col justify-between border-t-2 border-white/10">
+                    <div><h4 class="font-sync text-[11px] text-gray-400 mb-2 tracking-widest uppercase">System Status</h4><p class="text-xs text-white font-black italic uppercase mb-6">Network Optimized. Ready for Kickoff.</p></div>
+                    <div class="space-y-2"><div class="w-full bg-white/5 h-1 rounded-full overflow-hidden"><div class="bg-blue-500 h-full w-[100%] animate-pulse"></div></div><div class="flex justify-between text-[8px] font-sync text-blue-500 uppercase tracking-widest"><span>Performance: 100%</span><span>Elite Protocol: Stable</span></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fixed bottom-10 right-10 z-[500]">
+    <button onclick="toggleAI()" class="relative group w-16 h-16 bg-gradient-to-tr from-purple-600 to-blue-600 rounded-2xl rotate-3 hover:rotate-0 flex items-center justify-center shadow-[0_0_30px_rgba(147,51,234,0.3)] border border-white/20 hover:scale-110 transition-all duration-500">
+        <i class="fas fa-brain text-xl text-white group-hover:scale-110 transition-transform"></i>
+        <div class="absolute inset-[-4px] rounded-2xl border border-purple-500/20 animate-pulse"></div>
+    </button>
+</div>
+
+<div id="aiModal" class="fixed inset-0 z-[1000] hidden flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-[#01030a]/90 backdrop-blur-xl" onclick="toggleAI()"></div>
+    
+    <div class="relative w-full max-w-xl bg-[#01030a] rounded-[2.5rem] border border-white/10 shadow-[0_0_100px_rgba(147,51,234,0.15)] overflow-hidden animate-in">
+        
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')]"></div>
+
+        <div class="relative p-6 border-b border-white/5 bg-gradient-to-r from-purple-900/10 to-transparent flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <div class="w-12 h-12 rounded-2xl bg-purple-600/10 flex items-center justify-center border border-purple-500/30 rotate-3">
+                        <i class="fas fa-robot text-purple-400 text-lg"></i>
+                    </div>
+                    <div class="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-green-500 rounded-full border-4 border-[#01030a] animate-pulse"></div>
+                </div>
+                <div>
+                    <h4 class="font-sync text-[10px] text-white tracking-[0.3em] uppercase">Elite Neural Link</h4>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="w-1 h-1 bg-purple-500 rounded-full"></span>
+                        <p class="text-[8px] text-purple-400 font-sync uppercase tracking-widest">Founder Data Indexed // Online</p>
+                    </div>
+                </div>
+            </div>
+            <button onclick="toggleAI()" class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/5 transition-all group">
+                <i class="fas fa-times text-gray-500 group-hover:text-white text-sm"></i>
+            </button>
+        </div>
+
+        <div id="aiChat" class="relative h-[420px] overflow-y-auto p-8 space-y-6 custom-scrollbar bg-gradient-to-b from-transparent to-purple-900/5">
+            <div class="flex gap-4 items-start animate-in">
+                <div class="w-10 h-10 rounded-xl bg-purple-600/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-bolt text-xs text-purple-400"></i>
+                </div>
+                <div class="space-y-2 max-w-[85%]">
+                    <div class="bg-white/[0.04] border border-white/10 p-4 rounded-2xl rounded-tl-none backdrop-blur-sm chat-bubble-ai">
+                        <p class="text-[13px] leading-relaxed text-purple-100/90 font-inter">
+                            Uplink successful. I am the **Elite League Engine**. Ask me about the founder **Zuby**, department stats, or league strategy.
+                        </p>
+                    </div>
+                    <p class="text-[7px] font-sync text-gray-600 uppercase tracking-[0.2em] ml-2">System Initialized // v2.1.0</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="aiTyping" class="hidden px-8 py-3">
+            <div class="flex items-center gap-3 bg-purple-500/5 border border-purple-500/10 w-fit px-4 py-2 rounded-full">
+                <div class="flex gap-1.5">
+                    <div class="w-1.5 h-1.5 bg-purple-500 rounded-full animate-bounce"></div>
+                    <div class="w-1.5 h-1.5 bg-purple-500 rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                    <div class="w-1.5 h-1.5 bg-purple-500 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+                </div>
+                <span class="text-[9px] font-sync text-purple-400 uppercase tracking-widest">Analyzing...</span>
+            </div>
+        </div>
+
+        <div class="p-6 bg-white/[0.02] border-t border-white/5">
+            <div class="relative flex items-center mb-4 group">
+                <span class="absolute left-5 text-purple-500 font-mono text-sm opacity-50 group-focus-within:opacity-100 transition-opacity">></span>
+                <input type="text" id="aiInput" placeholder="Command the Elite AI..." 
+                    class="w-full bg-black/60 border border-white/10 rounded-2xl pl-10 pr-14 py-5 text-[12px] font-inter text-white placeholder:text-gray-700 focus:outline-none focus:border-purple-500/50 focus:ring-4 focus:ring-purple-500/5 transition-all shadow-inner">
+                
+                <button onclick="sendQuery()" class="absolute right-3 w-10 h-10 rounded-xl bg-purple-600/20 hover:bg-purple-600 text-purple-400 hover:text-white transition-all flex items-center justify-center shadow-lg">
+                    <i class="fas fa-paper-plane text-xs"></i>
+                </button>
+            </div>
+            
+            <div id="emojiContainer" class="w-full">
+                </div>
+        </div>
+    </div>
+</div>
+
+       <div class="w-full max-w-4xl px-4 border-t border-white/5 pt-10 text-center mb-10">
+    <p class="text-[9px] text-gray-700 font-sync uppercase tracking-[0.5em] mb-4">GOU ELITE TERMINAL V2.0</p>
+    <div class="flex justify-center gap-10 opacity-20 hover:opacity-50 transition-opacity mb-6">
+        <i class="fas fa-microchip"></i>
+        <i class="fas fa-gavel"></i>
+        <i class="fas fa-building-columns"></i>
+    </div>
+    <p class="text-[8px] text-blue-500/40 font-sync uppercase tracking-[0.3em]">
+        Powered by <span class="text-blue-400/60 font-bold">Tech Nxxt Company</span>
+    </p>
+</div>
+    </main>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>

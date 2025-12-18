@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+    --bg-dark: #01030a;
+    --elite-blue: #3b82f6;
+    --elite-navy: #1e3a8a;
+    --ai-purple: #9333ea;
+    --ai-glow: rgba(147, 51, 234, 0.3);
+    --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+/* Base Reset & Core Theme */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: default;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-dark);
+    color: #ffffff;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Typography Hub */
+.font-sync { font-family: 'Syncopate', sans-serif; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+
+.outline-text {
+    -webkit-text-stroke: 1.5px var(--elite-blue);
+    color: transparent;
+    filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.3));
+}
+
+/* Glassmorphism 2.0 */
+.glass-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 2rem;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(59, 130, 246, 0.4);
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Button & UI Interactions */
+.elite-btn {
+    position: relative;
+    padding: 1.2rem 3rem;
+    background: var(--elite-blue);
+    color: white;
+    border-radius: 100px;
+    font-family: 'Syncopate', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    font-style: italic;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+}
+
+.elite-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 45px rgba(59, 130, 246, 0.5);
+    background: #4f8ff7;
+}
+
+.btn-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.4) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.elite-btn:hover .btn-glow { opacity: 1; }
+
+/* AI Specific Styles */
+#aiModal .glass-card {
+    border-color: rgba(147, 51, 234, 0.3);
+    box-shadow: 0 0 60px rgba(147, 51, 234, 0.1);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb {
+    background: var(--elite-navy);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--elite-blue); }
+
+#aiChat::-webkit-scrollbar-thumb { background: rgba(147, 51, 234, 0.3); }
+
+/* Animations */
+@keyframes orbit {
+    from { transform: rotate(0deg) translateX(75px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(75px) rotate(-360deg); }
+}
+
+@media (min-width: 768px) {
+    @keyframes orbit {
+        from { transform: rotate(0deg) translateX(110px) rotate(0deg); }
+        to { transform: rotate(360deg) translateX(110px) rotate(-360deg); }
+    }
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes elitePop {
+    from { 
+        opacity: 0; 
+        transform: scale(0.9) translateY(40px); 
+        filter: blur(15px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: scale(1) translateY(0); 
+        filter: blur(0); 
+    }
+}
+
+.animate-orbit { animation: orbit 10s linear infinite; }
+.animate-marquee { animation: marquee 30s linear infinite; }
+.animate-in { animation: elitePop 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    h1 { font-size: 4rem !important; }
+    .elite-btn { width: 100%; letter-spacing: 0.2em; }
+    .glass-card { padding: 1.25rem !important; border-radius: 1.5rem; }
+    .fixed.bottom-10 { bottom: 20px; right: 20px; }
+}
+
+/* AI Command Prompt Focus */
+#aiInput:focus {
+    background: rgba(147, 51, 234, 0.05) !important;
+    box-shadow: inset 0 0 15px rgba(147, 51, 234, 0.1);
+}
+
+/* Chat Bubbles Depth */
+.chat-bubble-ai {
+    background: linear-gradient(to right, rgba(147, 51, 234, 0.1), transparent);
+    border-left: 2px solid var(--ai-purple);
+}
+
+/* === EMOJI PICKER CONTAINER === */
+#emojiPicker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 8px 8px;
+    margin-top: 8px;
+    max-height: 120px;
+    overflow-y: auto;
+    background: rgba(147, 51, 234, 0.1); /* Matched to AI Purple */
+    border: 1px solid rgba(147, 51, 234, 0.2);
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+    scrollbar-width: thin;
+    scrollbar-color: var(--ai-purple) transparent;
+}
+
+/* Scrollbar styling for WebKit browsers */
+#emojiPicker::-webkit-scrollbar {
+    width: 6px;
+}
+#emojiPicker::-webkit-scrollbar-track {
+    background: transparent;
+}
+#emojiPicker::-webkit-scrollbar-thumb {
+    background: rgba(147, 51, 234, 0.4);
+    border-radius: 3px;
+}
+#emojiPicker::-webkit-scrollbar-thumb:hover {
+    background: var(--ai-purple);
+}
+
+/* === INDIVIDUAL EMOJI BUTTONS === */
+#emojiPicker button {
+    background: rgba(147, 51, 234, 0.1);
+    border: 1px solid rgba(147, 51, 234, 0.2);
+    border-radius: 12px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+#emojiPicker button:hover {
+    transform: translateY(-3px) scale(1.15);
+    background: rgba(147, 51, 234, 0.3);
+    border-color: var(--ai-purple);
+    box-shadow: 0 6px 12px var(--ai-glow);
+    z-index: 10;
+}
+
+#emojiPicker button:active {
+    transform: translateY(1px) scale(1.1);
+}
+
+@media (max-width: 640px) {
+    #emojiPicker button {
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+    }
+    #emojiPicker {
+        gap: 8px;
+        padding: 10px 6px;
+    }
+}
