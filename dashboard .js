@@ -45,153 +45,128 @@ if (overlay) {
 
 // 4. CONTENT REPOSITORY
 const contentData = {
-    'Overview': `
-    <div class="space-y-6 animate-in">
-        <div class="flex flex-wrap items-center justify-between gap-4 bg-blue-600/5 border border-blue-500/10 p-4 rounded-3xl">
-            <div class="flex items-center gap-4">
-                <div class="px-4 py-2 bg-blue-600 rounded-xl shadow-lg shadow-blue-600/20">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-white">Season 01</p>
+   'Overview': `
+    <div class="space-y-10 animate-in pb-10">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 px-4">
+            <div class="space-y-1">
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-8 bg-blue-600 rounded-full shadow-[0_0_15px_rgba(37,99,235,0.5)]"></div>
+                    <h3 class="text-4xl font-black italic uppercase tracking-tighter text-white">Command Center</h3>
                 </div>
-                <div>
-                    <h3 class="text-lg font-black italic uppercase tracking-tighter text-white">Elite Operations Hub</h3>
-                    <p class="text-[9px] text-blue-500 font-bold uppercase tracking-[0.3em]">Managed by Zuby // Node Active</p>
-                </div>
+                <p class="text-[10px] text-blue-500 font-bold uppercase tracking-[0.5em] ml-5">Founded by Zuby // Season 01 Operational</p>
             </div>
-            <div class="flex items-center gap-6 pr-4">
-                <div class="text-right">
-                    <p class="text-[9px] text-gray-500 uppercase font-bold">Network Load</p>
-                    <p class="text-xs font-mono text-blue-400">0.04%</p>
+            
+            <div class="flex items-center gap-4 bg-white/5 backdrop-blur-md border border-white/10 p-3 rounded-2xl">
+                <div class="text-right px-4 border-r border-white/10">
+                    <p class="text-[9px] text-gray-500 uppercase font-bold tracking-widest">Network Status</p>
+                    <p class="text-xs font-mono text-blue-400">ENCRYPTED</p>
                 </div>
-                <div class="w-[1px] h-8 bg-white/10"></div>
-                <div class="text-right">
-                    <p class="text-[9px] text-gray-500 uppercase font-bold">System Time</p>
-                    <p id="digitalClock" class="text-xs font-mono text-white">12:47:09</p>
+                <div class="text-right pr-2">
+                    <p class="text-[9px] text-gray-500 uppercase font-bold tracking-widest">Global Time</p>
+                    <p id="digitalClock" class="text-xs font-mono text-white">00:00:00</p>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            
-            <div class="lg:col-span-8 space-y-6">
-                
-                <div class="relative bg-[#030816] border border-blue-500/10 rounded-[3rem] overflow-hidden group min-h-[350px] flex items-center justify-center">
-                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/20 via-transparent to-transparent"></div>
+        <div class="relative overflow-hidden md:rounded-[4rem] border-y md:border border-blue-500/10 bg-[#020617]">
+            <div class="absolute top-0 left-1/4 w-64 h-64 bg-blue-600/10 blur-[120px] rounded-full"></div>
+            <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-cyan-600/10 blur-[120px] rounded-full"></div>
+
+            <div class="relative z-10 py-16 px-6 flex flex-col items-center">
+                <div class="w-full max-w-5xl flex flex-col md:flex-row items-center justify-between gap-12 md:gap-4">
                     
-                    <div class="relative z-10 w-full px-10 flex items-center justify-between">
-                        
-                        <div class="flex flex-col items-center gap-4 w-1/3">
-                            <div class="relative">
-                                <div class="absolute -inset-4 bg-blue-600/20 blur-xl rounded-full scale-0 group-hover:scale-100 transition-transform duration-700"></div>
-                                <div class="relative w-24 h-24 md:w-32 md:h-32 bg-gradient-to-b from-zinc-800 to-black rounded-full border-4 border-blue-600/30 flex items-center justify-center p-4 shadow-2xl">
-                                    <img src="csc_logo.png" alt="CSC" class="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(37,99,235,0.5)]">
-                                </div>
+                    <div class="flex flex-col items-center group order-1">
+                        <div class="relative mb-6 transform group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute -inset-8 bg-blue-600/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="relative w-32 h-32 md:w-44 md:h-44 bg-gradient-to-tr from-zinc-900 to-black rounded-[3rem] border border-blue-500/20 flex items-center justify-center p-6 shadow-2xl">
+                                <img src="csc_logo.png" alt="CSC" class="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(37,99,235,0.4)]">
                             </div>
-                            <div class="text-center">
-                                <h4 class="text-xl md:text-2xl font-black text-white italic tracking-tighter uppercase">CSC 300</h4>
-                                <span class="px-3 py-1 bg-blue-900/40 border border-blue-500/30 text-[9px] text-blue-400 rounded-full font-bold uppercase">The Technicians</span>
+                            <div class="absolute -bottom-2 -right-2 w-10 h-10 bg-blue-600 rounded-2xl flex items-center justify-center border-4 border-[#020617]">
+                                <i class="fas fa-code text-white text-xs"></i>
                             </div>
                         </div>
-
-                        <div class="flex flex-col items-center">
-                            <div class="h-16 w-[2px] bg-gradient-to-b from-transparent via-blue-500 to-transparent"></div>
-                            <div class="my-4 bg-white text-black px-4 py-1 rounded-sm skew-x-[-15deg] font-black text-xl italic">VS</div>
-                            <div class="h-16 w-[2px] bg-gradient-to-t from-transparent via-blue-500 to-transparent"></div>
-                        </div>
-
-                        <div class="flex flex-col items-center gap-4 w-1/3">
-                            <div class="relative">
-                                <div class="absolute -inset-4 bg-cyan-600/20 blur-xl rounded-full scale-0 group-hover:scale-100 transition-transform duration-700"></div>
-                                <div class="relative w-24 h-24 md:w-32 md:h-32 bg-gradient-to-b from-zinc-800 to-black rounded-full border-4 border-cyan-500/30 flex items-center justify-center p-4 shadow-2xl">
-                                    <img src="law_logo.png" alt="LAW" class="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]">
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <h4 class="text-xl md:text-2xl font-black text-white italic tracking-tighter uppercase">LAW 300</h4>
-                                <span class="px-3 py-1 bg-cyan-900/40 border border-cyan-500/30 text-[9px] text-cyan-400 rounded-full font-bold uppercase">The Arbitrators</span>
-                            </div>
-                        </div>
+                        <h4 class="text-3xl font-black text-white italic tracking-tighter uppercase">CSC 300</h4>
+                        <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.3em] mt-2">The Technicians</span>
                     </div>
 
-                    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3">
-                        <div class="flex gap-1">
-                            <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-                            <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-75"></span>
-                            <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-150"></span>
-                        </div>
-                        <p class="text-[10px] text-gray-400 font-black uppercase tracking-[0.4em]">Arena Transmission Pending</p>
+                    <div class="flex flex-row md:flex-col items-center gap-6 order-2">
+                        <div class="hidden md:block h-20 w-[1px] bg-gradient-to-b from-transparent via-blue-500/50 to-transparent"></div>
+                        <div class="bg-white text-black px-6 py-2 rounded-full font-black text-sm italic shadow-[0_0_30px_rgba(255,255,255,0.1)]">VS</div>
+                        <div class="hidden md:block h-20 w-[1px] bg-gradient-to-t from-transparent via-blue-500/50 to-transparent"></div>
                     </div>
+
+                    <div class="flex flex-col items-center group order-3">
+                        <div class="relative mb-6 transform group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute -inset-8 bg-cyan-600/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="relative w-32 h-32 md:w-44 md:h-44 bg-gradient-to-tr from-zinc-900 to-black rounded-[3rem] border border-cyan-500/20 flex items-center justify-center p-6 shadow-2xl">
+                                <img src="law_logo.png" alt="LAW" class="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(34,211,238,0.4)]">
+                            </div>
+                            <div class="absolute -bottom-2 -left-2 w-10 h-10 bg-cyan-500 rounded-2xl flex items-center justify-center border-4 border-[#020617]">
+                                <i class="fas fa-gavel text-white text-xs"></i>
+                            </div>
+                        </div>
+                        <h4 class="text-3xl font-black text-white italic tracking-tighter uppercase">LAW 300</h4>
+                        <span class="text-[10px] text-cyan-400 font-black uppercase tracking-[0.3em] mt-2">The Arbitrators</span>
+                    </div>
+
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="p-8 bg-gradient-to-br from-white/[0.03] to-transparent border border-white/5 rounded-[2rem] hover:border-blue-500/30 transition-all">
-                        <p class="text-[9px] text-blue-500 font-black uppercase tracking-widest mb-4">Elite Scout Report</p>
-                        <h5 class="text-white font-bold text-lg leading-tight uppercase italic mb-3">Key Conflict: Logic vs Justice</h5>
-                        <p class="text-xs text-gray-500 leading-relaxed uppercase">
-                            Analysts predict a heavy midfield battle. LAW 300's defensive structure will be tested by CSC's quick tactical execution.
-                        </p>
-                    </div>
-                    <div class="p-8 bg-blue-600 rounded-[2rem] relative overflow-hidden group cursor-pointer" onclick="updateView('Live')">
-                        <i class="fas fa-bolt absolute -right-4 -bottom-4 text-8xl text-black/10 group-hover:scale-110 transition-transform"></i>
-                        <p class="text-[9px] text-white/60 font-black uppercase tracking-widest mb-4">Live Access</p>
-                        <h5 class="text-white font-black text-2xl uppercase italic leading-none mb-2">Join the<br>Arena</h5>
-                        <div class="mt-6 flex items-center gap-2 text-white font-black uppercase text-[10px] tracking-tighter">
-                            Enter Terminal <i class="fas fa-arrow-right"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lg:col-span-4">
-                <div class="bg-zinc-950 border border-blue-500/10 rounded-[3rem] p-8 h-full min-h-[600px] flex flex-col">
-                    <div class="mb-8">
-                        <h4 class="text-white font-black text-sm uppercase italic flex items-center gap-2">
-                            <i class="fas fa-satellite-dish text-blue-500"></i> Intelligence Feed
-                        </h4>
-                        <div class="h-[1px] w-full bg-gradient-to-r from-blue-500/50 to-transparent mt-4"></div>
-                    </div>
-
-                    <div class="flex-1 space-y-8 overflow-y-auto pr-2 custom-scroll">
-                        <div class="relative pl-6 border-l border-blue-500/30">
-                            <div class="absolute left-[-5px] top-0 w-2 h-2 bg-blue-500 rounded-full shadow-[0_0_10px_#3b82f6]"></div>
-                            <p class="text-[10px] text-blue-500 font-bold uppercase mb-1">Dec 18 // Priority Alpha</p>
-                            <h6 class="text-white font-bold text-xs uppercase mb-2">Payment Portal Operational</h6>
-                            <p class="text-[10px] text-gray-500 uppercase leading-relaxed font-medium">
-                                Elite League treasury is now accepting team registration fees. Finalize payment to secure your node.
-                            </p>
-                            <button onclick="updateView('Elite Payment')" class="mt-4 w-full py-3 border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all rounded-xl text-[9px] font-black uppercase tracking-widest text-blue-500">
-                                Access Portal
-                            </button>
-                        </div>
-
-                        <div class="relative pl-6 border-l border-white/10">
-                            <div class="absolute left-[-5px] top-0 w-2 h-2 bg-white/20 rounded-full"></div>
-                            <p class="text-[10px] text-gray-500 font-bold uppercase mb-1">Dec 19 // Update</p>
-                            <h6 class="text-white font-bold text-xs uppercase mb-2">Fixture Logic Ready</h6>
-                            <p class="text-[10px] text-gray-500 uppercase leading-relaxed">
-                                Automated scheduling for Season 01 is 90% verified. Full matchday list releasing soon.
-                            </p>
-                        </div>
-
-                        <div class="relative pl-6 border-l border-white/10 opacity-60">
-                            <div class="absolute left-[-5px] top-0 w-2 h-2 bg-white/10 rounded-full"></div>
-                            <p class="text-[10px] text-gray-600 font-bold uppercase mb-1">Status Report</p>
-                            <h6 class="text-gray-400 font-bold text-xs uppercase mb-2">Node Encryption</h6>
-                            <p class="text-[10px] text-gray-600 uppercase">
-                                Global leaderboards are currently being encrypted. Rank data will stay hidden until Kickoff.
-                            </p>
-                        </div>
-                    </div>
-
-                    <button class="mt-8 py-4 bg-white/5 hover:bg-white/10 text-gray-500 text-[10px] font-black uppercase tracking-widest rounded-2xl transition-all" onclick="updateView('News')">
-                        View Archive
+                <div class="mt-16 flex flex-col items-center gap-4">
+                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-[0.5em] animate-pulse">Waiting for Kickoff Transmission</p>
+                    <button onclick="updateView('Live')" class="group relative px-10 py-4 bg-transparent border border-blue-500/30 overflow-hidden rounded-2xl transition-all">
+                        <div class="absolute inset-0 bg-blue-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                        <span class="relative z-10 text-white font-black uppercase text-[10px] tracking-widest group-hover:text-white">Enter Arena Intel</span>
                     </button>
                 </div>
             </div>
-
         </div>
-    </div>
-`,
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 px-4">
+            
+            <div class="lg:col-span-2 space-y-6">
+                <div class="flex items-center justify-between">
+                    <h5 class="text-xs font-black uppercase tracking-widest text-white italic">Tactical Intel</h5>
+                    <div class="h-[1px] flex-1 bg-white/5 ml-4"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-8 bg-white/[0.02] border border-white/5 rounded-[2.5rem] hover:bg-white/[0.04] transition-all">
+                        <i class="fas fa-microchip text-blue-500 mb-4 text-xl"></i>
+                        <h6 class="text-white font-bold uppercase italic text-sm mb-2">Algorithm Predictor</h6>
+                        <p class="text-[11px] text-gray-500 uppercase leading-relaxed font-medium">CSC 300 holds a slight edge in technical speed, but LAW 300's structural integrity remains elite.</p>
+                    </div>
+                    <div class="p-8 bg-white/[0.02] border border-white/5 rounded-[2.5rem] hover:bg-white/[0.04] transition-all">
+                        <i class="fas fa-shield text-cyan-500 mb-4 text-xl"></i>
+                        <h6 class="text-white font-bold uppercase italic text-sm mb-2">Defense Protocol</h6>
+                        <p class="text-[11px] text-gray-500 uppercase leading-relaxed font-medium">Zero goals conceded in simulation. LAW 300 is currently running a 'Closed-Circuit' formation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                 <h5 class="text-xs font-black uppercase tracking-widest text-white italic">System Logs</h5>
+                 <div class="bg-blue-600/5 border border-blue-500/10 rounded-[2.5rem] p-8 space-y-8">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] text-blue-500 font-black uppercase">Active</span>
+                            <span class="text-[8px] text-gray-600 font-mono">18.12.25</span>
+                        </div>
+                        <h6 class="text-white font-bold text-xs uppercase">Treasury Uplink Live</h6>
+                        <p class="text-[10px] text-gray-500 uppercase">Elite League registration payments are now being processed by Zuby.</p>
+                        <button onclick="updateView('Elite Payment')" class="pt-2 text-blue-500 text-[9px] font-black uppercase tracking-tighter hover:tracking-widest transition-all">Secure Slot <i class="fas fa-arrow-right ml-1"></i></button>
+                    </div>
+
+                    <div class="pt-6 border-t border-white/5 space-y-2 opacity-50">
+                        <span class="text-[9px] text-gray-600 font-black uppercase">Pending</span>
+                        <h6 class="text-gray-400 font-bold text-xs uppercase">Fixture Encryption</h6>
+                        <p class="text-[10px] text-gray-700 uppercase">Season fixtures are being finalized for all 12 teams.</p>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </div>`,
+
+
 
 
    'Standings': `
