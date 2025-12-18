@@ -46,126 +46,154 @@ if (overlay) {
 // 4. CONTENT REPOSITORY
 const contentData = {
     'Overview': `
-    <div class="space-y-8 animate-in">
-        <div class="flex justify-between items-end">
-            <div>
-                <h3 class="text-2xl font-black italic uppercase tracking-tighter text-red-600">Command Center</h3>
-                <p class="text-gray-500 text-xs uppercase tracking-widest font-bold">Node: MIKOKO_MAIN_CORE // Status: <span class="text-red-500 animate-pulse">Offline</span></p>
+    <div class="space-y-6 animate-in">
+        <div class="flex flex-wrap items-center justify-between gap-4 bg-blue-600/5 border border-blue-500/10 p-4 rounded-3xl">
+            <div class="flex items-center gap-4">
+                <div class="px-4 py-2 bg-blue-600 rounded-xl shadow-lg shadow-blue-600/20">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-white">Season 01</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-black italic uppercase tracking-tighter text-white">Elite Operations Hub</h3>
+                    <p class="text-[9px] text-blue-500 font-bold uppercase tracking-[0.3em]">Managed by Zuby // Node Active</p>
+                </div>
             </div>
-            <div class="hidden md:block text-right">
-            
-   <div class="hidden md:block text-right">
-    <p class="text-[10px] text-gray-600 font-mono uppercase tracking-widest">Latency: 24ms</p>
-    <div id="syncStatus" class="text-[10px] text-red-600 font-mono flex items-center justify-end gap-2">
-        <i class="fas fa-circle-notch animate-spin"></i>
-        <span id="countdownTimer">INITIALIZING...</span>
-    </div>
-</div>
+            <div class="flex items-center gap-6 pr-4">
+                <div class="text-right">
+                    <p class="text-[9px] text-gray-500 uppercase font-bold">Network Load</p>
+                    <p class="text-xs font-mono text-blue-400">0.04%</p>
+                </div>
+                <div class="w-[1px] h-8 bg-white/10"></div>
+                <div class="text-right">
+                    <p class="text-[9px] text-gray-500 uppercase font-bold">System Time</p>
+                    <p id="digitalClock" class="text-xs font-mono text-white">12:47:09</p>
+                </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             
-            <div class="lg:col-span-2 space-y-6">
-                <div class="bg-gradient-to-br from-white/5 to-transparent border border-white/10 rounded-[2rem] p-8 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 p-4">
-                        <span class="px-3 py-1 bg-red-600 text-[10px] font-bold uppercase tracking-tighter rounded-full">Season Kickoff</span>
-                    </div>
+            <div class="lg:col-span-8 space-y-6">
+                
+                <div class="relative bg-[#030816] border border-blue-500/10 rounded-[3rem] overflow-hidden group min-h-[350px] flex items-center justify-center">
+                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/20 via-transparent to-transparent"></div>
                     
-                    <h4 class="text-gray-500 text-[10px] uppercase font-bold tracking-[0.2em] mb-6">Matchday 01 Featured</h4>
-                    
-                    <div class="flex items-center justify-between gap-4">
-                        <div class="text-center">
-                            <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-3 border border-white/5 group-hover:border-red-600/50 transition-colors">
-                                <i class="fas fa-shield-halved text-2xl text-white"></i>
-                            </div>
-                            <p class="font-bold text-sm uppercase">NIL</p>
-                        </div>
+                    <div class="relative z-10 w-full px-10 flex items-center justify-between">
                         
-                        <div class="text-center">
-                            <p class="text-3xl font-black italic text-white">VS</p>
-                            <p class="text-[10px] text-gray-500 font-mono mt-2">NIL</p>
+                        <div class="flex flex-col items-center gap-4 w-1/3">
+                            <div class="relative">
+                                <div class="absolute -inset-4 bg-blue-600/20 blur-xl rounded-full scale-0 group-hover:scale-100 transition-transform duration-700"></div>
+                                <div class="relative w-24 h-24 md:w-32 md:h-32 bg-gradient-to-b from-zinc-800 to-black rounded-full border-4 border-blue-600/30 flex items-center justify-center p-4 shadow-2xl">
+                                    <img src="csc_logo.png" alt="CSC" class="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(37,99,235,0.5)]">
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <h4 class="text-xl md:text-2xl font-black text-white italic tracking-tighter uppercase">CSC 300</h4>
+                                <span class="px-3 py-1 bg-blue-900/40 border border-blue-500/30 text-[9px] text-blue-400 rounded-full font-bold uppercase">The Technicians</span>
+                            </div>
                         </div>
 
-                        <div class="text-center">
-                            <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-3 border border-white/5 group-hover:border-red-600/50 transition-colors">
-                                <i class="fas fa-shield-halved text-2xl text-red-600"></i>
-                            </div>
-                            <p class="font-bold text-sm uppercase">NIL</p>
+                        <div class="flex flex-col items-center">
+                            <div class="h-16 w-[2px] bg-gradient-to-b from-transparent via-blue-500 to-transparent"></div>
+                            <div class="my-4 bg-white text-black px-4 py-1 rounded-sm skew-x-[-15deg] font-black text-xl italic">VS</div>
+                            <div class="h-16 w-[2px] bg-gradient-to-t from-transparent via-blue-500 to-transparent"></div>
                         </div>
+
+                        <div class="flex flex-col items-center gap-4 w-1/3">
+                            <div class="relative">
+                                <div class="absolute -inset-4 bg-cyan-600/20 blur-xl rounded-full scale-0 group-hover:scale-100 transition-transform duration-700"></div>
+                                <div class="relative w-24 h-24 md:w-32 md:h-32 bg-gradient-to-b from-zinc-800 to-black rounded-full border-4 border-cyan-500/30 flex items-center justify-center p-4 shadow-2xl">
+                                    <img src="law_logo.png" alt="LAW" class="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]">
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <h4 class="text-xl md:text-2xl font-black text-white italic tracking-tighter uppercase">LAW 300</h4>
+                                <span class="px-3 py-1 bg-cyan-900/40 border border-cyan-500/30 text-[9px] text-cyan-400 rounded-full font-bold uppercase">The Arbitrators</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3">
+                        <div class="flex gap-1">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+                            <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-75"></span>
+                            <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-150"></span>
+                        </div>
+                        <p class="text-[10px] text-gray-400 font-black uppercase tracking-[0.4em]">Arena Transmission Pending</p>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                 <div class="p-6 bg-white/5 border border-white/5 rounded-2xl hover:border-red-600/20 transition-all">
-        <h4 class="text-white font-bold mb-2 text-sm">
-            <i class="fas fa-microchip mr-2 text-red-600"></i> AI Match Analytics
-        </h4>
-        <p class="text-[11px] text-gray-500 italic uppercase">
-            "AI analytics not available in this version. Feature coming in future updates."
-        </p>
-    </div>
-                    <div class="p-6 bg-white/5 border border-white/5 rounded-2xl hover:border-red-600/20 transition-all">
-        <h4 class="text-white font-bold mb-2 text-sm">
-            <i class="fas fa-chart-line mr-2 text-yellow-500"></i> Market Insights
-        </h4>
-        <p class="text-[11px] text-gray-500 italic uppercase">
-            "Market monitoring not available in this version. Will be enabled in upcoming releases."
-        </p>
-    </div>
+                    <div class="p-8 bg-gradient-to-br from-white/[0.03] to-transparent border border-white/5 rounded-[2rem] hover:border-blue-500/30 transition-all">
+                        <p class="text-[9px] text-blue-500 font-black uppercase tracking-widest mb-4">Elite Scout Report</p>
+                        <h5 class="text-white font-bold text-lg leading-tight uppercase italic mb-3">Key Conflict: Logic vs Justice</h5>
+                        <p class="text-xs text-gray-500 leading-relaxed uppercase">
+                            Analysts predict a heavy midfield battle. LAW 300's defensive structure will be tested by CSC's quick tactical execution.
+                        </p>
+                    </div>
+                    <div class="p-8 bg-blue-600 rounded-[2rem] relative overflow-hidden group cursor-pointer" onclick="updateView('Live')">
+                        <i class="fas fa-bolt absolute -right-4 -bottom-4 text-8xl text-black/10 group-hover:scale-110 transition-transform"></i>
+                        <p class="text-[9px] text-white/60 font-black uppercase tracking-widest mb-4">Live Access</p>
+                        <h5 class="text-white font-black text-2xl uppercase italic leading-none mb-2">Join the<br>Arena</h5>
+                        <div class="mt-6 flex items-center gap-2 text-white font-black uppercase text-[10px] tracking-tighter">
+                            Enter Terminal <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-           <div class="space-y-6">
-    <div class="bg-[#0a0a0a] border border-white/5 rounded-[2.5rem] p-8 h-[500px] flex flex-col">
-        <h4 class="text-white font-bold text-xs uppercase tracking-widest mb-6 flex items-center shrink-0">
-            <span class="w-2 h-2 bg-red-600 rounded-full mr-2 animate-pulse"></span> System Live Feed
-        </h4>
-        
-        <div class="flex-1 overflow-y-auto pr-2 space-y-6 custom-scrollbar">
-            
-            <div class="flex gap-4 items-start border-l-2 border-red-600 pl-4 bg-red-600/5 py-4 rounded-r-xl">
-                <div>
-                    <p class="text-xs text-white font-black uppercase italic tracking-wider">Protocol: Payment Phase Active</p>
-                    <p class="text-[11px] text-gray-300 mt-2 uppercase leading-relaxed font-bold">
-                        The MIKOKO League payment window officially opens today, <span class="text-red-500">18th Dec 2025</span>. 
-                    </p>
-                    <p class="text-[10px] text-gray-500 mt-1 uppercase leading-tight">
-                        Managers must finalize transfers to the official account details to secure their team slot.
-                    </p>
-                    <button class="mt-3 px-3 py-1.5 bg-red-600 text-white text-[9px] font-black uppercase tracking-widest rounded-lg hover:bg-red-700 transition-all" onclick="updateView('Mikoko Payment')">
-                        Pay Now
+            <div class="lg:col-span-4">
+                <div class="bg-zinc-950 border border-blue-500/10 rounded-[3rem] p-8 h-full min-h-[600px] flex flex-col">
+                    <div class="mb-8">
+                        <h4 class="text-white font-black text-sm uppercase italic flex items-center gap-2">
+                            <i class="fas fa-satellite-dish text-blue-500"></i> Intelligence Feed
+                        </h4>
+                        <div class="h-[1px] w-full bg-gradient-to-r from-blue-500/50 to-transparent mt-4"></div>
+                    </div>
+
+                    <div class="flex-1 space-y-8 overflow-y-auto pr-2 custom-scroll">
+                        <div class="relative pl-6 border-l border-blue-500/30">
+                            <div class="absolute left-[-5px] top-0 w-2 h-2 bg-blue-500 rounded-full shadow-[0_0_10px_#3b82f6]"></div>
+                            <p class="text-[10px] text-blue-500 font-bold uppercase mb-1">Dec 18 // Priority Alpha</p>
+                            <h6 class="text-white font-bold text-xs uppercase mb-2">Payment Portal Operational</h6>
+                            <p class="text-[10px] text-gray-500 uppercase leading-relaxed font-medium">
+                                Elite League treasury is now accepting team registration fees. Finalize payment to secure your node.
+                            </p>
+                            <button onclick="updateView('Elite Payment')" class="mt-4 w-full py-3 border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all rounded-xl text-[9px] font-black uppercase tracking-widest text-blue-500">
+                                Access Portal
+                            </button>
+                        </div>
+
+                        <div class="relative pl-6 border-l border-white/10">
+                            <div class="absolute left-[-5px] top-0 w-2 h-2 bg-white/20 rounded-full"></div>
+                            <p class="text-[10px] text-gray-500 font-bold uppercase mb-1">Dec 19 // Update</p>
+                            <h6 class="text-white font-bold text-xs uppercase mb-2">Fixture Logic Ready</h6>
+                            <p class="text-[10px] text-gray-500 uppercase leading-relaxed">
+                                Automated scheduling for Season 01 is 90% verified. Full matchday list releasing soon.
+                            </p>
+                        </div>
+
+                        <div class="relative pl-6 border-l border-white/10 opacity-60">
+                            <div class="absolute left-[-5px] top-0 w-2 h-2 bg-white/10 rounded-full"></div>
+                            <p class="text-[10px] text-gray-600 font-bold uppercase mb-1">Status Report</p>
+                            <h6 class="text-gray-400 font-bold text-xs uppercase mb-2">Node Encryption</h6>
+                            <p class="text-[10px] text-gray-600 uppercase">
+                                Global leaderboards are currently being encrypted. Rank data will stay hidden until Kickoff.
+                            </p>
+                        </div>
+                    </div>
+
+                    <button class="mt-8 py-4 bg-white/5 hover:bg-white/10 text-gray-500 text-[10px] font-black uppercase tracking-widest rounded-2xl transition-all" onclick="updateView('News')">
+                        View Archive
                     </button>
                 </div>
             </div>
 
-            <div class="flex gap-4 items-start border-l-2 border-white/10 pl-4">
-                <div>
-                    <p class="text-xs text-white font-bold uppercase">Official Placement Notice</p>
-                    <p class="text-[10px] text-gray-500 mt-1 leading-relaxed uppercase">
-                        Dates for team divisions and arrangement will be announced soon. Keep your node active to see your assigned placement.
-                    </p>
-                </div>
-            </div>
-
-            <div class="flex gap-4 items-start border-l-2 border-white/5 pl-4 opacity-50">
-                <div>
-                    <p class="text-xs text-gray-400 font-bold uppercase">Feature Rollout</p>
-                    <p class="text-[10px] text-gray-600 mt-1 uppercase">
-                        Site infrastructure is currently being updated to introduce matchday live-tracking features.
-                    </p>
-                </div>
-            </div>
         </div>
-
-        <button class="w-full mt-6 py-4 bg-white/5 hover:bg-white/10 text-gray-400 text-[10px] uppercase font-black tracking-widest rounded-2xl transition-all shrink-0" onclick="updateView('News')">
-            Open Full News Hub
-        </button>
     </div>
-</div>
+`,
 
-        </div>
-    </div>`,
+
    'Standings': `
     <div class="space-y-6 animate-in pb-10">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
