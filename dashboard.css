@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;600;700;900&display=swap');
+
+/* --- 1. CORE VARIABLES (ELITE BLUE EDITION) --- */
+:root {
+    --bg-dark: #020617;
+    --elite-blue: #2563eb;
+    --elite-blue-glow: rgba(37, 99, 235, 0.4);
+    --glass: rgba(255, 255, 255, 0.02);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --sidebar-bg: #030816;
+}
+
+/* --- 2. BASE CONFIG --- */
+html {
+    scroll-behavior: smooth;
+    overscroll-behavior-y: none; /* Prevents mobile bounce */
+}
+
+body {
+    background-color: var(--bg-dark);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #f8fafc;
+    -webkit-font-smoothing: antialiased;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+.font-sync { font-family: 'Syncopate', sans-serif; }
+
+/* --- 3. NAVIGATION (PC & SHARED) --- */
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 1.25rem;
+    border-radius: 1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+}
+
+.nav-item:hover {
+    color: white;
+    background: rgba(37, 99, 235, 0.05);
+}
+
+.nav-item.active {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--elite-blue);
+    position: relative;
+    box-shadow: inset 4px 0 15px -5px var(--elite-blue-glow);
+}
+
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 50%;
+    width: 3px;
+    background: var(--elite-blue);
+    border-radius: 0 4px 4px 0;
+}
+
+.nav-item i {
+    width: 20px;
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.nav-item:hover i {
+    transform: translateX(3px);
+    color: var(--elite-blue);
+}
+
+/* --- 4. ELITE CARDS --- */
+.elite-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 2.2rem;
+    padding: 2.2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.elite-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.05), transparent);
+    pointer-events: none;
+}
+
+.elite-card:hover {
+    border-color: rgba(37, 99, 235, 0.3);
+    transform: translateY(-8px);
+    background: rgba(37, 99, 235, 0.03);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.card-tag {
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    font-family: 'Syncopate';
+    font-weight: 700;
+    color: #475569;
+    letter-spacing: 0.25em;
+    margin-bottom: 0.75rem;
+}
+
+.card-val {
+    font-size: 2rem;
+    font-weight: 900;
+    font-style: italic;
+    color: white;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+}
+
+/* --- 5. EXCEPTIONAL MOBILE ENGINE --- */
+@media (max-width: 1024px) {
+    /* Main Content Spacing */
+    main {
+        padding: 1.5rem !important;
+    }
+
+    /* Airy Sidebar */
+    #sidebar {
+        width: 80% !important;
+        background: linear-gradient(180deg, #030816, #01040d) !important;
+        box-shadow: 25px 0 50px rgba(0,0,0,0.8);
+    }
+
+    .nav-item {
+        padding: 1rem !important;
+        margin-bottom: 0.4rem;
+        font-size: 0.95rem;
+    }
+
+    /* Cards - Less Heavy on Mobile */
+    .elite-card {
+        padding: 1.5rem !important;
+        border-radius: 1.75rem;
+    }
+
+    .card-val {
+        font-size: 1.6rem;
+    }
+
+    /* Inputs - Modern Mobile Touch */
+    input, select, button {
+        font-size: 16px !important; /* Prevents iOS zoom-in */
+    }
+
+    /* Tap Feedback */
+    .nav-item:active, .elite-card:active {
+        transform: scale(0.97);
+        opacity: 0.9;
+    }
+}
+
+/* --- 6. UTILITIES & ANIMATIONS --- */
+.custom-scroll::-webkit-scrollbar {
+    width: 3px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 10px;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--elite-blue);
+}
+
+/* Scan-line Effect for Data Containers */
+@keyframes scan-line {
+    0% { transform: translateY(-100%); opacity: 0; }
+    50% { opacity: 0.3; }
+    100% { transform: translateY(400px); opacity: 0; }
+}
+
+.elite-card::after {
+    content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--elite-blue), transparent);
+    animation: scan-line 4s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0.2;
+}
+
+/* Page Transitions */
+.animate-fadeIn {
+    animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* --- UPDATED NAVIGATION STYLE --- */
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 1.25rem;
+    border-radius: 1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar-item:hover {
+    color: white;
+    background: rgba(37, 99, 235, 0.05);
+}
+
+.sidebar-item.active {
+    background: rgba(37, 99, 235, 0.1);
+    color: #2563eb; /* Elite Blue */
+    box-shadow: inset 8px 0 20px -10px rgba(37, 99, 235, 0.4);
+}
+
+/* The Blue Glowing Indicator */
+.sidebar-item.active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 25%;
+    height: 50%;
+    width: 4px;
+    background: #2563eb;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 2px 0 10px rgba(37, 99, 235, 0.8);
+}
+
+.sidebar-item i {
+    width: 20px;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-item:hover i {
+    transform: translateX(3px);
+    color: #2563eb;
+}
