@@ -530,57 +530,67 @@ const contentData = {
         </div>
     </div>`,
 
-  'Stats': `
-    <div class="space-y-8 animate-in">
-        <div class="flex justify-between items-end">
+'Stats': `
+    <div class="space-y-8 animate-in pb-20 px-4">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 px-2">
             <div>
-                <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">Player Analytics</h3>
-                <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Season Status: <span class="text-white">Pre-Kickoff Calibration</span></p>
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-[0_0_8px_#3b82f6]"></div>
+                    <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.4em]">Analytics Engine 1.0</span>
+                </div>
+                <h3 class="text-3xl md:text-4xl font-black italic uppercase tracking-tighter text-white">Unit <span class="text-blue-500">Analytics</span></h3>
+                <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-white italic">Protocol Active // Live Data Feed</span></p>
             </div>
             <div class="hidden md:block">
-                <span class="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[10px] text-gray-400 font-bold uppercase tracking-widest">
-                    Last Updated: NIL
+                <span class="px-5 py-2 bg-green-600/5 border border-green-500/20 rounded-2xl text-[10px] text-green-500 font-black uppercase tracking-widest">
+                    SYNC STATUS: ACTIVE
                 </span>
             </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             
-            <div class="bg-[#0a0a0a] border border-white/5 rounded-[2.5rem] overflow-hidden">
-                <div class="p-6 border-b border-white/5 bg-gradient-to-r from-red-600/10 to-transparent flex justify-between items-center">
-                    <h4 class="text-white font-black uppercase italic tracking-tighter text-sm flex items-center gap-2">
-                        <i class="fas fa-boot text-red-600"></i> Golden Boot Race
+            <div class="bg-[#030816] border border-blue-500/10 rounded-[3rem] overflow-hidden shadow-2xl">
+                <div class="p-8 border-b border-white/5 bg-gradient-to-r from-blue-600/10 to-transparent flex justify-between items-center">
+                    <h4 class="text-white font-black uppercase italic tracking-tighter text-base flex items-center gap-3">
+                        <i class="fas fa-crosshairs text-blue-500"></i> Golden Strike Rank
                     </h4>
-                    <span class="text-[9px] text-gray-500 font-mono font-bold uppercase">Metric: GOALS</span>
+                    <span class="text-[9px] text-gray-500 font-mono font-bold uppercase tracking-widest">Metric: G</span>
                 </div>
-                <div class="p-4">
+                <div class="p-6">
                     <table class="w-full text-left">
                         <thead>
-                            <tr class="text-[9px] text-gray-600 uppercase tracking-[0.2em] font-black border-b border-white/5">
+                            <tr class="text-[9px] text-gray-600 uppercase tracking-[0.3em] font-black border-b border-white/5">
                                 <th class="py-4 pl-4 font-normal">Rank</th>
-                                <th class="py-4 font-normal">Player / Node</th>
-                                <th class="py-4 font-normal text-right pr-4">Stats</th>
+                                <th class="py-4 font-normal">Operator / Unit</th>
+                                <th class="py-4 font-normal text-right pr-4">Payload</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-white/[0.02]">
-                            ${[1, 2, 3, 4, 5].map(i => `
-                                <tr class="group hover:bg-white/[0.02] transition-colors">
-                                    <td class="py-5 pl-4">
-                                        <span class="text-xs font-mono font-bold ${i === 1 ? 'text-red-600' : 'text-gray-500'}">0${i}</span>
+                            ${[
+                                { name: "Chukwuemeka", val: "6" },
+                                { name: "Austin", val: "5" },
+                                { name: "Ebuka", val: "4" },
+                                { name: "Halaand", val: "4" },
+                                { name: "Christian Dior", val: "3" }
+                            ].map((player, i) => `
+                                <tr class="group hover:bg-blue-600/[0.03] transition-colors">
+                                    <td class="py-6 pl-4">
+                                        <span class="text-xs font-mono font-black ${i === 0 ? 'text-blue-500' : 'text-gray-600'}">#0${i+1}</span>
                                     </td>
-                                    <td class="py-5">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 bg-white/5 rounded-lg border border-white/10 flex items-center justify-center">
-                                                <i class="fas fa-user text-[10px] text-gray-600"></i>
+                                    <td class="py-6">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-10 h-10 bg-zinc-900 rounded-xl border border-white/5 flex items-center justify-center group-hover:border-blue-500/30 transition-all">
+                                                <i class="fas fa-user-shield text-[12px] text-gray-700 group-hover:text-blue-500"></i>
                                             </div>
                                             <div>
-                                                <p class="text-[11px] text-white font-black uppercase italic tracking-tighter">Awaiting_Data</p>
-                                                <p class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">TBD FC</p>
+                                                <p class="text-[12px] text-white font-black uppercase italic tracking-tighter">${player.name}</p>
+                                                <p class="text-[9px] text-blue-500/50 font-bold uppercase tracking-widest italic">Node Verified</p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="py-5 pr-4 text-right">
-                                        <span class="text-xs text-white font-black italic">--</span>
+                                    <td class="py-6 pr-4 text-right">
+                                        <span class="text-sm text-white font-black italic">${player.val}</span>
                                     </td>
                                 </tr>
                             `).join('')}
@@ -589,41 +599,47 @@ const contentData = {
                 </div>
             </div>
 
-            <div class="bg-[#0a0a0a] border border-white/5 rounded-[2.5rem] overflow-hidden">
-                <div class="p-6 border-b border-white/5 bg-gradient-to-r from-blue-600/10 to-transparent flex justify-between items-center">
-                    <h4 class="text-white font-black uppercase italic tracking-tighter text-sm flex items-center gap-2">
-                        <i class="fas fa-magic text-blue-500"></i> Playmaker Ranking
+            <div class="bg-[#030816] border border-blue-500/10 rounded-[3rem] overflow-hidden shadow-2xl">
+                <div class="p-8 border-b border-white/5 bg-gradient-to-r from-cyan-600/10 to-transparent flex justify-between items-center">
+                    <h4 class="text-white font-black uppercase italic tracking-tighter text-base flex items-center gap-3">
+                        <i class="fas fa-microchip text-cyan-400"></i> Playmaker Rank
                     </h4>
-                    <span class="text-[9px] text-gray-500 font-mono font-bold uppercase">Metric: ASSISTS</span>
+                    <span class="text-[9px] text-gray-500 font-mono font-bold uppercase tracking-widest">Metric: A</span>
                 </div>
-                <div class="p-4">
+                <div class="p-6">
                     <table class="w-full text-left">
                         <thead>
-                            <tr class="text-[9px] text-gray-600 uppercase tracking-[0.2em] font-black border-b border-white/5">
+                            <tr class="text-[9px] text-gray-600 uppercase tracking-[0.3em] font-black border-b border-white/5">
                                 <th class="py-4 pl-4 font-normal">Rank</th>
-                                <th class="py-4 font-normal">Player / Node</th>
-                                <th class="py-4 font-normal text-right pr-4">Stats</th>
+                                <th class="py-4 font-normal">Operator / Unit</th>
+                                <th class="py-4 font-normal text-right pr-4">Assists</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-white/[0.02]">
-                            ${[1, 2, 3, 4, 5].map(i => `
-                                <tr class="group hover:bg-white/[0.02] transition-colors">
-                                    <td class="py-5 pl-4">
-                                        <span class="text-xs font-mono font-bold ${i === 1 ? 'text-blue-500' : 'text-gray-500'}">0${i}</span>
+                            ${[
+                                { name: "Chukwuemeka", val: "6" },
+                                { name: "Emmanuel", val: "4" },
+                                { name: "OBI", val: "4" },
+                                { name: "Mello", val: "3" },
+                                { name: "Kev o", val: "3" }
+                            ].map((player, i) => `
+                                <tr class="group hover:bg-cyan-600/[0.03] transition-colors">
+                                    <td class="py-6 pl-4">
+                                        <span class="text-xs font-mono font-black ${i === 0 ? 'text-cyan-400' : 'text-gray-600'}">#0${i+1}</span>
                                     </td>
-                                    <td class="py-5">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 bg-white/5 rounded-lg border border-white/10 flex items-center justify-center">
-                                                <i class="fas fa-user-tag text-[10px] text-gray-600"></i>
+                                    <td class="py-6">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-10 h-10 bg-zinc-900 rounded-xl border border-white/5 flex items-center justify-center group-hover:border-cyan-400/30 transition-all">
+                                                <i class="fas fa-terminal text-[12px] text-gray-700 group-hover:text-cyan-400"></i>
                                             </div>
                                             <div>
-                                                <p class="text-[11px] text-white font-black uppercase italic tracking-tighter">Awaiting_Data</p>
-                                                <p class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">TBD FC</p>
+                                                <p class="text-[12px] text-white font-black uppercase italic tracking-tighter">${player.name}</p>
+                                                <p class="text-[9px] text-cyan-500/50 font-bold uppercase tracking-widest italic">Uplink Stable</p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="py-5 pr-4 text-right">
-                                        <span class="text-xs text-white font-black italic">--</span>
+                                    <td class="py-6 pr-4 text-right">
+                                        <span class="text-sm text-white font-black italic">${player.val}</span>
                                     </td>
                                 </tr>
                             `).join('')}
@@ -633,92 +649,120 @@ const contentData = {
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="p-6 bg-white/5 border border-white/5 rounded-3xl group hover:border-red-600/20 transition-all">
-                <div class="flex justify-between items-start mb-4">
-                    <i class="fas fa-hand-fist text-xl text-red-600/30"></i>
-                    <span class="text-[9px] text-gray-600 font-black uppercase">Discipline</span>
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="p-8 bg-blue-600/5 border border-blue-500/10 rounded-[2.5rem] group hover:bg-blue-600/10 transition-all">
+                <div class="flex justify-between items-start mb-6">
+                    <i class="fas fa-bolt text-2xl text-blue-500"></i>
+                    <span class="text-[9px] text-blue-500 font-black uppercase tracking-widest">Discipline</span>
                 </div>
-                <h5 class="text-white font-bold text-xs uppercase tracking-widest mb-1">Total Cards</h5>
-                <p class="text-2xl font-black italic text-white/10">00</p>
+                <h5 class="text-white font-black text-xs uppercase tracking-widest mb-2 italic">Total Breach Cards</h5>
+                <p class="text-4xl font-black italic text-white tracking-tighter">8</p>
+                <p class="text-[8px] text-blue-500/40 font-bold uppercase mt-2 tracking-widest">Across All Sectors</p>
             </div>
-            <div class="p-6 bg-white/5 border border-white/5 rounded-3xl group hover:border-yellow-600/20 transition-all">
-                <div class="flex justify-between items-start mb-4">
-                    <i class="fas fa-hand-holding-heart text-xl text-yellow-600/30"></i>
-                    <span class="text-[9px] text-gray-600 font-black uppercase">Defense</span>
+            
+            <div class="p-8 bg-white/[0.02] border border-white/10 rounded-[2.5rem] group hover:border-cyan-500/20 transition-all">
+                <div class="flex justify-between items-start mb-6">
+                    <i class="fas fa-shield-halved text-2xl text-cyan-400"></i>
+                    <span class="text-[9px] text-gray-500 font-black uppercase tracking-widest">Defense</span>
                 </div>
-                <h5 class="text-white font-bold text-xs uppercase tracking-widest mb-1">Clean Sheets</h5>
-                <p class="text-2xl font-black italic text-white/10">00</p>
+                <h5 class="text-white font-black text-xs uppercase tracking-widest mb-2 italic">Null-Goal Sheets</h5>
+                <p class="text-4xl font-black italic text-white tracking-tighter">03</p>
+                <p class="text-[8px] text-cyan-500/40 font-bold uppercase mt-2 tracking-widest">Leading: MSS-200</p>
             </div>
-            <div class="p-6 bg-white/5 border border-white/5 rounded-3xl group hover:border-green-600/20 transition-all">
-                <div class="flex justify-between items-start mb-4">
-                    <i class="fas fa-bolt text-xl text-green-600/30"></i>
-                    <span class="text-[9px] text-gray-600 font-black uppercase">Efficiency</span>
+
+            <div class="p-8 bg-white/[0.02] border border-white/10 rounded-[2.5rem] group hover:border-white/20 transition-all">
+                <div class="flex justify-between items-start mb-6">
+                    <i class="fas fa-chart-pie text-2xl text-gray-600"></i>
+                    <span class="text-[9px] text-gray-500 font-black uppercase tracking-widest">Efficiency</span>
                 </div>
-                <h5 class="text-white font-bold text-xs uppercase tracking-widest mb-1">Goal / Game</h5>
-                <p class="text-2xl font-black italic text-white/10">0.00</p>
+                <h5 class="text-white font-black text-xs uppercase tracking-widest mb-2 italic">Goal / Node Ratio</h5>
+                <p class="text-4xl font-black italic text-white tracking-tighter">4.07</p>
+                <p class="text-[8px] text-gray-600 font-bold uppercase mt-2 tracking-widest">Total Goals: 110</p>
             </div>
         </div>
     </div>`,
 
-   'Highlights': `
-    <div class="space-y-8 animate-in">
-        <div class="flex justify-between items-center">
-            <div>
-                <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">VOD Library</h3>
-                <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-white">Awaiting Matchday Stream</span></p>
+
+
+  'Highlights': `
+    <div class="space-y-12 animate-in pb-24 px-6 md:px-10">
+        <div class="flex flex-col gap-4">
+            <div class="flex items-center gap-4">
+                <div class="h-[1px] w-12 bg-blue-500"></div>
+                <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.5em]">System Core: VOD_LOGS</span>
             </div>
-            <div class="px-4 py-2 bg-white/5 border border-white/10 rounded-full">
-                <span class="text-[9px] text-red-600 font-black uppercase tracking-widest animate-pulse">Live Uplink Ready</span>
+            <h3 class="text-4xl md:text-5xl font-black italic uppercase tracking-tighter text-white leading-none">
+                Elite <span class="text-transparent stroke-blue-500" style="-webkit-text-stroke: 1px #3b82f6;">Archives</span>
             </div>
+            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold max-w-xs">
+                Status: <span class="text-blue-400">Elite Engineers Optimizing Uplink</span>
+            </p>
         </div>
 
-        <div class="relative aspect-video bg-[#0a0a0a] rounded-[3rem] border border-white/5 overflow-hidden group">
-            <div class="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]"></div>
+        <div class="relative aspect-[16/10] md:aspect-video bg-[#020612] rounded-[4rem] border border-blue-500/10 overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.7)] group">
+            <div class="absolute -top-24 -left-24 w-64 h-64 bg-blue-600/10 blur-[100px] rounded-full"></div>
             
-            <div class="absolute inset-0 flex flex-col items-center justify-center">
-                <div class="relative w-20 h-20 bg-white/5 rounded-full flex items-center justify-center border border-white/10">
-                    <i class="fas fa-lock text-gray-700 text-2xl"></i>
-                </div>
-                <div class="mt-8 text-center">
-                    <p class="text-white font-black italic uppercase tracking-[0.3em] text-sm">Official Feed Offline</p>
-                    <p class="text-gray-600 text-[10px] font-mono mt-2 uppercase">Encryption Active // Matchday 01 Required</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="relative p-10 bg-gradient-to-b from-white/[0.03] to-transparent border border-white/5 rounded-[3rem] overflow-hidden">
-            <i class="fas fa-cloud-arrow-up absolute -right-4 -bottom-4 text-9xl text-white/[0.02] -rotate-12"></i>
-            
-            <div class="relative z-10 flex flex-col items-center text-center">
-                <div class="mb-6 px-4 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-full">
-                    <span class="text-[9px] text-yellow-500 font-black uppercase tracking-[0.2em]">Next Update: Community VODs</span>
+            <div class="absolute inset-0 flex flex-col items-center justify-center p-8">
+                <div class="relative mb-10">
+                    <div class="w-20 h-20 bg-blue-600/5 rounded-[2.5rem] flex items-center justify-center border border-blue-500/20 rotate-45 group-hover:rotate-90 transition-all duration-1000">
+                        <i class="fas fa-shield-halved text-blue-500/40 text-2xl -rotate-45 group-hover:-rotate-90 transition-all duration-1000"></i>
+                    </div>
+                    <div class="absolute inset-0 border border-blue-500/20 rounded-[2.5rem] animate-ping opacity-10"></div>
                 </div>
                 
-                <h4 class="text-2xl font-black italic uppercase tracking-tighter text-white mb-3">Upload Your Highlights</h4>
-                <p class="text-gray-500 text-xs uppercase tracking-widest max-w-md mx-auto leading-relaxed">
-                    Soon, managers will be able to upload their best moments directly to the Mikoko Network. 
-                    <span class="text-red-600">This node is currently disabled.</span>
-                </p>
-
-                <div class="mt-8 flex gap-4">
-                    <div class="px-8 py-4 bg-white/5 border border-white/10 rounded-2xl text-[10px] text-gray-600 font-black uppercase tracking-[0.2em] cursor-not-allowed flex items-center gap-3">
-                        <i class="fas fa-video"></i> Select File
-                    </div>
-                    <div class="px-8 py-4 bg-red-600/10 border border-red-600/20 rounded-2xl text-[10px] text-red-600/50 font-black uppercase tracking-[0.2em] cursor-not-allowed flex items-center gap-3">
-                        <i class="fas fa-cloud-upload-alt"></i> Upload Terminal
-                    </div>
-                </div>
-
-                <div class="mt-10 pt-6 border-t border-white/5 w-full">
-                    <p class="text-[9px] text-gray-700 font-mono uppercase">System Restriction: Level 04 Access Required</p>
+                <div class="text-center space-y-4">
+                    <h4 class="text-white font-black italic uppercase tracking-[0.3em] text-lg">Circuit Feed Encrypted</h4>
+                    <div class="h-1 w-12 bg-blue-600 mx-auto rounded-full"></div>
+                    <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest leading-relaxed max-w-sm">
+                        Elite Engineers are currently calibrating the high-velocity stream buffers for Matchday 01.
+                    </p>
                 </div>
             </div>
 
-            <div class="absolute inset-0 bg-black/40 backdrop-blur-[2px] pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-[#020612] to-transparent">
+                <div class="flex justify-between items-center">
+                    <span class="text-[8px] text-blue-500/40 font-mono tracking-widest uppercase">Buffer: 0% // Offline</span>
+                    <i class="fas fa-bolt text-blue-500/20 text-xs"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative p-10 md:p-16 bg-white/[0.01] border border-white/5 rounded-[4rem] group overflow-hidden">
+            <div class="absolute top-0 right-0 p-12 opacity-[0.02] pointer-events-none">
+                <i class="fas fa-microchip text-[15rem]"></i>
+            </div>
+            
+            <div class="relative z-10 flex flex-col items-center text-center space-y-8">
+                <div class="px-6 py-2 bg-blue-600/5 border border-blue-500/10 rounded-full">
+                    <span class="text-[9px] text-blue-400 font-black uppercase tracking-[0.4em]">Node Expansion Underway</span>
+                </div>
+                
+                <div class="space-y-3">
+                    <h4 class="text-3xl font-black italic uppercase tracking-tighter text-white">Engineering <span class="text-blue-500">Hub</span></h4>
+                    <p class="text-gray-500 text-[10px] md:text-xs uppercase tracking-[0.2em] max-w-lg font-bold leading-loose">
+                        The <span class="text-white">Elite Engineers</span> are building a custom architecture for community VODs. Stay tuned for the rollout.
+                    </p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-6 w-full max-w-md pt-4">
+                    <div class="flex-1 py-6 bg-white/5 border border-white/10 rounded-3xl text-[10px] text-gray-700 font-black uppercase tracking-[0.3em] cursor-not-allowed flex flex-col items-center gap-3">
+                        <i class="fas fa-folder-open opacity-20"></i> Source Locked
+                    </div>
+                    <div class="flex-1 py-6 bg-blue-600/5 border border-blue-500/10 rounded-3xl text-[10px] text-blue-500/20 font-black uppercase tracking-[0.3em] cursor-not-allowed flex flex-col items-center gap-3">
+                        <i class="fas fa-upload opacity-10"></i> Terminal Down
+                    </div>
+                </div>
+
+                <div class="pt-10 w-full flex justify-center">
+                    <div class="flex items-center gap-6">
+                        <span class="text-[8px] text-gray-700 font-black uppercase tracking-[0.5em]">Maintenance Mode Active</span>
+                        <div class="w-1.5 h-1.5 bg-yellow-500/20 rounded-full"></div>
+                        <span class="text-[8px] text-gray-700 font-black uppercase tracking-[0.5em]">Ver 1.0.4</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>`,
-
     
    'News': `
     <div class="space-y-8 animate-in pb-20">
