@@ -669,7 +669,7 @@ const contentData = {
     </div>`,
 
 
-    
+
 
   'Highlights': `
     <div class="space-y-12 animate-in pb-24 px-6 md:px-10">
@@ -750,245 +750,287 @@ const contentData = {
             </div>
         </div>
     </div>`,
+
+    
     
    'News': `
-    <div class="space-y-8 animate-in pb-20">
-        <div class="flex justify-between items-end">
-            <div>
-                <h3 class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter text-red-600">News Hub</h3>
-                <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Direct Feed: <span class="text-white">Admin TOGA // Authority Broadcast</span></p>
+    <div class="space-y-12 animate-in pb-32 px-5 md:px-12">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 px-2">
+            <div class="space-y-2">
+                <div class="flex items-center gap-4">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-[0_0_10px_#3b82f6]"></div>
+                    <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.5em]">Elite Authority Broadcast</span>
+                </div>
+                <h3 class="text-5xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none">News <span class="text-blue-500">Hub</span></h3>
+                <p class="text-gray-500 text-[11px] uppercase tracking-[0.3em] font-bold">Source: <span class="text-white italic">Elite Coordinators</span></p>
             </div>
-            <span class="hidden md:block text-[10px] text-gray-600 font-mono uppercase tracking-widest">Date: 18.12.2025</span>
+            <div class="bg-white/5 border border-white/10 px-8 py-3 rounded-2xl w-full md:w-auto text-center">
+                <span class="text-[10px] text-gray-400 font-mono uppercase tracking-[0.2em]">Broadcast ID: 19.12.2025</span>
+            </div>
         </div>
 
-        <div class="relative rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-red-600/20 bg-[#0a0a0a] group">
+        <div class="relative rounded-[3.5rem] md:rounded-[4.5rem] overflow-hidden border border-blue-500/10 bg-[#020617] group shadow-2xl">
             <div class="grid grid-cols-1 lg:grid-cols-2">
-                <div class="relative h-[250px] lg:h-full bg-zinc-900 overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10"></div>
-                    <div class="absolute inset-0 flex items-center justify-center text-red-600/10 group-hover:scale-110 transition-transform duration-700">
-                         <i class="fas fa-edit text-9xl"></i>
-                    </div>
-                    <div class="absolute top-6 left-6 z-20 flex flex-col gap-2">
-                        <span class="px-4 py-1.5 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">7 Slots Available</span>
-                        <span class="px-4 py-1.5 bg-yellow-500 text-black text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Custom Naming Active</span>
+                <div class="relative h-[250px] lg:h-full bg-[#050c1f] overflow-hidden border-b lg:border-b-0 lg:border-r border-white/5">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent z-10"></div>
+                    <div class="absolute inset-0 flex items-center justify-center text-blue-500/5 group-hover:scale-110 transition-transform duration-1000">
+                         <i class="fas fa-shield-halved text-[12rem]"></i>
                     </div>
                 </div>
 
-                <div class="p-8 md:p-10 flex flex-col justify-center">
-                    <span class="text-[10px] text-red-500 font-black uppercase mb-4 tracking-[0.3em]">Franchise Acquisition</span>
-                    <h4 class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter text-white leading-none mb-6">
-                        Own a Team <br><span class="text-red-600 text-xl md:text-4xl">Name Your Legacy</span>
+                <div class="p-10 md:p-20 flex flex-col justify-center">
+                    <span class="text-[10px] text-blue-500 font-black uppercase mb-6 tracking-[0.6em]">Structure Upgrade</span>
+                    <h4 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white leading-tight mb-8">
+                        Friendlies Rebranded <br><span class="text-blue-500 italic">Elite League</span>
                     </h4>
-                    <p class="text-gray-400 text-[11px] md:text-sm uppercase leading-relaxed font-bold tracking-wide mb-8">
-                        The ₦4,000 ownership fee grants you full control. <span class="text-white">When you purchase a team, you choose the name.</span> Define your brand, secure your slot, and lead your squad to the Glory Cup.
+                    <p class="text-gray-400 text-sm uppercase leading-relaxed font-bold tracking-wider italic">
+                        The evolution is complete. The <span class="text-white font-black underline underline-offset-8 decoration-blue-500">Top 4 Units</span> advance to the <span class="text-white">Elite Cup</span>. Digital infrastructure has been fully synchronized as promised.
                     </p>
-                    <div class="flex flex-col gap-4">
-                        <button onclick="updateView('Mikoko Payment')" class="w-full md:w-max px-8 py-4 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white hover:text-black transition-all">Claim & Name Your Team</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-green-600/10 to-transparent border border-green-500/20 rounded-[3.5rem] p-10 md:p-20 relative overflow-hidden">
+            <div class="relative z-10">
+                <div class="flex items-center gap-4 mb-8">
+                    <i class="fas fa-certificate text-green-500"></i>
+                    <span class="text-[10px] text-green-500 font-black uppercase tracking-[0.5em]">Holiday Reset Protocol</span>
+                </div>
+                <h4 class="text-4xl md:text-5xl font-black italic text-white uppercase tracking-tighter mb-8 italic">The Christmas <span class="text-green-500 text-3xl md:text-5xl">Amnesty</span></h4>
+                <div class="max-w-2xl space-y-8">
+                    <p class="text-gray-400 text-sm font-bold uppercase leading-relaxed italic">
+                        In the spirit of the season, the <span class="text-white">Elite Coordinators</span> have authorized a total reset. All player suspensions are void.
+                    </p>
+                    <div class="p-8 bg-white/5 border border-white/10 rounded-[2.5rem]">
+                        <p class="text-white text-[11px] font-black uppercase tracking-widest italic mb-3">Targeted Decryption: Jasso (CSC 200)</p>
+                        <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest leading-loose">Red card status purged. Unit restored to active duty.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white/[0.02] border border-white/5 rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden">
-            <div class="absolute -right-10 -top-10 opacity-5">
-                <i class="fas fa-users text-[15rem]"></i>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div class="bg-[#020617] border border-blue-500/10 rounded-[3.5rem] p-10 md:p-12 hover:border-blue-600/30 transition-all group">
+                <div class="flex justify-between items-start mb-10">
+                    <div class="w-16 h-16 bg-blue-600/10 rounded-2xl flex items-center justify-center border border-blue-600/20">
+                        <i class="fas fa-gavel text-blue-500 text-2xl"></i>
+                    </div>
+                    <span class="text-[9px] text-blue-500 font-black uppercase tracking-[0.4em]">Ruling 01</span>
+                </div>
+                <h5 class="text-white font-black uppercase italic tracking-tighter text-3xl mb-6">CSC 200 <span class="text-blue-500">v</span> MSS 100</h5>
+                <div class="space-y-6 text-gray-400 text-[11px] font-bold uppercase leading-loose tracking-widest">
+                    <p><span class="text-white">Official Result:</span> CSC 200 awarded the win (5-2).</p>
+                    <p>Warnings issued to both sectors for breach of conduct. Elite Coordinators acknowledge the sportsmanship of the CSC 200 unit.</p>
+                </div>
             </div>
-            <div class="relative z-10">
-                <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.4em]">Planning Committee</span>
-                <h4 class="text-2xl font-black italic text-white uppercase mt-2 mb-6">Official Oversight</h4>
-                <p class="text-gray-400 text-xs md:text-sm font-bold uppercase leading-relaxed mb-8 max-w-2xl">
-                    Administered by <span class="text-white font-black italic">TOGA, HASSAN, UGO, ONANA, ZUBBY, DIVINE (White Money), and DERRICK.</span> Decisions and announcements from this group are the only official sources of truth.
-                </p>
-                <div class="flex flex-wrap gap-2">
-                    ${['TOGA', 'HASSAN', 'UGO', 'ONANA', 'ZUBBY', 'DIVINE', 'DERRICK'].map(name => `
-                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-[9px] text-gray-400 font-bold uppercase tracking-widest">${name}</span>
-                    `).join('')}
+
+            <div class="bg-white/[0.02] border border-white/5 rounded-[3.5rem] p-10 md:p-12 flex flex-col items-center justify-center text-center group overflow-hidden relative">
+                <div class="relative z-10">
+                    <div class="text-5xl mb-8 animate-bounce">🎄</div>
+                    <h5 class="text-4xl font-black uppercase italic text-white tracking-tighter mb-4">Merry Christmas <br><span class="text-blue-500">To All Units</span></h5>
+                    <p class="text-gray-500 text-[10px] font-black uppercase tracking-[0.5em] mb-10 leading-loose">The Elite League is back. <br>New Comeback Active.</p>
+                    <div class="text-[10px] text-white/20 font-black italic tracking-[1em]">#ELITELEAGUE</div>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-white/[0.02] border border-white/10 rounded-[2rem] p-6 hover:border-red-600/30 transition-all group">
-                <div class="w-10 h-10 bg-red-600/10 rounded-xl flex items-center justify-center mb-6 border border-red-600/20">
-                    <i class="fas fa-receipt text-red-500 text-sm"></i>
-                </div>
-                <span class="text-[9px] text-red-500 font-black uppercase tracking-widest">Payment Security</span>
-                <h5 class="text-white font-black uppercase italic tracking-tighter text-lg mt-2 mb-3">Receipt Confirmation</h5>
-                <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed mb-6">
-                    Mikoko League payment has officially begun. Use the transfer section on this site. <span class="text-white">After payment, send your receipt to TOGA's DM for validation.</span>
-                </p>
-                <div class="pt-4 border-t border-white/5 text-[9px] text-gray-600 font-mono uppercase italic">Only Valid Channel: MIKOKO TERMINAL</div>
-            </div>
-
-            <div class="bg-white/[0.02] border border-white/10 rounded-[2rem] p-6 hover:border-white/30 transition-all group">
-                <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center mb-6 border border-white/20">
-                    <i class="fas fa-user-tie text-white text-sm"></i>
-                </div>
-                <span class="text-[9px] text-gray-400 font-black uppercase tracking-widest">Manager Protocol</span>
-                <h5 class="text-white font-black uppercase italic tracking-tighter text-lg mt-2 mb-3">Franchise Slot Count</h5>
-                <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed mb-6">
-                    1 Slot already claimed. 7 Remaining. Once all 8 franchises are sold, the ownership window closes. Secure your spot to participate in the upcoming Season 03.
-                </p>
-                <div class="pt-4 border-t border-white/5 text-[9px] text-gray-600 font-mono uppercase italic">Ownership: ₦4,000 // Player: ₦2,000</div>
-            </div>
+        <div class="pt-12 border-t border-white/5 text-center">
+            <p class="text-[11px] text-gray-700 font-black uppercase tracking-[0.8em]">Authorized: Elite Coordinators</p>
         </div>
     </div>`,
+
+
     
-   'Goals Leaderboard': `
-<div class="space-y-8 animate-in">
-    <div class="flex flex-col lg:flex-row gap-8">
+'Goals Leaderboard': `
+<div class="space-y-12 animate-in pb-40 px-6 md:px-16">
+    <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-4">
+            <div class="h-[1px] w-12 bg-blue-500"></div>
+            <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.5em]">Sector: STRIKER_LOGS</span>
+        </div>
+        <h3 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter text-white leading-none">
+            Elite <span class="text-transparent stroke-blue-500" style="-webkit-text-stroke: 1px #3b82f6;">Scorers</span>
+        </h3>
+    </div>
+
+    <div class="flex flex-col lg:flex-row gap-16">
         
         <div class="lg:w-1/3">
-            <div class="relative group overflow-hidden bg-gradient-to-br from-red-600/20 to-transparent border border-white/10 rounded-[2.5rem] p-8 flex flex-col items-center text-center sticky top-8">
-                <div class="absolute top-6 left-6 px-4 py-1 bg-red-600 text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg shadow-red-600/20">
-                    Player of the Week
-                </div>
+            <div class="relative group bg-[#020617] border border-blue-500/20 rounded-[4rem] p-12 flex flex-col items-center text-center sticky top-12 shadow-[0_50px_100px_rgba(0,0,0,0.8)]">
+                <div class="absolute -top-20 -left-20 w-40 h-40 bg-blue-600/10 blur-[80px] rounded-full"></div>
                 
-                <div class="w-40 h-40 md:w-48 md:h-48 bg-zinc-900 rounded-full mb-6 border-4 border-red-500/30 overflow-hidden relative shadow-2xl">
-                    <div class="absolute inset-0 flex items-center justify-center text-gray-700 italic">
-                        <i class="fas fa-user-ninja text-6xl"></i>
+                <div class="relative mb-10">
+                    <div class="w-48 h-48 bg-zinc-900 rounded-[3.5rem] border-2 border-blue-500/20 flex items-center justify-center rotate-3 group-hover:rotate-0 transition-all duration-700 overflow-hidden">
+                        <i class="fas fa-user-shield text-7xl text-blue-500/20"></i>
+                    </div>
+                    <div class="absolute -bottom-4 bg-blue-600 text-white px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest italic shadow-xl">
+                        Rank #01
                     </div>
                 </div>
 
-                <h3 class="text-3xl font-black text-white uppercase tracking-tighter italic leading-tight">NIL <span class="text-red-500">NIL</span></h3>
-                <p class="text-gray-400 font-bold uppercase text-[10px] tracking-[0.2em] mt-2 italic">Awaiting Selection // Striker</p>
+                <h3 class="text-4xl font-black text-white uppercase tracking-tighter italic leading-tight">Chukwu<br><span class="text-blue-500">emeka</span></h3>
                 
-                <div class="flex gap-4 md:gap-8 mt-8 w-full justify-center">
+                <div class="grid grid-cols-2 gap-8 mt-12 w-full pt-8 border-t border-white/5">
                     <div class="text-center">
-                        <span class="block text-2xl font-black text-white">0</span>
-                        <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest">Goals</span>
+                        <span class="block text-4xl font-black text-white">06</span>
+                        <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-1">Gls</span>
                     </div>
-                    <div class="text-center border-x border-white/10 px-4 md:px-8">
-                        <span class="block text-2xl font-black text-white">0</span>
-                        <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest">Assists</span>
+                    <div class="text-center border-l border-white/5">
+                        <span class="block text-4xl font-black text-white">06</span>
+                        <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-1">Ast</span>
                     </div>
-                    <div class="text-center">
-                        <span class="block text-2xl font-black text-white">0</span>
-                        <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest">MVP</span>
-                    </div>
-                </div>
-                
-                <div class="mt-8 w-full pt-6 border-t border-white/5">
-                    <span class="text-[9px] text-gray-600 font-mono uppercase">Node Status: STANDBY</span>
                 </div>
             </div>
         </div>
 
-        <div class="lg:w-2/3 bg-[#0a0a0a] border border-white/10 rounded-[2.5rem] p-8 flex flex-col">
-            <h3 class="text-xl font-black text-white mb-8 uppercase italic tracking-tighter flex items-center">
-                <i class="fas fa-fire text-red-600 mr-3 animate-pulse"></i> Top Scorers
-            </h3>
-            
-            <div class="space-y-3" id="goalsListContainer">
-                <div class="flex text-[9px] uppercase font-black text-gray-600 px-4 mb-2 tracking-[0.2em]">
-                    <div class="w-12 text-center">Pos</div>
-                    <div class="flex-grow">Player Identification</div>
-                    <div class="w-12 text-right">G</div>
-                </div>
+        <div class="lg:w-2/3 space-y-4">
+            <div class="flex justify-between items-end mb-8 px-4">
+                <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.4em]">Live Leaderboard</span>
+                <span class="text-[10px] text-gray-700 font-mono uppercase tracking-widest italic">Ver 2.0.5</span>
+            </div>
 
-                ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => `
-                    <div class="flex items-center p-4 bg-white/[0.03] rounded-[1.5rem] border border-white/5 group hover:border-red-600/30 transition-all ${i > 6 ? 'hidden extra-players animate-in' : ''}">
-                        <div class="w-12 font-black italic text-sm ${i <= 3 ? 'text-red-600' : 'text-gray-600'} text-center">${i < 10 ? '0' + i : i}</div>
-                        <div class="flex-grow flex items-center space-x-4 px-2">
-                            <div class="w-8 h-8 rounded-full bg-zinc-800 border border-white/10 flex items-center justify-center relative">
-                                <i class="fas fa-user text-[10px] text-gray-600"></i>
-                                ${i <= 5 ? '<i class="fas fa-star absolute -top-1 -right-1 text-[8px] text-yellow-500 animate-pulse"></i>' : ''}
+            <div class="space-y-4">
+                ${[
+                    { name: "Chukwuemeka", val: "6", unit: "CSC 100" },
+                    { name: "Austin", val: "5", unit: "NUR 200" },
+                    { name: "Ebuka", val: "4", unit: "MSS 200" },
+                    { name: "Halaand", val: "4", unit: "CSC 400" },
+                    { name: "Christian Dior", val: "3", unit: "CSC 400" },
+                    { name: "Paschal", val: "3", unit: "CSC 200" },
+                    { name: "Sporty", val: "3", unit: "MSS 300" },
+                    { name: "Zubby", val: "2", unit: "CSC 200" },
+                    { name: "IK", val: "2", unit: "MSS 200" },
+                    { name: "Sammy", val: "1", unit: "CSC 200" }
+                ].map((player, i) => `
+                    <div class="flex items-center justify-between p-6 md:p-8 bg-white/[0.01] border border-white/5 rounded-[2.5rem] group hover:bg-blue-600/[0.03] hover:border-blue-500/20 transition-all duration-500">
+                        <div class="flex items-center gap-6">
+                            <div class="w-10 h-10 rounded-2xl bg-zinc-950 border border-white/5 flex items-center justify-center">
+                                <span class="text-xs font-mono font-black ${i < 3 ? 'text-blue-500' : 'text-gray-700'}">0${i + 1}</span>
                             </div>
+                            
                             <div class="flex flex-col">
-                                <span class="text-xs font-black text-white uppercase tracking-tighter group-hover:text-red-600 transition-colors">Pending_Roster</span>
-                                <span class="text-[8px] text-gray-600 font-bold uppercase tracking-widest italic">Awaiting Assignment</span>
+                                <span class="text-lg md:text-xl font-black text-white uppercase tracking-tighter italic group-hover:text-blue-400 transition-colors leading-none mb-1">
+                                    ${player.name}
+                                </span>
+                                <span class="text-[9px] text-gray-600 font-bold uppercase tracking-[0.2em]">
+                                    Unit: <span class="text-blue-500/40">${player.unit}</span> // Status: Clear
+                                </span>
                             </div>
                         </div>
-                        <div class="w-12 text-right font-black italic text-white group-hover:scale-125 transition-transform">0</div>
+                        
+                        <div class="flex items-center gap-6">
+                            <div class="h-10 w-[1px] bg-white/5"></div>
+                            <span class="text-3xl md:text-4xl font-black italic text-white tracking-tighter">${player.val}</span>
+                        </div>
                     </div>
                 `).join('')}
             </div>
 
-            <button id="toggleGoalsBtn" onclick="toggleFullLeaderboard()" class="w-full mt-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-white hover:bg-white/10 transition-all">
-                View Full Player Stats (Top 10)
-            </button>
+            <div class="mt-12 p-10 bg-blue-600/5 border border-blue-500/10 rounded-[3rem] text-center">
+                <p class="text-[9px] text-blue-500/60 font-black uppercase tracking-[0.5em] italic leading-loose">
+                    Authorized Data Feed // All suspensions removed as per Christmas amnesty protocol.
+                </p>
+            </div>
         </div>
-
     </div>
 </div>`,
 
-  'Assists Leaderboard': `
-<div class="space-y-8 animate-in">
-    <div class="flex flex-col lg:flex-row gap-8">
+
+
+'Assists Leaderboard': `
+<div class="space-y-12 animate-in pb-40 px-6 md:px-16">
+    <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-4">
+            <div class="h-[1px] w-12 bg-blue-500"></div>
+            <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.5em]">Sector: VISION_CORE</span>
+        </div>
+        <h3 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter text-white leading-none">
+            Elite <span class="text-transparent stroke-blue-500" style="-webkit-text-stroke: 1px #3b82f6;">Playmakers</span>
+        </h3>
+    </div>
+
+    <div class="flex flex-col lg:flex-row gap-16">
         
         <div class="lg:w-1/3">
-            <div class="relative group overflow-hidden bg-gradient-to-br from-blue-600/20 to-transparent border border-white/10 rounded-[2.5rem] p-8 flex flex-col items-center text-center sticky top-8">
-                <div class="absolute top-6 left-6 px-4 py-1 bg-blue-600 text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg shadow-blue-600/20">
-                    Playmaker of the Week
-                </div>
+            <div class="relative group bg-[#020617] border border-blue-500/20 rounded-[4rem] p-12 flex flex-col items-center text-center sticky top-12 shadow-[0_50px_100px_rgba(0,0,0,0.8)]">
+                <div class="absolute -top-20 -right-20 w-40 h-40 bg-blue-600/10 blur-[80px] rounded-full"></div>
                 
-                <div class="w-40 h-40 md:w-48 md:h-48 bg-zinc-900 rounded-full mb-6 border-4 border-blue-500/30 overflow-hidden relative shadow-2xl">
-                    <div class="absolute inset-0 flex items-center justify-center text-gray-700 italic">
-                        <i class="fas fa-magic-wand-sparkles text-6xl"></i>
+                <div class="relative mb-10">
+                    <div class="w-48 h-48 bg-zinc-900 rounded-[3.5rem] border-2 border-blue-500/20 flex items-center justify-center -rotate-3 group-hover:rotate-0 transition-all duration-700 overflow-hidden">
+                        <i class="fas fa-microchip text-7xl text-blue-500/20"></i>
+                    </div>
+                    <div class="absolute -bottom-4 bg-blue-600 text-white px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest italic shadow-xl">
+                        Rank #01
                     </div>
                 </div>
 
-                <h3 class="text-3xl font-black text-white uppercase tracking-tighter italic leading-tight">NIL <span class="text-blue-500">NIL</span></h3>
-                <p class="text-gray-400 font-bold uppercase text-[10px] tracking-[0.2em] mt-2 italic">Awaiting Selection // Midfield Node</p>
+                <h3 class="text-4xl font-black text-white uppercase tracking-tighter italic leading-tight">Chukwu<br><span class="text-blue-500">emeka</span></h3>
                 
-                <div class="flex gap-4 md:gap-8 mt-8 w-full justify-center">
+                <div class="grid grid-cols-2 gap-8 mt-12 w-full pt-8 border-t border-white/5">
                     <div class="text-center">
-                        <span class="block text-2xl font-black text-white">0</span>
-                        <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest">Assists</span>
+                        <span class="block text-4xl font-black text-white">06</span>
+                        <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-1">Asts</span>
                     </div>
-                    <div class="text-center border-x border-white/10 px-4 md:px-8">
-                        <span class="block text-2xl font-black text-white">0</span>
-                        <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest">Key Passes</span>
+                    <div class="text-center border-l border-white/5">
+                        <span class="block text-4xl font-black text-white">06</span>
+                        <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-1">Goals</span>
                     </div>
-                    <div class="text-center">
-                        <span class="block text-2xl font-black text-white">0</span>
-                        <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest">MVP</span>
-                    </div>
-                </div>
-                
-                <div class="mt-8 w-full pt-6 border-t border-white/5">
-                    <span class="text-[9px] text-gray-600 font-mono uppercase">Vision Status: ANALYZING</span>
                 </div>
             </div>
         </div>
 
-        <div class="lg:w-2/3 bg-[#0a0a0a] border border-white/10 rounded-[2.5rem] p-8 flex flex-col">
-            <h3 class="text-xl font-black text-white mb-8 uppercase italic tracking-tighter flex items-center">
-                <i class="fas fa-wand-magic-sparkles text-blue-500 mr-3 animate-pulse"></i> Playmaker Rankings
-            </h3>
-            
-            <div class="space-y-3" id="assistsListContainer">
-                <div class="flex text-[9px] uppercase font-black text-gray-600 px-4 mb-2 tracking-[0.2em]">
-                    <div class="w-12 text-center">Pos</div>
-                    <div class="flex-grow">Creative Node</div>
-                    <div class="w-12 text-right">A</div>
-                </div>
+        <div class="lg:w-2/3 space-y-4">
+            <div class="flex justify-between items-end mb-8 px-4">
+                <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.4em]">Creative Uplink</span>
+                <span class="text-[10px] text-gray-700 font-mono uppercase tracking-widest italic">Ver 2.0.5</span>
+            </div>
 
-                ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => `
-                    <div class="flex items-center p-4 bg-white/[0.03] rounded-[1.5rem] border border-white/5 group hover:border-blue-600/30 transition-all ${i > 6 ? 'hidden extra-assists animate-in' : ''}">
-                        <div class="w-12 font-black italic text-sm ${i <= 3 ? 'text-blue-500' : 'text-gray-600'} text-center">${i < 10 ? '0' + i : i}</div>
-                        <div class="flex-grow flex items-center space-x-4 px-2">
-                            <div class="w-8 h-8 rounded-full bg-zinc-800 border border-white/10 flex items-center justify-center relative">
-                                <i class="fas fa-brain text-[10px] text-gray-600"></i>
-                                ${i <= 5 ? '<i class="fas fa-certificate absolute -top-1 -right-1 text-[8px] text-blue-400 animate-pulse"></i>' : ''}
+            <div class="space-y-4">
+                ${[
+                    { name: "Chukwuemeka", val: "6", unit: "CSC 100" },
+                    { name: "Emmanuel", val: "4", unit: "NUr 200" },
+                    { name: "Obi", val: "4", unit: "CSC 400" },
+                    { name: "Mello", val: "3", unit: "MSS 200" },
+                    { name: "Hassan", val: "3", unit: "CSC 400" },
+                    { name: "Cush", val: "3", unit: "CSC 200" },
+                    { name: "Kev O", val: "3", unit: "CSC 200" },
+                    { name: "Paschal", val: "2", unit: "CSC 200" },
+                    { name: "Ebuka", val: "2", unit: "MSS 200" },
+                    { name: "Zubby", val: "2", unit: "CSC 200" }
+                ].map((player, i) => `
+                    <div class="flex items-center justify-between p-6 md:p-8 bg-white/[0.01] border border-white/5 rounded-[2.5rem] group hover:bg-blue-600/[0.03] hover:border-blue-500/20 transition-all duration-500">
+                        <div class="flex items-center gap-6">
+                            <div class="w-10 h-10 rounded-2xl bg-zinc-950 border border-white/5 flex items-center justify-center">
+                                <span class="text-xs font-mono font-black ${i < 3 ? 'text-blue-500' : 'text-gray-700'}">0${i + 1}</span>
                             </div>
+                            
                             <div class="flex flex-col">
-                                <span class="text-xs font-black text-white uppercase tracking-tighter group-hover:text-blue-500 transition-colors">Pending_Roster</span>
-                                <span class="text-[8px] text-gray-600 font-bold uppercase tracking-widest italic">Awaiting Pass Data</span>
+                                <span class="text-lg md:text-xl font-black text-white uppercase tracking-tighter italic group-hover:text-blue-400 transition-colors leading-none mb-1">
+                                    ${player.name}
+                                </span>
+                                <span class="text-[9px] text-gray-600 font-bold uppercase tracking-[0.2em]">
+                                    Link: <span class="text-blue-500/40">${player.unit}</span> // Active
+                                </span>
                             </div>
                         </div>
-                        <div class="w-12 text-right font-black italic text-white group-hover:scale-125 transition-transform">0</div>
+                        
+                        <div class="flex items-center gap-6">
+                            <div class="h-10 w-[1px] bg-white/5"></div>
+                            <span class="text-3xl md:text-4xl font-black italic text-white tracking-tighter">${player.val}</span>
+                        </div>
                     </div>
                 `).join('')}
             </div>
 
-            <button id="toggleAssistsBtn" onclick="toggleAssistsLeaderboard()" class="w-full mt-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-white hover:bg-white/10 transition-all">
-                View Full Playmaker Stats (Top 10)
-            </button>
+            <div class="mt-12 p-10 bg-[#020617] border border-blue-500/10 rounded-[3.5rem] text-center">
+                <p class="text-[9px] text-blue-500/60 font-black uppercase tracking-[0.5em] italic leading-loose">
+                    Transmission Complete // Authorized by Elite Coordinators
+                </p>
+            </div>
         </div>
-
     </div>
 </div>`,
+
 
 'Player Selection': `
 <div class="space-y-8 animate-in fade-in duration-500">
