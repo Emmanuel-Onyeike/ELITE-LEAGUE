@@ -1033,116 +1033,307 @@ const contentData = {
 
 
 'Player Selection': `
-<div class="space-y-8 animate-in fade-in duration-500">
-    <div class="bg-zinc-900/80 p-8 rounded-[2.5rem] border border-white/5 shadow-2xl">
-        <h3 class="text-2xl font-black text-white uppercase italic tracking-tighter mb-6">Player Registration</h3>
-        <div class="flex flex-col md:flex-row gap-4">
-            <input type="text" id="playerNameInput" placeholder="ENTER FULL LEGAL NAME..." 
-                class="flex-1 bg-black/40 border border-white/10 rounded-2xl px-6 py-4 text-sm font-bold text-red-600 focus:outline-none focus:border-red-600 transition-all">
-            <button onclick="registerPlayer()" 
-                class="px-10 py-4 bg-red-600 hover:bg-red-700 text-white font-black uppercase italic rounded-2xl transition-all shadow-lg shadow-red-600/20">
-                Register Entry
-            </button>
+<div class="animate-in pb-40 px-6 md:px-16 space-y-16">
+    <div class="pt-10 flex flex-col gap-6">
+        <div class="flex items-center gap-4">
+            <div class="h-[1px] w-12 bg-blue-500"></div>
+            <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.5em]">Sector: PERSONNEL_REGISTRY</span>
         </div>
+        <h3 class="text-6xl md:text-8xl font-black italic uppercase tracking-tighter text-white leading-[0.85]">
+            Player <br><span class="text-transparent stroke-blue-500" style="-webkit-text-stroke: 1px #3b82f6;">Selection</span>
+        </h3>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="lg:col-span-2 bg-[#070707] border border-white/5 rounded-[2.5rem] p-6">
-            <h4 class="text-[10px] uppercase font-black text-gray-500 tracking-widest mb-6">Live Registry Status</h4>
-            <div id="playerListContainer" class="space-y-3">
-                <p class="text-gray-600 text-xs italic">Waiting for new registrations...</p>
-            </div>
-        </div>
+    <div class="relative p-12 md:p-24 bg-[#020617] border border-blue-500/10 rounded-[4rem] overflow-hidden flex flex-col items-center justify-center text-center shadow-[0_50px_100px_rgba(0,0,0,0.8)]">
         
-        <div class="bg-zinc-900/30 border border-white/5 rounded-[2.5rem] p-6">
-            <h4 class="text-[10px] uppercase font-black text-gray-500 tracking-widest mb-4">League Capacity</h4>
-            <div class="space-y-4" id="teamCapacityList">
-                </div>
-        </div>
-    </div>
-</div>`,
-
-'Team Selection': `
-<div class="space-y-8 animate-in fade-in duration-500">
-    <div class="bg-red-600/10 border border-red-600/20 p-6 rounded-[2rem]">
-        <h3 class="text-white font-black uppercase italic">Admin Assignment Terminal</h3>
-        <p class="text-gray-500 text-[10px] font-bold uppercase mt-1">Select a pending player to assign to a tactical unit.</p>
-    </div>
-
-    <div id="adminAssignmentGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        </div>
-</div>`,
-   
-'Transfer Market': `
-<div class="space-y-8 animate-in pb-12">
-    <div class="flex justify-between items-end">
-        <div>
-            <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">Market Terminal</h3>
-            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-yellow-500 italic">Standby Mode</span></p>
-        </div>
-        <div class="hidden md:flex items-center gap-3">
-            <span class="text-[9px] text-gray-600 font-mono uppercase">Node: MKK-TRNSFR-03</span>
-            <div class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></div>
-        </div>
-    </div>
-
-    <div class="relative p-10 md:p-20 bg-[#0a0a0a] border border-white/5 rounded-[3rem] overflow-hidden flex flex-col items-center justify-center text-center">
         <div class="absolute inset-0 opacity-20 pointer-events-none">
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(220,38,38,0.2)_0%,transparent_70%)]"></div>
-            <i class="fas fa-chart-line absolute -left-10 -bottom-10 text-[25rem] text-white/5 -rotate-12"></i>
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_0%,transparent_80%)]"></div>
+            <div class="absolute inset-0" style="background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 30px 30px;"></div>
         </div>
 
         <div class="relative z-10 max-w-2xl">
-            <div class="w-24 h-24 bg-red-600 text-white rounded-3xl flex items-center justify-center mx-auto mb-10 rotate-12 shadow-[0_0_50px_rgba(220,38,38,0.3)] border-4 border-black">
-                <i class="fas fa-hand-holding-usd text-4xl -rotate-12"></i>
+            <div class="w-24 h-24 bg-blue-600/5 text-blue-500 rounded-[2.5rem] flex items-center justify-center mx-auto mb-12 border border-blue-500/20 shadow-[0_0_60px_rgba(59,130,246,0.1)]">
+                <i class="fas fa-fingerprint text-4xl animate-pulse"></i>
             </div>
             
-            <h4 class="text-4xl md:text-6xl font-black text-white italic tracking-tighter uppercase leading-none mb-6">
-                Market Opening <br>
-                <span class="text-red-600">Jan 18, 2026</span>
+            <h4 class="text-3xl md:text-5xl font-black text-white italic tracking-tighter uppercase leading-tight mb-8">
+                Registry <br>
+                <span class="text-blue-500">Suspended</span>
             </h4>
 
-            <div class="inline-block px-6 py-2 bg-white/5 border border-white/10 rounded-full mb-8">
-                <span class="text-[10px] text-gray-400 font-black uppercase tracking-[0.4em]">Stay Tuned Managers</span>
+            <div class="inline-block px-8 py-3 bg-zinc-950 border border-white/5 rounded-2xl mb-12">
+                <span class="text-[10px] text-gray-500 font-black uppercase tracking-[0.5em]">Auth: ELITE_BOARD_ONLY</span>
             </div>
 
-            <p class="text-sm md:text-lg text-gray-400 font-bold uppercase leading-relaxed tracking-wide mb-10">
-                "Make your <span class="text-white">money worth the buy</span> and your <span class="text-red-600">pocket worth the sale</span>. Build a dynasty or cash out—the choice is yours."
+            <p class="text-base md:text-lg text-gray-400 font-bold uppercase leading-[2] tracking-widest mb-12 italic">
+                The personnel database is currently <span class="text-white">non-operational</span>. Player registration will commence once the <span class="text-blue-500 underline underline-offset-8 decoration-blue-500/30">Kick-off protocols</span> are verified by the board.
             </p>
 
-            <div class="flex flex-wrap justify-center gap-4">
-                <div class="px-5 py-3 bg-red-600/10 border border-red-600/30 rounded-2xl">
-                    <span class="block text-[8px] text-red-500 font-black uppercase mb-1">Buy Logic</span>
-                    <span class="text-xs text-white font-black uppercase italic">Value Driven</span>
+            <div class="p-8 bg-blue-600/5 border border-blue-500/10 rounded-[3rem]">
+                <p class="text-[11px] text-blue-400 font-black uppercase tracking-[0.4em] leading-relaxed">
+                    Personnel uplink standby. Check back in the next update.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col gap-8 opacity-40">
+        <div class="flex items-center gap-6 p-8 border border-white/5 rounded-[2.5rem] bg-white/[0.01]">
+            <i class="fas fa-satellite-dish animate-bounce text-blue-500"></i>
+            <span class="text-[10px] text-gray-600 font-black uppercase tracking-widest leading-loose">Pinging personnel database... No response from Coord_Node.</span>
+        </div>
+    </div>
+
+    <div class="pt-10 text-center">
+        <p class="text-[8px] text-gray-800 font-black uppercase tracking-[0.8em]">
+            Elite League Identification System // Ver 2.0
+        </p>
+    </div>
+</div>`,
+
+
+
+
+'Team Selection': `
+<div class="animate-in pb-40 px-6 md:px-16 space-y-16">
+    <div class="pt-10 flex flex-col gap-6">
+        <div class="flex items-center gap-4">
+            <div class="h-[1px] w-12 bg-blue-500"></div>
+            <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.5em]">Sector: UNIT_ASSIGNMENT</span>
+        </div>
+        <h3 class="text-6xl md:text-8xl font-black italic uppercase tracking-tighter text-white leading-[0.85]">
+            Team <br><span class="text-transparent stroke-blue-500" style="-webkit-text-stroke: 1px #3b82f6;">Selection</span>
+        </h3>
+    </div>
+
+    <div class="relative p-12 md:p-24 bg-[#020617] border border-blue-500/10 rounded-[4rem] overflow-hidden flex flex-col items-center justify-center text-center shadow-[0_50px_100px_rgba(0,0,0,0.8)]">
+        
+        <div class="absolute inset-0 opacity-20 pointer-events-none">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_0%,transparent_80%)]"></div>
+            <div class="absolute inset-0" style="background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 30px 30px;"></div>
+        </div>
+
+        <div class="relative z-10 max-w-2xl">
+            <div class="w-24 h-24 bg-blue-600/5 text-blue-500 rounded-[2.5rem] flex items-center justify-center mx-auto mb-12 border border-blue-500/20 shadow-[0_0_60px_rgba(59,130,246,0.1)]">
+                <i class="fas fa-lock text-4xl animate-pulse"></i>
+            </div>
+            
+            <h4 class="text-3xl md:text-5xl font-black text-white italic tracking-tighter uppercase leading-tight mb-8">
+                Tactical Units <br>
+                <span class="text-blue-500">Offline</span>
+            </h4>
+
+            <div class="inline-block px-8 py-3 bg-zinc-950 border border-white/5 rounded-2xl mb-12">
+                <span class="text-[10px] text-gray-500 font-black uppercase tracking-[0.5em]">Protocol: LOCKED_BY_COORDINATORS</span>
+            </div>
+
+            <p class="text-base md:text-lg text-gray-400 font-bold uppercase leading-[2] tracking-widest mb-12 italic">
+                The assignment terminal is currently <span class="text-white">encrypted</span>. Access will be authorized once the <span class="text-blue-500 underline underline-offset-8 decoration-blue-500/30">Coordinators</span> finalize the Elite Cup roster updates.
+            </p>
+
+            <div class="p-8 bg-blue-600/5 border border-blue-500/10 rounded-[3rem]">
+                <p class="text-[11px] text-blue-400 font-black uppercase tracking-[0.4em] leading-relaxed">
+                    Check back after the next system synchronization.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col gap-8 opacity-40">
+        <div class="flex items-center gap-6 p-8 border border-white/5 rounded-[2.5rem] bg-white/[0.01]">
+            <i class="fas fa-circle-notch animate-spin text-blue-500"></i>
+            <span class="text-[10px] text-gray-600 font-black uppercase tracking-widest">Awaiting board authorization for Unit 01...</span>
+        </div>
+        <div class="flex items-center gap-6 p-8 border border-white/5 rounded-[2.5rem] bg-white/[0.01]">
+            <i class="fas fa-circle-notch animate-spin text-blue-500"></i>
+            <span class="text-[10px] text-gray-600 font-black uppercase tracking-widest">Pending synchronization with Player Selection node...</span>
+        </div>
+    </div>
+
+    <div class="pt-10 text-center">
+        <p class="text-[8px] text-gray-800 font-black uppercase tracking-[0.8em]">
+            Elite League Authority // Secure Broadcast
+        </p>
+    </div>
+</div>`,
+
+
+
+'Transfer Market': `
+<div class="animate-in pb-40 px-6 md:px-16 space-y-16">
+    <div class="pt-10 flex flex-col gap-6">
+        <div class="flex items-center gap-4">
+            <div class="h-[1px] w-12 bg-blue-500"></div>
+            <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.5em]">Sector: EXCHANGE_NODE</span>
+        </div>
+        <h3 class="text-6xl md:text-8xl font-black italic uppercase tracking-tighter text-white leading-[0.85]">
+            Market <br><span class="text-transparent stroke-blue-500" style="-webkit-text-stroke: 1px #3b82f6;">Terminal</span>
+        </h3>
+        <p class="text-gray-500 text-[11px] uppercase tracking-[0.3em] font-bold">Status: <span class="text-blue-400 italic">Pre-Operational Standby</span></p>
+    </div>
+
+    <div class="relative p-12 md:p-24 bg-[#020617] border border-blue-500/10 rounded-[4rem] overflow-hidden flex flex-col items-center justify-center text-center shadow-[0_50px_100px_rgba(0,0,0,0.8)]">
+        <div class="absolute inset-0 opacity-30 pointer-events-none">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.15)_0%,transparent_70%)]"></div>
+            <i class="fas fa-tower-broadcast absolute -right-10 -top-10 text-[20rem] text-blue-500/5 rotate-12"></i>
+        </div>
+
+        <div class="relative z-10 max-w-3xl">
+            <div class="w-20 h-20 bg-blue-600/10 text-blue-500 rounded-[2rem] flex items-center justify-center mx-auto mb-12 border border-blue-500/20 shadow-[0_0_40px_rgba(59,130,246,0.2)]">
+                <i class="fas fa-bolt text-3xl animate-pulse"></i>
+            </div>
+            
+            <h4 class="text-4xl md:text-7xl font-black text-white italic tracking-tighter uppercase leading-none mb-10">
+                Market Opens <br>
+                <span class="text-blue-500">Before Elite Kick-Off</span>
+            </h4>
+
+            <div class="inline-block px-8 py-3 bg-blue-600/5 border border-blue-500/10 rounded-2xl mb-12">
+                <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.5em] animate-pulse">Stay Tuned Managers</span>
+            </div>
+
+            <p class="text-base md:text-xl text-gray-400 font-bold uppercase leading-[1.8] tracking-widest mb-12 italic">
+                "Make your <span class="text-white">investment</span> worth the buy and your <span class="text-blue-500">strategy</span> worth the move. The Elite Cup awaits."
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <div class="px-8 py-5 bg-blue-600/10 border border-blue-500/20 rounded-[2rem]">
+                    <span class="block text-[9px] text-blue-500 font-black uppercase mb-2 tracking-widest">Buy Protocol</span>
+                    <span class="text-sm text-white font-black uppercase italic">Value Driven</span>
                 </div>
-                <div class="px-5 py-3 bg-white/5 border border-white/10 rounded-2xl">
-                    <span class="block text-[8px] text-gray-500 font-black uppercase mb-1">Sell Logic</span>
-                    <span class="text-xs text-white font-black uppercase italic">Profit Focus</span>
+                <div class="px-8 py-5 bg-white/[0.02] border border-white/5 rounded-[2rem]">
+                    <span class="block text-[9px] text-gray-600 font-black uppercase mb-2 tracking-widest">Trade Logic</span>
+                    <span class="text-sm text-white font-black uppercase italic">Elite Exchange</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="p-8 bg-zinc-900/50 border border-white/5 rounded-[2rem] group hover:border-red-600/30 transition-all">
-            <i class="fas fa-user-check text-red-600 mb-4"></i>
-            <h5 class="text-white font-black uppercase italic text-sm mb-2">Verified Units</h5>
-            <p class="text-[10px] text-gray-500 font-bold uppercase leading-relaxed">Only managers who have secured their franchise slots (₦4,000) can participate in the open market.</p>
+    <div class="flex flex-col gap-10">
+        <div class="p-10 md:p-14 bg-white/[0.01] border border-white/5 rounded-[4rem] group hover:border-blue-500/20 transition-all duration-700">
+            <div class="flex items-center gap-6 mb-8">
+                <div class="w-12 h-12 rounded-2xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center">
+                    <i class="fas fa-shield-halved text-blue-500 text-lg"></i>
+                </div>
+                <h5 class="text-2xl font-black text-white uppercase italic tracking-tighter">Verified Franchise</h5>
+            </div>
+            <p class="text-gray-500 text-xs md:text-sm font-bold uppercase leading-[2.2] tracking-[0.15em] italic">
+                Only managers who have secured their <span class="text-white">Elite Status</span> (₦4,000 franchise slot) are cleared to participate in the upcoming market window.
+            </p>
         </div>
 
-        <div class="p-8 bg-zinc-900/50 border border-white/5 rounded-[2rem] group hover:border-red-600/30 transition-all">
-            <i class="fas fa-coins text-red-600 mb-4"></i>
-            <h5 class="text-white font-black uppercase italic text-sm mb-2">Trade Protocol</h5>
-            <p class="text-[10px] text-gray-500 font-bold uppercase leading-relaxed">Direct player-to-player swaps and cash-plus-player deals will be facilitated by the Committee.</p>
+        <div class="p-10 md:p-14 bg-white/[0.01] border border-white/5 rounded-[4rem] group hover:border-blue-500/20 transition-all duration-700">
+            <div class="flex items-center gap-6 mb-8">
+                <div class="w-12 h-12 rounded-2xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center">
+                    <i class="fas fa-shuffle text-blue-500 text-lg"></i>
+                </div>
+                <h5 class="text-2xl font-black text-white uppercase italic tracking-tighter">Trade Protocols</h5>
+            </div>
+            <p class="text-gray-500 text-xs md:text-sm font-bold uppercase leading-[2.2] tracking-[0.15em] italic">
+                Direct player swaps and financial-plus-player deals are permitted. All negotiations must be <span class="text-white underline underline-offset-8 decoration-blue-500">logged by the Elite Board</span> for final authorization.
+            </p>
         </div>
 
-        <div class="p-8 bg-zinc-900/50 border border-white/5 rounded-[2rem] group hover:border-red-600/30 transition-all">
-            <i class="fas fa-file-contract text-red-600 mb-4"></i>
-            <h5 class="text-white font-black uppercase italic text-sm mb-2">Finalization</h5>
-            <p class="text-[10px] text-gray-400 font-bold uppercase leading-relaxed italic">"Everything regarding the league collectively comes from the Committee."</p>
+        <div class="p-10 md:p-14 bg-blue-600/5 border border-blue-500/10 rounded-[4rem] text-center">
+            <i class="fas fa-file-signature text-blue-500 mb-6 text-2xl"></i>
+            <h5 class="text-white font-black uppercase italic text-sm mb-4 tracking-[0.3em]">Final Directive</h5>
+            <p class="text-[10px] md:text-xs text-blue-400/60 font-black uppercase leading-loose tracking-[0.2em]">
+                "Everything regarding the league collectively comes from the Committee."
+            </p>
         </div>
     </div>
 </div>`,
+
+
+
+'Transfer News': `
+<div class="animate-in pb-40 px-4 md:px-16 space-y-16">
+    <div class="pt-10 flex flex-col gap-6">
+        <div class="flex items-center gap-3">
+            <div class="h-[2px] w-8 bg-blue-500"></div>
+            <span class="text-[9px] text-blue-500 font-black uppercase tracking-[0.6em]">System Protocol</span>
+        </div>
+        <h3 class="text-6xl md:text-8xl font-black italic uppercase tracking-tighter text-white leading-[0.85]">
+            Transfer <br><span class="text-transparent stroke-blue-500" style="-webkit-text-stroke: 1px #3b82f6;">Intel</span>
+        </h3>
+    </div>
+
+    <div class="flex flex-col lg:flex-row gap-20">
+        
+        <div class="lg:w-1/3">
+            <div class="relative bg-[#020617] border border-blue-500/10 rounded-[4rem] p-10 md:p-12 shadow-2xl">
+                <div class="w-16 h-16 bg-blue-600/10 rounded-3xl flex items-center justify-center mb-10 border border-blue-500/20">
+                    <i class="fas fa-handshake text-2xl text-blue-500 animate-pulse"></i>
+                </div>
+
+                <h4 class="text-3xl font-black text-white uppercase tracking-tighter italic mb-6">Market <span class="text-blue-500">Status</span></h4>
+                
+                <div class="inline-block px-5 py-2 bg-zinc-950 border border-yellow-500/20 rounded-xl mb-12">
+                    <span class="text-[10px] text-yellow-500 font-black uppercase tracking-widest italic leading-none">Awaiting Elite Cup</span>
+                </div>
+
+                <div class="space-y-10">
+                    <div class="flex items-start gap-5">
+                        <div class="min-w-[4px] h-4 bg-blue-500 rounded-full mt-1"></div>
+                        <p class="text-[11px] text-gray-400 font-bold uppercase tracking-widest italic leading-relaxed">
+                            Window opens at <span class="text-white underline underline-offset-4 decoration-blue-500">Elite Cup Kick-off</span>.
+                        </p>
+                    </div>
+                    <div class="flex items-start gap-5">
+                        <div class="min-w-[4px] h-4 bg-blue-500 rounded-full mt-1"></div>
+                        <p class="text-[11px] text-gray-400 font-bold uppercase tracking-widest italic leading-relaxed">
+                            Units get <span class="text-white italic">2 Acquisitions</span> per Dept.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:w-2/3 space-y-10">
+            <div class="flex justify-between items-center mb-4 px-2">
+                <span class="text-[9px] text-blue-400 font-black uppercase tracking-[0.4em]">Official Directives</span>
+                <span class="text-[9px] text-gray-800 font-mono uppercase tracking-widest">Auth: Coordinators</span>
+            </div>
+
+            <div class="p-10 md:p-14 bg-white/[0.01] border border-white/5 rounded-[4rem] hover:border-blue-500/20 transition-all duration-700">
+                <div class="flex items-center gap-6 mb-10">
+                    <span class="text-4xl font-black italic text-blue-500/20 font-mono">01</span>
+                    <h5 class="text-2xl md:text-3xl font-black text-white uppercase italic tracking-tighter">Negotiation</h5>
+                </div>
+                <p class="text-gray-500 text-xs md:text-sm font-bold uppercase leading-[2] tracking-widest italic">
+                    Fees must be <span class="text-white">agreed between heads</span>. The <span class="text-blue-500">Elite Board</span> must authorize the movement after notification.
+                </p>
+            </div>
+
+            <div class="p-10 md:p-14 bg-white/[0.01] border border-white/5 rounded-[4rem] hover:border-blue-500/20 transition-all duration-700">
+                <div class="flex items-center gap-6 mb-10">
+                    <span class="text-4xl font-black italic text-blue-500/20 font-mono">02</span>
+                    <h5 class="text-2xl md:text-3xl font-black text-white uppercase italic tracking-tighter">Term</h5>
+                </div>
+                <p class="text-gray-500 text-xs md:text-sm font-bold uppercase leading-[2] tracking-widest italic">
+                    Acquisitions are <span class="text-white italic">temporary</span> for Elite Cup only. All units <span class="text-blue-500 underline underline-offset-8">return to original Depts</span> after the Final.
+                </p>
+            </div>
+
+            <div class="py-20 bg-[#020617] border border-dashed border-blue-500/10 rounded-[4rem] flex flex-col items-center text-center px-10">
+                <div class="w-12 h-12 bg-blue-500/5 rounded-full flex items-center justify-center mb-8">
+                    <i class="fas fa-satellite-dish text-blue-500/20 text-2xl animate-spin-slow"></i>
+                </div>
+                <p class="text-gray-700 text-[10px] font-black uppercase tracking-[0.5em] leading-loose">
+                    Signal Stable // Waiting for authorized deal logs...
+                </p>
+            </div>
+
+            <div class="pt-10 text-center">
+                <p class="text-[8px] text-gray-800 font-black uppercase tracking-[0.8em]">
+                    Security Protocol Active // Authorized by Elite Coordinators
+                </p>
+            </div>
+        </div>
+    </div>
+</div>`,
+
+
     
    'Mikoko Payment': `
 <div class="space-y-8 animate-in pb-12">
@@ -1529,36 +1720,71 @@ function renderLeagueSystem(mode) {
         return;
     }
 
-    if (mode === 'Player Selection') {
-        const pending = players.filter(p => p.status === 'Pending');
-        const active = players.filter(p => p.status === 'Confirmed');
+ if (mode === 'Team Selection' || mode === 'Player Selection') {
+    const isTeam = mode === 'Team Selection';
+    const sectorLabel = isTeam ? 'UNIT_ASSIGNMENT' : 'PERSONNEL_REGISTRY';
+    const titleText = isTeam ? 'Team Selection' : 'Player Selection';
 
-        mainDisplay.innerHTML = `
-            <div class="space-y-8 animate-in pb-10">
-                <div class="bg-zinc-900/80 p-6 md:p-8 rounded-[2rem] border border-white/5">
-                    <h3 class="text-white font-black uppercase italic mb-4">Registration Terminal</h3>
-                    <div class="flex flex-col md:flex-row gap-4">
-                        <input type="text" id="playerNameInput" placeholder="ENTER PLAYER NAME..." class="flex-1 bg-black/60 border border-white/10 rounded-2xl px-6 py-4 text-red-500 font-mono focus:outline-none focus:border-red-600">
-                        <button onclick="registerPlayer()" class="px-10 py-4 bg-red-600 text-white font-black uppercase italic rounded-2xl hover:bg-white hover:text-red-600 transition-all">Register</button>
-                    </div>
+    mainDisplay.innerHTML = `
+        <div class="animate-in pb-60 px-4 md:px-16 space-y-20">
+            
+            <div class="pt-12 flex flex-col gap-8">
+                <div class="flex items-center gap-4">
+                    <div class="h-[2px] w-10 bg-blue-500"></div>
+                    <span class="text-[9px] text-blue-500 font-black uppercase tracking-[0.6em]">Sector: ${sectorLabel}</span>
+                </div>
+                <h3 class="text-6xl md:text-8xl font-black italic uppercase tracking-tighter text-white leading-[0.85]">
+                    ${titleText.split(' ')[0]} <br>
+                    <span class="text-transparent stroke-blue-500" style="-webkit-text-stroke: 1px #3b82f6;">
+                        ${titleText.split(' ')[1]}
+                    </span>
+                </h3>
+            </div>
+
+            <div class="relative p-10 md:p-24 bg-[#020617] border border-blue-500/10 rounded-[4rem] overflow-hidden flex flex-col items-center justify-center text-center shadow-[0_50px_100px_rgba(0,0,0,0.8)]">
+                
+                <div class="absolute inset-0 opacity-20 pointer-events-none">
+                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_0%,transparent_80%)]"></div>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div class="border border-white/5 rounded-[2.5rem] p-6 bg-black/40">
-                        <h4 class="text-yellow-500 font-black uppercase text-[10px] mb-4 tracking-widest">Awaiting Assignment (${pending.length})</h4>
-                        <div class="space-y-2 overflow-y-auto max-h-[450px] custom-scrollbar pr-2">
-                            ${pending.map(p => `<div class="p-4 bg-white/5 rounded-2xl flex justify-between items-center"><span class="text-white font-bold text-xs uppercase">${p.name}</span><i class="fas fa-clock text-yellow-500/20 text-xs"></i></div>`).join('') || '<p class="text-zinc-800 text-center py-10 font-black uppercase italic">No Pending Units</p>'}
-                        </div>
+                <div class="relative z-10 max-w-2xl w-full">
+                    <div class="w-20 h-20 bg-blue-600/5 text-blue-500 rounded-[2rem] flex items-center justify-center mx-auto mb-12 border border-blue-500/20 shadow-[0_0_60px_rgba(59,130,246,0.1)]">
+                        <i class="fas ${isTeam ? 'fa-users-slash' : 'fa-user-lock'} text-3xl animate-pulse"></i>
                     </div>
-                    <div class="border border-white/5 rounded-[2.5rem] p-6 bg-black/40">
-                        <h4 class="text-emerald-500 font-black uppercase text-[10px] mb-4 tracking-widest">Active Roster (${active.length})</h4>
-                        <div class="space-y-2 overflow-y-auto max-h-[450px] custom-scrollbar pr-2">
-                            ${active.map(p => `<div class="p-4 bg-white/5 rounded-2xl flex justify-between items-center"><span class="text-white font-bold text-xs uppercase">${p.name}</span><span class="text-[8px] text-zinc-500 font-black uppercase border border-white/5 px-2 py-1 rounded italic">${p.team}</span></div>`).join('') || '<p class="text-zinc-800 text-center py-10 font-black uppercase italic">Roster Empty</p>'}
-                        </div>
+                    
+                    <h4 class="text-3xl md:text-5xl font-black text-white italic tracking-tighter uppercase leading-tight mb-10">
+                        System <br>
+                        <span class="text-blue-500">Standby</span>
+                    </h4>
+
+                    <div class="inline-block px-6 py-3 bg-zinc-950 border border-white/5 rounded-2xl mb-12">
+                        <span class="text-[9px] text-gray-500 font-black uppercase tracking-[0.4em]">Node: PENDING_APPROVAL</span>
+                    </div>
+
+                    <p class="text-sm md:text-lg text-gray-400 font-bold uppercase leading-[2.2] tracking-widest mb-16 italic px-2">
+                        This tactical node is currently <span class="text-white">not ready for deployment</span>. 
+                        Access remains <span class="text-blue-500 underline underline-offset-8 decoration-blue-500/30">restricted</span> 
+                        until coordinator verification.
+                    </p>
+
+                    <div class="p-10 bg-blue-600/5 border border-blue-500/10 rounded-[3rem]">
+                        <p class="text-[10px] text-blue-400 font-black uppercase tracking-[0.5em] leading-relaxed">
+                            Stay tuned for the update.
+                        </p>
                     </div>
                 </div>
-            </div>`;
-    }
+            </div>
+
+            <div class="opacity-10 pointer-events-none select-none px-2 pb-20">
+                <div class="flex items-center gap-6 p-8 border border-white/5 rounded-[2.5rem]">
+                    <i class="fas fa-satellite-dish animate-bounce text-blue-500"></i>
+                    <span class="text-[8px] text-gray-700 font-black uppercase tracking-widest leading-loose">
+                        Connection: Refused by Committee Node...
+                    </span>
+                </div>
+            </div>
+        </div>`;
+}
 }
 
 function executeAdminRender() {
