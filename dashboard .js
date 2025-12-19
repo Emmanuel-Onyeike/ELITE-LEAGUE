@@ -469,52 +469,58 @@ const contentData = {
     </div>
 </div>`,
 
-
-    
 'Upcoming': `
-    <div class="space-y-8 animate-in pb-10">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 px-2">
+    <div class="space-y-8 animate-in pb-20 px-4">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 px-2">
             <div>
-                <h3 class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter text-red-600">Match Schedule</h3>
-                <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: Season 03 Protocol // 05 Fixtures Active</p>
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-[0_0_8px_#3b82f6]"></div>
+                    <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.4em]">Operations: Matchday 01</span>
+                </div>
+                <h3 class="text-3xl md:text-4xl font-black italic uppercase tracking-tighter text-white">Circuit <span class="text-blue-500">Fixtures</span></h3>
+                <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: Season 01 Resumption // 06 Active Slots</p>
             </div>
-            <div class="px-4 py-2 bg-white/5 border border-white/10 rounded-full">
-                <span class="text-[9px] text-gray-400 font-bold uppercase tracking-widest">Matchday 01</span>
+            <div class="px-6 py-3 bg-white/5 border border-white/10 rounded-2xl">
+                <span class="text-[10px] text-gray-400 font-black uppercase tracking-widest italic">Awaiting Global Sync</span>
             </div>
         </div>
 
-        <div class="grid gap-4">
+        <div class="grid gap-5">
             ${[
-                { id: 1, home: "NIL", away: "NIL", time: "-", venue: "NIL" },
-                { id: 2, home: "NIL", away: "NIL", time: "-", venue: "NIL" },
-                { id: 3, home: "NIL", away: "NIL", time: "-", venue: "NIL" },
-                { id: 4, home: "NIL", away: "NIL", time: "-", venue: "NIL" },
-          
+                { id: 1, home: "CSC-300", away: "LAW-500" },
+                { id: 2, home: "MSS-300", away: "LAW-100" },
+                { id: 3, home: "CSC-300", away: "MSS-300" },
+                { id: 4, home: "CSC-400", away: "LAW-500" },
+                { id: 5, home: "LAW-200", away: "LAW-100" },
+                { id: 6, home: "MSS-300", away: "LAW-500" }
             ].map((match) => `
-                <div class="p-4 md:p-6 bg-[#0a0a0a] border border-white/5 rounded-[2rem] transition-all hover:border-red-600/20 group">
-                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                <div class="p-6 bg-[#030816] border border-blue-500/10 rounded-[2.5rem] transition-all hover:border-blue-500/30 group">
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
                         <div class="flex items-center flex-1">
-                            <div class="hidden md:flex w-10 h-10 bg-white/5 rounded-xl border border-white/5 items-center justify-center text-[10px] font-black text-gray-600 mr-6">0${match.id}</div>
-                            <div class="flex items-center justify-between flex-1 md:justify-start md:gap-8">
-                                <span class="text-white font-black text-sm md:text-base lg:text-lg uppercase italic tracking-tighter">${match.home}</span>
-                                <span class="text-red-600 font-black italic text-xs md:text-sm px-4">VS</span>
-                                <span class="text-white font-black text-sm md:text-base lg:text-lg uppercase italic tracking-tighter">${match.away}</span>
+                            <div class="hidden md:flex w-12 h-12 bg-zinc-900 rounded-2xl border border-white/5 items-center justify-center text-[11px] font-black text-blue-500 mr-8">
+                                0${match.id}
+                            </div>
+                            <div class="flex items-center justify-between flex-1 md:justify-start md:gap-12">
+                                <span class="text-white font-black text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter">${match.home}</span>
+                                <span class="text-blue-500 font-black italic text-xs md:text-sm">VS</span>
+                                <span class="text-white font-black text-lg md:text-xl lg:text-2xl uppercase italic tracking-tighter">${match.away}</span>
                             </div>
                         </div>
 
-                        <div class="flex flex-row items-center justify-between lg:justify-end gap-3 pt-4 lg:pt-0 border-t border-white/5 lg:border-none">
-                            <div class="text-left lg:text-right lg:mr-4">
-                                <span class="block text-[10px] text-red-600 font-black uppercase tracking-widest">${match.time}</span>
-                                <span class="block text-[8px] text-gray-600 font-mono uppercase">Arena: ${match.venue}</span>
+                        <div class="flex flex-row items-center justify-between lg:justify-end gap-4 pt-6 lg:pt-0 border-t border-white/5 lg:border-none">
+                            <div class="text-left lg:text-right lg:mr-6">
+                                <span class="block text-xs text-white font-black font-mono tracking-tighter uppercase">NIL</span>
+                                <span class="block text-[9px] text-gray-500 font-bold uppercase tracking-widest mt-1 italic">VENUE: NIL</span>
                             </div>
                             <div class="flex gap-2">
-                                <button onclick="openFixtureDetails(${match.id}, '${match.home}', '${match.away}', '${match.time}', '${match.venue}')" 
-                                    class="px-4 py-3 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all">
-                                    Details
+                                <button onclick="openFixtureDetails(${match.id}, '${match.home}', '${match.away}')" 
+                                    class="px-5 py-4 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all">
+                                    Intel
                                 </button>
                                 <button onclick="broadcastPush('${match.home}', '${match.away}')" 
-                                    class="w-11 h-11 lg:w-auto lg:px-4 bg-red-600/10 hover:bg-red-600 text-red-600 hover:text-white border border-red-600/20 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2">
-                                    <i class="fas fa-satellite-dish"></i> <span class="hidden lg:inline">Push</span>
+                                    class="w-12 h-12 lg:w-auto lg:px-6 bg-blue-600/10 hover:bg-blue-600 text-blue-500 hover:text-white border border-blue-600/20 rounded-2xl text-[9px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-3">
+                                    <i class="fas fa-satellite-dish"></i> 
+                                    <span class="hidden lg:inline italic">Initialize</span>
                                 </button>
                             </div>
                         </div>
@@ -523,7 +529,7 @@ const contentData = {
             `).join('')}
         </div>
     </div>`,
-    
+
   'Stats': `
     <div class="space-y-8 animate-in">
         <div class="flex justify-between items-end">
@@ -1883,3 +1889,87 @@ function runEliteClock() {
 
 // Start the engine
 runEliteClock();
+
+
+/// for the intel and initial button
+// UNIQUE DATA FOR EACH MATCH NODE
+const eliteMatchIntel = {
+    1: { prob: "52%", scout: "CSC-300 testing new formation." },
+    2: { prob: "48%", scout: "LAW-100 high pressing anticipated." },
+    3: { prob: "50%", scout: "Internal Circuit rivalry; zero margin for error." },
+    4: { prob: "65%", scout: "CSC-400 physical dominance predicted." },
+    5: { prob: "50%", scout: "Tactical deadlock expected in the LAW node." },
+    6: { prob: "55%", scout: "Final matchday 01 calibration match." }
+};
+
+/**
+ * PROTOCOL: OPEN INTEL MODAL
+ * Triggered by the "Intel" button to show match-specific tactical data.
+ */
+function openFixtureDetails(id, home, away) {
+    const modal = document.getElementById('eliteModal');
+    const body = document.getElementById('modalBody');
+    const title = document.getElementById('modalTitle');
+    const intel = eliteMatchIntel[id] || { prob: "??", scout: "No data available." };
+
+    // Inject Match-Specific Header
+    title.innerHTML = `${home} <span class="text-blue-500 px-2 italic">v</span> ${away}`;
+    
+    // Inject Dynamic Tactical Content
+    body.innerHTML = `
+        <div class="p-8 bg-blue-600/5 border border-blue-500/10 rounded-[2.5rem] text-center shadow-inner">
+            <p class="text-[9px] text-blue-500 font-black uppercase tracking-[0.3em] mb-2">Victory Projection</p>
+            <p class="text-5xl font-black text-white italic tracking-tighter">${intel.prob}</p>
+        </div>
+        <div class="p-6 bg-white/[0.02] border border-white/5 rounded-3xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 opacity-5">
+                <i class="fas fa-microchip text-3xl"></i>
+            </div>
+            <h5 class="text-[10px] text-gray-500 font-black uppercase tracking-widest mb-3 italic">Scouting Report</h5>
+            <p class="text-xs text-white font-bold italic leading-relaxed relative z-10">"${intel.scout}"</p>
+        </div>
+    `;
+    
+    modal.classList.remove('hidden');
+}
+
+/**
+ * PROTOCOL: INITIALIZE UPLINK
+ * Triggered by the satellite icon to show a system-wide broadcast confirmation.
+ */
+function broadcastPush(home, away) {
+    const btn = event.currentTarget;
+    const original = btn.innerHTML;
+    const alertBox = document.getElementById('eliteAlert');
+    const alertMsg = document.getElementById('alertMessage');
+    
+    // 1. Enter Loading State
+    btn.disabled = true;
+    btn.innerHTML = `<i class="fas fa-sync fa-spin"></i>`;
+    
+    setTimeout(() => {
+        // 2. Show Success on Button
+        btn.innerHTML = `<i class="fas fa-check text-green-500"></i>`;
+        
+        // 3. Trigger the Center Container Alert
+        alertMsg.innerText = `Broadcast signal for ${home} vs ${away} has been successfully synchronized with the Elite Network.`;
+        alertBox.classList.remove('hidden');
+        
+        // 4. Reset Button to original state after 2 seconds
+        setTimeout(() => {
+            btn.innerHTML = original;
+            btn.disabled = false;
+        }, 2000);
+    }, 1000);
+}
+
+/**
+ * PROTOCOL: CLOSE MODALS & ALERTS
+ */
+function closeEliteModal() {
+    document.getElementById('eliteModal').classList.add('hidden');
+}
+
+function closeEliteAlert() {
+    document.getElementById('eliteAlert').classList.add('hidden');
+}

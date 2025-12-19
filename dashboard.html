@@ -169,7 +169,38 @@
     </div>
 
 </section>
+<div id="eliteModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 backdrop-blur-md transition-all">
+    <div class="absolute inset-0 bg-[#030816]/90" onclick="closeEliteModal()"></div>
+    
+    <div class="relative bg-[#030816] border border-blue-500/20 w-full max-w-md rounded-[3.5rem] shadow-[0_0_100px_rgba(37,99,235,0.15)] animate-in overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
+        
+        <div class="p-10">
+            <div class="flex justify-between items-center mb-8">
+                <h4 id="modalTitle" class="text-2xl font-black italic uppercase text-white tracking-tighter italic">INTEL FEED</h4>
+                <button onclick="closeEliteModal()" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-blue-500">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
 
+            <div id="modalBody" class="space-y-6">
+                </div>
+        </div>
+    </div>
+</div>
+
+<div id="eliteAlert" class="fixed inset-0 z-[110] hidden flex items-center justify-center p-6 pointer-events-none">
+    <div class="bg-[#030816] border border-blue-500/40 p-8 rounded-[2.5rem] shadow-[0_0_80px_rgba(37,99,235,0.3)] max-w-sm w-full text-center animate-in pointer-events-auto">
+        <div class="w-16 h-16 bg-blue-600/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-blue-500/30">
+            <i class="fas fa-satellite-dish text-blue-500 text-2xl animate-pulse"></i>
+        </div>
+        <h5 class="text-white font-black italic uppercase tracking-tighter text-xl mb-2">Uplink Established</h5>
+        <p id="alertMessage" class="text-gray-400 text-[10px] font-bold uppercase tracking-widest leading-relaxed mb-6"></p>
+        <button onclick="closeEliteAlert()" class="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white text-[9px] font-black uppercase tracking-[0.3em] rounded-xl transition-all">
+            Acknowledge
+        </button>
+    </div>
+</div>
     <div id="mainDisplay" class="mt-10 bg-[#030816] border border-blue-500/10 rounded-[2.5rem] p-10 min-h-[500px] transition-all duration-500">
         </div>
 </main>
