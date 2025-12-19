@@ -176,83 +176,118 @@ const contentData = {
 
 
 
-
-
-   'Standings': `
-    <div class="space-y-6 animate-in pb-10">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-                <h3 class="text-2xl font-black italic uppercase tracking-tighter text-red-600">League Table</h3>
-                <p class="text-gray-500 text-[10px] uppercase tracking-widest font-bold">Season 03 // 08 Team Protocol</p>
+'Standings': `
+    <div class="space-y-8 animate-in pb-20 px-4">
+        <div class="flex flex-col gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-2 h-8 bg-blue-600 rounded-full shadow-[0_0_15px_rgba(37,99,235,0.5)]"></div>
+                <h3 class="text-3xl font-black italic uppercase tracking-tighter text-white">League Circuit</h3>
             </div>
-            <div class="bg-white/5 border border-white/10 px-4 py-3 rounded-xl md:rounded-2xl">
-                <p class="text-[9px] md:text-[10px] text-gray-400 uppercase font-bold tracking-widest">
-                    Protocol: <span class="text-white font-black">Top 4 Qualify for Glory Champion Cup</span>
-                </p>
-                <p class="text-[8px] md:text-[9px] text-red-500 font-bold uppercase tracking-tighter mt-1">
-                    Format: Semi-Finals & Grand Finale
-                </p>
+            <div class="flex flex-wrap items-center gap-3">
+                <span class="px-3 py-1 bg-blue-600/10 border border-blue-500/20 text-blue-500 text-[9px] font-black uppercase tracking-widest rounded-lg">Live Data Feed</span>
+                <span class="px-3 py-1 bg-white/5 border border-white/10 text-gray-400 text-[9px] font-black uppercase tracking-widest rounded-lg">12 Units Synced</span>
             </div>
         </div>
 
-        <div class="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
-            <table class="w-full text-left border-collapse min-w-[500px] md:min-w-full">
-                <thead>
-                    <tr class="text-gray-500 border-b border-white/5 uppercase text-[10px] tracking-[0.2em] font-black">
-                        <th class="pb-4 pl-2">Pos</th>
-                        <th class="pb-4">Team</th>
-                        <th class="pb-4 text-center">P</th>
-                        <th class="pb-4 text-center text-green-500 hidden md:table-cell">W</th>
-                        <th class="pb-4 text-center text-yellow-500 hidden md:table-cell">D</th>
-                        <th class="pb-4 text-center text-red-500 hidden md:table-cell">L</th>
-                        <th class="pb-4 text-center">GD</th>
-                        <th class="pb-4 text-right pr-2 text-white">Pts</th>
-                    </tr>
-                </thead>
-                <tbody class="text-gray-300 font-medium">
-                    ${[
-                        "NIL", "NIL", "NIL", "NIL", 
-                        "NIL", "NIL", "NIL", "NIL"
-                    ].map((team, index) => `
-                        <tr class="border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors group ${index < 4 ? 'bg-green-500/[0.01]' : ''}">
-                            <td class="py-4 pl-2 font-mono text-xs ${index < 4 ? 'text-green-500' : 'text-red-600'} font-bold">
-                                ${(index + 1).toString().padStart(2, '0')}
-                            </td>
-                            <td class="py-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-7 h-7 bg-white/5 border border-white/10 rounded flex items-center justify-center text-[10px] font-black group-hover:border-red-600/50 transition-colors uppercase italic">${team.charAt(0)}</div>
-                                    <div class="flex flex-col">
-                                        <span class="font-bold text-sm tracking-tight text-white">${team}</span>
-                                        ${index < 4 ? '<span class="text-[7px] text-green-500 uppercase font-black tracking-widest md:hidden">Qualified</span>' : ''}
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="py-4 text-center font-mono text-xs">0</td>
-                            <td class="py-4 text-center font-mono text-xs text-gray-500 hidden md:table-cell">0</td>
-                            <td class="py-4 text-center font-mono text-xs text-gray-500 hidden md:table-cell">0</td>
-                            <td class="py-4 text-center font-mono text-xs text-gray-500 hidden md:table-cell">0</td>
-                            <td class="py-4 text-center font-mono text-xs">0</td>
-                            <td class="py-4 text-right pr-2 font-black text-white">0</td>
+        <div class="bg-[#030816] border border-blue-500/10 rounded-[2.5rem] overflow-hidden shadow-2xl">
+            <div class="overflow-x-auto custom-scrollbar">
+                <table class="w-full text-left border-collapse min-w-[800px]">
+                    <thead>
+                        <tr class="bg-blue-600/5 text-blue-400 border-b border-blue-500/10 uppercase text-[9px] tracking-[0.2em] font-black">
+                            <th class="py-5 pl-8">Rank</th>
+                            <th class="py-5">Unit Name</th>
+                            <th class="py-5 text-center">MP</th>
+                            <th class="py-5 text-center">W</th>
+                            <th class="py-5 text-center">D</th>
+                            <th class="py-5 text-center">L</th>
+                            <th class="py-5 text-center">GF</th>
+                            <th class="py-5 text-center">GA</th>
+                            <th class="py-5 text-center">GD</th>
+                            <th class="py-5 text-right pr-8 text-white">PTS</th>
                         </tr>
-                    `).join('')}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="text-gray-300 font-bold divide-y divide-white/[0.03]">
+                        ${[
+                            { rank: 1, team: "MSS-200", mp: 3, w: 2, d: 1, l: 0, gf: 18, ga: 11, gd: "+7", pts: 7, crown: true },
+                            { rank: 2, team: "CSC-200", mp: 5, w: 2, d: 1, l: 2, gf: 15, ga: 21, gd: "-6", pts: 7 },
+                            { rank: 3, team: "CSC-400", mp: 2, w: 2, d: 0, l: 0, gf: 12, ga: 6, gd: "+6", pts: 6 },
+                            { rank: 4, team: "CSC-100", mp: 5, w: 2, d: 0, l: 3, gf: 16, ga: 17, gd: "-1", pts: 6 },
+                            { rank: 5, team: "NUR-200", mp: 2, w: 1, d: 1, l: 0, gf: 9, ga: 6, gd: "+3", pts: 4 },
+                            { rank: 6, team: "LAW-200", mp: 2, w: 1, d: 1, l: 0, gf: 12, ga: 11, gd: "+1", pts: 4 },
+                            { rank: 7, team: "LAW-100", mp: 2, w: 1, d: 0, l: 1, gf: 11, ga: 10, gd: "+1", pts: 3 },
+                            { rank: 8, team: "MSS-100", mp: 3, w: 1, d: 0, l: 2, gf: 7, ga: 9, gd: "-2", pts: 3 },
+                            { rank: 9, team: "MSS-300", mp: 1, w: 0, d: 0, l: 1, gf: 5, ga: 7, gd: "-2", pts: 0 },
+                            { rank: 10, team: "MED-200", mp: 1, w: 0, d: 0, l: 1, gf: 4, ga: 7, gd: "-3", pts: 0 },
+                            { rank: 11, team: "CSC-300", mp: 1, w: 0, d: 0, l: 1, gf: 1, ga: 5, gd: "-4", pts: 0 },
+                            { rank: 12, team: "MED-500", mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: "0", pts: 0 }
+                        ].map((data) => `
+                            <tr class="hover:bg-blue-600/[0.03] transition-colors group">
+                                <td class="py-5 pl-8">
+                                    <span class="text-xs font-mono ${data.rank <= 4 ? 'text-blue-500' : 'text-gray-600'}">${data.rank.toString().padStart(2, '0')}</span>
+                                </td>
+                                <td class="py-5">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-zinc-900 border border-white/5 flex items-center justify-center text-[8px] text-gray-500 italic group-hover:border-blue-500/50 transition-all uppercase">
+                                            ${data.team.split('-')[0]}
+                                        </div>
+                                        <span class="text-sm font-black tracking-tighter text-white uppercase italic flex items-center gap-2">
+                                            ${data.team}
+                                            ${data.crown ? '<i class="fas fa-crown text-[10px] text-yellow-500"></i>' : ''}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="py-5 text-center font-mono text-xs text-gray-400">${data.mp}</td>
+                                <td class="py-5 text-center font-mono text-xs text-blue-400">${data.w}</td>
+                                <td class="py-5 text-center font-mono text-xs text-gray-500">${data.d}</td>
+                                <td class="py-5 text-center font-mono text-xs text-red-900/50">${data.l}</td>
+                                <td class="py-5 text-center font-mono text-xs text-gray-400">${data.gf}</td>
+                                <td class="py-5 text-center font-mono text-xs text-gray-400">${data.ga}</td>
+                                <td class="py-5 text-center font-mono text-xs ${data.gd.startsWith('+') ? 'text-green-500' : data.gd.startsWith('-') ? 'text-red-500' : 'text-gray-500'}">${data.gd}</td>
+                                <td class="py-5 text-right pr-8 font-black text-white text-base">${data.pts}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <div class="mt-8 p-6 bg-red-600/5 border border-red-600/10 rounded-2xl relative overflow-hidden">
-            <div class="absolute top-0 right-0 p-4 opacity-10">
-                <i class="fas fa-trophy text-4xl text-red-600"></i>
+        <div class="relative p-8 bg-gradient-to-r from-blue-900/10 to-transparent border border-blue-500/10 rounded-[3rem] overflow-hidden group">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5"></div>
+            
+            <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+                <div class="flex items-center gap-6">
+                    <div class="relative">
+                    <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(37,99,235,0.3)]">
+    <i class="fas fa-shield-alt text-white text-2xl animate-pulse"></i>
+</div>
+
+
+                        <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-4 border-[#030816]"></div>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-black text-lg uppercase italic leading-none">High-Efficiency Logic</h4>
+                        <p class="text-[10px] text-blue-500 font-black uppercase tracking-[0.3em] mt-1">Real-Time Sync: 100% Verified</p>
+                    </div>
+                </div>
+
+                <div class="hidden lg:block w-[1px] h-12 bg-white/10"></div>
+
+                <p class="text-xs text-gray-500 uppercase font-bold leading-relaxed text-center lg:text-left max-w-lg italic">
+                    This circuit utilizes <span class="text-white">Elite-Grade Automation</span>. Every goal, unit rank, and goal difference is processed through a zero-latency protocol to ensure absolute data integrity for the 2025 resumption.
+                </p>
+
+                <div class="flex items-center gap-4">
+                    <div class="text-right hidden sm:block">
+                        <p class="text-[8px] text-gray-600 font-black uppercase tracking-widest">System Load</p>
+                        <p class="text-xs font-mono text-blue-400">OPTIMAL</p>
+                    </div>
+                   
+                </div>
             </div>
-            <p class="text-[10px] text-gray-500 uppercase font-black tracking-widest flex items-center gap-2">
-                <i class="fas fa-circle-info text-red-600"></i> Glory Champion Cup Path
-            </p>
-            <p class="text-xs text-gray-400 mt-2 leading-relaxed uppercase font-bold italic">
-                The <span class="text-green-500">Top 4</span> teams automatically advance to the knockouts:
-                <br class="hidden md:block"> 
-                1st vs 4th | 2nd vs 3rd (Semi-Finals) → Winner advances to the Grand Finale.
-            </p>
         </div>
     </div>`,
+
+
     
     'Live': `
     <div class="flex flex-col items-center justify-center min-h-[400px] text-center animate-in">
