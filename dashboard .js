@@ -531,41 +531,34 @@ const contentData = {
     </div>`,
 
 'Stats': `
-    <div class="space-y-8 animate-in pb-20 px-4">
+    <div class="space-y-8 animate-in pb-24 px-4">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 px-2">
-            <div>
-                <div class="flex items-center gap-3 mb-2">
+            <div class="space-y-1">
+                <div class="flex items-center gap-3">
                     <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-[0_0_8px_#3b82f6]"></div>
                     <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.4em]">Analytics Engine 1.0</span>
                 </div>
-                <h3 class="text-3xl md:text-4xl font-black italic uppercase tracking-tighter text-white">Unit <span class="text-blue-500">Analytics</span></h3>
-                <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-white italic">Protocol Active // Live Data Feed</span></p>
+                <h3 class="text-4xl md:text-5xl font-black italic uppercase tracking-tighter text-white">Unit <span class="text-blue-500">Analytics</span></h3>
+                <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold">Status: <span class="text-white italic">Protocol Active // Live Data Feed</span></p>
             </div>
-            <div class="hidden md:block">
-                <span class="px-5 py-2 bg-green-600/5 border border-green-500/20 rounded-2xl text-[10px] text-green-500 font-black uppercase tracking-widest">
+            <div class="w-full md:w-auto">
+                <span class="block text-center px-5 py-3 bg-green-600/10 border border-green-500/20 rounded-2xl text-[10px] text-green-500 font-black uppercase tracking-widest">
                     SYNC STATUS: ACTIVE
                 </span>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
             
-            <div class="bg-[#030816] border border-blue-500/10 rounded-[3rem] overflow-hidden shadow-2xl">
-                <div class="p-8 border-b border-white/5 bg-gradient-to-r from-blue-600/10 to-transparent flex justify-between items-center">
+            <div class="bg-[#030816] border border-blue-500/10 rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl">
+                <div class="p-6 md:p-8 border-b border-white/5 bg-gradient-to-r from-blue-600/10 to-transparent flex justify-between items-center">
                     <h4 class="text-white font-black uppercase italic tracking-tighter text-base flex items-center gap-3">
                         <i class="fas fa-crosshairs text-blue-500"></i> Golden Strike Rank
                     </h4>
                     <span class="text-[9px] text-gray-500 font-mono font-bold uppercase tracking-widest">Metric: G</span>
                 </div>
-                <div class="p-6">
-                    <table class="w-full text-left">
-                        <thead>
-                            <tr class="text-[9px] text-gray-600 uppercase tracking-[0.3em] font-black border-b border-white/5">
-                                <th class="py-4 pl-4 font-normal">Rank</th>
-                                <th class="py-4 font-normal">Operator / Unit</th>
-                                <th class="py-4 font-normal text-right pr-4">Payload</th>
-                            </tr>
-                        </thead>
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-[300px]">
                         <tbody class="divide-y divide-white/[0.02]">
                             ${[
                                 { name: "Chukwuemeka", val: "6" },
@@ -575,22 +568,22 @@ const contentData = {
                                 { name: "Christian Dior", val: "3" }
                             ].map((player, i) => `
                                 <tr class="group hover:bg-blue-600/[0.03] transition-colors">
-                                    <td class="py-6 pl-4">
+                                    <td class="py-5 pl-6 w-12">
                                         <span class="text-xs font-mono font-black ${i === 0 ? 'text-blue-500' : 'text-gray-600'}">#0${i+1}</span>
                                     </td>
-                                    <td class="py-6">
-                                        <div class="flex items-center gap-4">
-                                            <div class="w-10 h-10 bg-zinc-900 rounded-xl border border-white/5 flex items-center justify-center group-hover:border-blue-500/30 transition-all">
-                                                <i class="fas fa-user-shield text-[12px] text-gray-700 group-hover:text-blue-500"></i>
+                                    <td class="py-5">
+                                        <div class="flex items-center gap-3 md:gap-4">
+                                            <div class="hidden sm:flex w-10 h-10 bg-zinc-900 rounded-xl border border-white/5 items-center justify-center">
+                                                <i class="fas fa-user-shield text-[12px] text-gray-700"></i>
                                             </div>
-                                            <div>
-                                                <p class="text-[12px] text-white font-black uppercase italic tracking-tighter">${player.name}</p>
-                                                <p class="text-[9px] text-blue-500/50 font-bold uppercase tracking-widest italic">Node Verified</p>
+                                            <div class="min-w-0">
+                                                <p class="text-[13px] md:text-sm text-white font-black uppercase italic tracking-tighter truncate">${player.name}</p>
+                                                <p class="text-[8px] text-blue-500/50 font-bold uppercase tracking-widest italic">Node Verified</p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="py-6 pr-4 text-right">
-                                        <span class="text-sm text-white font-black italic">${player.val}</span>
+                                    <td class="py-5 pr-8 text-right">
+                                        <span class="text-lg md:text-xl text-white font-black italic tracking-tighter">${player.val}</span>
                                     </td>
                                 </tr>
                             `).join('')}
@@ -599,22 +592,15 @@ const contentData = {
                 </div>
             </div>
 
-            <div class="bg-[#030816] border border-blue-500/10 rounded-[3rem] overflow-hidden shadow-2xl">
-                <div class="p-8 border-b border-white/5 bg-gradient-to-r from-cyan-600/10 to-transparent flex justify-between items-center">
+            <div class="bg-[#030816] border border-blue-500/10 rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl">
+                <div class="p-6 md:p-8 border-b border-white/5 bg-gradient-to-r from-cyan-600/10 to-transparent flex justify-between items-center">
                     <h4 class="text-white font-black uppercase italic tracking-tighter text-base flex items-center gap-3">
                         <i class="fas fa-microchip text-cyan-400"></i> Playmaker Rank
                     </h4>
                     <span class="text-[9px] text-gray-500 font-mono font-bold uppercase tracking-widest">Metric: A</span>
                 </div>
-                <div class="p-6">
-                    <table class="w-full text-left">
-                        <thead>
-                            <tr class="text-[9px] text-gray-600 uppercase tracking-[0.3em] font-black border-b border-white/5">
-                                <th class="py-4 pl-4 font-normal">Rank</th>
-                                <th class="py-4 font-normal">Operator / Unit</th>
-                                <th class="py-4 font-normal text-right pr-4">Assists</th>
-                            </tr>
-                        </thead>
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-[300px]">
                         <tbody class="divide-y divide-white/[0.02]">
                             ${[
                                 { name: "Chukwuemeka", val: "6" },
@@ -624,22 +610,22 @@ const contentData = {
                                 { name: "Kev o", val: "3" }
                             ].map((player, i) => `
                                 <tr class="group hover:bg-cyan-600/[0.03] transition-colors">
-                                    <td class="py-6 pl-4">
+                                    <td class="py-5 pl-6 w-12">
                                         <span class="text-xs font-mono font-black ${i === 0 ? 'text-cyan-400' : 'text-gray-600'}">#0${i+1}</span>
                                     </td>
-                                    <td class="py-6">
-                                        <div class="flex items-center gap-4">
-                                            <div class="w-10 h-10 bg-zinc-900 rounded-xl border border-white/5 flex items-center justify-center group-hover:border-cyan-400/30 transition-all">
-                                                <i class="fas fa-terminal text-[12px] text-gray-700 group-hover:text-cyan-400"></i>
+                                    <td class="py-5">
+                                        <div class="flex items-center gap-3 md:gap-4">
+                                            <div class="hidden sm:flex w-10 h-10 bg-zinc-900 rounded-xl border border-white/5 items-center justify-center">
+                                                <i class="fas fa-terminal text-[12px] text-gray-700"></i>
                                             </div>
-                                            <div>
-                                                <p class="text-[12px] text-white font-black uppercase italic tracking-tighter">${player.name}</p>
-                                                <p class="text-[9px] text-cyan-500/50 font-bold uppercase tracking-widest italic">Uplink Stable</p>
+                                            <div class="min-w-0">
+                                                <p class="text-[13px] md:text-sm text-white font-black uppercase italic tracking-tighter truncate">${player.name}</p>
+                                                <p class="text-[8px] text-cyan-500/50 font-bold uppercase tracking-widest italic">Uplink Stable</p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="py-6 pr-4 text-right">
-                                        <span class="text-sm text-white font-black italic">${player.val}</span>
+                                    <td class="py-5 pr-8 text-right">
+                                        <span class="text-lg md:text-xl text-white font-black italic tracking-tighter">${player.val}</span>
                                     </td>
                                 </tr>
                             `).join('')}
@@ -649,40 +635,41 @@ const contentData = {
             </div>
         </div>
 
-       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             <div class="p-8 bg-blue-600/5 border border-blue-500/10 rounded-[2.5rem] group hover:bg-blue-600/10 transition-all">
-                <div class="flex justify-between items-start mb-6">
+                <div class="flex justify-between items-start mb-4">
                     <i class="fas fa-bolt text-2xl text-blue-500"></i>
                     <span class="text-[9px] text-blue-500 font-black uppercase tracking-widest">Discipline</span>
                 </div>
-                <h5 class="text-white font-black text-xs uppercase tracking-widest mb-2 italic">Total Breach Cards</h5>
-                <p class="text-4xl font-black italic text-white tracking-tighter">8</p>
-                <p class="text-[8px] text-blue-500/40 font-bold uppercase mt-2 tracking-widest">Across All Sectors</p>
+                <h5 class="text-white font-black text-xs uppercase tracking-widest mb-1 italic">Total Breach Cards</h5>
+                <p class="text-4xl md:text-5xl font-black italic text-white tracking-tighter">8</p>
+                <p class="text-[9px] text-blue-500/40 font-bold uppercase mt-2 tracking-widest">Across All Sectors</p>
             </div>
             
             <div class="p-8 bg-white/[0.02] border border-white/10 rounded-[2.5rem] group hover:border-cyan-500/20 transition-all">
-                <div class="flex justify-between items-start mb-6">
+                <div class="flex justify-between items-start mb-4">
                     <i class="fas fa-shield-halved text-2xl text-cyan-400"></i>
                     <span class="text-[9px] text-gray-500 font-black uppercase tracking-widest">Defense</span>
                 </div>
-                <h5 class="text-white font-black text-xs uppercase tracking-widest mb-2 italic">Null-Goal Sheets</h5>
-                <p class="text-4xl font-black italic text-white tracking-tighter">03</p>
-                <p class="text-[8px] text-cyan-500/40 font-bold uppercase mt-2 tracking-widest">Leading: MSS-200</p>
+                <h5 class="text-white font-black text-xs uppercase tracking-widest mb-1 italic">Null-Goal Sheets</h5>
+                <p class="text-4xl md:text-5xl font-black italic text-white tracking-tighter">03</p>
+                <p class="text-[9px] text-cyan-500/40 font-bold uppercase mt-2 tracking-widest">Leading: MSS-200</p>
             </div>
 
             <div class="p-8 bg-white/[0.02] border border-white/10 rounded-[2.5rem] group hover:border-white/20 transition-all">
-                <div class="flex justify-between items-start mb-6">
+                <div class="flex justify-between items-start mb-4">
                     <i class="fas fa-chart-pie text-2xl text-gray-600"></i>
                     <span class="text-[9px] text-gray-500 font-black uppercase tracking-widest">Efficiency</span>
                 </div>
-                <h5 class="text-white font-black text-xs uppercase tracking-widest mb-2 italic">Goal / Node Ratio</h5>
-                <p class="text-4xl font-black italic text-white tracking-tighter">4.07</p>
-                <p class="text-[8px] text-gray-600 font-bold uppercase mt-2 tracking-widest">Total Goals: 110</p>
+                <h5 class="text-white font-black text-xs uppercase tracking-widest mb-1 italic">Goal / Node Ratio</h5>
+                <p class="text-4xl md:text-5xl font-black italic text-white tracking-tighter">4.07</p>
+                <p class="text-[9px] text-gray-600 font-bold uppercase mt-2 tracking-widest">Total Goals: 110</p>
             </div>
         </div>
     </div>`,
 
 
+    
 
   'Highlights': `
     <div class="space-y-12 animate-in pb-24 px-6 md:px-10">
