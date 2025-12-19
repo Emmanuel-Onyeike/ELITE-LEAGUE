@@ -288,40 +288,53 @@ const contentData = {
     </div>`,
 
 
-    
     'Live': `
-    <div class="flex flex-col items-center justify-center min-h-[400px] text-center animate-in">
-        <div class="relative w-32 h-32 mb-8">
-            <div class="absolute inset-0 bg-red-600/10 rounded-full animate-ping"></div>
-            <div class="absolute inset-2 border-2 border-dashed border-red-600/20 rounded-full animate-[spin_10s_linear_infinite]"></div>
-            <div class="absolute inset-10 bg-gradient-to-t from-red-600 to-red-500 rounded-2xl rotate-45 flex items-center justify-center shadow-[0_0_30px_rgba(220,38,38,0.5)]">
-                <i class="fas fa-satellite-dish text-white -rotate-45 text-xl"></i>
+    <div class="flex flex-col items-center justify-center min-h-[600px] text-center animate-in px-4">
+        
+        <div class="relative w-48 h-48 mb-12">
+            <div class="absolute inset-0 border border-blue-500/10 rounded-[3rem] animate-[spin_15s_linear_infinite]"></div>
+            <div class="absolute inset-4 border border-dashed border-blue-500/20 rounded-[2.5rem] animate-[spin_10s_linear_infinite_reverse]"></div>
+            
+            <div class="absolute inset-12 bg-[#030816] border border-blue-500/40 rounded-[2rem] flex items-center justify-center shadow-[0_0_50px_rgba(37,99,235,0.2)] group">
+                <i class="fas fa-microchip text-blue-500 text-3xl animate-pulse"></i>
+                
+                <div class="absolute -top-2 left-1/2 w-2 h-2 bg-blue-500 rounded-full shadow-[0_0_10px_#3b82f6]"></div>
+                <div class="absolute -bottom-2 left-1/2 w-2 h-2 bg-cyan-400 rounded-full shadow-[0_0_10px_#22d3ee]"></div>
             </div>
         </div>
 
-        <div class="space-y-2">
-            <h3 class="text-2xl font-black italic uppercase tracking-tighter text-white">Signal Standby</h3>
-            <p class="text-red-600 font-mono text-[10px] uppercase tracking-[0.3em] font-bold">Scanning MIKOKO Frequencies...</p>
+        <div class="space-y-4">
+            <div class="flex items-center justify-center gap-3">
+                <span class="px-3 py-1 bg-blue-600 text-white text-[8px] font-black uppercase tracking-[0.3em] rounded-md">System Phase 02</span>
+            </div>
+            <h3 class="text-4xl font-black italic uppercase tracking-tighter text-white">Engineering In Progress</h3>
+            <p class="text-blue-500 font-mono text-[10px] uppercase tracking-[0.5em] font-bold">Elite Engineers are working on this node...</p>
         </div>
 
-        <div class="flex gap-1 h-4 mt-8">
-            <div class="w-1 bg-red-600/20 rounded-full animate-[pulse_1s_ease-in-out_infinite]"></div>
-            <div class="w-1 bg-red-600/40 rounded-full animate-[pulse_1.2s_ease-in-out_infinite]"></div>
-            <div class="w-1 bg-red-600/60 rounded-full animate-[pulse_1.5s_ease-in-out_infinite]"></div>
-            <div class="w-1 bg-red-600/40 rounded-full animate-[pulse_1.2s_ease-in-out_infinite]"></div>
-            <div class="w-1 bg-red-600/20 rounded-full animate-[pulse_1s_ease-in-out_infinite]"></div>
-        </div>
-
-        <div class="mt-12 max-w-sm p-6 bg-white/[0.02] border border-white/5 rounded-[2rem]">
-            <p class="text-[11px] text-gray-500 uppercase leading-relaxed font-medium">
-                The <span class="text-white">Live Broadcast Engine</span> is currently under calibration. 
-                Real-time match tracking and instant score updates will be deployed in the <span class="text-red-600 font-bold">Next System Update</span>.
+        <div class="mt-12 w-full max-w-xl p-10 bg-gradient-to-b from-white/[0.03] to-transparent border border-white/5 rounded-[3.5rem] relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
+            
+            <p class="text-sm text-gray-400 uppercase leading-relaxed font-bold italic">
+                The <span class="text-white">Elite Broadcast Engine</span> is being optimized for high-velocity match tracking. 
+                Our engineering team is finalizing the <span class="text-blue-500 font-black">Direct-Lens Uplink</span> protocol.
             </p>
-            <div class="mt-4 pt-4 border-t border-white/5">
-                <p class="text-[9px] text-gray-600 uppercase tracking-widest font-bold">Expected Online: Matchday 01 Kickoff</p>
+            
+            <div class="mt-8 flex flex-col items-center gap-4">
+                <div class="flex gap-2">
+                    <div class="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                    <div class="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                    <div class="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
+                </div>
+                <h4 class="text-[11px] text-white font-black uppercase tracking-[0.4em] opacity-80">Stay Tuned for Kickoff</h4>
             </div>
         </div>
+
+        <p class="mt-10 text-[9px] text-gray-600 uppercase tracking-widest font-bold">
+            <i class="fas fa-mobile-screen-button mr-2"></i> Camera Transmission Support: Finalizing Encryption
+        </p>
     </div>`,
+
+
 
     'Glory Cup': `
 <div class="space-y-8 animate-in pb-20 px-2 md:px-0">
