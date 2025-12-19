@@ -13,7 +13,7 @@
 /* --- 2. BASE CONFIG --- */
 html {
     scroll-behavior: smooth;
-    overscroll-behavior-y: none; /* Prevents mobile bounce */
+    overscroll-behavior-y: none;
 }
 
 body {
@@ -26,58 +26,57 @@ body {
 
 .font-sync { font-family: 'Syncopate', sans-serif; }
 
-/* --- 3. NAVIGATION (PC & SHARED) --- */
-.nav-item {
+/* --- 3. SHARED NAVIGATION STYLES --- */
+.sidebar-item {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 0.85rem 1.25rem;
+    padding: 1rem 1.25rem;
     border-radius: 1rem;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 700;
     color: #64748b;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    width: 100%;
-    text-align: left;
-    background: transparent;
-    border: none;
+    position: relative;
+    overflow: hidden;
 }
 
-.nav-item:hover {
+.sidebar-item:hover {
     color: white;
     background: rgba(37, 99, 235, 0.05);
 }
 
-.nav-item.active {
+.sidebar-item.active {
     background: rgba(37, 99, 235, 0.1);
-    color: var(--elite-blue);
-    position: relative;
-    box-shadow: inset 4px 0 15px -5px var(--elite-blue-glow);
+    color: #2563eb;
+    box-shadow: inset 8px 0 20px -10px rgba(37, 99, 235, 0.4);
 }
 
-.nav-item.active::after {
-    content: '';
+.sidebar-item.active::before {
+    content: "";
     position: absolute;
     left: 0;
+    top: 25%;
     height: 50%;
-    width: 3px;
-    background: var(--elite-blue);
+    width: 4px;
+    background: #2563eb;
     border-radius: 0 4px 4px 0;
+    box-shadow: 2px 0 10px rgba(37, 99, 235, 0.8);
 }
 
-.nav-item i {
-    width: 20px;
-    font-size: 1rem;
+.sidebar-item i {
+    width: 24px;
+    font-size: 1.1rem;
     transition: transform 0.3s ease;
 }
 
-.nav-item:hover i {
-    transform: translateX(3px);
-    color: var(--elite-blue);
+.sidebar-item:hover i {
+    transform: translateX(4px);
+    color: #2563eb;
 }
 
-/* --- 4. ELITE CARDS --- */
+/* --- 4. ELITE CARDS (DESKTOP) --- */
 .elite-card {
     background: var(--glass);
     border: 1px solid var(--glass-border);
@@ -122,61 +121,126 @@ body {
     text-transform: uppercase;
 }
 
-/* --- 5. EXCEPTIONAL MOBILE ENGINE --- */
+/* --- 5. MOBILE OPTIMIZATION - SPACIOUS & APP-LIKE --- */
 @media (max-width: 1024px) {
-    /* Main Content Spacing */
+    /* Main content - more breathing room */
     main {
-        padding: 1.5rem !important;
+        padding: 1.5rem 1rem !important;
     }
 
-    /* Airy Sidebar */
+    /* Header title spacing */
+    #viewTitle {
+        font-size: 2.5rem !important;
+        line-height: 1.1;
+    }
+
+    /* Sidebar - wider, more comfortable */
     #sidebar {
-        width: 80% !important;
-        background: linear-gradient(180deg, #030816, #01040d) !important;
-        box-shadow: 25px 0 50px rgba(0,0,0,0.8);
+        width: 85% !important;
+        max-width: 320px;
+        background: linear-gradient(180deg, #030816, #01040d);
+        box-shadow: 30px 0 60px rgba(0,0,0,0.9);
+        padding: 1.5rem 1.25rem;
     }
 
-    .nav-item {
-        padding: 1rem !important;
-        margin-bottom: 0.4rem;
-        font-size: 0.95rem;
+    /* Nav items - taller, bigger touch targets */
+    .sidebar-item {
+        padding: 1.25rem 1.5rem !important;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+        border-radius: 1.25rem;
+        gap: 1.25rem;
     }
 
-    /* Cards - Less Heavy on Mobile */
+    .sidebar-item i {
+        width: 28px;
+        font-size: 1.3rem;
+    }
+
+    /* Elite cards - full width, generous padding, bigger text */
     .elite-card {
-        padding: 1.5rem !important;
-        border-radius: 1.75rem;
+        padding: 2rem 1.75rem !important;
+        border-radius: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .card-tag {
+        font-size: 0.75rem;
+        letter-spacing: 0.3em;
+        margin-bottom: 1rem;
     }
 
     .card-val {
-        font-size: 1.6rem;
+        font-size: 2.4rem !important;
+        line-height: 1;
     }
 
-    /* Inputs - Modern Mobile Touch */
-    input, select, button {
-        font-size: 16px !important; /* Prevents iOS zoom-in */
+    /* Grid - single column for perfect spacing */
+    .grid {
+        gap: 1.5rem !important;
     }
 
-    /* Tap Feedback */
-    .nav-item:active, .elite-card:active {
-        transform: scale(0.97);
-        opacity: 0.9;
+    section.grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Prevent zoom on inputs */
+    input, select, button, textarea {
+        font-size: 16px !important;
+    }
+
+    /* Smooth tap feedback */
+    .sidebar-item:active,
+    .elite-card:active,
+    button:active {
+        transform: scale(0.96);
+        transition: transform 0.1s;
+    }
+
+    /* Extra space for safe area on iPhone */
+    body {
+        padding-bottom: max(env(safe-area-inset-bottom), 1rem);
+    }
+}
+
+/* Smaller phones - even more comfort */
+@media (max-width: 480px) {
+    main {
+        padding: 1.25rem 0.75rem !important;
+    }
+
+    #viewTitle {
+        font-size: 2.2rem !important;
+    }
+
+    .elite-card {
+        padding: 2rem 1.5rem !important;
+    }
+
+    .card-val {
+        font-size: 2.2rem !important;
+    }
+
+    .sidebar-item {
+        padding: 1.1rem 1.3rem !important;
     }
 }
 
 /* --- 6. UTILITIES & ANIMATIONS --- */
 .custom-scroll::-webkit-scrollbar {
-    width: 3px;
+    width: 4px;
 }
+
 .custom-scroll::-webkit-scrollbar-thumb {
     background: var(--glass-border);
     border-radius: 10px;
 }
+
 .custom-scroll::-webkit-scrollbar-thumb:hover {
     background: var(--elite-blue);
 }
 
-/* Scan-line Effect for Data Containers */
+/* Scan-line effect */
 @keyframes scan-line {
     0% { transform: translateY(-100%); opacity: 0; }
     50% { opacity: 0.3; }
@@ -184,68 +248,25 @@ body {
 }
 
 .elite-card::after {
-    content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 2px;
     background: linear-gradient(90deg, transparent, var(--elite-blue), transparent);
     animation: scan-line 4s ease-in-out infinite;
     pointer-events: none;
     opacity: 0.2;
 }
 
-/* Page Transitions */
-.animate-fadeIn {
-    animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
-/* --- UPDATED NAVIGATION STYLE --- */
-.sidebar-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.85rem 1.25rem;
-    border-radius: 1rem;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #64748b;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
+
+.animate-fadeIn {
+    animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.sidebar-item:hover {
-    color: white;
-    background: rgba(37, 99, 235, 0.05);
-}
-
-.sidebar-item.active {
-    background: rgba(37, 99, 235, 0.1);
-    color: #2563eb; /* Elite Blue */
-    box-shadow: inset 8px 0 20px -10px rgba(37, 99, 235, 0.4);
-}
-
-/* The Blue Glowing Indicator */
-.sidebar-item.active::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 25%;
-    height: 50%;
-    width: 4px;
-    background: #2563eb;
-    border-radius: 0 4px 4px 0;
-    box-shadow: 2px 0 10px rgba(37, 99, 235, 0.8);
-}
-
-.sidebar-item i {
-    width: 20px;
-    transition: transform 0.3s ease;
-}
-
-.sidebar-item:hover i {
-    transform: translateX(3px);
-    color: #2563eb;
+#digitalClock {
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+    letter-spacing: 1px;
 }
