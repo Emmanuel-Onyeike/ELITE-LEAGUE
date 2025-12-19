@@ -1335,80 +1335,75 @@ const contentData = {
 
 
     
-   'Mikoko Payment': `
-<div class="space-y-8 animate-in pb-12">
-    <div class="flex justify-between items-end">
-        <div>
-            <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">Financial Node</h3>
-            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-green-500">Payment Channels Active</span></p>
+  'Mikoko Payment': `
+<div class="animate-in pb-40 px-6 md:px-16 space-y-16">
+    <div class="pt-10 flex flex-col gap-6">
+        <div class="flex items-center gap-4">
+            <div class="h-[1px] w-12 bg-blue-500"></div>
+            <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.5em]">Sector: FINANCIAL_NODE</span>
         </div>
-        <i class="fas fa-file-invoice-dollar text-red-600 opacity-20 text-3xl"></i>
+        <h3 class="text-6xl md:text-8xl font-black italic uppercase tracking-tighter text-white leading-[0.85]">
+            Elite <br><span class="text-transparent stroke-blue-500" style="-webkit-text-stroke: 1px #3b82f6;">Finance</span>
+        </h3>
+        <p class="text-gray-500 text-[11px] uppercase tracking-[0.3em] font-bold">Status: <span class="text-blue-400 italic">Phase 01 - Foundation</span></p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="p-6 bg-red-600/10 border border-red-600/20 rounded-3xl">
-            <span class="text-[9px] text-red-600 font-black uppercase tracking-widest">Franchise Fee</span>
-            <h4 class="text-2xl font-black text-white italic uppercase">₦4,000</h4>
-            <p class="text-[10px] text-gray-400 font-bold uppercase mt-1">To Own, Name, & Coach a Team</p>
+    <div class="relative p-12 md:p-24 bg-[#020617] border border-blue-500/10 rounded-[4rem] overflow-hidden flex flex-col items-center justify-center text-center shadow-[0_50px_100px_rgba(0,0,0,0.8)]">
+        
+        <div class="absolute inset-0 opacity-20 pointer-events-none">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_0%,transparent_80%)]"></div>
         </div>
-        <div class="p-6 bg-white/5 border border-white/10 rounded-3xl">
-            <span class="text-[9px] text-gray-400 font-black uppercase tracking-widest">Player Fee</span>
-            <h4 class="text-2xl font-black text-white italic uppercase">₦2,000</h4>
-            <p class="text-[10px] text-gray-400 font-bold uppercase mt-1">To Register for the Draft Pool</p>
+
+        <div class="relative z-10 max-w-2xl">
+            <div class="w-24 h-24 bg-blue-600/5 text-blue-500 rounded-[2.5rem] flex items-center justify-center mx-auto mb-12 border border-blue-500/20 shadow-[0_0_60px_rgba(59,130,246,0.1)]">
+                <i class="fas fa-hand-holding-heart text-4xl animate-pulse"></i>
+            </div>
+            
+            <h4 class="text-3xl md:text-5xl font-black text-white italic tracking-tighter uppercase leading-tight mb-8">
+                No Fees <br>
+                <span class="text-blue-500">Required</span>
+            </h4>
+
+            <div class="inline-block px-8 py-3 bg-zinc-950 border border-white/5 rounded-2xl mb-12">
+                <span class="text-[10px] text-gray-500 font-black uppercase tracking-[0.5em]">Current Cycle: 2025 FOUNDATION</span>
+            </div>
+
+            <p class="text-base md:text-lg text-gray-400 font-bold uppercase leading-[2.2] tracking-widest mb-12 italic">
+                As the <span class="text-white">Elite League</span> begins its new form in 2025, the committee has not requested any financial contributions. 
+                There are <span class="text-blue-500 underline underline-offset-8 decoration-blue-500/30">no payment channels</span> active at this time.
+            </p>
+
+            <div class="p-10 bg-blue-600/5 border border-blue-500/10 rounded-[3rem]">
+                <p class="text-[11px] text-blue-400 font-black uppercase tracking-[0.4em] leading-relaxed">
+                    Any future player acquisitions (₦4,000) will be handled manually through team-to-team accounts once authorized.
+                </p>
+            </div>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div class="p-8 bg-zinc-900/50 border border-white/10 rounded-[2.5rem] relative overflow-hidden">
-            <div class="relative z-10">
-                <span class="text-[9px] text-red-600 font-black uppercase tracking-[0.2em]">Transfer Protocol</span>
-                <h4 class="text-xl font-black text-white italic mt-2 mb-6 uppercase tracking-tighter">Account Information</h4>
-                
-                <div class="space-y-4">
-                    <div class="p-4 bg-white/5 rounded-2xl border border-white/5">
-                        <p class="text-[9px] text-gray-500 uppercase font-bold">Bank Name</p>
-                        <p class="text-lg text-white font-black italic uppercase">OPAY</p>
-                    </div>
-                     <div class="p-4 bg-white/5 rounded-2xl border border-white/5">
-                        <p class="text-[9px] text-gray-500 uppercase font-bold">Account Name</p>
-                        <p class="text-lg text-white font-black italic uppercase">IBEKU TOCHUKWU</p>
-                    </div>
-                    <div class="p-4 bg-white/5 rounded-2xl border border-white/5">
-                        <p class="text-[9px] text-gray-500 uppercase font-bold">Account Number</p>
-                        <p class="text-2xl text-red-600 font-mono font-black tracking-tighter">7062959301</p>
-                    </div>
+    <div class="flex flex-col gap-10">
+        <div class="p-10 md:p-14 bg-white/[0.01] border border-white/5 rounded-[4rem] group hover:border-blue-500/20 transition-all duration-700">
+            <div class="flex items-center gap-6 mb-8">
+                <div class="w-12 h-12 rounded-2xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center text-blue-500">
+                    <i class="fas fa-info-circle"></i>
                 </div>
+                <h5 class="text-2xl font-black text-white uppercase italic tracking-tighter">Manual Protocol</h5>
             </div>
+            <p class="text-gray-500 text-xs md:text-sm font-bold uppercase leading-[2.2] tracking-widest italic">
+                The League has seen no reason to request funds in this initial phase. All transactions, should they arise, will remain strictly <span class="text-white">Manager-to-Manager</span> via team accounts.
+            </p>
         </div>
 
-        <div class="relative p-8 bg-[#0a0a0a] border border-red-600/20 rounded-[2.5rem] flex flex-col justify-center overflow-hidden">
-            <div class="relative z-10">
-                <div class="w-12 h-12 bg-red-600/10 border border-red-600/30 rounded-xl flex items-center justify-center mb-6">
-                    <i class="fas fa-paper-plane text-red-600"></i>
-                </div>
-                <h4 class="text-white font-black uppercase italic text-xl tracking-tighter mb-4">Verification Steps</h4>
-                <ul class="space-y-4">
-                    <li class="flex gap-4">
-                        <span class="w-5 h-5 rounded-full bg-red-600 text-white text-[10px] flex items-center justify-center font-black">1</span>
-                        <p class="text-[10px] text-gray-400 font-bold uppercase leading-relaxed">Transfer the exact fee (₦2,000 or ₦4,000) to the account provided.</p>
-                    </li>
-                    <li class="flex gap-4">
-                        <span class="w-5 h-5 rounded-full bg-red-600 text-white text-[10px] flex items-center justify-center font-black">2</span>
-                        <p class="text-[10px] text-gray-400 font-bold uppercase leading-relaxed">Capture a clear screenshot of the successful transaction receipt.</p>
-                    </li>
-                    <li class="flex gap-4">
-                        <span class="w-5 h-5 rounded-full bg-red-600 text-white text-[10px] flex items-center justify-center font-black">3</span>
-                        <p class="text-[10px] text-white font-black uppercase leading-relaxed">Send the receipt directly to <span class="text-red-600">TOGA's DM</span> for manual validation.</p>
-                    </li>
-                </ul>
-                
-                <div class="mt-8 pt-6 border-t border-white/5">
-                    <p class="text-[9px] text-gray-600 font-mono uppercase italic">Note: Only payments verified by the Planning Committee are valid.</p>
-                </div>
-            </div>
+        <div class="pt-10 text-center opacity-20">
+            <p class="text-[8px] text-gray-800 font-black uppercase tracking-[0.8em]">
+                Elite Financial Oversight Node // Authorized 2025
+            </p>
         </div>
     </div>
 </div>`,
+
+
+
    'Team Lab': `
 <div class="space-y-8 animate-in pb-12">
     <div class="flex justify-between items-end">
