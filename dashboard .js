@@ -337,107 +337,139 @@ const contentData = {
 
 
     'Glory Cup': `
-<div class="space-y-8 animate-in pb-20 px-2 md:px-0">
-    <div class="flex justify-between items-end border-b border-blue-500/20 pb-6">
+<div class="space-y-8 animate-in pb-20 px-4 md:px-0">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-blue-500/20 pb-8 gap-4">
         <div>
             <div class="flex items-center gap-3 mb-2">
-                <i class="fas fa-trophy text-blue-500 drop-shadow-[0_0_8px_rgba(59,130,246,0.6)]"></i>
-                <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.4em]">Elite Tournament</span>
+                <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-[0_0_8px_#3b82f6]"></div>
+                <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.4em]">Knockout Protocol</span>
             </div>
-            <h3 class="text-3xl md:text-4xl font-black italic uppercase tracking-tighter text-white">Glory <span class="text-blue-500">Cup</span></h3>
-            <p class="text-gray-500 text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-blue-400 italic font-black">Qualification Protocol Active</span></p>
+            <h3 class="text-4xl md:text-5xl font-black italic uppercase tracking-tighter text-white">Elite <span class="text-blue-500">Cup</span></h3>
+            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-2">Requirement: <span class="text-white italic font-black">Top 4 League Finishers Only</span></p>
         </div>
-        <div class="hidden md:block text-right">
-            <p class="text-[9px] text-gray-600 font-black uppercase">Season 03</p>
-            <p class="text-xs text-white font-mono font-bold tracking-tighter">FINALS // JAN 2026</p>
+        <div class="text-left md:text-right bg-blue-600/5 p-4 rounded-2xl border border-blue-500/10">
+            <p class="text-[9px] text-blue-500 font-black uppercase tracking-widest">Season 01 Resumption</p>
+            <p class="text-sm text-white font-mono font-black tracking-tighter">FINALS // 2025 CIRCUIT</p>
         </div>
     </div>
 
-    <div class="relative p-6 md:p-12 bg-[#070707] border border-blue-500/10 rounded-[3rem] overflow-hidden">
-        <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 blur-[100px] rounded-full"></div>
-        <div class="absolute bottom-0 left-0 w-64 h-64 bg-blue-600/5 blur-[100px] rounded-full"></div>
+    <div class="relative p-6 md:p-16 bg-[#030816] border border-blue-500/10 rounded-[4rem] overflow-hidden shadow-2xl">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-blue-600/5 blur-[120px] rounded-full"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-cyan-600/5 blur-[120px] rounded-full"></div>
 
-        <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 items-center gap-8">
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-3 items-center gap-12 lg:gap-4">
             
-            <div class="space-y-4">
-                <h4 class="text-[10px] text-blue-500 font-black uppercase text-center mb-6 tracking-[0.3em]">Semi-Final A</h4>
-                <div class="p-4 bg-white/5 border border-white/10 rounded-2xl opacity-40 grayscale">
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-[8px] text-gray-500 font-black italic uppercase">Rank #1</span>
-                        <span class="w-2 h-2 rounded-full bg-blue-500/20"></span>
-                    </div>
-                    <p class="text-white font-black uppercase italic text-sm">TBD UNIT</p>
+            <div class="space-y-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="h-[1px] w-8 bg-blue-500/30"></span>
+                    <h4 class="text-[10px] text-blue-500 font-black uppercase tracking-[0.4em]">Semi-Final A</h4>
                 </div>
-                <div class="flex justify-center text-blue-500/30 py-2"><i class="fas fa-bolt"></i></div>
-                <div class="p-4 bg-white/5 border border-white/10 rounded-2xl opacity-40 grayscale">
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-[8px] text-gray-500 font-black italic uppercase">Rank #4</span>
-                        <span class="w-2 h-2 rounded-full bg-blue-500/20"></span>
+                
+                <div class="p-6 bg-white/[0.03] border border-white/10 rounded-[2rem] group hover:border-blue-500/50 transition-all opacity-60 grayscale">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-[9px] text-blue-500 font-black italic uppercase">League Leader #1</span>
+                        <i class="fas fa-lock text-[10px] text-gray-700"></i>
                     </div>
-                    <p class="text-white font-black uppercase italic text-sm">TBD UNIT</p>
+                    <p class="text-white font-black uppercase italic text-lg tracking-tight">TBD UNIT</p>
+                </div>
+
+                <div class="flex justify-center">
+                    <div class="w-10 h-10 rounded-full bg-zinc-950 border border-blue-500/20 flex items-center justify-center">
+                        <i class="fas fa-bolt text-blue-500 text-xs animate-pulse"></i>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-white/[0.03] border border-white/10 rounded-[2rem] group hover:border-blue-500/50 transition-all opacity-60 grayscale">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-[9px] text-blue-500 font-black italic uppercase">Qualifier #4</span>
+                        <i class="fas fa-lock text-[10px] text-gray-700"></i>
+                    </div>
+                    <p class="text-white font-black uppercase italic text-lg tracking-tight">TBD UNIT</p>
                 </div>
             </div>
 
-            <div class="flex flex-col items-center justify-center py-10">
-                <div class="relative group">
-                    <div class="absolute inset-0 bg-blue-600/20 blur-2xl group-hover:bg-blue-600/40 transition-all"></div>
-                    <div class="relative w-24 h-24 md:w-32 md:h-32 bg-zinc-900 border border-blue-500/30 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(59,130,246,0.2)]">
-                        <i class="fas fa-trophy text-3xl md:text-5xl text-blue-500 drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]"></i>
+            <div class="flex flex-col items-center justify-center py-12 order-first lg:order-none">
+                <div class="relative group cursor-pointer">
+                    <div class="absolute inset-0 bg-blue-600/30 blur-[60px] group-hover:bg-blue-600/50 transition-all"></div>
+                    <div class="relative w-40 h-40 md:w-52 md:h-52 bg-[#050b1a] border-2 border-blue-500/20 rounded-full flex items-center justify-center shadow-[0_0_50px_rgba(59,130,246,0.1)] overflow-hidden">
+                        <div class="absolute inset-4 border-2 border-dashed border-blue-500/10 rounded-full animate-[spin_20s_linear_infinite]"></div>
+                        <i class="fas fa-medal text-5xl md:text-7xl text-blue-500 drop-shadow-[0_0_20px_rgba(59,130,246,0.8)] z-10"></i>
                     </div>
                 </div>
-                <div class="mt-8 text-center">
-                    <p class="text-blue-400 font-black italic uppercase tracking-[0.4em] text-[10px]">The Grand Finale</p>
-                    <p class="text-gray-500 text-[8px] font-mono mt-2 uppercase italic tracking-tighter">Victory is the only Protocol</p>
+                <div class="mt-10 text-center">
+                    <h2 class="text-white font-black italic uppercase tracking-tighter text-2xl">Grand Finale</h2>
+                    <p class="text-blue-500 text-[9px] font-black mt-2 uppercase tracking-[0.5em] animate-pulse">Waiting for Finalists</p>
                 </div>
             </div>
 
-            <div class="space-y-4">
-                <h4 class="text-[10px] text-blue-500 font-black uppercase text-center mb-6 tracking-[0.3em]">Semi-Final B</h4>
-                <div class="p-4 bg-white/5 border border-white/10 rounded-2xl opacity-40 grayscale">
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-[8px] text-gray-500 font-black italic uppercase">Rank #2</span>
-                        <span class="w-2 h-2 rounded-full bg-blue-500/20"></span>
-                    </div>
-                    <p class="text-white font-black uppercase italic text-sm">TBD UNIT</p>
+            <div class="space-y-6">
+                <div class="flex items-center gap-3 mb-4 lg:justify-end">
+                    <h4 class="text-[10px] text-blue-500 font-black uppercase tracking-[0.4em]">Semi-Final B</h4>
+                    <span class="h-[1px] w-8 bg-blue-500/30"></span>
                 </div>
-                <div class="flex justify-center text-blue-500/30 py-2"><i class="fas fa-bolt"></i></div>
-                <div class="p-4 bg-white/5 border border-white/10 rounded-2xl opacity-40 grayscale">
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-[8px] text-gray-500 font-black italic uppercase">Rank #3</span>
-                        <span class="w-2 h-2 rounded-full bg-blue-500/20"></span>
+                
+                <div class="p-6 bg-white/[0.03] border border-white/10 rounded-[2rem] group hover:border-blue-500/50 transition-all opacity-60 grayscale lg:text-right">
+                    <div class="flex lg:flex-row-reverse justify-between items-center mb-4">
+                        <span class="text-[9px] text-blue-500 font-black italic uppercase">Runner Up #2</span>
+                        <i class="fas fa-lock text-[10px] text-gray-700"></i>
                     </div>
-                    <p class="text-white font-black uppercase italic text-sm">TBD UNIT</p>
+                    <p class="text-white font-black uppercase italic text-lg tracking-tight">TBD UNIT</p>
+                </div>
+
+                <div class="flex justify-center">
+                    <div class="w-10 h-10 rounded-full bg-zinc-950 border border-blue-500/20 flex items-center justify-center">
+                        <i class="fas fa-bolt text-blue-500 text-xs animate-pulse"></i>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-white/[0.03] border border-white/10 rounded-[2rem] group hover:border-blue-500/50 transition-all opacity-60 grayscale lg:text-right">
+                    <div class="flex lg:flex-row-reverse justify-between items-center mb-4">
+                        <span class="text-[9px] text-blue-500 font-black italic uppercase">Qualifier #3</span>
+                        <i class="fas fa-lock text-[10px] text-gray-700"></i>
+                    </div>
+                    <p class="text-white font-black uppercase italic text-lg tracking-tight">TBD UNIT</p>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="p-6 bg-blue-600/5 border border-blue-600/20 rounded-[2rem] flex items-center gap-5">
-            <div class="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center flex-shrink-0">
-                <i class="fas fa-chart-line text-white"></i>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-8 bg-blue-600/5 border border-blue-600/20 rounded-[2.5rem] flex flex-col gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center shadow-[0_0_20px_rgba(37,99,235,0.3)]">
+                <i class="fas fa-microchip text-white"></i>
             </div>
             <div>
-                <h5 class="text-white font-black uppercase italic text-xs">Qualification Logic</h5>
-                <p class="text-gray-500 text-[9px] uppercase font-bold mt-1">Top 4 Managers from Season 03 League Standings earn automatic entry.</p>
+                <h5 class="text-white font-black uppercase italic text-sm">Qualification Algorithm</h5>
+                <p class="text-gray-500 text-[10px] uppercase font-bold mt-2 leading-relaxed">
+                    The Elite Circuit system monitors the top 4 units. Once the 2025 season reaches its conclusion, these units will be automatically locked into the semi-final nodes.
+                </p>
             </div>
         </div>
-        <div class="p-6 bg-white/[0.02] border border-white/5 rounded-[2rem] flex items-center gap-5">
-            <div class="w-12 h-12 rounded-xl bg-zinc-800 flex items-center justify-center flex-shrink-0">
-                <i class="fas fa-coins text-blue-400"></i>
+
+        <div class="p-8 bg-white/[0.02] border border-white/5 rounded-[2.5rem] flex flex-col gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-zinc-900 border border-white/10 flex items-center justify-center">
+                <i class="fas fa-trophy text-blue-500"></i>
             </div>
             <div>
-                <h5 class="text-white font-black uppercase italic text-xs">Glory Prize Pool</h5>
-                <p class="text-gray-500 text-[9px] uppercase font-bold mt-1">Secret Rewards and Franchise Upgrades unlocked for the Winner.</p>
+                <h5 class="text-white font-black uppercase italic text-sm">Elite Cup Reward</h5>
+                <p class="text-gray-500 text-[10px] uppercase font-bold mt-2 leading-relaxed">
+                    The champion of this tournament earns the ultimate <span class="text-white">Franchise Mastery Badge</span> and seasonal honors.
+                </p>
             </div>
         </div>
     </div>
 
-    <div class="p-4 bg-white/[0.02] border border-dashed border-white/10 rounded-2xl text-center">
-        <p class="text-[8px] text-gray-600 uppercase font-black tracking-[0.3em]">Bracket generation locked until Matchday 10 Completion</p>
+    <div class="p-6 bg-[#050b1a] border border-dashed border-blue-500/20 rounded-3xl text-center">
+        <p class="text-[9px] text-gray-600 uppercase font-black tracking-[0.4em] flex items-center justify-center gap-4">
+            <span class="w-2 h-2 bg-gray-800 rounded-full"></span>
+            Node Generation Locked Until Mid-Season Conclusion
+            <span class="w-2 h-2 bg-gray-800 rounded-full"></span>
+        </p>
     </div>
 </div>`,
+
+
     
 'Upcoming': `
     <div class="space-y-8 animate-in pb-10">
