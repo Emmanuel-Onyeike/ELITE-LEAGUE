@@ -53,7 +53,7 @@ const contentData = {
                     <div class="w-2 h-8 bg-blue-600 rounded-full shadow-[0_0_15px_rgba(37,99,235,0.5)]"></div>
                     <h3 class="text-4xl font-black italic uppercase tracking-tighter text-white">Command Center</h3>
                 </div>
-                <p class="text-[10px] text-blue-500 font-bold uppercase tracking-[0.5em] ml-5">Founded by Zuby // Season 01 Operational</p>
+                <p class="text-[10px] text-blue-500 font-bold uppercase tracking-[0.5em] ml-5"> // Season 01 Operational</p>
             </div>
             
             <div class="flex items-center gap-4 bg-white/5 backdrop-blur-md border border-white/10 p-3 rounded-2xl">
@@ -63,7 +63,7 @@ const contentData = {
                 </div>
                 <div class="text-right pr-2">
                     <p class="text-[9px] text-gray-500 uppercase font-bold tracking-widest">Global Time</p>
-                    <p id="digitalClock" class="text-xs font-mono text-white">00:00:00</p>
+                <p id="digitalClock" class="text-xs font-mono text-white">00:00:00</p>
                 </div>
             </div>
         </div>
@@ -79,7 +79,7 @@ const contentData = {
                         <div class="relative mb-6 transform group-hover:scale-110 transition-transform duration-500">
                             <div class="absolute -inset-8 bg-blue-600/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
                             <div class="relative w-32 h-32 md:w-44 md:h-44 bg-gradient-to-tr from-zinc-900 to-black rounded-[3rem] border border-blue-500/20 flex items-center justify-center p-6 shadow-2xl">
-                                <img src="csc_logo.png" alt="CSC" class="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(37,99,235,0.4)]">
+                                <img src="CSC 300.jpeg" alt="CSC" class="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(37,99,235,0.4)]">
                             </div>
                             <div class="absolute -bottom-2 -right-2 w-10 h-10 bg-blue-600 rounded-2xl flex items-center justify-center border-4 border-[#020617]">
                                 <i class="fas fa-code text-white text-xs"></i>
@@ -99,7 +99,7 @@ const contentData = {
                         <div class="relative mb-6 transform group-hover:scale-110 transition-transform duration-500">
                             <div class="absolute -inset-8 bg-cyan-600/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
                             <div class="relative w-32 h-32 md:w-44 md:h-44 bg-gradient-to-tr from-zinc-900 to-black rounded-[3rem] border border-cyan-500/20 flex items-center justify-center p-6 shadow-2xl">
-                                <img src="law_logo.png" alt="LAW" class="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(34,211,238,0.4)]">
+                                <img src="LAW 500.jpeg" alt="LAW" class="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(34,211,238,0.4)]">
                             </div>
                             <div class="absolute -bottom-2 -left-2 w-10 h-10 bg-cyan-500 rounded-2xl flex items-center justify-center border-4 border-[#020617]">
                                 <i class="fas fa-gavel text-white text-xs"></i>
@@ -110,9 +110,8 @@ const contentData = {
                     </div>
 
                 </div>
-
-                <div class="mt-16 flex flex-col items-center gap-4">
-                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-[0.5em] animate-pulse">Waiting for Kickoff Transmission</p>
+<div class="mt-16 flex flex-col items-center gap-4">
+                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-[0.5em] animate-pulse">Transmission Active: Mid-Season Resumption</p>
                     <button onclick="updateView('Live')" class="group relative px-10 py-4 bg-transparent border border-blue-500/30 overflow-hidden rounded-2xl transition-all">
                         <div class="absolute inset-0 bg-blue-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                         <span class="relative z-10 text-white font-black uppercase text-[10px] tracking-widest group-hover:text-white">Enter Arena Intel</span>
@@ -122,49 +121,59 @@ const contentData = {
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 px-4">
-            
             <div class="lg:col-span-2 space-y-6">
                 <div class="flex items-center justify-between">
                     <h5 class="text-xs font-black uppercase tracking-widest text-white italic">Tactical Intel</h5>
                     <div class="h-[1px] flex-1 bg-white/5 ml-4"></div>
                 </div>
-                
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="p-8 bg-white/[0.02] border border-white/5 rounded-[2.5rem] hover:bg-white/[0.04] transition-all">
                         <i class="fas fa-microchip text-blue-500 mb-4 text-xl"></i>
-                        <h6 class="text-white font-bold uppercase italic text-sm mb-2">Algorithm Predictor</h6>
-                        <p class="text-[11px] text-gray-500 uppercase leading-relaxed font-medium">CSC 300 holds a slight edge in technical speed, but LAW 300's structural integrity remains elite.</p>
+                        <h6 class="text-white font-bold uppercase italic text-sm mb-2">Resumption Protocol</h6>
+                        <p class="text-[11px] text-gray-500 uppercase leading-relaxed font-medium">Elite League resumes after the break. All tactical nodes are being recalibrated for the second half.</p>
                     </div>
                     <div class="p-8 bg-white/[0.02] border border-white/5 rounded-[2.5rem] hover:bg-white/[0.04] transition-all">
-                        <i class="fas fa-shield text-cyan-500 mb-4 text-xl"></i>
-                        <h6 class="text-white font-bold uppercase italic text-sm mb-2">Defense Protocol</h6>
-                        <p class="text-[11px] text-gray-500 uppercase leading-relaxed font-medium">Zero goals conceded in simulation. LAW 300 is currently running a 'Closed-Circuit' formation.</p>
+                        <i class="fas fa-bolt text-cyan-500 mb-4 text-xl"></i>
+                        <h6 class="text-white font-bold uppercase italic text-sm mb-2">2025 Kickoff</h6>
+                        <p class="text-[11px] text-gray-500 uppercase leading-relaxed font-medium">Anticipate as we kick off 2025 half-way season in style. Pure performance, zero latency.</p>
                     </div>
                 </div>
             </div>
 
             <div class="space-y-6">
                  <h5 class="text-xs font-black uppercase tracking-widest text-white italic">System Logs</h5>
-                 <div class="bg-blue-600/5 border border-blue-500/10 rounded-[2.5rem] p-8 space-y-8">
-                    <div class="space-y-2">
+                 <div class="bg-blue-600/5 border border-blue-500/10 rounded-[2.5rem] p-8 h-[320px] overflow-y-auto custom-scroll space-y-8 shadow-inner">
+                    <div class="space-y-2 border-l-2 border-blue-600 pl-4 py-1">
                         <div class="flex items-center justify-between">
-                            <span class="text-[9px] text-blue-500 font-black uppercase">Active</span>
-                            <span class="text-[8px] text-gray-600 font-mono">18.12.25</span>
+                            <span class="text-[9px] text-blue-500 font-black uppercase tracking-widest">Update</span>
+                            <span class="text-[8px] text-gray-600 font-mono">19.12.25</span>
                         </div>
-                        <h6 class="text-white font-bold text-xs uppercase">Treasury Uplink Live</h6>
-                        <p class="text-[10px] text-gray-500 uppercase">Elite League registration payments are now being processed by Zuby.</p>
-                        <button onclick="updateView('Elite Payment')" class="pt-2 text-blue-500 text-[9px] font-black uppercase tracking-tighter hover:tracking-widest transition-all">Secure Slot <i class="fas fa-arrow-right ml-1"></i></button>
+                        <h6 class="text-white font-bold text-xs uppercase italic">Mid-Season Resumption</h6>
+                        <p class="text-[10px] text-gray-500 uppercase font-medium leading-relaxed">Elite League is officially returning. Ensure team lineups are synced with the core terminal.</p>
                     </div>
 
-                    <div class="pt-6 border-t border-white/5 space-y-2 opacity-50">
-                        <span class="text-[9px] text-gray-600 font-black uppercase">Pending</span>
-                        <h6 class="text-gray-400 font-bold text-xs uppercase">Fixture Encryption</h6>
-                        <p class="text-[10px] text-gray-700 uppercase">Season fixtures are being finalized for all 12 teams.</p>
+                    <div class="space-y-2 border-l-2 border-white/10 pl-4 py-1">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[9px] text-gray-600 font-black uppercase tracking-widest">Alert</span>
+                            <span class="text-[8px] text-gray-600 font-mono">2025 Kickoff</span>
+                        </div>
+                        <h6 class="text-gray-300 font-bold text-xs uppercase italic">Season Evolution</h6>
+                        <p class="text-[10px] text-gray-600 uppercase font-medium">Preparing for the half-way season kickoff. Expect high-intensity matchups across the board.</p>
+                    </div>
+
+                    <div class="space-y-2 border-l-2 border-white/10 pl-4 py-1 opacity-60">
+                         <div class="flex items-center justify-between">
+                            <span class="text-[9px] text-gray-700 font-black uppercase tracking-widest">Status</span>
+                            <span class="text-[8px] text-gray-700 font-mono">System</span>
+                        </div>
+                        <h6 class="text-gray-500 font-bold text-xs uppercase">Terminal Operational</h6>
+                        <p class="text-[10px] text-gray-700 uppercase font-medium">The Elite Arena interface is now free for all registered team nodes. No subscription required.</p>
                     </div>
                  </div>
             </div>
         </div>
     </div>`,
+
 
 
 
@@ -1762,3 +1771,35 @@ function broadcastPush(home, away) {
         alertBox.classList.add('opacity-0', 'pointer-events-none');
     }, 3000);
 }
+
+
+/// for the digital clock
+/**
+ * ELITE LEAGUE CORE TIME ENGINE
+ * Synchronizes the Digital Clock in the Command Center
+ */
+function runEliteClock() {
+    const update = () => {
+        const clockTarget = document.getElementById('digitalClock');
+        
+        // If the element doesn't exist (user is on another page), stop trying
+        if (!clockTarget) return;
+
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('en-GB', { 
+            hour12: false, 
+            hour: '2-digit', 
+            minute: '2-digit', 
+            second: '2-digit' 
+        });
+
+        clockTarget.textContent = timeString;
+    };
+
+    // Update every second
+    setInterval(update, 1000);
+    update(); // Initial call
+}
+
+// Start the engine
+runEliteClock();
