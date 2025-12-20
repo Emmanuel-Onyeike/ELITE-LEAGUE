@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ELITE League – Command Center</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ELITE League – Command Center</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="dashboard.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="dashboard.css" />
 </head>
 
 <body class="bg-[#020617] text-gray-200 overflow-x-hidden">
@@ -274,40 +274,102 @@
     </div>
 </div>
     <div id="mainDisplay" class="mt-10 bg-[#030816] border border-blue-500/10 rounded-[2.5rem] p-10 min-h-[500px] transition-all duration-500">
-   </div>
+        </div>
 </main>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getDatabase, ref, push, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getDatabase, ref, push, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyALpkq15pxX-0M0SV7-p417EeanTeMpUNI",
-    authDomain: "eliteleague-92cce.firebaseapp.com",
-    databaseURL: "https://eliteleague-92cce-default-rtdb.firebaseio.com",
-    projectId: "eliteleague-92cce",
-    storageBucket: "eliteleague-92cce.firebasestorage.app",
-    messagingSenderId: "1050191750222",
-    appId: "1:1050191750222:web:c9dd71c24c063b685ecf1f"
-  };
+  const firebaseConfig = {
+    apiKey: "AIzaSyALpkq15pxX-0M0SV7-p417EeanTeMpUNI",
+    authDomain: "eliteleague-92cce.firebaseapp.com",
+    databaseURL: "https://eliteleague-92cce-default-rtdb.firebaseio.com",
+    projectId: "eliteleague-92cce",
+    storageBucket: "eliteleague-92cce.firebasestorage.app",
+    messagingSenderId: "1050191750222",
+    appId: "1:1050191750222:web:c9dd71c24c063b685ecf1f",
+    measurementId: "G-K9S69VNN7H"
+  };
 
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
 
-  // Global Publish Function
-  window.handleElitePublish = async function() {
-      const content = document.getElementById('postContent')?.value;
-      if(!content) return alert("DATA PACKET EMPTY");
-      try {
-          await push(ref(db, 'broadcasts'), {
-              body: content,
-              timestamp: serverTimestamp() 
-          });
-          alert("SIGNAL SYNCED");
-      } catch (e) { alert("SYNC ERROR"); }
-  };
+  // --- 1. CLOUD SYNCED PUBLISH ---
+  window.handleElitePublish = async function() {
+      const title = document.getElementById('postTitle').value;
+      const content = document.getElementById('postContent').value;
+      const pubBtn = document.getElementById('publishBtn');
+
+      if(!content) return alert("DATA PACKET EMPTY");
+      pubBtn.disabled = true;
+      pubBtn.innerHTML = "UPLOADING TO CLOUD...";
+
+      try {
+          await push(ref(db, 'broadcasts'), {
+              title: title || "AUTHORITY UPDATE",
+              body: content,
+              timestamp: serverTimestamp() 
+          });
+          document.getElementById('broadcastModal').style.display = 'none';
+          document.getElementById('postContent').value = '';
+          alert("SIGNAL SYNCED GLOBALLY");
+      } catch (e) {
+          alert("SYNC ERROR: " + e.message);
+      } finally {
+          pubBtn.disabled = false;
+          pubBtn.innerHTML = "Deploy Broadcast";
+      }
+  };
+
+  // --- 2. GLOBAL LISTENER ---
+  onValue(ref(db, 'broadcasts'), (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+          const packets = Object.keys(data).map(key => ({
+              ...data[key],
+              id: key,
+              timestamp: data[key].timestamp ? new Date(data[key].timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : "Scanning..."
+          })).reverse(); 
+
+          window.eliteLivePackets = packets.slice(0, 5); 
+          if (document.getElementById('liveInjectionZone')) {
+              renderLiveInjection();
+          }
+      }
+  });
+
+  // --- 3. SYNCED TIMER ---
+  let serverOffset = 0;
+  onValue(ref(db, ".info/serverTimeOffset"), (snap) => {
+      serverOffset = snap.val() || 0;
+  });
+
+  window.initEliteCountdown = function() {
+      const target = new Date();
+      target.setHours(24, 0, 0, 0); 
+
+      const timerInterval = setInterval(() => {
+          const now = Date.now() + serverOffset;
+          const diff = target - now;
+          const timerEl = document.getElementById('timer');
+
+          if (!timerEl) { clearInterval(timerInterval); return; }
+
+          if (diff <= 0) {
+              clearInterval(timerInterval);
+              document.getElementById('countdownContainer')?.classList.add('hidden');
+              document.getElementById('liveStatus')?.classList.remove('hidden');
+              return;
+          }
+
+          const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const s = Math.floor((diff % (1000 * 60)) / 1000);
+          timerEl.innerHTML = `${h.toString().padStart(2, '0')} : ${m.toString().padStart(2, '0')} : ${s.toString().padStart(2, '0')}`;
+      }, 1000);
+  };
 </script>
-
-<script type="module" src="dashboard.js"></script>
+<script src="dashboard .js"></script>
 </body>
-</html> 
+</html> fix up the etire html yourslef
