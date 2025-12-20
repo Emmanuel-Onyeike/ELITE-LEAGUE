@@ -226,6 +226,53 @@
         </button>
     </div>
 </div>
+
+
+    <div id="adminModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-[#020617]/95 backdrop-blur-md px-6">
+    <div class="w-full max-w-md bg-[#050c1f] border border-white/10 rounded-[3rem] p-10 text-center shadow-2xl">
+        <i class="fas fa-shield-halved text-blue-500 text-4xl mb-6"></i>
+        <h3 class="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">Security Challenge</h3>
+        <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-8">Enter Elite Authorization Key</p>
+        
+        <input type="password" id="adminPin" maxlength="4" placeholder="••••" 
+            class="w-full bg-white/5 border border-white/10 rounded-2xl py-4 text-center text-2xl text-white font-mono tracking-[1em] focus:outline-none focus:border-blue-500 transition-all mb-8">
+        
+        <div class="flex gap-4">
+            <button onclick="document.getElementById('adminModal').style.display='none'" class="flex-1 py-4 text-[10px] text-gray-500 font-black uppercase tracking-widest hover:text-white transition-colors">Abort</button>
+            <button onclick="verifyEliteAccess()" class="flex-1 bg-blue-600 hover:bg-blue-500 py-4 rounded-2xl text-[10px] text-white font-black uppercase tracking-widest transition-all shadow-lg shadow-blue-600/20">Verify</button>
+        </div>
+    </div>
+</div>
+
+<div id="broadcastModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-[#020617]/98 backdrop-blur-xl px-6">
+    <div class="w-full max-w-2xl bg-zinc-900 border border-white/10 rounded-[3.5rem] p-8 md:p-12 shadow-2xl overflow-y-auto max-h-[90vh]">
+        <div class="flex justify-between items-center mb-10">
+            <div>
+                <span class="text-[9px] text-rose-500 font-black uppercase tracking-[0.4em]">Broadcast Uplink</span>
+                <h3 class="text-3xl font-black text-white uppercase italic tracking-tighter">New <span class="text-rose-500">Packet</span></h3>
+            </div>
+            <button onclick="document.getElementById('broadcastModal').style.display='none'" class="text-gray-500 hover:text-white"><i class="fas fa-times text-2xl"></i></button>
+        </div>
+
+        <div class="space-y-6">
+            <input type="text" id="postTitle" placeholder="PACKET TITLE (OPTIONAL)" class="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-white text-[10px] font-bold uppercase tracking-widest focus:outline-none focus:border-rose-500">
+            
+            <textarea id="postContent" rows="5" placeholder="ENTER TRANSMISSION DATA..." class="w-full bg-white/5 border border-white/10 rounded-3xl p-6 text-white text-[10px] font-bold uppercase tracking-widest leading-loose focus:outline-none focus:border-rose-500 resize-none"></textarea>
+            
+            <div class="relative group">
+                <input type="file" id="imageUpload" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
+                <div class="bg-white/5 border border-dashed border-white/10 rounded-2xl p-6 text-center group-hover:border-rose-500/50 transition-colors">
+                    <i class="fas fa-image text-gray-500 text-xl mb-2"></i>
+                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest">Attach Visual Intel</p>
+                </div>
+            </div>
+
+            <button id="publishBtn" onclick="handleElitePublish()" class="w-full bg-rose-600 hover:bg-rose-500 py-5 rounded-2xl text-[11px] text-white font-black uppercase tracking-[0.3em] transition-all shadow-xl shadow-rose-600/20">
+                Deploy Broadcast
+            </button>
+        </div>
+    </div>
+</div>
     <div id="mainDisplay" class="mt-10 bg-[#030816] border border-blue-500/10 rounded-[2.5rem] p-10 min-h-[500px] transition-all duration-500">
         </div>
 </main>
