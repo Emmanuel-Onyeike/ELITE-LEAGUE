@@ -278,7 +278,76 @@
 </main>
 
 
+<script type="module">
+  // 1. Import Firebase Apps and the Database (The sync brain)
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getDatabase, ref, push, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
+  // 2. Your specific Elite League Configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyALpkq15pxX-0M0SV7-p417EeanTeMpUNI",
+    authDomain: "eliteleague-92cce.firebaseapp.com",
+    databaseURL: "https://eliteleague-92cce-default-rtdb.firebaseio.com", // Linked to your ID
+    projectId: "eliteleague-92cce",
+    storageBucket: "eliteleague-92cce.firebasestorage.app",
+    messagingSenderId: "1050191750222",
+    appId: "1:1050191750222:web:c9dd71c24c063b685ecf1f",
+    measurementId: "G-K9S69VNN7H"
+  };
+
+  // 3. Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // --- GLOBAL SYNC PUBLISH (For your Admin Modal) ---
+  window.handleElitePublish = async function() {
+      const title = document.getElementById('postTitle').value;
+      const content = document.getElementById('postContent').value;
+      const pubBtn = document.getElementById('publishBtn');
+
+      if(!content) return alert("DATA PACKET EMPTY");
+
+      pubBtn.disabled = true;
+      pubBtn.innerHTML = "ENCRYPTING TO CLOUD...";
+
+      try {
+          // This sends the data to the Google Cloud
+          await push(ref(db, 'broadcasts'), {
+              title: title || "AUTHORITY UPDATE",
+              body: content,
+              timestamp: serverTimestamp() // Forces every phone to use the same time
+          });
+
+          document.getElementById('broadcastModal').style.display = 'none';
+          document.getElementById('postContent').value = '';
+          alert("SIGNAL SYNCED GLOBALLY");
+      } catch (e) {
+          alert("SYNC ERROR: " + e.message);
+      } finally {
+          pubBtn.disabled = false;
+          pubBtn.innerHTML = "Deploy Broadcast";
+      }
+  };
+
+  // --- LIVE LISTENER (Updates News Hub on all devices) ---
+  onValue(ref(db, 'broadcasts'), (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+          const packets = Object.keys(data).map(key => ({
+              ...data[key],
+              id: key,
+              timestamp: data[key].timestamp ? new Date(data[key].timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : "Scanning..."
+          })).reverse(); 
+
+          window.eliteLivePackets = packets.slice(0, 5); 
+          
+          // If the user is looking at the News page, refresh it instantly
+          if (document.getElementById('liveInjectionZone')) {
+              renderLiveInjection();
+          }
+      }
+  });
+</script>
 
 <script src="dashboard .js"></script>
 </body>
