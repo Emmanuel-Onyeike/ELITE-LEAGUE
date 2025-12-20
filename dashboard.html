@@ -247,6 +247,20 @@
   });
 </script>
 
-<script type="module" src="dashboard.js"></script>
+<script type="module">
+  import 'dashboard.js';
+
+  // Expose functions that your HTML onclick attributes need
+  window.updateView = window.updateView || updateView || (() => console.warn('updateView not defined'));
+  window.closeEliteModal = window.closeEliteModal || closeEliteModal || (() => {});
+  window.closeEliteAlert = window.closeEliteAlert || closeEliteAlert || (() => {});
+
+  // Auto-load the default view (Overview) when page loads
+  document.addEventListener('DOMContentLoaded', () => {
+    if (typeof window.updateView === 'function') {
+      window.updateView('Overview');
+    }
+  });
+</script>
 </body>
 </html>
