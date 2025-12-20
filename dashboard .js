@@ -1,4 +1,3 @@
-
 /**
  * MIKOKO LEAGUE - Command Center Core Script
  * Single-Engine Mobile & Desktop Integration
@@ -753,44 +752,54 @@ const contentData = {
 
 
 
-
-    'News': `
-<div class="space-y-12 animate-in pb-32 px-5 md:px-12">
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 px-2">
-        <div class="space-y-2">
-            <div class="flex items-center gap-4">
-                <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-[0_0_10px_#3b82f6]"></div>
-                <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.5em]">Elite Authority Broadcast</span>
+   'News': `
+    <div class="space-y-12 animate-in pb-32 px-5 md:px-12">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 px-2">
+            <div class="space-y-2">
+                <div class="flex items-center gap-4">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-[0_0_10px_#3b82f6]"></div>
+                    <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.5em]">Elite Authority Broadcast</span>
+                </div>
+                <h3 class="text-5xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none">News <span class="text-blue-500">Hub</span></h3>
+                <p class="text-gray-500 text-[11px] uppercase tracking-[0.3em] font-bold">Source: <span class="text-white italic">Elite Coordinators</span></p>
             </div>
-            <h3 class="text-5xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none">News <span class="text-blue-500">Hub</span></h3>
-            <p class="text-gray-500 text-[11px] uppercase tracking-[0.3em] font-bold">Source: <span class="text-white italic">Elite Coordinators</span></p>
+            <div class="bg-white/5 border border-white/10 px-8 py-3 rounded-2xl w-full md:w-auto text-center">
+                <span class="text-[10px] text-gray-400 font-mono uppercase tracking-[0.2em]">Broadcast ID: 19.12.2025</span>
+            </div>
         </div>
-        <div class="bg-white/5 border border-white/10 px-8 py-3 rounded-2xl w-full md:w-auto text-center">
-            <span class="text-[10px] text-gray-400 font-mono uppercase tracking-[0.2em]">Broadcast ID: 20.12.2025</span>
-        </div>
-    </div>
 
-    <div id="liveInjectionZone" class="space-y-10">
-        <div class="flex items-center gap-4 mb-4 opacity-50">
-            <span class="text-[10px] text-rose-500 font-black uppercase tracking-[0.4em]">Live Signal Stream</span>
-            <div class="h-[1px] flex-1 bg-rose-500/20"></div>
-        </div>
-        
-        <div id="emptyLiveNotice" class="py-10 border border-dashed border-white/5 rounded-[3rem] text-center">
-            <p class="text-[9px] text-gray-600 font-black uppercase tracking-[0.5em]">Waiting for Live Data Packets...</p>
-        </div>
-    </div>
+        <div class="relative rounded-[3.5rem] md:rounded-[4.5rem] overflow-hidden border border-blue-500/10 bg-[#020617] group shadow-2xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2">
+                <div class="relative h-[250px] lg:h-full bg-[#050c1f] overflow-hidden border-b lg:border-b-0 lg:border-r border-white/5">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent z-10"></div>
+                    <div class="absolute inset-0 flex items-center justify-center text-blue-500/5 group-hover:scale-110 transition-transform duration-1000">
+                         <i class="fas fa-shield-halved text-[12rem]"></i>
+                    </div>
+                </div>
 
-    <div id="permanentNews" class="space-y-12">
+                <div class="p-10 md:p-20 flex flex-col justify-center">
+                    <span class="text-[10px] text-blue-500 font-black uppercase mb-6 tracking-[0.6em]">Structure Upgrade</span>
+                    <h4 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white leading-tight mb-8">
+                        Friendlies Rebranded <br><span class="text-blue-500 italic">Elite League</span>
+                    </h4>
+                    <p class="text-gray-400 text-sm uppercase leading-relaxed font-bold tracking-wider italic">
+                        The evolution is complete. The <span class="text-white font-black underline underline-offset-8 decoration-blue-500">Top 4 Units</span> advance to the <span class="text-white">Elite Cup</span>. Digital infrastructure has been fully synchronized as promised.
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <div class="bg-gradient-to-br from-green-600/10 to-transparent border border-green-500/20 rounded-[3.5rem] p-10 md:p-20 relative overflow-hidden">
             <div class="relative z-10">
                 <div class="flex items-center gap-4 mb-8">
                     <i class="fas fa-certificate text-green-500"></i>
                     <span class="text-[10px] text-green-500 font-black uppercase tracking-[0.5em]">Holiday Reset Protocol</span>
                 </div>
-                <h4 class="text-4xl md:text-5xl font-black italic text-white uppercase tracking-tighter mb-8 italic">The Christmas <span class="text-green-500">Amnesty</span></h4>
+                <h4 class="text-4xl md:text-5xl font-black italic text-white uppercase tracking-tighter mb-8 italic">The Christmas <span class="text-green-500 text-3xl md:text-5xl">Amnesty</span></h4>
                 <div class="max-w-2xl space-y-8">
-                    <p class="text-gray-400 text-sm font-bold uppercase leading-relaxed italic">In the spirit of the season, the <span class="text-white">Elite Coordinators</span> have authorized a total reset. All player suspensions are void.</p>
+                    <p class="text-gray-400 text-sm font-bold uppercase leading-relaxed italic">
+                        In the spirit of the season, the <span class="text-white">Elite Coordinators</span> have authorized a total reset. All player suspensions are void.
+                    </p>
                     <div class="p-8 bg-white/5 border border-white/10 rounded-[2.5rem]">
                         <p class="text-white text-[11px] font-black uppercase tracking-widest italic mb-3">Targeted Decryption: Jasso (CSC 200)</p>
                         <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest leading-loose">Red card status purged. Unit restored to active duty.</p>
@@ -810,7 +819,7 @@ const contentData = {
                 <h5 class="text-white font-black uppercase italic tracking-tighter text-3xl mb-6">CSC 200 <span class="text-blue-500">v</span> MSS 100</h5>
                 <div class="space-y-6 text-gray-400 text-[11px] font-bold uppercase leading-loose tracking-widest">
                     <p><span class="text-white">Official Result:</span> CSC 200 awarded the win (5-2).</p>
-                    <p>Elite Coordinators acknowledge the sportsmanship of the CSC 200 unit.</p>
+                    <p>Warnings issued to both sectors for breach of conduct. Elite Coordinators acknowledge the sportsmanship of the CSC 200 unit.</p>
                 </div>
             </div>
 
@@ -818,20 +827,19 @@ const contentData = {
                 <div class="relative z-10">
                     <div class="text-5xl mb-8 animate-bounce">🎄</div>
                     <h5 class="text-4xl font-black uppercase italic text-white tracking-tighter mb-4">Merry Christmas <br><span class="text-blue-500">To All Units</span></h5>
-                    <p class="text-gray-500 text-[10px] font-black uppercase tracking-[0.5em] mb-10 leading-loose">The Elite League is back.</p>
+                    <p class="text-gray-500 text-[10px] font-black uppercase tracking-[0.5em] mb-10 leading-loose">The Elite League is back. <br>New Comeback Active.</p>
+                    <div class="text-[10px] text-white/20 font-black italic tracking-[1em]">#ELITELEAGUE</div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="pt-12 border-t border-white/5 text-center">
-        <p class="text-[11px] text-gray-700 font-black uppercase tracking-[0.8em]">Authorized: Elite Coordinators</p>
-    </div>
-</div>
-`
+        <div class="pt-12 border-t border-white/5 text-center">
+            <p class="text-[11px] text-gray-700 font-black uppercase tracking-[0.8em]">Authorized: Elite Coordinators</p>
+        </div>
+    </div>`,
 
-        
-    
+
+
 'Goals Leaderboard': `
 <div class="space-y-12 animate-in pb-40 px-6 md:px-16">
     <div class="flex flex-col gap-4">
@@ -1325,7 +1333,7 @@ const contentData = {
 </div>`,
 
 
-    
+
   'Mikoko Payment': `
 <div class="animate-in pb-40 px-6 md:px-16 space-y-16">
     <div class="pt-10 flex flex-col gap-6">
@@ -1412,6 +1420,7 @@ const contentData = {
         
         <div class="absolute inset-0 opacity-10 pointer-events-none" 
              style="background-image: linear-gradient(#3b82f6 1px, transparent 1px), linear-gradient(90deg, #3b82f6 1px, transparent 1px); background-size: 40px 40px;">
+
         </div>
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_0%,transparent_80%)]"></div>
 
@@ -1474,7 +1483,7 @@ const contentData = {
 
 
 
-    
+
    'Pure Stream': `
 <div class="animate-in pb-40 px-6 md:px-20 space-y-24">
     <div class="pt-16 flex flex-col items-center text-center">
@@ -1493,6 +1502,10 @@ const contentData = {
         <div class="absolute -inset-1 bg-blue-500/5 rounded-[5rem] blur-2xl"></div>
 
         <div class="relative aspect-[9/16] md:aspect-video bg-black border border-white/5 rounded-[4.5rem] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.9)]">
+
+
+
+
             
             <div class="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-screen bg-[url('https://media.giphy.com/media/oEI9uWUicGLeU/giphy.gif')] bg-cover"></div>
             
@@ -1540,6 +1553,7 @@ const contentData = {
         <div class="flex flex-col items-center gap-4">
             <span class="text-[8px] text-gray-600 font-black uppercase tracking-[0.5em]">Coordinates</span>
             <span class="text-xs text-white font-black uppercase italic tracking-widest">Sat_Node: 20.25_N</span>
+
         </div>
         <div class="flex flex-col items-center md:items-end gap-4">
             <span class="text-[8px] text-gray-600 font-black uppercase tracking-[0.5em]">Status</span>
@@ -1605,6 +1619,13 @@ const contentData = {
                 </div>
                 <div class="p-8 bg-blue-500/5 border border-blue-500/10 rounded-[2.5rem] rounded-tr-none blur-[2px]">
                     <p class="text-[10px] text-blue-300 font-bold uppercase tracking-widest">Incoming encrypted stream detected... Data unreadable.</p>
+
+
+
+
+
+
+
                 </div>
             </div>
         </div>
@@ -1617,6 +1638,8 @@ const contentData = {
                     <p class="text-[9px] text-blue-400/60 font-black uppercase tracking-[0.4em]">Stay Tuned for Comms v2.0 Initialization</p>
                 </div>
                 <div class="absolute inset-0 bg-blue-500/5 animate-pulse"></div>
+
+
             </div>
         </div>
     </div>
@@ -1666,7 +1689,7 @@ function updateView(title) {
     const mainDisplay = document.getElementById('mainDisplay');
     if (mainDisplay) {
         mainDisplay.style.opacity = '0';
-        
+
         setTimeout(() => {
             if (title === 'Player Selection' || title === 'Team Selection') {
                 renderLeagueSystem(title);
@@ -1675,7 +1698,7 @@ function updateView(title) {
                     ? contentData[title] 
                     : `<div class="p-10 text-center"><h2 class="text-white font-black italic">${title}</h2><p class="text-gray-500 text-xs mt-2">DATA NODE OFFLINE</p></div>`;
             }
-            
+
             mainDisplay.style.opacity = '1';
             startSystemSync(); 
         }, 200);
@@ -1888,11 +1911,11 @@ function saveLeagueData() {
 function renameTeam(teamId) {
     const team = teams.find(t => t.id === teamId);
     const newName = prompt("ENTER NEW FRANCHISE NAME:", team.name === "NIL" ? "" : team.name);
-    
+
     if (newName && newName.trim() !== "") {
         const oldName = team.name;
         team.name = newName.trim().toUpperCase();
-        
+
         // Update all players currently in this team
         players.forEach(p => {
             if (p.team === oldName) p.team = team.name;
@@ -1924,7 +1947,7 @@ function assignPlayerToTeam(playerId, teamId) {
     if (!playerId) return;
     const team = teams.find(t => t.id === teamId);
     const player = players.find(p => p.id === playerId);
-    
+
     if (team.name === "NIL") {
         showGlobalAlert("fas fa-lock", "Access Denied", "Purchase franchise to unlock team assignment.");
         return;
@@ -1938,7 +1961,7 @@ function assignPlayerToTeam(playerId, teamId) {
     player.status = 'Confirmed';
     player.team = team.name;
     team.members.push(player.name);
-    
+
     saveLeagueData();
     executeAdminRender();
     showGlobalAlert("fas fa-check-double", "Unit Deployed", `${player.name} joined ${team.name}.`);
@@ -1977,10 +2000,10 @@ window.onload = () => {
 function toggleFullLeaderboard() {
     const extraRows = document.querySelectorAll('.extra-players');
     const btn = document.getElementById('toggleGoalsBtn');
-    
+
     // Check if currently hidden
     const isHidden = extraRows[0].classList.contains('hidden');
-    
+
     if (isHidden) {
         extraRows.forEach(row => {
             row.classList.remove('hidden');
@@ -2000,10 +2023,10 @@ function toggleFullLeaderboard() {
 function toggleAssistsLeaderboard() {
     const extraRows = document.querySelectorAll('.extra-assists');
     const btn = document.getElementById('toggleAssistsBtn');
-    
+
     // Check if currently hidden
     const isHidden = extraRows[0].classList.contains('hidden');
-    
+
     if (isHidden) {
         extraRows.forEach(row => {
             row.classList.remove('hidden');
@@ -2062,7 +2085,7 @@ function dropPlayer(ev) {
     const data = ev.dataTransfer.getData("text");
     const player = document.getElementById(data);
     const dropZone = document.getElementById('dropZone');
-    
+
     // Calculate position relative to the pitch
     const rect = dropZone.getBoundingClientRect();
     const x = ((ev.clientX - rect.left) / rect.width) * 100;
@@ -2072,14 +2095,14 @@ function dropPlayer(ev) {
     player.style.left = `${x}%`;
     player.style.top = `${y}%`;
     player.style.transform = 'translate(-50%, -50%)';
-    
+
     dropZone.appendChild(player);
 }
 
 function applyFormation(type) {
     const players = Array.from(document.querySelectorAll('[id^="tactical-player-"]'));
     const dropZone = document.getElementById('dropZone');
-    
+
     if(type === 'clear') {
         initTacticalLab();
         return;
@@ -2122,7 +2145,7 @@ function saveTacticalMap() {
 function generateTacticalLink() {
     const teamName = document.getElementById('tacticalTeamName').value || "Unnamed Squad";
     const shareUrl = window.location.href.split('?')[0] + "?view=TeamLab&team=" + btoa(teamName);
-    
+
     navigator.clipboard.writeText(shareUrl);
     showGlobalAlert("fas fa-link", "Link Generated", "Share this link with your squad group.");
 }
@@ -2132,10 +2155,10 @@ function generateTacticalLink() {
 function openFixtureDetails(id, home, away, time, venue) {
     const modal = document.getElementById('fixtureModal');
     const content = document.getElementById('modalContent');
-    
+
     // Set Modal Data
     document.getElementById('modalTeamName').innerHTML = `${home} <span class="text-red-600">vs</span> ${away}`;
-    
+
     // You can customize this info per ID if you want specific referees/weather
     const detailsHTML = `
         <div class="space-y-4 text-left mt-6">
@@ -2163,7 +2186,7 @@ function openFixtureDetails(id, home, away, time, venue) {
     // Inject and Show
     const detailContainer = document.querySelector('#fixtureModal .space-y-4');
     if(detailContainer) detailContainer.outerHTML = detailsHTML;
-    
+
     modal.classList.remove('pointer-events-none', 'opacity-0');
     content.classList.remove('scale-95');
 }
@@ -2184,14 +2207,14 @@ function broadcastPush(home, away) {
 
     alertTitle.innerText = "SATELLITE UPLINK ACTIVE";
     alertMsg.innerText = `Push Notification Sent: ${home} vs ${away} is now confirmed for Matchday 01.`;
-    
+
     // Add visual feedback to button
     event.currentTarget.innerHTML = '<i class="fas fa-check"></i> <span>Sent</span>';
     event.currentTarget.classList.add('bg-green-600', 'text-white');
 
     // Show Alert
     alertBox.classList.remove('opacity-0', 'pointer-events-none');
-    
+
     // Hide after 3 seconds
     setTimeout(() => {
         alertBox.classList.add('opacity-0', 'pointer-events-none');
@@ -2207,7 +2230,7 @@ function broadcastPush(home, away) {
 function runEliteClock() {
     const update = () => {
         const clockTarget = document.getElementById('digitalClock');
-        
+
         // If the element doesn't exist (user is on another page), stop trying
         if (!clockTarget) return;
 
@@ -2254,7 +2277,7 @@ function openFixtureDetails(id, home, away) {
 
     // Inject Match-Specific Header
     title.innerHTML = `${home} <span class="text-blue-500 px-2 italic">v</span> ${away}`;
-    
+
     // Inject Dynamic Tactical Content
     body.innerHTML = `
         <div class="p-8 bg-blue-600/5 border border-blue-500/10 rounded-[2.5rem] text-center shadow-inner">
@@ -2269,7 +2292,7 @@ function openFixtureDetails(id, home, away) {
             <p class="text-xs text-white font-bold italic leading-relaxed relative z-10">"${intel.scout}"</p>
         </div>
     `;
-    
+
     modal.classList.remove('hidden');
 }
 
@@ -2282,19 +2305,19 @@ function broadcastPush(home, away) {
     const original = btn.innerHTML;
     const alertBox = document.getElementById('eliteAlert');
     const alertMsg = document.getElementById('alertMessage');
-    
+
     // 1. Enter Loading State
     btn.disabled = true;
     btn.innerHTML = `<i class="fas fa-sync fa-spin"></i>`;
-    
+
     setTimeout(() => {
         // 2. Show Success on Button
         btn.innerHTML = `<i class="fas fa-check text-green-500"></i>`;
-        
+
         // 3. Trigger the Center Container Alert
         alertMsg.innerText = `Broadcast signal for ${home} vs ${away} has been successfully synchronized with the Elite Network.`;
         alertBox.classList.remove('hidden');
-        
+
         // 4. Reset Button to original state after 2 seconds
         setTimeout(() => {
             btn.innerHTML = original;
@@ -2312,4 +2335,3 @@ function closeEliteModal() {
 
 function closeEliteAlert() {
     document.getElementById('eliteAlert').classList.add('hidden');
-}
