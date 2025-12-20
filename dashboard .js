@@ -753,13 +753,10 @@ const contentData = {
 
 
 
-
-
-    'LiveSession': `
+'LiveSession': `
 <div class="space-y-8 animate-in pb-20 px-4 md:px-12">
     <div class="relative overflow-hidden bg-[#020617] border border-blue-500/20 p-8 rounded-[2.5rem] md:rounded-[3rem] shadow-2xl">
         <div class="absolute top-0 right-0 w-32 h-32 bg-blue-600/10 blur-[50px] pointer-events-none"></div>
-        
         <div class="flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
             <div class="text-center md:text-left">
                 <div class="flex items-center justify-center md:justify-start gap-3 mb-2">
@@ -769,7 +766,6 @@ const contentData = {
                 <h3 class="text-3xl md:text-4xl font-black italic uppercase tracking-tighter text-white">Live <span class="text-blue-500">Session</span></h3>
                 <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1 italic">First Reliable Source Protocol</p>
             </div>
-            
             <div class="w-16 h-16 bg-blue-600/10 rounded-[1.5rem] flex items-center justify-center border border-blue-500/20 shadow-inner group">
                 <i class="fas fa-tower-broadcast text-blue-500 text-2xl group-hover:scale-110 transition-transform duration-500"></i>
             </div>
@@ -783,11 +779,7 @@ const contentData = {
             <div class="inline-flex items-center gap-3 px-6 py-2 bg-blue-600/5 border border-blue-500/20 rounded-full">
                 <span class="text-[10px] text-blue-400 font-black uppercase tracking-widest">Next Synchronization</span>
             </div>
-            
-            <div id="timer" class="text-6xl md:text-8xl font-mono text-white font-black tracking-tighter drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]">
-                00 : 00 : 00
-            </div>
-            
+            <div id="timer" class="text-6xl md:text-8xl font-mono text-white font-black tracking-tighter drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]">00 : 00 : 00</div>
             <div class="space-y-2">
                 <p class="text-gray-500 text-[11px] font-bold uppercase tracking-[0.4em] italic">Signal Unlocks Midnight</p>
                 <div class="w-24 h-1 bg-blue-500/20 rounded-full mx-auto">
@@ -800,12 +792,8 @@ const contentData = {
             <div class="w-24 h-24 bg-rose-600/10 rounded-full flex items-center justify-center mx-auto border border-rose-500/20 animate-pulse">
                 <i class="fas fa-signal text-rose-500 text-3xl"></i>
             </div>
-            <h4 class="text-5xl md:text-7xl font-black text-white italic uppercase tracking-tighter leading-none">
-                WE ARE <br> <span class="text-rose-500">LIVE!</span>
-            </h4>
-            <p class="text-gray-400 text-xs font-bold uppercase tracking-[0.2em] max-w-xs mx-auto italic">
-                Broadcast Control Interface Fully Initialized. All data packets are now reliable.
-            </p>
+            <h4 class="text-5xl md:text-7xl font-black text-white italic uppercase tracking-tighter leading-none">WE ARE <br> <span class="text-rose-500">LIVE!</span></h4>
+            <p class="text-gray-400 text-xs font-bold uppercase tracking-[0.2em] max-w-xs mx-auto italic">Broadcast Control Interface Fully Initialized. All data packets are now reliable.</p>
         </div>
 
         <div class="mt-16 relative z-10">
@@ -838,11 +826,7 @@ const contentData = {
 `,
 
 
-
-    
-    
-    
-   'News': `
+    'News': `
 <div class="space-y-12 animate-in pb-32 px-5 md:px-12">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 px-2">
         <div class="space-y-2">
@@ -867,11 +851,9 @@ const contentData = {
         <div id="emptyLiveNotice" class="py-10 border border-dashed border-white/5 rounded-[3rem] text-center">
             <p class="text-[9px] text-gray-600 font-black uppercase tracking-[0.5em]">Waiting for Live Data Packets...</p>
         </div>
-
-        </div>
+    </div>
 
     <div id="permanentNews" class="space-y-12">
-        
         <div class="bg-gradient-to-br from-green-600/10 to-transparent border border-green-500/20 rounded-[3.5rem] p-10 md:p-20 relative overflow-hidden">
             <div class="relative z-10">
                 <div class="flex items-center gap-4 mb-8">
@@ -880,9 +862,7 @@ const contentData = {
                 </div>
                 <h4 class="text-4xl md:text-5xl font-black italic text-white uppercase tracking-tighter mb-8 italic">The Christmas <span class="text-green-500">Amnesty</span></h4>
                 <div class="max-w-2xl space-y-8">
-                    <p class="text-gray-400 text-sm font-bold uppercase leading-relaxed italic">
-                        In the spirit of the season, the <span class="text-white">Elite Coordinators</span> have authorized a total reset. All player suspensions are void.
-                    </p>
+                    <p class="text-gray-400 text-sm font-bold uppercase leading-relaxed italic">In the spirit of the season, the <span class="text-white">Elite Coordinators</span> have authorized a total reset. All player suspensions are void.</p>
                     <div class="p-8 bg-white/5 border border-white/10 rounded-[2.5rem]">
                         <p class="text-white text-[11px] font-black uppercase tracking-widest italic mb-3">Targeted Decryption: Jasso (CSC 200)</p>
                         <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest leading-loose">Red card status purged. Unit restored to active duty.</p>
@@ -922,7 +902,7 @@ const contentData = {
 </div>
 `
 
-       
+        
     
 'Goals Leaderboard': `
 <div class="space-y-12 animate-in pb-40 px-6 md:px-16">
