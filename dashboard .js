@@ -1,4 +1,3 @@
-
 /**
  * MIKOKO LEAGUE - Command Center Core Script
  * Single-Engine Mobile & Desktop Integration
@@ -1335,69 +1334,105 @@ const contentData = {
 
 
 
-  'Mikoko Payment': `
-<div class="animate-in pb-40 px-6 md:px-16 space-y-16">
-    <div class="pt-10 flex flex-col gap-6">
-        <div class="flex items-center gap-4">
-            <div class="h-[1px] w-12 bg-blue-500"></div>
-            <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.5em]">Sector: FINANCIAL_NODE</span>
+   'Mikoko Payment': `
+<div class="space-y-8 animate-in pb-12">
+    <div class="flex justify-between items-end">
+        <div>
+            <h3 class="text-3xl font-black italic uppercase tracking-tighter text-red-600">Financial Node</h3>
+            <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-green-500">Payment Channels Active</span></p>
         </div>
-        <h3 class="text-6xl md:text-8xl font-black italic uppercase tracking-tighter text-white leading-[0.85]">
-            Elite <br><span class="text-transparent stroke-blue-500" style="-webkit-text-stroke: 1px #3b82f6;">Finance</span>
-        </h3>
-        <p class="text-gray-500 text-[11px] uppercase tracking-[0.3em] font-bold">Status: <span class="text-blue-400 italic">Phase 01 - Foundation</span></p>
+        <i class="fas fa-file-invoice-dollar text-red-600 opacity-20 text-3xl"></i>
+
+
+
     </div>
 
-    <div class="relative p-12 md:p-24 bg-[#020617] border border-blue-500/10 rounded-[4rem] overflow-hidden flex flex-col items-center justify-center text-center shadow-[0_50px_100px_rgba(0,0,0,0.8)]">
-        
-        <div class="absolute inset-0 opacity-20 pointer-events-none">
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_0%,transparent_80%)]"></div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-6 bg-red-600/10 border border-red-600/20 rounded-3xl">
+            <span class="text-[9px] text-red-600 font-black uppercase tracking-widest">Franchise Fee</span>
+            <h4 class="text-2xl font-black text-white italic uppercase">₦4,000</h4>
+            <p class="text-[10px] text-gray-400 font-bold uppercase mt-1">To Own, Name, & Coach a Team</p>
         </div>
+        <div class="p-6 bg-white/5 border border-white/10 rounded-3xl">
+            <span class="text-[9px] text-gray-400 font-black uppercase tracking-widest">Player Fee</span>
+            <h4 class="text-2xl font-black text-white italic uppercase">₦2,000</h4>
+            <p class="text-[10px] text-gray-400 font-bold uppercase mt-1">To Register for the Draft Pool</p>
 
-        <div class="relative z-10 max-w-2xl">
-            <div class="w-24 h-24 bg-blue-600/5 text-blue-500 rounded-[2.5rem] flex items-center justify-center mx-auto mb-12 border border-blue-500/20 shadow-[0_0_60px_rgba(59,130,246,0.1)]">
-                <i class="fas fa-hand-holding-heart text-4xl animate-pulse"></i>
-            </div>
-            
-            <h4 class="text-3xl md:text-5xl font-black text-white italic tracking-tighter uppercase leading-tight mb-8">
-                No Fees <br>
-                <span class="text-blue-500">Required</span>
-            </h4>
 
-            <div class="inline-block px-8 py-3 bg-zinc-950 border border-white/5 rounded-2xl mb-12">
-                <span class="text-[10px] text-gray-500 font-black uppercase tracking-[0.5em]">Current Cycle: 2025 FOUNDATION</span>
-            </div>
 
-            <p class="text-base md:text-lg text-gray-400 font-bold uppercase leading-[2.2] tracking-widest mb-12 italic">
-                As the <span class="text-white">Elite League</span> begins its new form in 2025, the committee has not requested any financial contributions. 
-                There are <span class="text-blue-500 underline underline-offset-8 decoration-blue-500/30">no payment channels</span> active at this time.
-            </p>
 
-            <div class="p-10 bg-blue-600/5 border border-blue-500/10 rounded-[3rem]">
-                <p class="text-[11px] text-blue-400 font-black uppercase tracking-[0.4em] leading-relaxed">
-                    Any future player acquisitions (₦4,000) will be handled manually through team-to-team accounts once authorized.
-                </p>
-            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
     </div>
 
-    <div class="flex flex-col gap-10">
-        <div class="p-10 md:p-14 bg-white/[0.01] border border-white/5 rounded-[4rem] group hover:border-blue-500/20 transition-all duration-700">
-            <div class="flex items-center gap-6 mb-8">
-                <div class="w-12 h-12 rounded-2xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center text-blue-500">
-                    <i class="fas fa-info-circle"></i>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="p-8 bg-zinc-900/50 border border-white/10 rounded-[2.5rem] relative overflow-hidden">
+            <div class="relative z-10">
+                <span class="text-[9px] text-red-600 font-black uppercase tracking-[0.2em]">Transfer Protocol</span>
+                <h4 class="text-xl font-black text-white italic mt-2 mb-6 uppercase tracking-tighter">Account Information</h4>
+                
+                <div class="space-y-4">
+                    <div class="p-4 bg-white/5 rounded-2xl border border-white/5">
+                        <p class="text-[9px] text-gray-500 uppercase font-bold">Bank Name</p>
+                        <p class="text-lg text-white font-black italic uppercase">OPAY</p>
+                    </div>
+                     <div class="p-4 bg-white/5 rounded-2xl border border-white/5">
+                        <p class="text-[9px] text-gray-500 uppercase font-bold">Account Name</p>
+                        <p class="text-lg text-white font-black italic uppercase">IBEKU TOCHUKWU</p>
+                    </div>
+                    <div class="p-4 bg-white/5 rounded-2xl border border-white/5">
+                        <p class="text-[9px] text-gray-500 uppercase font-bold">Account Number</p>
+                        <p class="text-2xl text-red-600 font-mono font-black tracking-tighter">7062959301</p>
+                    </div>
                 </div>
-                <h5 class="text-2xl font-black text-white uppercase italic tracking-tighter">Manual Protocol</h5>
+
             </div>
-            <p class="text-gray-500 text-xs md:text-sm font-bold uppercase leading-[2.2] tracking-widest italic">
-                The League has seen no reason to request funds in this initial phase. All transactions, should they arise, will remain strictly <span class="text-white">Manager-to-Manager</span> via team accounts.
-            </p>
+
+
+
         </div>
 
-        <div class="pt-10 text-center opacity-20">
-            <p class="text-[8px] text-gray-800 font-black uppercase tracking-[0.8em]">
-                Elite Financial Oversight Node // Authorized 2025
-            </p>
+        <div class="relative p-8 bg-[#0a0a0a] border border-red-600/20 rounded-[2.5rem] flex flex-col justify-center overflow-hidden">
+            <div class="relative z-10">
+                <div class="w-12 h-12 bg-red-600/10 border border-red-600/30 rounded-xl flex items-center justify-center mb-6">
+                    <i class="fas fa-paper-plane text-red-600"></i>
+                </div>
+                <h4 class="text-white font-black uppercase italic text-xl tracking-tighter mb-4">Verification Steps</h4>
+                <ul class="space-y-4">
+                    <li class="flex gap-4">
+                        <span class="w-5 h-5 rounded-full bg-red-600 text-white text-[10px] flex items-center justify-center font-black">1</span>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase leading-relaxed">Transfer the exact fee (₦2,000 or ₦4,000) to the account provided.</p>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="w-5 h-5 rounded-full bg-red-600 text-white text-[10px] flex items-center justify-center font-black">2</span>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase leading-relaxed">Capture a clear screenshot of the successful transaction receipt.</p>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="w-5 h-5 rounded-full bg-red-600 text-white text-[10px] flex items-center justify-center font-black">3</span>
+                        <p class="text-[10px] text-white font-black uppercase leading-relaxed">Send the receipt directly to <span class="text-red-600">TOGA's DM</span> for manual validation.</p>
+                    </li>
+                </ul>
+                
+                <div class="mt-8 pt-6 border-t border-white/5">
+                    <p class="text-[9px] text-gray-600 font-mono uppercase italic">Note: Only payments verified by the Planning Committee are valid.</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>`,
@@ -1412,9 +1447,6 @@ const contentData = {
             <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-yellow-500 italic">Integration Pending</span></p>
         </div>
         <i class="fas fa-flask text-red-600 opacity-20 text-3xl"></i>
-
-
-
     </div>
 
     <div class="relative p-10 md:p-20 bg-[#0a0a0a] border border-white/5 rounded-[3rem] overflow-hidden flex flex-col items-center justify-center text-center">
@@ -1423,7 +1455,6 @@ const contentData = {
             <div class="absolute inset-10 border-2 border-white/5 rounded-full"></div>
             <div class="absolute top-0 bottom-0 left-1/2 w-[1px] bg-white/5"></div>
         </div>
-
 
         <div class="relative z-10 max-w-md">
             <div class="w-20 h-20 bg-zinc-900 border border-white/10 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-2xl">
@@ -1437,16 +1468,11 @@ const contentData = {
 
             <p class="text-[11px] text-gray-500 font-bold uppercase leading-relaxed tracking-widest mb-10">
                 The interactive tactical suite is currently being synchronized with the MIKOKO Main Node. Manual drag-and-drop formations and shareable links will be <span class="text-white">available in the next update</span>.
-
-
-
-
             </p>
 
             <div class="inline-flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-2xl">
                 <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
                 <span class="text-[9px] text-gray-400 font-black uppercase tracking-[0.2em]">Check back after Season 03 Protocol Initialization</span>
-
             </div>
         </div>
     </div>
@@ -1459,31 +1485,19 @@ const contentData = {
             <div>
                 <p class="text-[9px] text-red-600 font-black uppercase tracking-widest">Upcoming</p>
                 <p class="text-xs text-white font-bold uppercase">Dynamic 5-11 Man Logic</p>
-
             </div>
         </div>
         <div class="p-6 bg-zinc-900/50 border border-dashed border-white/10 rounded-3xl flex items-center gap-6">
             <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center">
                 <i class="fas fa-camera text-gray-600"></i>
-
             </div>
             <div>
                 <p class="text-[9px] text-red-600 font-black uppercase tracking-widest">Upcoming</p>
                 <p class="text-xs text-white font-bold uppercase">Tactical Screenshot Export</p>
-
             </div>
         </div>
     </div>
-
-
-
-
-
-
 </div>`,
-
-
-
 
    'Pure Stream': `
 <div class="space-y-8 animate-in pb-12">
@@ -1493,10 +1507,6 @@ const contentData = {
             <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-zinc-600">Signal Offline</span></p>
         </div>
         <i class="fas fa-satellite text-red-600 opacity-20 text-3xl"></i>
-
-
-
-
     </div>
 
     <div class="relative aspect-video bg-[#0a0a0a] rounded-[3rem] border border-white/5 overflow-hidden group">
@@ -1518,30 +1528,10 @@ const contentData = {
             <div class="flex items-center gap-3">
                 <div class="w-2 h-2 rounded-full bg-gray-600"></div>
                 <span class="text-[8px] text-gray-400 font-black uppercase tracking-widest">Feed: MKK-LIVE-NULL</span>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </div>
             <div class="flex gap-4">
                 <div class="w-8 h-1 bg-white/10 rounded-full"></div>
                 <div class="w-12 h-1 bg-white/10 rounded-full"></div>
-
-
-
-
-
-
             </div>
         </div>
     </div>
@@ -1558,18 +1548,10 @@ const contentData = {
         </div>
         <div class="px-6 py-2 border border-white/10 rounded-full">
             <span class="text-[9px] text-gray-400 font-black uppercase tracking-widest">Protocol: 0.8.2-BETA</span>
-
         </div>
     </div>
-
-
-
-
-
-
 </div>`,
 
-    
 
 'Messages': `
 <div class="space-y-6 animate-in pb-12 px-1 md:px-0">
@@ -1579,9 +1561,6 @@ const contentData = {
             <p class="text-gray-500 text-[8px] md:text-[10px] uppercase tracking-[0.2em] font-bold mt-1">Status: <span class="text-green-500 italic">Encrypted Connection Stable</span></p>
         </div>
         <i class="fas fa-shield-alt text-red-600 opacity-20 text-2xl md:text-3xl"></i>
-
-
-
     </div>
 
     <div class="bg-zinc-900/50 border border-white/5 rounded-[2rem] md:rounded-[2.5rem] p-3 md:p-10 min-h-[450px] md:min-h-[500px] flex flex-col relative overflow-hidden">
@@ -1599,16 +1578,6 @@ const contentData = {
                     <div class="flex justify-between items-center mt-3 border-t border-white/5 pt-2">
                          <span class="text-[6px] md:text-[8px] text-gray-600 font-mono uppercase">SENT: 18.12.2025</span>
                          <i class="fas fa-check-double text-[8px] text-red-600 opacity-40"></i>
-
-
-
-
-
-
-
-
-
-
                     </div>
                 </div>
             </div>
@@ -1616,7 +1585,6 @@ const contentData = {
             <div class="flex gap-2 md:gap-4 max-w-[95%] md:max-w-2xl ml-auto flex-row-reverse">
                 <div class="w-8 h-8 rounded-lg bg-white/10 border border-white/10 flex-shrink-0 flex items-center justify-center">
                     <i class="fas fa-users text-white text-[10px]"></i>
-
                 </div>
                 <div class="bg-red-600/10 border border-red-600/20 p-3 md:p-5 rounded-2xl rounded-tr-none text-right">
                     <span class="text-[7px] md:text-[9px] text-gray-400 font-black uppercase tracking-widest block mb-1">League Committee</span>
@@ -1636,7 +1604,6 @@ const contentData = {
                 <div class="inline-flex items-center gap-2 mb-2">
                     <span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse"></span>
                     <h5 class="text-white font-black uppercase italic text-[9px] md:text-[11px] tracking-widest">Broadcast Only Mode</h5>
-
                 </div>
                 <p class="text-gray-600 text-[8px] md:text-[9px] font-bold uppercase leading-tight">
                     Direct messaging enabled in <span class="text-red-600">v2.0 Update</span>.
@@ -1647,8 +1614,6 @@ const contentData = {
 
     <div class="py-2 text-center">
         <p class="text-[6px] md:text-[8px] text-gray-700 uppercase font-black tracking-[0.4em]">MIKOKO SECURE UPLINK // NO UNAUTHORIZED ACCESS</p>
-
-
     </div>
 </div>`,
 };
