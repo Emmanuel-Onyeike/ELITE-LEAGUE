@@ -2414,63 +2414,90 @@ function closeEliteAlert() {
 
 //// for the live sessions
 
-/**
- * ELITE LEAGUE - GLOBAL CONTROLLER
- * Combined: Timer, Security, Live Broadcast, and News Injection
- */
-
 // --- 1. GLOBAL STATE ---
-// Stores up to 2 live packets in memory for the session
-let eliteLivePackets = [];
+let eliteLivePackets = []; 
 
-// --- 2. THE VIEW ENGINE (Linking News and Live) ---
-function updateView(viewName) {
-    const mainContainer = document.getElementById('main'); // Ensure this is your main div ID
-    if (!mainContainer) return;
+// --- 2. THE MERGED VIEW ENGINE ---
+function updateView(title) {
+    // A. Update Sidebar UI (Original Logic)
+    const viewTitle = document.getElementById('viewTitle');
+    if (viewTitle) viewTitle.innerText = title;
 
-    // Load the HTML from your views object
-    mainContainer.innerHTML = views[viewName];
+    const allLinks = document.querySelectorAll('.sidebar-item');
+    allLinks.forEach(link => {
+        link.classList.remove('active');
+        const span = link.querySelector('span');
+        // Match the text in the span to the title
+        if (span && span.innerText.trim() === title) link.classList.add('active');
+    });
 
-    // --- VIEW SPECIFIC LOGIC ---
-    if (viewName === 'LiveSession') {
-        initEliteCountdown();
+    // B. Handle Content Display (Original Logic + Elite Integration)
+    const mainDisplay = document.getElementById('mainDisplay');
+    if (mainDisplay) {
+        mainDisplay.style.opacity = '0'; // Start fade out
+        
+        setTimeout(() => {
+            // Check if it's a special system render or standard content
+            if (title === 'Player Selection' || title === 'Team Selection') {
+                renderLeagueSystem(title);
+            } else {
+                // Determine source: uses contentData (original) or views (elite)
+                let htmlContent = "";
+                if (typeof contentData !== 'undefined' && contentData[title]) {
+                    htmlContent = contentData[title];
+                } else if (typeof views !== 'undefined' && views[title]) {
+                    htmlContent = views[title];
+                } else {
+                    htmlContent = `<div class="p-10 text-center"><h2 class="text-white font-black italic">${title}</h2><p class="text-gray-500 text-xs mt-2">DATA NODE OFFLINE</p></div>`;
+                }
+                
+                mainDisplay.innerHTML = htmlContent;
+            }
+            
+            // C. RUN ELITE-SPECIFIC LOGIC AFTER CONTENT LOADS
+            if (title === 'LiveSession' || title === 'Live Session') {
+                initEliteCountdown();
+            }
+            if (title === 'News') {
+                renderLiveInjection();
+            }
+
+            mainDisplay.style.opacity = '1'; // Fade in
+            if (typeof startSystemSync === 'function') startSystemSync(); 
+        }, 200);
     }
-    
-    if (viewName === 'News') {
-        renderLiveInjection();
+
+    // D. Mobile Sidebar Auto-Close (Original Logic)
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    if (window.innerWidth < 768 && sidebar && !sidebar.classList.contains('-translate-x-full')) {
+        sidebar.classList.add('-translate-x-full');
+        if (overlay) overlay.classList.add('hidden');
     }
 }
 
-// --- 3. THE COUNTDOWN SYSTEM ---
+// --- 3. ELITE FUNCTIONS (Keep these exactly as they are) ---
+
 function initEliteCountdown() {
     const target = new Date();
-    target.setHours(24, 0, 0, 0); // Sets target to midnight
-
+    target.setHours(24, 0, 0, 0);
     const timerInterval = setInterval(() => {
         const now = new Date().getTime();
         const diff = target - now;
-
         const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const s = Math.floor((diff % (1000 * 60)) / 1000);
-
         const timerEl = document.getElementById('timer');
-        if (!timerEl) {
-            clearInterval(timerInterval); // Stop if user leaves the page
-            return;
-        }
-
+        if (!timerEl) { clearInterval(timerInterval); return; }
         timerEl.innerHTML = `${h.toString().padStart(2, '0')} : ${m.toString().padStart(2, '0')} : ${s.toString().padStart(2, '0')}`;
-
         if (diff < 0) {
             clearInterval(timerInterval);
-            document.getElementById('countdownContainer').classList.add('hidden');
-            document.getElementById('liveStatus').classList.remove('hidden');
+            if(document.getElementById('countdownContainer')) document.getElementById('countdownContainer').classList.add('hidden');
+            if(document.getElementById('liveStatus')) document.getElementById('liveStatus').classList.remove('hidden');
         }
     }, 1000);
 }
 
-// --- 4. SECURITY & MODALS ---
 function openAdminModal() {
     const modal = document.getElementById('adminModal');
     if (modal) modal.style.display = 'flex';
@@ -2488,26 +2515,16 @@ function verifyEliteAccess() {
     }
 }
 
-// --- 5. BROADCAST TRANSMISSION ---
 async function handleElitePublish() {
     const pubBtn = document.getElementById('publishBtn');
     const title = document.getElementById('postTitle').value;
     const content = document.getElementById('postContent').value;
     const imageInput = document.getElementById('imageUpload');
-    
-    if(!content) return alert("DATA PACKET EMPTY: TRANSMISSION ABORTED");
-
-    // UI Loading State
+    if(!content) return alert("DATA PACKET EMPTY");
     pubBtn.disabled = true;
     pubBtn.innerHTML = `<i class="fas fa-spinner animate-spin"></i> ENCRYPTING...`;
-
-    // Handle Image
     let imgSource = '';
-    if (imageInput.files && imageInput.files[0]) {
-        imgSource = URL.createObjectURL(imageInput.files[0]);
-    }
-
-    // Create Packet
+    if (imageInput.files && imageInput.files[0]) imgSource = URL.createObjectURL(imageInput.files[0]);
     const packet = {
         id: "EP-" + Math.floor(Math.random() * 9000 + 1000),
         title: title || "AUTHORITY UPDATE",
@@ -2515,57 +2532,45 @@ async function handleElitePublish() {
         img: imgSource,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
-
-    // Update Memory (Keep only most recent 2)
     eliteLivePackets.unshift(packet);
     if (eliteLivePackets.length > 2) eliteLivePackets.pop();
-
-    // Simulate Signal Delay
     setTimeout(() => {
         document.getElementById('broadcastModal').style.display = 'none';
         pubBtn.disabled = false;
         pubBtn.innerHTML = "Deploy Broadcast";
-        
-        // Clear inputs
         document.getElementById('postTitle').value = '';
         document.getElementById('postContent').value = '';
-        
         alert("SIGNAL STABILIZED: BROADCAST LIVE");
     }, 1500);
 }
 
-// --- 6. NEWS HUB INJECTION ---
 function renderLiveInjection() {
     const injectionZone = document.getElementById('liveInjectionZone');
-    if (!injectionZone) return;
-
-    if (eliteLivePackets.length > 0) {
-        const postsHTML = eliteLivePackets.map(p => `
-            <div class="bg-rose-500/5 border border-rose-500/20 rounded-[3rem] overflow-hidden animate-in slide-in-from-top duration-700 mb-8">
-                <div class="p-8 md:p-12">
-                    <div class="flex justify-between items-center mb-6">
-                        <h4 class="text-2xl font-black italic text-white uppercase tracking-tighter">${p.title}</h4>
-                        <div class="flex items-center gap-2">
-                            <span class="w-1.5 h-1.5 bg-rose-500 rounded-full animate-ping"></span>
-                            <span class="text-[9px] text-rose-500 font-black uppercase tracking-widest">Live Packet</span>
-                        </div>
-                    </div>
-                    <p class="text-gray-400 text-sm font-bold uppercase leading-relaxed mb-6 italic">${p.body}</p>
-                    ${p.img ? `<img src="${p.img}" class="w-full rounded-3xl border border-white/5 shadow-2xl mb-6">` : ''}
-                    <div class="flex justify-between items-center border-t border-white/5 pt-6 text-[8px] text-gray-600 font-mono uppercase tracking-[0.3em]">
-                        <span>ID: ${p.id}</span>
-                        <span>${p.timestamp}</span>
+    if (!injectionZone || eliteLivePackets.length === 0) return;
+    const postsHTML = eliteLivePackets.map(p => `
+        <div class="bg-rose-500/5 border border-rose-500/20 rounded-[3rem] overflow-hidden animate-in slide-in-from-top duration-700 mb-8">
+            <div class="p-8 md:p-12">
+                <div class="flex justify-between items-center mb-6">
+                    <h4 class="text-2xl font-black italic text-white uppercase tracking-tighter">${p.title}</h4>
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 bg-rose-500 rounded-full animate-ping"></span>
+                        <span class="text-[9px] text-rose-500 font-black uppercase tracking-widest">Live Packet</span>
                     </div>
                 </div>
+                <p class="text-gray-400 text-sm font-bold uppercase leading-relaxed mb-6 italic">${p.body}</p>
+                ${p.img ? `<img src="${p.img}" class="w-full rounded-3xl border border-white/5 shadow-2xl mb-6">` : ''}
+                <div class="flex justify-between items-center border-t border-white/5 pt-6 text-[8px] text-gray-600 font-mono uppercase tracking-[0.3em]">
+                    <span>ID: ${p.id}</span>
+                    <span>${p.timestamp}</span>
+                </div>
             </div>
-        `).join('');
-
-        injectionZone.innerHTML = `
-            <div class="flex items-center gap-4 mb-4 opacity-50">
-                <span class="text-[10px] text-rose-500 font-black uppercase tracking-[0.4em]">Live Signal Stream</span>
-                <div class="h-[1px] flex-1 bg-rose-500/20"></div>
-            </div>
-            ${postsHTML}
-        `;
-    }
+        </div>
+    `).join('');
+    injectionZone.innerHTML = `
+        <div class="flex items-center gap-4 mb-4 opacity-50">
+            <span class="text-[10px] text-rose-500 font-black uppercase tracking-[0.4em]">Live Signal Stream</span>
+            <div class="h-[1px] flex-1 bg-rose-500/20"></div>
+        </div>
+        ${postsHTML}
+    `;
 }
