@@ -2524,8 +2524,14 @@ function handleElitePublish() {
     const titleInput = document.getElementById('postTitle');
     const contentInput = document.getElementById('postContent');
 
+    // Check for empty content → show error modal instead of alert
     if (!contentInput || !contentInput.value.trim()) {
-        return alert("DATA PACKET EMPTY: TRANSMISSION ABORTED");
+        showBroadcastFeedback(
+            "TRANSMISSION ABORTED",
+            "DATA PACKET EMPTY",
+            false
+        );
+        return;
     }
 
     pubBtn.disabled = true;
@@ -2545,29 +2551,56 @@ function handleElitePublish() {
         timestamp: timestamp
     };
 
-    // Push to Firebase for real-time sync across all devices
-    if (typeof db !== 'undefined' && db) {
-        db.ref('livePackets').push(newPacket)
-            .then(() => {
-                alert("SIGNAL STABILIZED: BROADCAST LIVE");
-                document.getElementById('broadcastModal').style.display = 'none';
-                pubBtn.disabled = false;
-                pubBtn.innerHTML = "Deploy Broadcast";
-                if (titleInput) titleInput.value = '';
-                contentInput.value = '';
-            })
-            .catch((error) => {
-                alert("TRANSMISSION FAILED: " + error.message);
-                pubBtn.disabled = false;
-                pubBtn.innerHTML = "Deploy Broadcast";
-            });
-    } else {
-        alert("ERROR: Firebase connection lost");
-        pubBtn.disabled = false;
-        pubBtn.innerHTML = "Deploy Broadcast";
-    }
-}
+    // Push the new packet to Firebase
+    window.db.ref('livePackets').push(newPacket)
+        .then(() => {
+            // After successful push → enforce max 3 packets (delete oldest if needed)
+            window.db.ref('livePackets').once('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    const keys = Object.keys(data);
+                    const packetsArray = keys.map(key => ({
+                        id: key,
+                        ...data[key]
+                    }));
 
+                    // Sort oldest first by timestamp string
+                    packetsArray.sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+
+                    if (packetsArray.length > 3) {
+                        const toDelete = packetsArray.slice(0, packetsArray.length - 3);
+                        toDelete.forEach(packet => {
+                            window.db.ref('livePackets').child(packet.id).remove();
+                        });
+                    }
+                }
+            });
+
+            // SUCCESS: Show elite modal
+            document.getElementById('broadcastModal').style.display = 'none';
+            pubBtn.disabled = false;
+            pubBtn.innerHTML = "Deploy Broadcast";
+            if (titleInput) titleInput.value = '';
+            contentInput.value = '';
+
+            showBroadcastFeedback(
+                "SIGNAL STABILIZED",
+                "BROADCAST LIVE",
+                true
+            );
+        })
+        .catch((error) => {
+            // ERROR: Show elite modal
+            pubBtn.disabled = false;
+            pubBtn.innerHTML = "Deploy Broadcast";
+
+            showBroadcastFeedback(
+                "TRANSMISSION FAILED",
+                error.message.toUpperCase(),
+                false
+            );
+        });
+}
 function renderLiveInjection() {
     const injectionZone = document.getElementById('liveInjectionZone');
     if (!injectionZone) return;
@@ -2631,4 +2664,35 @@ function initEliteCountdown() {
             document.getElementById('liveStatus')?.classList.remove('hidden');
         }
     }, 1000);
+}
+
+
+
+//// for the broadcast modals
+function showBroadcastFeedback(title, message, isSuccess = true) {
+    const modal = document.getElementById('broadcastFeedbackModal');
+    const feedbackTitle = document.getElementById('feedbackTitle');
+    const feedbackMessage = document.getElementById('feedbackMessage');
+    const feedbackIcon = document.getElementById('feedbackIcon');
+
+    if (!modal) return;
+
+    feedbackTitle.innerText = title;
+    feedbackMessage.innerText = message;
+
+    if (isSuccess) {
+        feedbackIcon.className = "fas fa-check-circle text-5xl text-rose-500";
+        feedbackTitle.style.color = "#fff";
+        modal.querySelector('button').className = "mt-10 w-full py-4 bg-rose-600/80 hover:bg-rose-500 rounded-2xl text-[10px] text-white font-black uppercase tracking-[0.3em] transition-all shadow-lg";
+    } else {
+        feedbackIcon.className = "fas fa-exclamation-triangle text-5xl text-red-500";
+        feedbackTitle.style.color = "#f87171";
+        modal.querySelector('button').className = "mt-10 w-full py-4 bg-red-600/80 hover:bg-red-500 rounded-2xl text-[10px] text-white font-black uppercase tracking-[0.3em] transition-all shadow-lg";
+    }
+
+    modal.style.display = 'flex';
+}
+
+function closeBroadcastFeedback() {
+    document.getElementById('broadcastFeedbackModal').style.display = 'none';
 }
