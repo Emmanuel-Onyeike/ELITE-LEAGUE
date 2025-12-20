@@ -270,55 +270,64 @@
     <div id="mainDisplay" class="mt-10 bg-[#030816] border border-blue-500/10 rounded-[2.5rem] p-10 min-h-[500px] transition-all duration-500">
         </div>
 </main>
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+ <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      try {
-        const firebaseConfig = {
-          apiKey: "AIzaSyALpkq15pxX-0M0SV7-p417EeanTeMpUNI",
-          authDomain: "eliteleague-92cce.firebaseapp.com",
-          databaseURL: "https://eliteleague-92cce-default-rtdb.firebaseio.com",
-          projectId: "eliteleague-92cce",
-          storageBucket: "eliteleague-92cce.firebasestorage.app",
-          messagingSenderId: "1050191750222",
-          appId: "1:1050191750222:web:c9dd71c24c063b685ecf1f",
-          measurementId: "G-K9S69VNN7H"
-        };
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    try {
+      const firebaseConfig = {
+        apiKey: "AIzaSyALpkq15pxX-0M0SV7-p417EeanTeMpUNI",
+        authDomain: "eliteleague-92cce.firebaseapp.com",
+        databaseURL: "https://eliteleague-92cce-default-rtdb.firebaseio.com",
+        projectId: "eliteleague-92cce",
+        storageBucket: "eliteleague-92cce.firebasestorage.app",
+        messagingSenderId: "1050191750222",
+        appId: "1:1050191750222:web:c9dd71c24c063b685ecf1f",
+        measurementId: "G-K9S69VNN7H"
+      };
 
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-        window.eliteLivePackets = [];
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
 
-        const packetsRef = db.ref('livePackets').orderByChild('timestamp').limitToLast(50);
+      // CRITICAL FIX: Make db and packetsRef globally accessible
+      window.db = firebase.database();
+      window.eliteLivePackets = [];
 
-        packetsRef.on('value', (snapshot) => {
-          const data = snapshot.val();
-          if (data) {
-            window.eliteLivePackets = Object.keys(data).map(key => ({
+      const packetsRef = window.db.ref('livePackets').orderByChild('timestamp').limitToLast(50);
+
+      packetsRef.on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          window.eliteLivePackets = Object.keys(data)
+            .map(key => ({
               id: key,
               ...data[key]
-            })).reverse(); // newest first
-          } else {
-            window.eliteLivePackets = [];
+            }))
+            .reverse(); // newest first
+        } else {
+          window.eliteLivePackets = [];
+        }
+
+        // Auto re-render News view when new packets arrive
+        if (document.getElementById('viewTitle')?.innerText.includes('News')) {
+          if (typeof renderLiveInjection === 'function') {
+            renderLiveInjection();
           }
+        }
+      }, (error) => {
+        console.warn('Live packets offline:', error.message);
+      });
 
-          if (document.getElementById('viewTitle')?.innerText.includes('News')) {
-            if (typeof renderLiveInjection === 'function') renderLiveInjection();
-          }
-        }, (error) => {
-          console.warn('Live packets offline:', error.message);
-        });
+      console.log('Firebase initialized – Supreme Controller online');
 
-      } catch (e) {
-        console.warn('Firebase init skipped:', e);
-      }
-    });
-  </script>
-
-
+    } catch (e) {
+      console.warn('Firebase init failed:', e);
+      window.eliteLivePackets = [];
+    }
+  });
+</script>
 
   <script src="dashboard .js"></script>
 </body>
