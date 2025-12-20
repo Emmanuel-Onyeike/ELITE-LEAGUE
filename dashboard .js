@@ -2408,3 +2408,164 @@ function closeEliteModal() {
 function closeEliteAlert() {
     document.getElementById('eliteAlert').classList.add('hidden');
 }
+
+
+
+
+//// for the live sessions
+
+/**
+ * ELITE LEAGUE - GLOBAL CONTROLLER
+ * Combined: Timer, Security, Live Broadcast, and News Injection
+ */
+
+// --- 1. GLOBAL STATE ---
+// Stores up to 2 live packets in memory for the session
+let eliteLivePackets = [];
+
+// --- 2. THE VIEW ENGINE (Linking News and Live) ---
+function updateView(viewName) {
+    const mainContainer = document.getElementById('main'); // Ensure this is your main div ID
+    if (!mainContainer) return;
+
+    // Load the HTML from your views object
+    mainContainer.innerHTML = views[viewName];
+
+    // --- VIEW SPECIFIC LOGIC ---
+    if (viewName === 'LiveSession') {
+        initEliteCountdown();
+    }
+    
+    if (viewName === 'News') {
+        renderLiveInjection();
+    }
+}
+
+// --- 3. THE COUNTDOWN SYSTEM ---
+function initEliteCountdown() {
+    const target = new Date();
+    target.setHours(24, 0, 0, 0); // Sets target to midnight
+
+    const timerInterval = setInterval(() => {
+        const now = new Date().getTime();
+        const diff = target - now;
+
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        const timerEl = document.getElementById('timer');
+        if (!timerEl) {
+            clearInterval(timerInterval); // Stop if user leaves the page
+            return;
+        }
+
+        timerEl.innerHTML = `${h.toString().padStart(2, '0')} : ${m.toString().padStart(2, '0')} : ${s.toString().padStart(2, '0')}`;
+
+        if (diff < 0) {
+            clearInterval(timerInterval);
+            document.getElementById('countdownContainer').classList.add('hidden');
+            document.getElementById('liveStatus').classList.remove('hidden');
+        }
+    }, 1000);
+}
+
+// --- 4. SECURITY & MODALS ---
+function openAdminModal() {
+    const modal = document.getElementById('adminModal');
+    if (modal) modal.style.display = 'flex';
+}
+
+function verifyEliteAccess() {
+    const pinField = document.getElementById('adminPin');
+    if (pinField && pinField.value === '3478') {
+        document.getElementById('adminModal').style.display = 'none';
+        document.getElementById('broadcastModal').style.display = 'flex';
+        pinField.value = ''; 
+    } else {
+        alert("ACCESS DENIED: KEY INVALID");
+        if(pinField) pinField.value = '';
+    }
+}
+
+// --- 5. BROADCAST TRANSMISSION ---
+async function handleElitePublish() {
+    const pubBtn = document.getElementById('publishBtn');
+    const title = document.getElementById('postTitle').value;
+    const content = document.getElementById('postContent').value;
+    const imageInput = document.getElementById('imageUpload');
+    
+    if(!content) return alert("DATA PACKET EMPTY: TRANSMISSION ABORTED");
+
+    // UI Loading State
+    pubBtn.disabled = true;
+    pubBtn.innerHTML = `<i class="fas fa-spinner animate-spin"></i> ENCRYPTING...`;
+
+    // Handle Image
+    let imgSource = '';
+    if (imageInput.files && imageInput.files[0]) {
+        imgSource = URL.createObjectURL(imageInput.files[0]);
+    }
+
+    // Create Packet
+    const packet = {
+        id: "EP-" + Math.floor(Math.random() * 9000 + 1000),
+        title: title || "AUTHORITY UPDATE",
+        body: content,
+        img: imgSource,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+
+    // Update Memory (Keep only most recent 2)
+    eliteLivePackets.unshift(packet);
+    if (eliteLivePackets.length > 2) eliteLivePackets.pop();
+
+    // Simulate Signal Delay
+    setTimeout(() => {
+        document.getElementById('broadcastModal').style.display = 'none';
+        pubBtn.disabled = false;
+        pubBtn.innerHTML = "Deploy Broadcast";
+        
+        // Clear inputs
+        document.getElementById('postTitle').value = '';
+        document.getElementById('postContent').value = '';
+        
+        alert("SIGNAL STABILIZED: BROADCAST LIVE");
+    }, 1500);
+}
+
+// --- 6. NEWS HUB INJECTION ---
+function renderLiveInjection() {
+    const injectionZone = document.getElementById('liveInjectionZone');
+    if (!injectionZone) return;
+
+    if (eliteLivePackets.length > 0) {
+        const postsHTML = eliteLivePackets.map(p => `
+            <div class="bg-rose-500/5 border border-rose-500/20 rounded-[3rem] overflow-hidden animate-in slide-in-from-top duration-700 mb-8">
+                <div class="p-8 md:p-12">
+                    <div class="flex justify-between items-center mb-6">
+                        <h4 class="text-2xl font-black italic text-white uppercase tracking-tighter">${p.title}</h4>
+                        <div class="flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-rose-500 rounded-full animate-ping"></span>
+                            <span class="text-[9px] text-rose-500 font-black uppercase tracking-widest">Live Packet</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm font-bold uppercase leading-relaxed mb-6 italic">${p.body}</p>
+                    ${p.img ? `<img src="${p.img}" class="w-full rounded-3xl border border-white/5 shadow-2xl mb-6">` : ''}
+                    <div class="flex justify-between items-center border-t border-white/5 pt-6 text-[8px] text-gray-600 font-mono uppercase tracking-[0.3em]">
+                        <span>ID: ${p.id}</span>
+                        <span>${p.timestamp}</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        injectionZone.innerHTML = `
+            <div class="flex items-center gap-4 mb-4 opacity-50">
+                <span class="text-[10px] text-rose-500 font-black uppercase tracking-[0.4em]">Live Signal Stream</span>
+                <div class="h-[1px] flex-1 bg-rose-500/20"></div>
+            </div>
+            ${postsHTML}
+        `;
+    }
+}
