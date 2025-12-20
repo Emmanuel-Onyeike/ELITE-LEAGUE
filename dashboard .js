@@ -781,16 +781,24 @@ const contentData = {
 
     <div id="permanentNews" class="space-y-12">
         
-        <div class="bg-[#020617] border-l-4 border-blue-500 rounded-r-[2rem] p-8 relative overflow-hidden group">
-            <div class="absolute top-0 right-0 p-4 opacity-10">
-                <i class="fas fa-tower-broadcast text-4xl text-blue-500"></i>
-            </div>
-            <div class="relative z-10">
-                <span class="text-[8px] text-blue-500 font-black uppercase tracking-[0.3em] mb-2 block">System Protocol 4.0</span>
-                <h4 class="text-xl font-black text-white uppercase italic tracking-tighter mb-2">Live Session <span class="text-blue-500">Uplink established</span></h4>
-                <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed tracking-wider">
-                    Elite Coordinators have integrated the <span class="text-white italic">"Live Session"</span> portal. Authorized admins can now broadcast real-time data packets directly to this hub. Check the sidebar for synchronization status.
-                </p>
+        <div class="bg-blue-600/5 border border-blue-500/20 rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden">
+            <div class="flex flex-col md:flex-row gap-8 items-center relative z-10">
+                <div class="w-20 h-20 bg-[#020617] rounded-3xl border border-blue-500/30 flex items-center justify-center shrink-0">
+                    <i class="fas fa-info-circle text-blue-500 text-3xl"></i>
+                </div>
+                <div class="space-y-4">
+                    <h4 class="text-2xl font-black italic text-white uppercase tracking-tighter">Uplink <span class="text-blue-500">Protocol</span></h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <p class="text-[9px] text-blue-400 font-black uppercase tracking-widest">01. Synchronization</p>
+                            <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed">The Live Session signal goes online 24 hours prior to the scheduled date for all units.</p>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-[9px] text-blue-400 font-black uppercase tracking-widest">02. Post-Session Lock</p>
+                            <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed">Once the session concludes, the uplink is locked. Final updates from the Board will be deployed here until the next cycle.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -802,7 +810,7 @@ const contentData = {
                 </div>
                 <h4 class="text-4xl md:text-5xl font-black italic text-white uppercase tracking-tighter mb-8 italic">The Christmas <span class="text-green-500">Amnesty</span></h4>
                 <div class="max-w-2xl space-y-8">
-                    <p class="text-gray-400 text-sm font-bold uppercase leading-relaxed italic">In the spirit of the season, all player suspensions are void.</p>
+                    <p class="text-gray-400 text-sm font-bold uppercase leading-relaxed italic italic">In the spirit of the season, all player suspensions are void.</p>
                     <div class="p-8 bg-white/5 border border-white/10 rounded-[2.5rem]">
                         <p class="text-white text-[11px] font-black uppercase tracking-widest italic mb-3">Targeted Decryption: Jasso (CSC 200)</p>
                         <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest leading-loose">Red card status purged. Unit restored to active duty.</p>
@@ -842,7 +850,7 @@ const contentData = {
 </div> 
 `,
 
-
+    
     
     'LiveSession': `
 <div class="space-y-8 animate-in pb-20 px-4 md:px-12">
