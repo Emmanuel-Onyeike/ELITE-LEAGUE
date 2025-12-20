@@ -851,8 +851,7 @@ const contentData = {
 `,
 
     
-    
-    'LiveSession': `
+   'LiveSession': `
 <div class="space-y-8 animate-in pb-20 px-4 md:px-12">
     <div class="relative overflow-hidden bg-[#020617] border border-blue-500/20 p-8 rounded-[2.5rem] md:rounded-[3rem] shadow-2xl">
         <div class="absolute top-0 right-0 w-32 h-32 bg-blue-600/10 blur-[50px] pointer-events-none"></div>
@@ -895,37 +894,43 @@ const contentData = {
             <p class="text-gray-400 text-xs font-bold uppercase tracking-[0.2em] max-w-xs mx-auto italic">Broadcast Control Interface Fully Initialized.</p>
         </div>
 
-        <div class="mt-16 relative z-10">
-            <button onclick="openAdminModal()" class="group relative flex flex-col items-center gap-4 focus:outline-none">
+        <div class="mt-16 pt-10 border-t border-white/5 w-full max-w-xs relative z-10">
+            <button 
+                onmousedown="startFingerprintScan(event)" 
+                onmouseup="cancelFingerprintScan()" 
+                onmouseleave="cancelFingerprintScan()"
+                ontouchstart="startFingerprintScan(event)" 
+                ontouchend="cancelFingerprintScan()"
+                class="group relative flex flex-col items-center gap-4 focus:outline-none select-none mx-auto">
                 <div class="relative">
-                    <div class="absolute inset-0 bg-blue-500/20 blur-2xl group-hover:bg-rose-500/20 transition-all"></div>
-                    <div class="w-20 h-20 bg-zinc-900 border border-white/10 rounded-[2rem] flex items-center justify-center group-hover:border-blue-500/50 group-hover:scale-105 transition-all duration-500 relative z-10 shadow-2xl">
-                        <i class="fas fa-fingerprint text-gray-500 text-3xl group-hover:text-blue-500 transition-colors"></i>
+                    <div class="absolute inset-0 bg-blue-500/20 blur-2xl group-active:bg-rose-500/40 transition-all"></div>
+                    <div class="w-20 h-20 bg-zinc-900 border border-white/10 rounded-[2rem] flex items-center justify-center group-hover:border-blue-500/50 transition-all duration-500 relative z-10 shadow-2xl">
+                        <i class="fas fa-fingerprint text-gray-500 text-3xl transition-colors group-active:text-rose-500"></i>
                     </div>
                 </div>
                 <div class="space-y-1">
                     <p class="text-[11px] text-white font-black uppercase tracking-[0.2em]">Admin Decryption</p>
-                    <p class="text-[8px] text-gray-600 font-bold uppercase tracking-widest group-hover:text-gray-400 transition-colors">Hold to Authenticate</p>
+                    <p class="text-[8px] text-gray-600 font-bold uppercase tracking-widest">Hold to Authenticate</p>
                 </div>
             </button>
         </div>
-    </div> 
 
-    <div class="flex flex-col md:flex-row justify-center items-center gap-8 opacity-40">
-        <div class="flex items-center gap-2">
-            <i class="fas fa-shield-halved text-[10px] text-blue-500"></i>
-            <span class="text-[8px] text-white font-black uppercase tracking-widest">Encrypted Uplink</span>
-        </div>
-        <div class="flex items-center gap-2">
-            <i class="fas fa-bolt text-[10px] text-blue-500"></i>
-            <span class="text-[8px] text-white font-black uppercase tracking-widest">Direct Dispatch</span>
+        <div class="flex flex-col md:flex-row justify-center items-center gap-8 opacity-40 mt-12">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-shield-halved text-[10px] text-blue-500"></i>
+                <span class="text-[8px] text-white font-black uppercase tracking-widest">Encrypted Uplink</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <i class="fas fa-bolt text-[10px] text-blue-500"></i>
+                <span class="text-[8px] text-white font-black uppercase tracking-widest">Direct Dispatch</span>
+            </div>
         </div>
     </div>
 </div>
 `,
 
-    
 
+    
     
 'Goals Leaderboard': `
 <div class="space-y-12 animate-in pb-40 px-6 md:px-16">
