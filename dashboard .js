@@ -2421,57 +2421,51 @@ function closeEliteAlert() {
 
 /**
  * ELITE LEAGUE - SUPREME CONTROLLER
- * Optimized for Global Modals & Cross-Device Hold Logic
+ * Synced with Firebase Realtime Database
  */
 
-// 1. GLOBAL STATE
-let eliteLivePackets = [];
+// 1. GLOBAL STATE (Now managed via window by the Firebase script in HTML)
 let scanTimeout; 
 
-// --- 2. HOLD-TO-AUTHENTICATE LOGIC (For Fingerprint Button) ---
+// --- 2. HOLD-TO-AUTHENTICATE LOGIC ---
 function startFingerprintScan(e) {
-    if (e) e.preventDefault(); // Prevents mobile long-press menus
-    
-    // Add visual "Scanning" effect to the icon
+    if (e) e.preventDefault(); 
     const icon = document.querySelector('.fa-fingerprint');
-    if (icon) icon.style.color = '#f43f5e'; // Rose-500
+    if (icon) icon.style.color = '#f43f5e'; // Visual feedback (Rose-500)
 
     scanTimeout = setTimeout(() => {
         openAdminModal();
-        cancelFingerprintScan(); // Reset icon color
-    }, 1200); // User must hold for 1.2 seconds
+        cancelFingerprintScan();
+    }, 1200); 
 }
 
 function cancelFingerprintScan() {
     clearTimeout(scanTimeout);
     const icon = document.querySelector('.fa-fingerprint');
-    if (icon) icon.style.color = ''; // Reset to CSS default
+    if (icon) icon.style.color = ''; 
 }
 
-// --- 3. MASTER VIEW ENGINE (Handles Navigation) ---
+// --- 3. MASTER VIEW ENGINE ---
 function updateView(title) {
-    // A. UI Updates (Sidebar & Title)
+    const mainDisplay = document.getElementById('mainDisplay');
     const viewTitle = document.getElementById('viewTitle');
+    
+    // UI Updates
     if (viewTitle) viewTitle.innerText = title;
-
-    const allLinks = document.querySelectorAll('.sidebar-item');
-    allLinks.forEach(link => {
+    document.querySelectorAll('.sidebar-item').forEach(link => {
         link.classList.remove('active');
-        const span = link.querySelector('span');
-        if (span && span.innerText.trim() === title) link.classList.add('active');
+        if (link.innerText.trim().includes(title)) link.classList.add('active');
     });
 
-    // B. Main Display Injection
-    const mainDisplay = document.getElementById('mainDisplay');
     if (mainDisplay) {
         mainDisplay.style.opacity = '0';
         
         setTimeout(() => {
+            // Check for special system renders
             if (title === 'Player Selection' || title === 'Team Selection') {
                 if (typeof renderLeagueSystem === 'function') renderLeagueSystem(title);
             } else {
                 let htmlContent = "";
-                // Check contentData (Original) then views (Elite)
                 if (typeof contentData !== 'undefined' && contentData[title]) {
                     htmlContent = contentData[title];
                 } else if (typeof views !== 'undefined' && views[title]) {
@@ -2482,34 +2476,33 @@ function updateView(title) {
                 mainDisplay.innerHTML = htmlContent;
             }
             
-            // C. Auto-Initialize Systems
+            // Re-run scripts for the specific view
             if (title === 'LiveSession' || title === 'Live Session') {
-                initEliteCountdown();
+                if (typeof initEliteCountdown === 'function') initEliteCountdown();
             }
+            
             if (title === 'News') {
+                // This triggers the render using the global window.eliteLivePackets from Firebase
                 renderLiveInjection();
             }
 
             mainDisplay.style.opacity = '1';
-            if (typeof startSystemSync === 'function') startSystemSync(); 
         }, 200);
     }
 
-    // D. Mobile Sidebar Auto-Close
+    // Mobile Auto-Close
     const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    if (window.innerWidth < 768 && sidebar && !sidebar.classList.contains('-translate-x-full')) {
+    if (window.innerWidth < 768 && sidebar) {
         sidebar.classList.add('-translate-x-full');
-        if (overlay) overlay.classList.add('hidden');
+        document.getElementById('overlay')?.classList.add('hidden');
     }
 }
 
-// --- 4. MODAL CONTROL (Interacts with index.html) ---
+// --- 4. MODAL CONTROL ---
 function openAdminModal() {
     const modal = document.getElementById('adminModal');
     if (modal) {
         modal.style.display = 'flex';
-        // Auto-focus the input for faster entry
         setTimeout(() => document.getElementById('adminPin')?.focus(), 100);
     }
 }
@@ -2526,58 +2519,16 @@ function verifyEliteAccess() {
     }
 }
 
-// --- 5. BROADCAST & NEWS ENGINE ---
-async function handleElitePublish() {
-    const pubBtn = document.getElementById('publishBtn');
-    const title = document.getElementById('postTitle').value;
-    const content = document.getElementById('postContent').value;
-    const imageInput = document.getElementById('imageUpload');
-    
-    if(!content) return alert("DATA PACKET EMPTY: TRANSMISSION ABORTED");
-
-    pubBtn.disabled = true;
-    pubBtn.innerHTML = `<i class="fas fa-spinner animate-spin"></i> ENCRYPTING...`;
-
-    let imgSource = '';
-    if (imageInput.files && imageInput.files[0]) {
-        imgSource = URL.createObjectURL(imageInput.files[0]);
-    }
-
-    const packet = {
-        id: "EP-" + Math.floor(Math.random() * 9000 + 1000),
-        title: title || "AUTHORITY UPDATE",
-        body: content,
-        img: imgSource,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    };
-
-    eliteLivePackets.unshift(packet);
-    if (eliteLivePackets.length > 2) eliteLivePackets.pop();
-
-    setTimeout(() => {
-        document.getElementById('broadcastModal').style.display = 'none';
-        pubBtn.disabled = false;
-        pubBtn.innerHTML = "Deploy Broadcast";
-        
-        // Clear inputs
-        document.getElementById('postTitle').value = '';
-        document.getElementById('postContent').value = '';
-        if (imageInput) imageInput.value = '';
-        
-        alert("SIGNAL STABILIZED: BROADCAST LIVE");
-    }, 1500);
-}
-
+// --- 5. NEWS RENDERING (Pulling from Cloud State) ---
 function renderLiveInjection() {
     const injectionZone = document.getElementById('liveInjectionZone');
     if (!injectionZone) return;
 
-    if (eliteLivePackets.length > 0) {
-        // Hide the "Waiting for packets" notice if it exists
-        const notice = document.getElementById('emptyLiveNotice');
-        if (notice) notice.style.display = 'none';
+    // We use window.eliteLivePackets because that is where the Firebase script stores the data
+    const packets = window.eliteLivePackets || [];
 
-        const postsHTML = eliteLivePackets.map(p => `
+    if (packets.length > 0) {
+        const postsHTML = packets.map(p => `
             <div class="bg-rose-500/5 border border-rose-500/20 rounded-[3rem] overflow-hidden animate-in slide-in-from-top duration-700 mb-8 shadow-xl">
                 <div class="p-8 md:p-12">
                     <div class="flex justify-between items-center mb-6">
@@ -2588,7 +2539,6 @@ function renderLiveInjection() {
                         </div>
                     </div>
                     <p class="text-gray-400 text-sm font-bold uppercase leading-relaxed mb-6 italic">${p.body}</p>
-                    ${p.img ? `<img src="${p.img}" class="w-full rounded-3xl border border-white/5 shadow-2xl mb-6">` : ''}
                     <div class="flex justify-between items-center border-t border-white/5 pt-6 text-[8px] text-gray-600 font-mono uppercase tracking-[0.3em]">
                         <span>ID: ${p.id}</span>
                         <span>${p.timestamp}</span>
@@ -2597,7 +2547,6 @@ function renderLiveInjection() {
             </div>
         `).join('');
 
-        // Prepend the stream header
         injectionZone.innerHTML = `
             <div class="flex items-center gap-4 mb-4 opacity-50">
                 <span class="text-[10px] text-rose-500 font-black uppercase tracking-[0.4em]">Live Signal Stream</span>
@@ -2605,34 +2554,13 @@ function renderLiveInjection() {
             </div>
             ${postsHTML}
         `;
+    } else {
+        injectionZone.innerHTML = `<p class="text-gray-500 text-center py-10 uppercase tracking-widest text-[10px]">No active broadcasts in orbit...</p>`;
     }
 }
 
-// --- 6. TIMER ---
-function initEliteCountdown() {
-    const target = new Date();
-    target.setHours(24, 0, 0, 0); 
-
-    const timerInterval = setInterval(() => {
-        const now = new Date().getTime();
-        const diff = target - now;
-        const timerEl = document.getElementById('timer');
-
-        if (!timerEl) {
-            clearInterval(timerInterval);
-            return;
-        }
-
-        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-        timerEl.innerHTML = `${h.toString().padStart(2, '0')} : ${m.toString().padStart(2, '0')} : ${s.toString().padStart(2, '0')}`;
-
-        if (diff < 0) {
-            clearInterval(timerInterval);
-            document.getElementById('countdownContainer')?.classList.add('hidden');
-            document.getElementById('liveStatus')?.classList.remove('hidden');
-        }
-    }, 1000);
-}
+// --- 6. MOBILE MENU TOGGLE ---
+document.getElementById('menuBtn')?.addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('-translate-x-full');
+    document.getElementById('overlay').classList.toggle('hidden');
+});
