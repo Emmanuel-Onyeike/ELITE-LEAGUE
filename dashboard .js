@@ -2423,76 +2423,85 @@ function closeEliteAlert() {
  * Synced with Firebase Realtime Database
  */
 
-// 1. GLOBAL STATE (Now managed via window by the Firebase script in HTML)
-let scanTimeout; 
+let scanTimeout;
 
 // --- 2. HOLD-TO-AUTHENTICATE LOGIC ---
 function startFingerprintScan(e) {
-    if (e) e.preventDefault(); 
+    if (e) e.preventDefault();
     const icon = document.querySelector('.fa-fingerprint');
-    if (icon) icon.style.color = '#f43f5e'; // Visual feedback (Rose-500)
-
+    if (icon) icon.style.color = '#f43f5e'; // Rose-500 feedback
     scanTimeout = setTimeout(() => {
         openAdminModal();
         cancelFingerprintScan();
-    }, 1200); 
+    }, 1200); // Hold for 1.2 seconds
 }
 
 function cancelFingerprintScan() {
     clearTimeout(scanTimeout);
     const icon = document.querySelector('.fa-fingerprint');
-    if (icon) icon.style.color = ''; 
+    if (icon) icon.style.color = '';
 }
 
 // --- 3. MASTER VIEW ENGINE ---
 function updateView(title) {
     const mainDisplay = document.getElementById('mainDisplay');
     const viewTitle = document.getElementById('viewTitle');
-    
-    // UI Updates
+
+    // Update title and sidebar active state
     if (viewTitle) viewTitle.innerText = title;
     document.querySelectorAll('.sidebar-item').forEach(link => {
         link.classList.remove('active');
-        if (link.innerText.trim().includes(title)) link.classList.add('active');
+        if (link.innerText.trim().toLowerCase().includes(title.toLowerCase())) {
+            link.classList.add('active');
+        }
     });
 
     if (mainDisplay) {
         mainDisplay.style.opacity = '0';
-        
+
         setTimeout(() => {
-            // Check for special system renders
+            let htmlContent = "";
+
+            // Special views
             if (title === 'Player Selection' || title === 'Team Selection') {
-                if (typeof renderLeagueSystem === 'function') renderLeagueSystem(title);
-            } else {
-                let htmlContent = "";
-                if (typeof contentData !== 'undefined' && contentData[title]) {
-                    htmlContent = contentData[title];
-                } else if (typeof views !== 'undefined' && views[title]) {
-                    htmlContent = views[title];
-                } else {
-                    htmlContent = `<div class="p-10 text-center"><h2 class="text-white font-black italic">${title}</h2><p class="text-gray-500 text-xs mt-2">DATA NODE OFFLINE</p></div>`;
+                if (typeof renderLeagueSystem === 'function') {
+                    renderLeagueSystem(title);
+                    mainDisplay.style.opacity = '1';
+                    return;
                 }
-                mainDisplay.innerHTML = htmlContent;
             }
-            
-            // Re-run scripts for the specific view
+
+            // Static content fallback
+            if (typeof contentData !== 'undefined' && contentData[title]) {
+                htmlContent = contentData[title];
+            } else if (typeof views !== 'undefined' && views[title]) {
+                htmlContent = views[title];
+            } else {
+                htmlContent = `
+                    <div class="p-10 text-center">
+                        <h2 class="text-white font-black italic text-4xl">${title}</h2>
+                        <p class="text-gray-500 text-xs mt-4 uppercase tracking-widest">DATA NODE OFFLINE</p>
+                    </div>`;
+            }
+
+            mainDisplay.innerHTML = htmlContent;
+
+            // View-specific initializations
             if (title === 'LiveSession' || title === 'Live Session') {
                 if (typeof initEliteCountdown === 'function') initEliteCountdown();
             }
-            
+
             if (title === 'News') {
-                // This triggers the render using the global window.eliteLivePackets from Firebase
-                renderLiveInjection();
+                renderLiveInjection(); // Critical: Render live packets
             }
 
             mainDisplay.style.opacity = '1';
         }, 200);
     }
 
-    // Mobile Auto-Close
-    const sidebar = document.getElementById('sidebar');
-    if (window.innerWidth < 768 && sidebar) {
-        sidebar.classList.add('-translate-x-full');
+    // Mobile: Auto-close sidebar
+    if (window.innerWidth < 768) {
+        document.getElementById('sidebar')?.classList.add('-translate-x-full');
         document.getElementById('overlay')?.classList.add('hidden');
     }
 }
@@ -2511,19 +2520,68 @@ function verifyEliteAccess() {
     if (pinField && pinField.value === '3478') {
         document.getElementById('adminModal').style.display = 'none';
         document.getElementById('broadcastModal').style.display = 'flex';
-        pinField.value = ''; 
+        pinField.value = '';
     } else {
         alert("ACCESS DENIED: KEY INVALID");
-        if(pinField) pinField.value = '';
+        pinField.value = '';
     }
 }
 
-// --- 5. NEWS RENDERING (Pulling from Cloud State) ---
+function closeBroadcastModal() {
+    document.getElementById('broadcastModal').style.display = 'none';
+}
+
+// --- 5. BROADCAST LIVE PACKET ---
+function broadcastLivePacket() {
+    const titleInput = document.getElementById('broadcastTitle');
+    const bodyInput = document.getElementById('broadcastBody');
+
+    if (!titleInput || !bodyInput) {
+        alert("ERROR: Broadcast inputs not found");
+        return;
+    }
+
+    const title = titleInput.value.trim().toUpperCase();
+    const body = bodyInput.value.trim().toUpperCase();
+
+    if (!title || !body) {
+        alert("SUPREME CONTROLLER: TITLE AND BODY REQUIRED");
+        return;
+    }
+
+    const now = new Date();
+    const timestamp = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase() +
+                      ' - ' +
+                      now.toTimeString().slice(0, 5) + ' UTC';
+
+    const newPacket = {
+        title: title,
+        body: body,
+        timestamp: timestamp
+    };
+
+    // Push to Firebase
+    if (typeof db !== 'undefined') {
+        db.ref('livePackets').push(newPacket)
+            .then(() => {
+                alert('LIVE PACKET BROADCASTED SUCCESSFULLY');
+                titleInput.value = '';
+                bodyInput.value = '';
+                closeBroadcastModal();
+            })
+            .catch((error) => {
+                alert('TRANSMISSION FAILED: ' + error.message);
+            });
+    } else {
+        alert('ERROR: Firebase not initialized');
+    }
+}
+
+// --- 6. NEWS RENDERING (Live from Firebase) ---
 function renderLiveInjection() {
     const injectionZone = document.getElementById('liveInjectionZone');
     if (!injectionZone) return;
 
-    // We use window.eliteLivePackets because that is where the Firebase script stores the data
     const packets = window.eliteLivePackets || [];
 
     if (packets.length > 0) {
@@ -2539,7 +2597,7 @@ function renderLiveInjection() {
                     </div>
                     <p class="text-gray-400 text-sm font-bold uppercase leading-relaxed mb-6 italic">${p.body}</p>
                     <div class="flex justify-between items-center border-t border-white/5 pt-6 text-[8px] text-gray-600 font-mono uppercase tracking-[0.3em]">
-                        <span>ID: ${p.id}</span>
+                        <span>ID: ${p.id.substring(0, 12)}</span>
                         <span>${p.timestamp}</span>
                     </div>
                 </div>
@@ -2547,18 +2605,21 @@ function renderLiveInjection() {
         `).join('');
 
         injectionZone.innerHTML = `
-            <div class="flex items-center gap-4 mb-4 opacity-50">
+            <div class="flex items-center gap-4 mb-8 opacity-50">
                 <span class="text-[10px] text-rose-500 font-black uppercase tracking-[0.4em]">Live Signal Stream</span>
                 <div class="h-[1px] flex-1 bg-rose-500/20"></div>
             </div>
             ${postsHTML}
         `;
     } else {
-        injectionZone.innerHTML = `<p class="text-gray-500 text-center py-10 uppercase tracking-widest text-[10px]">No active broadcasts in orbit...</p>`;
+        injectionZone.innerHTML = `
+            <p class="text-gray-500 text-center py-20 uppercase tracking-widest text-[11px] font-light">
+                NO ACTIVE BROADCASTS IN ORBIT...
+            </p>`;
     }
 }
 
-// --- 6. MOBILE MENU TOGGLE ---
+// --- 7. MOBILE MENU TOGGLE ---
 document.getElementById('menuBtn')?.addEventListener('click', () => {
     document.getElementById('sidebar').classList.toggle('-translate-x-full');
     document.getElementById('overlay').classList.toggle('hidden');
