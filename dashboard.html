@@ -277,17 +277,14 @@
         </div>
 </main>
 
-
 <script type="module">
-  // 1. Import Firebase Apps and the Database (The sync brain)
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
   import { getDatabase, ref, push, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-  // 2. Your specific Elite League Configuration
   const firebaseConfig = {
     apiKey: "AIzaSyALpkq15pxX-0M0SV7-p417EeanTeMpUNI",
     authDomain: "eliteleague-92cce.firebaseapp.com",
-    databaseURL: "https://eliteleague-92cce-default-rtdb.firebaseio.com", // Linked to your ID
+    databaseURL: "https://eliteleague-92cce-default-rtdb.firebaseio.com",
     projectId: "eliteleague-92cce",
     storageBucket: "eliteleague-92cce.firebasestorage.app",
     messagingSenderId: "1050191750222",
@@ -295,29 +292,25 @@
     measurementId: "G-K9S69VNN7H"
   };
 
-  // 3. Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  // --- GLOBAL SYNC PUBLISH (For your Admin Modal) ---
+  // --- 1. CLOUD SYNCED PUBLISH ---
   window.handleElitePublish = async function() {
       const title = document.getElementById('postTitle').value;
       const content = document.getElementById('postContent').value;
       const pubBtn = document.getElementById('publishBtn');
 
       if(!content) return alert("DATA PACKET EMPTY");
-
       pubBtn.disabled = true;
-      pubBtn.innerHTML = "ENCRYPTING TO CLOUD...";
+      pubBtn.innerHTML = "UPLOADING TO CLOUD...";
 
       try {
-          // This sends the data to the Google Cloud
           await push(ref(db, 'broadcasts'), {
               title: title || "AUTHORITY UPDATE",
               body: content,
-              timestamp: serverTimestamp() // Forces every phone to use the same time
+              timestamp: serverTimestamp() 
           });
-
           document.getElementById('broadcastModal').style.display = 'none';
           document.getElementById('postContent').value = '';
           alert("SIGNAL SYNCED GLOBALLY");
@@ -329,7 +322,7 @@
       }
   };
 
-  // --- LIVE LISTENER (Updates News Hub on all devices) ---
+  // --- 2. GLOBAL LISTENER ---
   onValue(ref(db, 'broadcasts'), (snapshot) => {
       const data = snapshot.val();
       if (data) {
@@ -340,15 +333,43 @@
           })).reverse(); 
 
           window.eliteLivePackets = packets.slice(0, 5); 
-          
-          // If the user is looking at the News page, refresh it instantly
           if (document.getElementById('liveInjectionZone')) {
               renderLiveInjection();
           }
       }
   });
-</script>
 
+  // --- 3. SYNCED TIMER ---
+  let serverOffset = 0;
+  onValue(ref(db, ".info/serverTimeOffset"), (snap) => {
+      serverOffset = snap.val() || 0;
+  });
+
+  window.initEliteCountdown = function() {
+      const target = new Date();
+      target.setHours(24, 0, 0, 0); 
+
+      const timerInterval = setInterval(() => {
+          const now = Date.now() + serverOffset;
+          const diff = target - now;
+          const timerEl = document.getElementById('timer');
+
+          if (!timerEl) { clearInterval(timerInterval); return; }
+
+          if (diff <= 0) {
+              clearInterval(timerInterval);
+              document.getElementById('countdownContainer')?.classList.add('hidden');
+              document.getElementById('liveStatus')?.classList.remove('hidden');
+              return;
+          }
+
+          const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const s = Math.floor((diff % (1000 * 60)) / 1000);
+          timerEl.innerHTML = `${h.toString().padStart(2, '0')} : ${m.toString().padStart(2, '0')} : ${s.toString().padStart(2, '0')}`;
+      }, 1000);
+  };
+</script>
 <script src="dashboard .js"></script>
 </body>
 </html>
