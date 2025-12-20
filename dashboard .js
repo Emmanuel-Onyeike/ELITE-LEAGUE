@@ -751,52 +751,134 @@ const contentData = {
         </div>
     </div>`,
 
+
+
+
+
+    'LiveSession': `
+<div class="space-y-8 animate-in pb-20 px-4 md:px-12">
+    <div class="relative overflow-hidden bg-[#020617] border border-blue-500/20 p-8 rounded-[2.5rem] md:rounded-[3rem] shadow-2xl">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-blue-600/10 blur-[50px] pointer-events-none"></div>
+        
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
+            <div class="text-center md:text-left">
+                <div class="flex items-center justify-center md:justify-start gap-3 mb-2">
+                    <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+                    <span class="text-[9px] text-blue-400 font-black uppercase tracking-[0.4em]">Elite Authority Uplink</span>
+                </div>
+                <h3 class="text-3xl md:text-4xl font-black italic uppercase tracking-tighter text-white">Live <span class="text-blue-500">Session</span></h3>
+                <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-1 italic">First Reliable Source Protocol</p>
+            </div>
+            
+            <div class="w-16 h-16 bg-blue-600/10 rounded-[1.5rem] flex items-center justify-center border border-blue-500/20 shadow-inner group">
+                <i class="fas fa-tower-broadcast text-blue-500 text-2xl group-hover:scale-110 transition-transform duration-500"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="relative rounded-[3.5rem] bg-[#050c1f]/40 border border-white/5 p-10 md:p-20 flex flex-col items-center text-center shadow-2xl backdrop-blur-xl">
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#3b82f6 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+        <div id="countdownContainer" class="space-y-8 relative z-10">
+            <div class="inline-flex items-center gap-3 px-6 py-2 bg-blue-600/5 border border-blue-500/20 rounded-full">
+                <span class="text-[10px] text-blue-400 font-black uppercase tracking-widest">Next Synchronization</span>
+            </div>
+            
+            <div id="timer" class="text-6xl md:text-8xl font-mono text-white font-black tracking-tighter drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+                00 : 00 : 00
+            </div>
+            
+            <div class="space-y-2">
+                <p class="text-gray-500 text-[11px] font-bold uppercase tracking-[0.4em] italic">Signal Unlocks Midnight</p>
+                <div class="w-24 h-1 bg-blue-500/20 rounded-full mx-auto">
+                    <div class="w-1/3 h-full bg-blue-500 rounded-full animate-shimmer"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="liveStatus" class="hidden space-y-6 relative z-10">
+            <div class="w-24 h-24 bg-rose-600/10 rounded-full flex items-center justify-center mx-auto border border-rose-500/20 animate-pulse">
+                <i class="fas fa-signal text-rose-500 text-3xl"></i>
+            </div>
+            <h4 class="text-5xl md:text-7xl font-black text-white italic uppercase tracking-tighter leading-none">
+                WE ARE <br> <span class="text-rose-500">LIVE!</span>
+            </h4>
+            <p class="text-gray-400 text-xs font-bold uppercase tracking-[0.2em] max-w-xs mx-auto italic">
+                Broadcast Control Interface Fully Initialized. All data packets are now reliable.
+            </p>
+        </div>
+
+        <div class="mt-16 relative z-10">
+            <button onclick="openAdminModal()" class="group relative flex flex-col items-center gap-4 focus:outline-none">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-blue-500/20 blur-2xl group-hover:bg-rose-500/20 transition-all"></div>
+                    <div class="w-20 h-20 bg-zinc-900 border border-white/10 rounded-[2rem] flex items-center justify-center group-hover:border-blue-500/50 group-hover:scale-105 transition-all duration-500 relative z-10 shadow-2xl">
+                        <i class="fas fa-fingerprint text-gray-500 text-3xl group-hover:text-blue-500 transition-colors"></i>
+                    </div>
+                </div>
+                <div class="space-y-1">
+                    <p class="text-[11px] text-white font-black uppercase tracking-[0.2em]">Admin Decryption</p>
+                    <p class="text-[8px] text-gray-600 font-bold uppercase tracking-widest group-hover:text-gray-400 transition-colors">Hold to Authenticate</p>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row justify-center items-center gap-8 opacity-40">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-shield-halved text-[10px] text-blue-500"></i>
+            <span class="text-[8px] text-white font-black uppercase tracking-widest">Encrypted Uplink</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <i class="fas fa-bolt text-[10px] text-blue-500"></i>
+            <span class="text-[8px] text-white font-black uppercase tracking-widest">Direct Dispatch</span>
+        </div>
+    </div>
+</div>
+`,
+
+
+
+    
     
     
    'News': `
-    <div class="space-y-12 animate-in pb-32 px-5 md:px-12">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 px-2">
-            <div class="space-y-2">
-                <div class="flex items-center gap-4">
-                    <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-[0_0_10px_#3b82f6]"></div>
-                    <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.5em]">Elite Authority Broadcast</span>
-                </div>
-                <h3 class="text-5xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none">News <span class="text-blue-500">Hub</span></h3>
-                <p class="text-gray-500 text-[11px] uppercase tracking-[0.3em] font-bold">Source: <span class="text-white italic">Elite Coordinators</span></p>
+<div class="space-y-12 animate-in pb-32 px-5 md:px-12">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 px-2">
+        <div class="space-y-2">
+            <div class="flex items-center gap-4">
+                <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-[0_0_10px_#3b82f6]"></div>
+                <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.5em]">Elite Authority Broadcast</span>
             </div>
-            <div class="bg-white/5 border border-white/10 px-8 py-3 rounded-2xl w-full md:w-auto text-center">
-                <span class="text-[10px] text-gray-400 font-mono uppercase tracking-[0.2em]">Broadcast ID: 19.12.2025</span>
-            </div>
+            <h3 class="text-5xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none">News <span class="text-blue-500">Hub</span></h3>
+            <p class="text-gray-500 text-[11px] uppercase tracking-[0.3em] font-bold">Source: <span class="text-white italic">Elite Coordinators</span></p>
+        </div>
+        <div class="bg-white/5 border border-white/10 px-8 py-3 rounded-2xl w-full md:w-auto text-center">
+            <span class="text-[10px] text-gray-400 font-mono uppercase tracking-[0.2em]">Broadcast ID: 20.12.2025</span>
+        </div>
+    </div>
+
+    <div id="liveInjectionZone" class="space-y-10">
+        <div class="flex items-center gap-4 mb-4 opacity-50">
+            <span class="text-[10px] text-rose-500 font-black uppercase tracking-[0.4em]">Live Signal Stream</span>
+            <div class="h-[1px] flex-1 bg-rose-500/20"></div>
+        </div>
+        
+        <div id="emptyLiveNotice" class="py-10 border border-dashed border-white/5 rounded-[3rem] text-center">
+            <p class="text-[9px] text-gray-600 font-black uppercase tracking-[0.5em]">Waiting for Live Data Packets...</p>
         </div>
 
-        <div class="relative rounded-[3.5rem] md:rounded-[4.5rem] overflow-hidden border border-blue-500/10 bg-[#020617] group shadow-2xl">
-            <div class="grid grid-cols-1 lg:grid-cols-2">
-                <div class="relative h-[250px] lg:h-full bg-[#050c1f] overflow-hidden border-b lg:border-b-0 lg:border-r border-white/5">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent z-10"></div>
-                    <div class="absolute inset-0 flex items-center justify-center text-blue-500/5 group-hover:scale-110 transition-transform duration-1000">
-                         <i class="fas fa-shield-halved text-[12rem]"></i>
-                    </div>
-                </div>
-
-                <div class="p-10 md:p-20 flex flex-col justify-center">
-                    <span class="text-[10px] text-blue-500 font-black uppercase mb-6 tracking-[0.6em]">Structure Upgrade</span>
-                    <h4 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white leading-tight mb-8">
-                        Friendlies Rebranded <br><span class="text-blue-500 italic">Elite League</span>
-                    </h4>
-                    <p class="text-gray-400 text-sm uppercase leading-relaxed font-bold tracking-wider italic">
-                        The evolution is complete. The <span class="text-white font-black underline underline-offset-8 decoration-blue-500">Top 4 Units</span> advance to the <span class="text-white">Elite Cup</span>. Digital infrastructure has been fully synchronized as promised.
-                    </p>
-                </div>
-            </div>
         </div>
 
+    <div id="permanentNews" class="space-y-12">
+        
         <div class="bg-gradient-to-br from-green-600/10 to-transparent border border-green-500/20 rounded-[3.5rem] p-10 md:p-20 relative overflow-hidden">
             <div class="relative z-10">
                 <div class="flex items-center gap-4 mb-8">
                     <i class="fas fa-certificate text-green-500"></i>
                     <span class="text-[10px] text-green-500 font-black uppercase tracking-[0.5em]">Holiday Reset Protocol</span>
                 </div>
-                <h4 class="text-4xl md:text-5xl font-black italic text-white uppercase tracking-tighter mb-8 italic">The Christmas <span class="text-green-500 text-3xl md:text-5xl">Amnesty</span></h4>
+                <h4 class="text-4xl md:text-5xl font-black italic text-white uppercase tracking-tighter mb-8 italic">The Christmas <span class="text-green-500">Amnesty</span></h4>
                 <div class="max-w-2xl space-y-8">
                     <p class="text-gray-400 text-sm font-bold uppercase leading-relaxed italic">
                         In the spirit of the season, the <span class="text-white">Elite Coordinators</span> have authorized a total reset. All player suspensions are void.
@@ -820,7 +902,7 @@ const contentData = {
                 <h5 class="text-white font-black uppercase italic tracking-tighter text-3xl mb-6">CSC 200 <span class="text-blue-500">v</span> MSS 100</h5>
                 <div class="space-y-6 text-gray-400 text-[11px] font-bold uppercase leading-loose tracking-widest">
                     <p><span class="text-white">Official Result:</span> CSC 200 awarded the win (5-2).</p>
-                    <p>Warnings issued to both sectors for breach of conduct. Elite Coordinators acknowledge the sportsmanship of the CSC 200 unit.</p>
+                    <p>Elite Coordinators acknowledge the sportsmanship of the CSC 200 unit.</p>
                 </div>
             </div>
 
@@ -828,18 +910,19 @@ const contentData = {
                 <div class="relative z-10">
                     <div class="text-5xl mb-8 animate-bounce">🎄</div>
                     <h5 class="text-4xl font-black uppercase italic text-white tracking-tighter mb-4">Merry Christmas <br><span class="text-blue-500">To All Units</span></h5>
-                    <p class="text-gray-500 text-[10px] font-black uppercase tracking-[0.5em] mb-10 leading-loose">The Elite League is back. <br>New Comeback Active.</p>
-                    <div class="text-[10px] text-white/20 font-black italic tracking-[1em]">#ELITELEAGUE</div>
+                    <p class="text-gray-500 text-[10px] font-black uppercase tracking-[0.5em] mb-10 leading-loose">The Elite League is back.</p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="pt-12 border-t border-white/5 text-center">
-            <p class="text-[11px] text-gray-700 font-black uppercase tracking-[0.8em]">Authorized: Elite Coordinators</p>
-        </div>
-    </div>`,
+    <div class="pt-12 border-t border-white/5 text-center">
+        <p class="text-[11px] text-gray-700 font-black uppercase tracking-[0.8em]">Authorized: Elite Coordinators</p>
+    </div>
+</div>
+`
 
-
+       
     
 'Goals Leaderboard': `
 <div class="space-y-12 animate-in pb-40 px-6 md:px-16">
