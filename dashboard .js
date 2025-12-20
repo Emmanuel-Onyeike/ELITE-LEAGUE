@@ -2424,9 +2424,8 @@ function closeEliteAlert() {
 // 1. GLOBAL STATE
 let scanTimeout;
 
-// Firebase will populate this global array automatically
-// Do NOT declare a local eliteLivePackets[] — we use window.eliteLivePackets instead
-// (set by the inline Firebase listener in HTML)
+// Use the global populated by the inline Firebase listener in HTML
+// (window.eliteLivePackets is set and updated there in real-time)
 
 // --- 2. HOLD-TO-AUTHENTICATE LOGIC (For Fingerprint Button) ---
 function startFingerprintScan(e) {
@@ -2483,7 +2482,7 @@ function updateView(title) {
                 initEliteCountdown();
             }
             if (title === 'News') {
-                renderLiveInjection(); // Will now use real Firebase data
+                renderLiveInjection();
             }
             mainDisplay.style.opacity = '1';
             if (typeof startSystemSync === 'function') startSystemSync();
@@ -2519,7 +2518,7 @@ function verifyEliteAccess() {
     }
 }
 
-// --- 5. BROADCAST & NEWS ENGINE (Now synced with Firebase) ---
+// --- 5. BROADCAST & NEWS ENGINE (Fully Firebase Synced) ---
 function handleElitePublish() {
     const pubBtn = document.getElementById('publishBtn');
     const titleInput = document.getElementById('postTitle');
@@ -2532,7 +2531,7 @@ function handleElitePublish() {
     pubBtn.disabled = true;
     pubBtn.innerHTML = `<i class="fas fa-spinner animate-spin"></i> ENCRYPTING...`;
 
-    const title = (titleInput.value.trim() || "AUTHORITY UPDATE").toUpperCase();
+    const title = (titleInput?.value.trim() || "AUTHORITY UPDATE").toUpperCase();
     const body = contentInput.value.trim().toUpperCase();
 
     const now = new Date();
@@ -2544,21 +2543,18 @@ function handleElitePublish() {
         title: title,
         body: body,
         timestamp: timestamp
-        // Note: Image upload not supported in Firebase version (requires Storage)
     };
 
-    // Push to Firebase — this will instantly sync to all clients
+    // Push to Firebase for real-time sync across all devices
     if (typeof db !== 'undefined' && db) {
         db.ref('livePackets').push(newPacket)
             .then(() => {
-                setTimeout(() => {
-                    document.getElementById('broadcastModal').style.display = 'none';
-                    pubBtn.disabled = false;
-                    pubBtn.innerHTML = "Deploy Broadcast";
-                    titleInput.value = '';
-                    contentInput.value = '';
-                    alert("SIGNAL STABILIZED: BROADCAST LIVE");
-                }, 800);
+                alert("SIGNAL STABILIZED: BROADCAST LIVE");
+                document.getElementById('broadcastModal').style.display = 'none';
+                pubBtn.disabled = false;
+                pubBtn.innerHTML = "Deploy Broadcast";
+                if (titleInput) titleInput.value = '';
+                contentInput.value = '';
             })
             .catch((error) => {
                 alert("TRANSMISSION FAILED: " + error.message);
@@ -2566,7 +2562,7 @@ function handleElitePublish() {
                 pubBtn.innerHTML = "Deploy Broadcast";
             });
     } else {
-        alert("ERROR: Firebase not connected");
+        alert("ERROR: Firebase connection lost");
         pubBtn.disabled = false;
         pubBtn.innerHTML = "Deploy Broadcast";
     }
@@ -2576,11 +2572,9 @@ function renderLiveInjection() {
     const injectionZone = document.getElementById('liveInjectionZone');
     if (!injectionZone) return;
 
-    // Use Firebase-synced data (window.eliteLivePackets is populated by the inline script)
     const packets = window.eliteLivePackets || [];
 
     if (packets.length > 0) {
-        // Hide empty notice if exists
         const notice = document.getElementById('emptyLiveNotice');
         if (notice) notice.style.display = 'none';
 
@@ -2615,33 +2609,26 @@ function renderLiveInjection() {
     }
 }
 
-// --- 6. TIMER (Live Session Countdown to Midnight) ---
+// --- 6. TIMER ---
 function initEliteCountdown() {
     const target = new Date();
-    target.setHours(24, 0, 0, 0); // Next midnight
-
+    target.setHours(24, 0, 0, 0);
     const timerInterval = setInterval(() => {
         const now = new Date().getTime();
-        const diff = target.getTime() - now;
-
+        const diff = target - now;
         const timerEl = document.getElementById('timer');
         if (!timerEl) {
             clearInterval(timerInterval);
             return;
         }
-
-        if (diff <= 0) {
-            clearInterval(timerInterval);
-            timerEl.innerHTML = "00 : 00 : 00";
-            document.getElementById('countdownContainer')?.classList.add('hidden');
-            document.getElementById('liveStatus')?.classList.remove('hidden');
-            return;
-        }
-
         const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const s = Math.floor((diff % (1000 * 60)) / 1000);
-
         timerEl.innerHTML = `${h.toString().padStart(2, '0')} : ${m.toString().padStart(2, '0')} : ${s.toString().padStart(2, '0')}`;
+        if (diff < 0) {
+            clearInterval(timerInterval);
+            document.getElementById('countdownContainer')?.classList.add('hidden');
+            document.getElementById('liveStatus')?.classList.remove('hidden');
+        }
     }, 1000);
 }
