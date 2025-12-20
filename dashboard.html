@@ -4,14 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ELITE League – Command Center</title>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="dashboard.css" />
 </head>
-
 <body class="bg-[#020617] text-gray-200 overflow-x-hidden">
-
 <header class="md:hidden flex items-center justify-between px-6 py-5 border-b border-blue-500/10 bg-[#030816]/95 backdrop-blur-md sticky top-0 z-40">
     <div class="flex items-center gap-2">
         <img src="elite logo.png" alt="MIKOKO Logo" class="w-8 h-8 rounded-lg object-cover shadow-lg shadow-red-600/20">
@@ -21,18 +18,14 @@
         <i class="fas fa-bars-staggered text-blue-400"></i>
     </button>
 </header>
-
-
-
 <aside id="sidebar" class="fixed inset-y-0 left-0 z-[100] w-72 bg-[#030816] border-r border-blue-500/10 p-7 flex flex-col transform -translate-x-full md:translate-x-0 transition-transform duration-500 ease-in-out">
-   
+  
     <div class="flex items-center gap-3 mb-10">
         <img src="elite logo.png" alt="MIKOKO" class="w-10 h-10 rounded-xl object-cover border border-white/10">
         <h2 class="text-xl font-black tracking-tighter text-white">ELITE</h2>
     </div>
-
     <nav class="sidebar-nav flex-1 flex flex-col h-full overflow-y-auto pr-2 custom-scroll">
-        
+       
         <div class="space-y-1">
             <a class="sidebar-item active" onclick="updateView('Overview')">
                 <i class="fas fa-columns w-6"></i> <span>Overview</span>
@@ -43,19 +36,17 @@
             <a class="sidebar-item" onclick="updateView('Live')">
                 <i class="fas fa-satellite-dish w-6 text-blue-500"></i> <span>Live Arena</span>
             </a>
-            <a class="sidebar-item" onclick="updateView('Glory Cup')">
-            <i class="fas fa-medal w-6 text-blue-500 group-hover:text-cyan-400 transition-colors"></i> 
-        <span class="text-blue-500 group-hover:text-cyan-400 font-black uppercase tracking-widest text-[11px] transition-all">
-            Elite Cup
-        </span>
+            <a class="sidebar-item group" onclick="updateView('Glory Cup')">
+                <i class="fas fa-medal w-6 text-blue-500 group-hover:text-cyan-400 transition-colors"></i>
+                <span class="text-blue-500 group-hover:text-cyan-400 font-black uppercase tracking-widest text-[11px] transition-all">
+                    Elite Cup
+                </span>
             </a>
             <a class="sidebar-item" onclick="updateView('Upcoming')">
                 <i class="fas fa-calendar-check w-6"></i> <span>Upcoming</span>
             </a>
         </div>
-
         <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-blue-500/10 to-transparent my-6"></div>
-
         <div class="space-y-1">
             <a class="sidebar-item" onclick="updateView('Stats')">
                 <i class="fas fa-chart-line w-6"></i> <span>Stats</span>
@@ -66,20 +57,20 @@
             <a class="sidebar-item" onclick="updateView('News')">
                 <i class="fas fa-bullhorn w-6"></i> <span>News</span>
             </a>
-   <a class="sidebar-item group" onclick="updateView('LiveSession')">
-    <div class="relative w-6 flex justify-center">
-        <i class="fas fa-tower-broadcast text-rose-500 group-hover:text-rose-400 transition-colors"></i>
-        <span class="absolute -top-1 -right-1 w-2 h-2 bg-gray-500 rounded-full animate-ping"></span>
-    </div>
-    <div class="flex flex-col items-start leading-none ml-1">
-        <span class="text-rose-500 font-bold uppercase tracking-tighter">Live Session</span>
-        <span class="text-[7px] text-zinc-500 font-black uppercase tracking-[0.2em] mt-1 flex items-center gap-1">
-            <span class="w-1 h-1 bg-zinc-600 rounded-full"></span> 
-            Offline
-        </span>
-    </div>
-</a>
-        <div class="h-[1px] w-2/3 bg-blue-500/5 my-2 mx-auto"></div>
+            <a class="sidebar-item group" onclick="updateView('LiveSession')">
+                <div class="relative w-6 flex justify-center">
+                    <i class="fas fa-tower-broadcast text-rose-500 group-hover:text-rose-400 transition-colors"></i>
+                    <span class="absolute -top-1 -right-1 w-2 h-2 bg-gray-500 rounded-full animate-ping"></span>
+                </div>
+                <div class="flex flex-col items-start leading-none ml-1">
+                    <span class="text-rose-500 font-bold uppercase tracking-tighter">Live Session</span>
+                    <span class="text-[7px] text-zinc-500 font-black uppercase tracking-[0.2em] mt-1 flex items-center gap-1">
+                        <span class="w-1 h-1 bg-zinc-600 rounded-full"></span>
+                        Offline
+                    </span>
+                </div>
+            </a>
+            <div class="h-[1px] w-2/3 bg-blue-500/5 my-2 mx-auto"></div>
             <a class="sidebar-item" onclick="updateView('Goals Leaderboard')">
                 <i class="fas fa-fire w-6 text-orange-500"></i> <span>Goals Leaderboard</span>
             </a>
@@ -87,44 +78,37 @@
                 <i class="fas fa-magic-wand-sparkles w-6 text-blue-400"></i> <span>Assists Leaderboard</span>
             </a>
         </div>
-
         <div class="h-[1px] w-full bg-blue-500/10 my-4"></div>
-
-    <div class="space-y-2 px-2">
-   
-    <a class="sidebar-item group" onclick="updateView('Player Selection')">
-        <i class="fas fa-user-check w-6 text-blue-500 group-hover:text-white transition-colors"></i> 
-        <span class="tracking-widest uppercase text-[10px] font-black">Player Selection</span>
-    </a>
-
-    <div class="h-[1px] w-2/3 bg-blue-500/10 my-4 mx-auto"></div>
-
-    <a class="sidebar-item group" onclick="updateView('Transfer Market')">
-        <i class="fas fa-cart-shopping w-6 text-blue-400 group-hover:text-white transition-colors"></i> 
-        <span class="tracking-widest uppercase text-[10px] font-black">Transfer Market</span>
-    </a>
-    
-    <a class="sidebar-item group border-l-2 border-transparent hover:border-blue-500 bg-blue-500/5" onclick="updateView('Transfer News')">
-        <i class="fas fa-newspaper w-6 text-blue-500 group-hover:text-white transition-colors animate-pulse"></i> 
-        <span class="tracking-widest uppercase text-[10px] font-black">Transfer News</span>
-    </a>
-
-    <a class="sidebar-item group mt-2" onclick="updateView('Mikoko Payment')">
-        <i class="fas fa-wallet w-6 text-green-500 group-hover:text-white transition-colors"></i> 
-        <span class="tracking-widest uppercase text-[10px] font-black text-green-500/80">Elite Payment</span>
-    </a>
-</div>
+        <div class="space-y-2 px-2">
+            <a class="sidebar-item group" onclick="updateView('Player Selection')">
+                <i class="fas fa-user-check w-6 text-blue-500 group-hover:text-white transition-colors"></i>
+                <span class="tracking-widest uppercase text-[10px] font-black">Player Selection</span>
+            </a>
+            <div class="h-[1px] w-2/3 bg-blue-500/10 my-4 mx-auto"></div>
+            <a class="sidebar-item group" onclick="updateView('Transfer Market')">
+                <i class="fas fa-cart-shopping w-6 text-blue-400 group-hover:text-white transition-colors"></i>
+                <span class="tracking-widest uppercase text-[10px] font-black">Transfer Market</span>
+            </a>
+            <a class="sidebar-item group border-l-2 border-transparent hover:border-blue-500 bg-blue-500/5" onclick="updateView('Transfer News')">
+                <i class="fas fa-newspaper w-6 text-blue-500 group-hover:text-white transition-colors animate-pulse"></i>
+                <span class="tracking-widest uppercase text-[10px] font-black">Transfer News</span>
+            </a>
+            <a class="sidebar-item group mt-2" onclick="updateView('Mikoko Payment')">
+                <i class="fas fa-wallet w-6 text-green-500 group-hover:text-white transition-colors"></i>
+                <span class="tracking-widest uppercase text-[10px] font-black text-green-500/80">Elite Payment</span>
+            </a>
+        </div>
         <div class="mt-auto pt-6 pb-4">
             <div class="h-[1px] w-full bg-blue-500/5 mb-4"></div>
-            <a onclick="updateView('Team Lab')" class="sidebar-item group">
-                <i class="fas fa-flask w-6 group-hover:text-blue-500 transition-colors"></i> 
+            <a class="sidebar-item group" onclick="updateView('Team Lab')">
+                <i class="fas fa-flask w-6 group-hover:text-blue-500 transition-colors"></i>
                 <span>Team Lab</span>
             </a>
-            <a onclick="updateView('Pure Stream')" class="sidebar-item group">
-                <i class="fas fa-play-circle w-6 group-hover:text-blue-500 transition-colors"></i> 
+            <a class="sidebar-item group" onclick="updateView('Pure Stream')">
+                <i class="fas fa-play-circle w-6 group-hover:text-blue-500 transition-colors"></i>
                 <span>Pure Stream</span>
             </a>
-            <a onclick="updateView('Messages')" class="sidebar-item group">
+            <a class="sidebar-item group" onclick="updateView('Messages')">
                 <div class="relative">
                     <i class="fas fa-comment-alt w-6 group-hover:text-blue-500 transition-colors"></i>
                     <span class="absolute -top-1 -right-1 w-2 h-2 bg-blue-600 rounded-full animate-pulse"></span>
@@ -134,102 +118,89 @@
         </div>
     </nav>
 </aside>
-
 <div id="overlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[90] hidden md:hidden"></div>
-
 <main class="flex-1 md:ml-72 p-10 overflow-y-auto bg-[#020617] min-h-screen">
     <header class="mb-10">
         <h1 id="greeting" class="text-4xl md:text-5xl font-black tracking-tight text-white uppercase italic"></h1>
         <p id="viewTitle" class="text-blue-500/60 mt-2 font-bold text-xs uppercase tracking-[0.2em]">
-            Uplink Active // Dec 19, 2025
+            Uplink Active // Dec 20, 2025
         </p>
     </header>
-
-  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-    <div class="stat-card flex items-center justify-between p-6 bg-blue-600/[0.02] border border-blue-500/10 rounded-[2rem]">
-        <div>
-            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Tactical Units</p>
-            <p class="stat-value text-2xl font-black italic text-white uppercase tracking-tighter">12 Teams</p>
-        </div>
-        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5">
-            <i class="fas fa-shield-halved text-blue-600 text-xl"></i>
-        </div>
-    </div>
-
- <div class="stat-card flex items-center justify-between p-6 bg-blue-600/[0.02] border border-blue-500/10 rounded-[2rem] hover:bg-blue-600/[0.04] transition-all">
-    <div>
-        <p class="stat-title uppercase tracking-[0.2em] font-black text-[9px] text-gray-500 mb-1">Combat History</p>
-        <p class="stat-value text-2xl font-black italic text-white">27 <span class="text-[10px] text-blue-500/50 not-italic ml-1 font-mono tracking-tighter">MATCHES</span></p>
-    </div>
-    <div class="w-12 h-12 bg-zinc-950 rounded-2xl flex items-center justify-center border border-white/5 shadow-[0_0_20px_rgba(37,99,235,0.1)]">
-        <i class="fas fa-microchip text-blue-600 text-xl"></i>
-    </div>
-</div>
-
-<div class="stat-card flex items-center justify-between p-6 bg-blue-600/[0.02] border border-white/5 rounded-[2rem] hover:bg-blue-600/[0.04] transition-all">
-    <div>
-        <p class="stat-title uppercase tracking-[0.2em] font-black text-[9px] text-gray-500 mb-1">Total Payload</p>
-        <p class="stat-value text-2xl font-black italic text-white">110 <span class="text-[10px] text-blue-500/50 not-italic ml-1 font-mono tracking-tighter">GOALS</span></p>
-    </div>
-    <div class="w-12 h-12 bg-zinc-950 rounded-2xl flex items-center justify-center border border-white/5 shadow-[0_0_20px_rgba(37,99,235,0.1)]">
-        <i class="fas fa-bolt text-blue-600 text-xl"></i>
-    </div>
-</div>
-
-
-
-    <div class="stat-card flex items-center justify-between p-6 border border-blue-600/30 bg-blue-600/[0.05] rounded-[2rem]">
-        <div>
-            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-blue-400 mb-1">Status</p>
-            <p class="stat-value text-2xl font-black italic text-blue-500 uppercase tracking-tighter">Active</p>
-        </div>
-        <div class="w-12 h-12 bg-blue-600/10 rounded-2xl flex items-center justify-center border border-blue-600/20">
-            <i class="fas fa-bolt text-blue-600 text-xl animate-pulse"></i>
-        </div>
-    </div>
-
-</section>
-<div id="eliteModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 backdrop-blur-md transition-all">
-    <div class="absolute inset-0 bg-[#030816]/90" onclick="closeEliteModal()"></div>
-    
-    <div class="relative bg-[#030816] border border-blue-500/20 w-full max-w-md rounded-[3.5rem] shadow-[0_0_100px_rgba(37,99,235,0.15)] animate-in overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
-        
-        <div class="p-10">
-            <div class="flex justify-between items-center mb-8">
-                <h4 id="modalTitle" class="text-2xl font-black italic uppercase text-white tracking-tighter italic">INTEL FEED</h4>
-                <button onclick="closeEliteModal()" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-blue-500">
-                    <i class="fas fa-times"></i>
-                </button>
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="stat-card flex items-center justify-between p-6 bg-blue-600/[0.02] border border-blue-500/10 rounded-[2rem]">
+            <div>
+                <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Tactical Units</p>
+                <p class="stat-value text-2xl font-black italic text-white uppercase tracking-tighter">12 Teams</p>
             </div>
-
-            <div id="modalBody" class="space-y-6">
+            <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5">
+                <i class="fas fa-shield-halved text-blue-600 text-xl"></i>
+            </div>
+        </div>
+        <div class="stat-card flex items-center justify-between p-6 bg-blue-600/[0.02] border border-blue-500/10 rounded-[2rem] hover:bg-blue-600/[0.04] transition-all">
+            <div>
+                <p class="stat-title uppercase tracking-[0.2em] font-black text-[9px] text-gray-500 mb-1">Combat History</p>
+                <p class="stat-value text-2xl font-black italic text-white">27 <span class="text-[10px] text-blue-500/50 not-italic ml-1 font-mono tracking-tighter">MATCHES</span></p>
+            </div>
+            <div class="w-12 h-12 bg-zinc-950 rounded-2xl flex items-center justify-center border border-white/5 shadow-[0_0_20px_rgba(37,99,235,0.1)]">
+                <i class="fas fa-microchip text-blue-600 text-xl"></i>
+            </div>
+        </div>
+        <div class="stat-card flex items-center justify-between p-6 bg-blue-600/[0.02] border border-white/5 rounded-[2rem] hover:bg-blue-600/[0.04] transition-all">
+            <div>
+                <p class="stat-title uppercase tracking-[0.2em] font-black text-[9px] text-gray-500 mb-1">Total Payload</p>
+                <p class="stat-value text-2xl font-black italic text-white">110 <span class="text-[10px] text-blue-500/50 not-italic ml-1 font-mono tracking-tighter">GOALS</span></p>
+            </div>
+            <div class="w-12 h-12 bg-zinc-950 rounded-2xl flex items-center justify-center border border-white/5 shadow-[0_0_20px_rgba(37,99,235,0.1)]">
+                <i class="fas fa-bolt text-blue-600 text-xl"></i>
+            </div>
+        </div>
+        <div class="stat-card flex items-center justify-between p-6 border border-blue-600/30 bg-blue-600/[0.05] rounded-[2rem]">
+            <div>
+                <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-blue-400 mb-1">Status</p>
+                <p class="stat-value text-2xl font-black italic text-blue-500 uppercase tracking-tighter">Active</p>
+            </div>
+            <div class="w-12 h-12 bg-blue-600/10 rounded-2xl flex items-center justify-center border border-blue-600/20">
+                <i class="fas fa-bolt text-blue-600 text-xl animate-pulse"></i>
+            </div>
+        </div>
+    </section>
+    <div id="eliteModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 backdrop-blur-md transition-all">
+        <div class="absolute inset-0 bg-[#030816]/90" onclick="closeEliteModal()"></div>
+       
+        <div class="relative bg-[#030816] border border-blue-500/20 w-full max-w-md rounded-[3.5rem] shadow-[0_0_100px_rgba(37,99,235,0.15)] animate-in overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
+           
+            <div class="p-10">
+                <div class="flex justify-between items-center mb-8">
+                    <h4 id="modalTitle" class="text-2xl font-black italic uppercase text-white tracking-tighter italic">INTEL FEED</h4>
+                    <button onclick="closeEliteModal()" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-blue-500">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
+                <div id="modalBody" class="space-y-6">
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
-<div id="eliteAlert" class="fixed inset-0 z-[110] hidden flex items-center justify-center p-6 pointer-events-none">
-    <div class="bg-[#030816] border border-blue-500/40 p-8 rounded-[2.5rem] shadow-[0_0_80px_rgba(37,99,235,0.3)] max-w-sm w-full text-center animate-in pointer-events-auto">
-        <div class="w-16 h-16 bg-blue-600/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-blue-500/30">
-            <i class="fas fa-satellite-dish text-blue-500 text-2xl animate-pulse"></i>
+    <div id="eliteAlert" class="fixed inset-0 z-[110] hidden flex items-center justify-center p-6 pointer-events-none">
+        <div class="bg-[#030816] border border-blue-500/40 p-8 rounded-[2.5rem] shadow-[0_0_80px_rgba(37,99,235,0.3)] max-w-sm w-full text-center animate-in pointer-events-auto">
+            <div class="w-16 h-16 bg-blue-600/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-blue-500/30">
+                <i class="fas fa-satellite-dish text-blue-500 text-2xl animate-pulse"></i>
+            </div>
+            <h5 class="text-white font-black italic uppercase tracking-tighter text-xl mb-2">Uplink Established</h5>
+            <p id="alertMessage" class="text-gray-400 text-[10px] font-bold uppercase tracking-widest leading-relaxed mb-6"></p>
+            <button onclick="closeEliteAlert()" class="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white text-[9px] font-black uppercase tracking-[0.3em] rounded-xl transition-all">
+                Acknowledge
+            </button>
         </div>
-        <h5 class="text-white font-black italic uppercase tracking-tighter text-xl mb-2">Uplink Established</h5>
-        <p id="alertMessage" class="text-gray-400 text-[10px] font-bold uppercase tracking-widest leading-relaxed mb-6"></p>
-        <button onclick="closeEliteAlert()" class="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white text-[9px] font-black uppercase tracking-[0.3em] rounded-xl transition-all">
-            Acknowledge
-        </button>
     </div>
-</div>
     <div id="mainDisplay" class="mt-10 bg-[#030816] border border-blue-500/10 rounded-[2.5rem] p-10 min-h-[500px] transition-all duration-500">
-        </div>
+    </div>
 </main>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
   import { getDatabase, ref, push, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
   const firebaseConfig = {
     apiKey: "AIzaSyALpkq15pxX-0M0SV7-p417EeanTeMpUNI",
     authDomain: "eliteleague-92cce.firebaseapp.com",
@@ -239,10 +210,8 @@
     messagingSenderId: "1050191750222",
     appId: "1:1050191750222:web:c9dd71c24c063b685ecf1f"
   };
-
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
-
   // Global Publish Function
   window.handleElitePublish = async function() {
       const content = document.getElementById('postContent')?.value;
@@ -250,11 +219,32 @@
       try {
           await push(ref(db, 'broadcasts'), {
               body: content,
-              timestamp: serverTimestamp() 
+              timestamp: serverTimestamp()
           });
           alert("SIGNAL SYNCED");
       } catch (e) { alert("SYNC ERROR"); }
   };
+</script>
+
+<!-- Mobile Menu Toggle Fix -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    if (menuBtn && sidebar && overlay) {
+      menuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('-translate-x-full');
+        overlay.classList.toggle('hidden');
+      });
+
+      overlay.addEventListener('click', () => {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+      });
+    }
+  });
 </script>
 
 <script type="module" src="dashboard.js"></script>
