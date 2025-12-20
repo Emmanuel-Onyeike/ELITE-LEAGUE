@@ -2669,30 +2669,40 @@ function initEliteCountdown() {
 
 
 //// for the broadcast modals
-function showBroadcastFeedback(title, message, isSuccess = true) {
+window.showBroadcastFeedback = function(title, message, isSuccess = true) {
     const modal = document.getElementById('broadcastFeedbackModal');
     const feedbackTitle = document.getElementById('feedbackTitle');
     const feedbackMessage = document.getElementById('feedbackMessage');
     const feedbackIcon = document.getElementById('feedbackIcon');
+    const feedbackGlow = document.getElementById('feedbackGlow');
+    const actionBtn = modal.querySelector('button');
 
     if (!modal) return;
 
+    // Set Tactical Text
     feedbackTitle.innerText = title;
     feedbackMessage.innerText = message;
 
     if (isSuccess) {
-        feedbackIcon.className = "fas fa-check-circle text-5xl text-rose-500";
-        feedbackTitle.style.color = "#fff";
-        modal.querySelector('button').className = "mt-10 w-full py-4 bg-rose-600/80 hover:bg-rose-500 rounded-2xl text-[10px] text-white font-black uppercase tracking-[0.3em] transition-all shadow-lg";
+        // ELITE SUCCESS THEME (Blue/Cyan)
+        feedbackIcon.className = "fas fa-shield-check text-6xl text-blue-500 relative z-10 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]";
+        if (feedbackGlow) feedbackGlow.className = "absolute inset-0 bg-blue-600/20 blur-3xl rounded-full animate-pulse";
+        
+        feedbackTitle.style.color = "#ffffff";
+        actionBtn.className = "mt-10 w-full py-5 bg-blue-600/20 border border-blue-500/40 hover:bg-blue-600/40 text-blue-400 rounded-2xl text-[9px] font-black uppercase tracking-[0.4em] transition-all duration-300 shadow-[0_0_20px_rgba(59,130,246,0.15)]";
     } else {
-        feedbackIcon.className = "fas fa-exclamation-triangle text-5xl text-red-500";
-        feedbackTitle.style.color = "#f87171";
-        modal.querySelector('button').className = "mt-10 w-full py-4 bg-red-600/80 hover:bg-red-500 rounded-2xl text-[10px] text-white font-black uppercase tracking-[0.3em] transition-all shadow-lg";
+        // ELITE ALERT THEME (Rose/Red)
+        feedbackIcon.className = "fas fa-radiation text-6xl text-rose-500 relative z-10 drop-shadow-[0_0_15px_rgba(244,63,94,0.5)]";
+        if (feedbackGlow) feedbackGlow.className = "absolute inset-0 bg-rose-600/20 blur-3xl rounded-full animate-pulse";
+        
+        feedbackTitle.style.color = "#f43f5e";
+        actionBtn.className = "mt-10 w-full py-5 bg-rose-950/30 border border-rose-500/40 hover:bg-rose-500/40 text-rose-500 rounded-2xl text-[9px] font-black uppercase tracking-[0.4em] transition-all duration-300 shadow-[0_0_20px_rgba(244,63,94,0.15)]";
     }
 
     modal.style.display = 'flex';
-}
+};
 
-function closeBroadcastFeedback() {
-    document.getElementById('broadcastFeedbackModal').style.display = 'none';
-}
+window.closeBroadcastFeedback = function() {
+    const modal = document.getElementById('broadcastFeedbackModal');
+    if (modal) modal.style.display = 'none';
+};
