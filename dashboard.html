@@ -227,50 +227,6 @@
 </main>
 
 
-    <!-- Firebase App (core) -->
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<!-- Firebase Realtime Database -->
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
-
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyALpkq15pxX-0M0SV7-p417EeanTeMpUNI",
-    authDomain: "eliteleague-92cce.firebaseapp.com",
-    databaseURL: "https://eliteleague-92cce-default-rtdb.firebaseio.com",
-    projectId: "eliteleague-92cce",
-    storageBucket: "eliteleague-92cce.firebasestorage.app",
-    messagingSenderId: "1050191750222",
-    appId: "1:1050191750222:web:c9dd71c24c063b685ecf1f",
-    measurementId: "G-K9S69VNN7H"
-  };
-
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-
-  // Global array that your existing renderLiveInjection() uses
-  window.eliteLivePackets = [];
-
-  // Listen for live packets
-  const packetsRef = db.ref('livePackets').orderByChild('timestamp').limitToLast(50);
-
-  packetsRef.on('value', (snapshot) => {
-    const data = snapshot.val();
-    if (data) {
-      window.eliteLivePackets = Object.keys(data).map(key => ({
-        id: key,
-        ...data[key]
-      })).reverse(); // Newest first
-    } else {
-      window.eliteLivePackets = [];
-    }
-
-    // Auto-re-render the News view if it's currently active
-    if (document.getElementById('viewTitle')?.innerText.includes('News')) {
-      renderLiveInjection();
-    }
-  });
-</script>
     <script src="dashboard .js"></script>
 </body>
 </html>
