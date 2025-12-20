@@ -1,42 +1,47 @@
 
+/**
+ * MIKOKO LEAGUE - Command Center Core Script
+ * Single-Engine Mobile & Desktop Integration
+ */
+
 // 1. SELECTORS
 const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
-const mainDisplay = document.getElementById('mainDisplay'); 
+const mainDisplay = document.getElementById('mainDisplay'); 
 const greetingElement = document.getElementById('greeting');
 const viewTitle = document.getElementById('viewTitle');
 
 // 2. DYNAMIC GREETING LOGIC
 function setGreeting() {
-    const hour = new Date().getHours();
-    let welcome;
+    const hour = new Date().getHours();
+    let welcome;
 
-    if (hour >= 5 && hour < 12) welcome = "Good morning";
-    else if (hour >= 12 && hour < 17) welcome = "Good afternoon";
-    else if (hour >= 17 && hour < 21) welcome = "Good evening";
-    else welcome = "Good night";
+    if (hour >= 5 && hour < 12) welcome = "Good morning";
+    else if (hour >= 12 && hour < 17) welcome = "Good afternoon";
+    else if (hour >= 17 && hour < 21) welcome = "Good evening";
+    else welcome = "Good night";
 
-    if (greetingElement) {
-        greetingElement.innerText = `${welcome}, User`;
-    }
+    if (greetingElement) {
+        greetingElement.innerText = `${welcome}, User`;
+    }
 }
 
 // 3. MOBILE MENU TOGGLES (single sidebar)
 if (menuBtn) {
-    menuBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('-translate-x-full'); // Slide in/out
-        overlay.classList.toggle('hidden');           // Show/hide overlay
-    });
+    menuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('-translate-x-full'); // Slide in/out
+        overlay.classList.toggle('hidden');           // Show/hide overlay
+    });
 }
 
 if (overlay) {
-    overlay.addEventListener('click', () => {
-        sidebar.classList.add('-translate-x-full');
-        overlay.classList.add('hidden');
-    });
+    overlay.addEventListener('click', () => {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+    });
 }
- edi tit here. and stop remove my other compents
+
 // 4. CONTENT REPOSITORY
 const contentData = {
    'Overview': `
