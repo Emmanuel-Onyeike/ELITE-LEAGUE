@@ -267,6 +267,39 @@
         </div>
     </div>
 </div>
+
+    <div id="broadcastFeedbackModal" class="fixed inset-0 z-[120] hidden items-center justify-center bg-[#020617]/90 backdrop-blur-xl px-6">
+    <div class="absolute inset-0 bg-blue-500/5"></div>
+
+    <div class="relative w-full max-w-md bg-[#050c1f] border border-white/5 rounded-[3rem] p-1 p-[2px] overflow-hidden shadow-2xl shadow-blue-500/10">
+        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-blue-500 to-transparent animate-pulse"></div>
+        
+        <div class="bg-[#050c1f] rounded-[2.9rem] p-10 text-center">
+            <div class="relative w-24 h-24 mx-auto mb-8 flex items-center justify-center">
+                <div id="feedbackGlow" class="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full animate-pulse"></div>
+                <i id="feedbackIcon" class="fas fa-check-circle text-6xl text-blue-500 relative z-10"></i>
+            </div>
+
+            <span class="text-[9px] text-blue-500 font-black uppercase tracking-[0.4em] mb-2 block">System Response</span>
+            <h3 id="feedbackTitle" class="text-3xl font-black text-white uppercase italic tracking-tighter mb-4 leading-none">
+                SIGNAL STABILIZED
+            </h3>
+            
+            <div class="flex items-center justify-center gap-2 mb-8">
+                <span class="w-8 h-[1px] bg-white/10"></span>
+                <p id="feedbackMessage" class="text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em] whitespace-nowrap">
+                    BROADCAST LIVE
+                </p>
+                <span class="w-8 h-[1px] bg-white/10"></span>
+            </div>
+
+            <button onclick="closeBroadcastFeedback()" class="group relative w-full overflow-hidden rounded-2xl bg-blue-600 py-5 transition-all hover:bg-blue-500 active:scale-95">
+                <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500"></div>
+                <span class="relative text-[10px] text-white font-black uppercase tracking-[0.4em]">Acknowledge Transmission</span>
+            </button>
+        </div>
+    </div>
+</div>
     <div id="mainDisplay" class="mt-10 bg-[#030816] border border-blue-500/10 rounded-[2.5rem] p-10 min-h-[500px] transition-all duration-500">
         </div>
 </main>
