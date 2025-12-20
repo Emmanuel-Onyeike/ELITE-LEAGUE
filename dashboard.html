@@ -257,28 +257,6 @@
 </script>
 
 <!-- Load dashboard.js as module AND expose its functions to window -->
-<script type="module">
-  // Import your main dashboard logic
-  import 'dashboard.js';
-
-  // After import, expose the functions your HTML onclicks need
-  // These names must match exactly what you have in dashboard.js
-  if (typeof updateView !== 'undefined') {
-    window.updateView = updateView;
-  }
-  if (typeof closeEliteModal !== 'undefined') {
-    window.closeEliteModal = closeEliteModal;
-  }
-  if (typeof closeEliteAlert !== 'undefined') {
-    window.closeEliteAlert = closeEliteAlert;
-  }
-
-  // Optional: Auto-load Overview when page finishes loading
-  document.addEventListener('DOMContentLoaded', () => {
-    if (window.updateView) {
-      window.updateView('Overview');
-    }
-  });
-</script>
+<script src="dashboard.js"></script>
 </body>
 </html>
