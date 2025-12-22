@@ -104,7 +104,7 @@ const contentData = {
                                 <i class="fas fa-gavel text-white text-xs"></i>
                             </div>
                         </div>
-                        <h4 class="text-3xl font-black text-white italic tracking-tighter uppercase">LAW 300</h4>
+                        <h4 class="text-3xl font-black text-white italic tracking-tighter uppercase">LAW 500</h4>
                         <span class="text-[10px] text-cyan-400 font-black uppercase tracking-[0.3em] mt-2">The Arbitrators</span>
                     </div>
 
