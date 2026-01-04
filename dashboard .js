@@ -119,59 +119,76 @@ const contentData = {
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 px-4">
-            <div class="lg:col-span-2 space-y-6">
-                <div class="flex items-center justify-between">
-                    <h5 class="text-xs font-black uppercase tracking-widest text-white italic">Tactical Intel</h5>
-                    <div class="h-[1px] flex-1 bg-white/5 ml-4"></div>
+     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 px-4">
+    <div class="lg:col-span-2 space-y-6">
+        <div class="flex items-center justify-between">
+            <h5 class="text-xs font-black uppercase tracking-widest text-white italic">Tactical Intel // 2026.01</h5>
+            <div class="h-[1px] flex-1 bg-white/5 ml-4"></div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-8 bg-gradient-to-br from-blue-600/10 to-transparent border border-blue-500/20 rounded-[2.5rem] hover:bg-white/[0.04] transition-all group relative overflow-hidden">
+                <div class="absolute -right-2 -top-2 opacity-10 group-hover:rotate-12 transition-transform">
+                    <i class="fas fa-bolt text-6xl text-white"></i>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="p-8 bg-white/[0.02] border border-white/5 rounded-[2.5rem] hover:bg-white/[0.04] transition-all">
-                        <i class="fas fa-microchip text-blue-500 mb-4 text-xl"></i>
-                        <h6 class="text-white font-bold uppercase italic text-sm mb-2">Resumption Protocol</h6>
-                        <p class="text-[11px] text-gray-500 uppercase leading-relaxed font-medium">Elite League resumes after the break. All tactical nodes are being recalibrated for the second half.</p>
-                    </div>
-                    <div class="p-8 bg-white/[0.02] border border-white/5 rounded-[2.5rem] hover:bg-white/[0.04] transition-all">
-                        <i class="fas fa-bolt text-cyan-500 mb-4 text-xl"></i>
-                        <h6 class="text-white font-bold uppercase italic text-sm mb-2">2025 Kickoff</h6>
-                        <p class="text-[11px] text-gray-500 uppercase leading-relaxed font-medium">Anticipate as we kick off 2025 half-way season in style. Pure performance, zero latency.</p>
-                    </div>
-                </div>
+                <i class="fas fa-trophy text-orange-500 mb-4 text-xl animate-pulse"></i>
+                <h6 class="text-white font-bold uppercase italic text-sm mb-2">Prime Kickoff: Jan 11</h6>
+                <p class="text-[11px] text-gray-500 uppercase leading-relaxed font-medium">
+                    The 2025/2026 season continues. <span class="text-blue-400 font-black">CSC 300 vs LAW 500</span> set to open the New Year. Ready your tactical arrays.
+                </p>
             </div>
 
-            <div class="space-y-6">
-                 <h5 class="text-xs font-black uppercase tracking-widest text-white italic">System Logs</h5>
-                 <div class="bg-blue-600/5 border border-blue-500/10 rounded-[2.5rem] p-8 h-[320px] overflow-y-auto custom-scroll space-y-8 shadow-inner">
-                    <div class="space-y-2 border-l-2 border-blue-600 pl-4 py-1">
-                        <div class="flex items-center justify-between">
-                            <span class="text-[9px] text-blue-500 font-black uppercase tracking-widest">Update</span>
-                            <span class="text-[8px] text-gray-600 font-mono">19.12.25</span>
-                        </div>
-                        <h6 class="text-white font-bold text-xs uppercase italic">Mid-Season Resumption</h6>
-                        <p class="text-[10px] text-gray-500 uppercase font-medium leading-relaxed">Elite League is officially returning. Ensure team lineups are synced with the core terminal.</p>
-                    </div>
-
-                    <div class="space-y-2 border-l-2 border-white/10 pl-4 py-1">
-                        <div class="flex items-center justify-between">
-                            <span class="text-[9px] text-gray-600 font-black uppercase tracking-widest">Alert</span>
-                            <span class="text-[8px] text-gray-600 font-mono">2025 Kickoff</span>
-                        </div>
-                        <h6 class="text-gray-300 font-bold text-xs uppercase italic">Season Evolution</h6>
-                        <p class="text-[10px] text-gray-600 uppercase font-medium">Preparing for the half-way season kickoff. Expect high-intensity matchups across the board.</p>
-                    </div>
-
-                    <div class="space-y-2 border-l-2 border-white/10 pl-4 py-1 opacity-60">
-                         <div class="flex items-center justify-between">
-                            <span class="text-[9px] text-gray-700 font-black uppercase tracking-widest">Status</span>
-                            <span class="text-[8px] text-gray-700 font-mono">System</span>
-                        </div>
-                        <h6 class="text-gray-500 font-bold text-xs uppercase">Terminal Operational</h6>
-                        <p class="text-[10px] text-gray-700 uppercase font-medium">The Elite Arena interface is now free for all registered team nodes. No subscription required.</p>
-                    </div>
-                 </div>
+            <div class="p-8 bg-white/[0.02] border border-white/5 rounded-[2.5rem] hover:bg-white/[0.04] transition-all">
+                <i class="fas fa-signal text-cyan-500 mb-4 text-xl"></i>
+                <h6 class="text-white font-bold uppercase italic text-sm mb-2">System Restoration</h6>
+                <p class="text-[11px] text-gray-500 uppercase leading-relaxed font-medium">
+                    Happy New Year 2026. All nodes are <span class="text-green-500 font-black">Online</span>. Season resumption protocol is active. Pure performance, zero latency.
+                </p>
             </div>
         </div>
-    </div>`,
+    </div>
+
+    <div class="space-y-6">
+        <h5 class="text-xs font-black uppercase tracking-widest text-white italic">Neural Logs</h5>
+        <div class="bg-blue-600/5 border border-blue-500/10 rounded-[2.5rem] p-8 h-[320px] overflow-y-auto custom-scroll space-y-8 shadow-inner">
+            
+            <div class="space-y-2 border-l-2 border-blue-600 pl-4 py-1">
+                <div class="flex items-center justify-between">
+                    <span class="text-[9px] text-blue-500 font-black uppercase tracking-widest">Update</span>
+                    <span class="text-[8px] text-gray-600 font-mono">04.01.26</span>
+                </div>
+                <h6 class="text-white font-bold text-xs uppercase italic">2026 Resumption</h6>
+                <p class="text-[10px] text-gray-500 uppercase font-medium leading-relaxed">
+                    Elite League is officially back. Syncing Jan 11 match parameters into the core terminal.
+                </p>
+            </div>
+
+            <div class="space-y-2 border-l-2 border-white/10 pl-4 py-1">
+                <div class="flex items-center justify-between">
+                    <span class="text-[9px] text-gray-600 font-black uppercase tracking-widest">Event</span>
+                    <span class="text-[8px] text-gray-600 font-mono">Next Week</span>
+                </div>
+                <h6 class="text-gray-300 font-bold text-xs uppercase italic">CSC vs LAW // Heavyweight</h6>
+                <p class="text-[10px] text-gray-600 uppercase font-medium">
+                    High-intensity matchup detected. Computer Science vs Law. Expect logic-based tactical warfare.
+                </p>
+            </div>
+
+            <div class="space-y-2 border-l-2 border-green-500/30 pl-4 py-1 opacity-60">
+                <div class="flex items-center justify-between">
+                    <span class="text-[9px] text-green-700 font-black uppercase tracking-widest">Status</span>
+                    <span class="text-[8px] text-gray-700 font-mono">2026.1</span>
+                </div>
+                <h6 class="text-gray-500 font-bold text-xs uppercase">Terminal Operational</h6>
+                <p class="text-[10px] text-gray-700 uppercase font-medium">
+                    New Year handshake successful. All player nodes cleared for the second half of the 25/26 campaign.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+`,
 
 
 
