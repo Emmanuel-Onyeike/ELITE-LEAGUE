@@ -304,51 +304,32 @@ const contentData = {
     </div>`,
 
 
-    'Live': `
-    <div class="flex flex-col items-center justify-center min-h-[600px] text-center animate-in px-4">
-        
-        <div class="relative w-48 h-48 mb-12">
-            <div class="absolute inset-0 border border-blue-500/10 rounded-[3rem] animate-[spin_15s_linear_infinite]"></div>
-            <div class="absolute inset-4 border border-dashed border-blue-500/20 rounded-[2.5rem] animate-[spin_10s_linear_infinite_reverse]"></div>
-            
-            <div class="absolute inset-12 bg-[#030816] border border-blue-500/40 rounded-[2rem] flex items-center justify-center shadow-[0_0_50px_rgba(37,99,235,0.2)] group">
-                <i class="fas fa-microchip text-blue-500 text-3xl animate-pulse"></i>
-                
-                <div class="absolute -top-2 left-1/2 w-2 h-2 bg-blue-500 rounded-full shadow-[0_0_10px_#3b82f6]"></div>
-                <div class="absolute -bottom-2 left-1/2 w-2 h-2 bg-cyan-400 rounded-full shadow-[0_0_10px_#22d3ee]"></div>
-            </div>
-        </div>
+ 'Live': `
+<div class="space-y-8 animate-in pb-20 px-4 md:px-12">
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+    <div>
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse shadow-[0_0_15px_rgba(239,68,68,0.4)]"></div>
+        <span class="text-[10px] text-red-400 font-black uppercase tracking-[0.5em]">Elite Match Authority</span>
+      </div>
+      <h3 class="text-5xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none">Live <span class="text-red-500">Scores</span></h3>
+      <p class="text-gray-500 text-[11px] uppercase tracking-[0.3em] font-bold mt-3">2026 Cycle • Direct Uplink Active</p>
+    </div>
+    <div class="bg-red-600/10 border border-red-500/30 px-8 py-4 rounded-2xl text-center">
+      <span class="text-[10px] text-red-400 font-black uppercase tracking-[0.3em]">Broadcast ID: 04.01.2026</span>
+    </div>
+  </div>
 
-        <div class="space-y-4">
-            <div class="flex items-center justify-center gap-3">
-                <span class="px-3 py-1 bg-blue-600 text-white text-[8px] font-black uppercase tracking-[0.3em] rounded-md">System Phase 02</span>
-            </div>
-            <h3 class="text-4xl font-black italic uppercase tracking-tighter text-white">Engineering In Progress</h3>
-            <p class="text-blue-500 font-mono text-[10px] uppercase tracking-[0.5em] font-bold">Elite Engineers are working on this node...</p>
-        </div>
+  <!-- Matches will appear here automatically -->
+  <div id="liveMatchesZone" class="space-y-8"></div>
 
-        <div class="mt-12 w-full max-w-xl p-10 bg-gradient-to-b from-white/[0.03] to-transparent border border-white/5 rounded-[3.5rem] relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
-            
-            <p class="text-sm text-gray-400 uppercase leading-relaxed font-bold italic">
-                The <span class="text-white">Elite Broadcast Engine</span> is being optimized for high-velocity match tracking. 
-                Our engineering team is finalizing the <span class="text-blue-500 font-black">Direct-Lens Uplink</span> protocol.
-            </p>
-            
-            <div class="mt-8 flex flex-col items-center gap-4">
-                <div class="flex gap-2">
-                    <div class="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
-                    <div class="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-                    <div class="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
-                </div>
-                <h4 class="text-[11px] text-white font-black uppercase tracking-[0.4em] opacity-80">Stay Tuned for Kickoff</h4>
-            </div>
-        </div>
-
-        <p class="mt-10 text-[9px] text-gray-600 uppercase tracking-widest font-bold">
-            <i class="fas fa-mobile-screen-button mr-2"></i> Camera Transmission Support: Finalizing Encryption
-        </p>
-    </div>`,
+  <!-- Shown only when no matches exist -->
+  <div id="noMatchesNotice" class="py-20 text-center border border-red-500/10 rounded-[3rem] bg-red-600/5 backdrop-blur-sm">
+    <i class="fas fa-futbol text-red-500 text-7xl mb-8 opacity-40 animate-pulse"></i>
+    <p class="text-red-400 text-[14px] font-black uppercase tracking-widest">NO ACTIVE FIXTURES DETECTED</p>
+    <p class="text-gray-500 text-[11px] mt-4 uppercase tracking-widest italic">Awaiting kickoff command from Supreme Controller...</p>
+  </div>
+</div>`,
 
 
 
