@@ -777,21 +777,26 @@ const contentData = {
                 <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.5em]">Elite Authority Broadcast</span>
             </div>
             <h3 class="text-5xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none">News <span class="text-blue-500">Hub</span></h3>
-            <p class="text-gray-500 text-[11px] uppercase tracking-[0.3em] font-bold">Source: <span class="text-white italic">Elite Coordinators</span></p>
+            <p class="text-gray-500 text-[11px] uppercase tracking-[0.3em] font-bold">Status: <span class="text-white italic">2026 Resumption Active</span></p>
         </div>
         <div class="bg-white/5 border border-white/10 px-8 py-3 rounded-2xl w-full md:w-auto text-center">
-            <span class="text-[10px] text-gray-400 font-mono uppercase tracking-[0.2em]">Broadcast ID: 20.12.2025</span>
+            <span class="text-[10px] text-gray-400 font-mono uppercase tracking-[0.2em]">Broadcast ID: 04.01.2026</span>
         </div>
     </div>
 
     <div id="liveInjectionZone" class="space-y-10">
         <div class="flex items-center gap-4 mb-4 opacity-50">
-            <span class="text-[10px] text-rose-500 font-black uppercase tracking-[0.4em]">Live Signal Stream</span>
-            <div class="h-[1px] flex-1 bg-rose-500/20"></div>
+            <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.4em]">Live Signal Stream</span>
+            <div class="h-[1px] flex-1 bg-blue-500/20"></div>
         </div>
         
-        <div id="emptyLiveNotice" class="py-10 border border-dashed border-white/5 rounded-[3rem] text-center">
-            <p class="text-[9px] text-gray-600 font-black uppercase tracking-[0.5em]">Waiting for Live Data Packets...</p>
+        <div id="emptyLiveNotice" class="py-12 border border-blue-500/20 bg-blue-600/5 rounded-[3rem] text-center relative overflow-hidden group">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-transparent opacity-50"></div>
+            <div class="relative z-10">
+                <i class="fas fa-satellite-dish text-blue-500 mb-4 animate-bounce"></i>
+                <p class="text-[11px] text-white font-black uppercase tracking-[0.5em]">Next Match: CSC 300 VS LAW 500</p>
+                <p class="text-[9px] text-blue-400/60 font-bold uppercase tracking-[0.3em] mt-2 italic">Live uplink initiates in 144:00:00</p>
+            </div>
         </div>
     </div> 
 
@@ -799,37 +804,40 @@ const contentData = {
         
         <div class="bg-blue-600/5 border border-blue-500/20 rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden">
             <div class="flex flex-col md:flex-row gap-8 items-center relative z-10">
-                <div class="w-20 h-20 bg-[#020617] rounded-3xl border border-blue-500/30 flex items-center justify-center shrink-0">
-                    <i class="fas fa-info-circle text-blue-500 text-3xl"></i>
+                <div class="w-20 h-20 bg-[#020617] rounded-3xl border border-blue-500/30 flex items-center justify-center shrink-0 shadow-[0_0_30px_rgba(59,130,246,0.2)]">
+                    <i class="fas fa-power-off text-blue-500 text-3xl"></i>
                 </div>
                 <div class="space-y-4">
-                    <h4 class="text-2xl font-black italic text-white uppercase tracking-tighter">Uplink <span class="text-blue-500">Protocol</span></h4>
+                    <h4 class="text-2xl font-black italic text-white uppercase tracking-tighter">Season <span class="text-blue-500">Resumption</span></h4>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-2">
-                            <p class="text-[9px] text-blue-400 font-black uppercase tracking-widest">01. Synchronization</p>
-                            <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed">The Live Session signal goes online 24 hours prior to the scheduled date for all units.</p>
+                            <p class="text-[9px] text-blue-400 font-black uppercase tracking-widest">01. Happy New Year</p>
+                            <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed">The 2026 tactical cycle has begun. All systems are officially back online for the 2025/2026 campaign.</p>
                         </div>
                         <div class="space-y-2">
-                            <p class="text-[9px] text-blue-400 font-black uppercase tracking-widest">02. Post-Session Lock</p>
-                            <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed">Once the session concludes, the uplink is locked. Final updates from the Board will be deployed here until the next cycle.</p>
+                            <p class="text-[9px] text-blue-400 font-black uppercase tracking-widest">02. Combat Readiness</p>
+                            <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed">Kickoff starts next week. Ensure all unit rosters are finalized before the Jan 11 deployment window.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="bg-gradient-to-br from-green-600/10 to-transparent border border-green-500/20 rounded-[3.5rem] p-10 md:p-20 relative overflow-hidden">
+        <div class="bg-gradient-to-br from-blue-600/20 to-transparent border border-blue-500/30 rounded-[3.5rem] p-10 md:p-20 relative overflow-hidden group">
+            <div class="absolute top-0 right-0 p-10 opacity-10 group-hover:opacity-20 transition-opacity">
+                <i class="fas fa-code text-[120px] text-white"></i>
+            </div>
             <div class="relative z-10">
                 <div class="flex items-center gap-4 mb-8">
-                    <i class="fas fa-certificate text-green-500"></i>
-                    <span class="text-[10px] text-green-500 font-black uppercase tracking-[0.5em]">Holiday Reset Protocol</span>
+                    <div class="px-3 py-1 bg-blue-500 text-[#020617] text-[9px] font-black uppercase tracking-widest rounded-full">Primary Matchup</div>
+                    <span class="text-[10px] text-gray-400 font-black uppercase tracking-[0.5em]">2026.01.11 Deployment</span>
                 </div>
-                <h4 class="text-4xl md:text-5xl font-black italic text-white uppercase tracking-tighter mb-8 italic">The Christmas <span class="text-green-500">Amnesty</span></h4>
+                <h4 class="text-4xl md:text-6xl font-black italic text-white uppercase tracking-tighter mb-8 leading-none">CSC 300 <span class="text-blue-500">vs</span> LAW 500</h4>
                 <div class="max-w-2xl space-y-8">
-                    <p class="text-gray-400 text-sm font-bold uppercase leading-relaxed italic italic">In the spirit of the season, all player suspensions are void.</p>
-                    <div class="p-8 bg-white/5 border border-white/10 rounded-[2.5rem]">
-                        <p class="text-white text-[11px] font-black uppercase tracking-widest italic mb-3">Targeted Decryption: Jasso (CSC 200)</p>
-                        <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest leading-loose">Red card status purged. Unit restored to active duty.</p>
+                    <p class="text-gray-400 text-sm font-bold uppercase leading-relaxed italic">The clash of the titans opens the new year. Logic-based execution meets judicial defense.</p>
+                    <div class="p-8 bg-[#020617]/80 border border-white/5 rounded-[2.5rem] backdrop-blur-xl">
+                        <p class="text-white text-[11px] font-black uppercase tracking-widest italic mb-3">Tactical Briefing</p>
+                        <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest leading-loose">Anticipate high-density engagement as both units vie for the 2026 opening points.</p>
                     </div>
                 </div>
             </div>
@@ -839,33 +847,36 @@ const contentData = {
             <div class="bg-[#020617] border border-blue-500/10 rounded-[3.5rem] p-10 md:p-12 hover:border-blue-600/30 transition-all group">
                 <div class="flex justify-between items-start mb-10">
                     <div class="w-16 h-16 bg-blue-600/10 rounded-2xl flex items-center justify-center border border-blue-600/20">
-                        <i class="fas fa-gavel text-blue-500 text-2xl"></i>
+                        <i class="fas fa-microchip text-blue-500 text-2xl"></i>
                     </div>
-                    <span class="text-[9px] text-blue-500 font-black uppercase tracking-[0.4em]">Ruling 01</span>
+                    <span class="text-[9px] text-blue-500 font-black uppercase tracking-[0.4em]">Status 01</span>
                 </div>
-                <h5 class="text-white font-black uppercase italic tracking-tighter text-3xl mb-6">CSC 200 <span class="text-blue-500">v</span> MSS 100</h5>
+                <h5 class="text-white font-black uppercase italic tracking-tighter text-3xl mb-6">System <span class="text-blue-500">Wide</span> Back</h5>
                 <div class="space-y-6 text-gray-400 text-[11px] font-bold uppercase leading-loose tracking-widest">
-                    <p><span class="text-white">Official Result:</span> CSC 200 awarded the win (5-2).</p>
-                    <p>Elite Coordinators acknowledge the sportsmanship of the CSC 200 unit.</p>
+                    <p><span class="text-white">Current Mode:</span> Full Deployment.</p>
+                    <p>The Elite Arena interface is now operational for all registered team nodes.</p>
                 </div>
             </div>
 
-            <div class="bg-white/[0.02] border border-white/5 rounded-[3.5rem] p-10 md:p-12 flex flex-col items-center justify-center text-center group relative overflow-hidden">
+            <div class="bg-white/[0.02] border border-white/5 rounded-[3.5rem] p-10 md:p-12 flex flex-col items-center justify-center text-center group relative overflow-hidden hover:bg-white/[0.04] transition-all">
                 <div class="relative z-10">
-                    <div class="text-5xl mb-8 animate-bounce">🎄</div>
-                    <h5 class="text-4xl font-black uppercase italic text-white tracking-tighter mb-4">Merry Christmas <br><span class="text-blue-500">To All Units</span></h5>
-                    <p class="text-gray-500 text-[10px] font-black uppercase tracking-[0.5em] mb-10 leading-loose">The Elite League is back.</p>
+                    <div class="text-5xl mb-8 animate-pulse text-blue-500">
+                         <i class="fas fa-bolt"></i>
+                    </div>
+                    <h5 class="text-4xl font-black uppercase italic text-white tracking-tighter mb-4">Happy <span class="text-blue-500">2026</span> <br>To All Units</h5>
+                    <p class="text-gray-500 text-[10px] font-black uppercase tracking-[0.5em] mb-10 leading-loose">We are officially back online.</p>
                 </div>
             </div>
         </div> 
     </div> 
 
     <div class="pt-12 border-t border-white/5 text-center">
-        <p class="text-[11px] text-gray-700 font-black uppercase tracking-[0.8em]">Authorized: Elite Coordinators</p>
+        <p class="text-[11px] text-gray-700 font-black uppercase tracking-[0.8em]">Authorized: Elite Coordinators // 2026 Cycle</p>
     </div>
 </div> 
 `,
 
+    
     
    'LiveSession': `
 <div class="space-y-8 animate-in pb-20 px-4 md:px-12">
