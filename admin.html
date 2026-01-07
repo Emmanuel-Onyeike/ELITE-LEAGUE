@@ -3,58 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Elite Terminal - Command Center</title>
+  <title>Elite Terminal - Absolute Command</title>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
-    // Tailwind Configuration for Custom Theme
     tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            elite: {
-              bg: '#020617',
-              card: '#030816',
-              blue: '#2563eb',
-              cyan: '#06b6d4',
-              red: '#ef4444'
-            }
-          }
-        }
-      }
+      theme: { extend: { colors: { elite: { bg: '#020617', blue: '#2563eb', red: '#ef4444', yellow: '#fbbf24' } } } }
     }
   </script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700;900&display=swap');
-    body { font-family: 'Space Grotesk', sans-serif; background-color: #020617; color: white; }
-    .glass { background: rgba(3, 8, 22, 0.8); backdrop-filter: blur(15px); border: 1px solid rgba(37, 99, 235, 0.2); }
-    .neon-glow { box-shadow: 0 0 20px rgba(37, 99, 235, 0.2); }
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;900&display=swap');
+    body { font-family: 'Space Grotesk', sans-serif; background-color: #020617; color: white; margin: 0; overflow-x: hidden; }
+    .glass { background: rgba(3, 8, 22, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(37, 99, 235, 0.2); }
     .tab-active { border-bottom: 4px solid #2563eb; color: #2563eb; }
-    .custom-scroll::-webkit-scrollbar { width: 5px; }
-    .custom-scroll::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 10px; }
+    .live-glow { box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); }
+    input, select { color: white; }
   </style>
 
   <script>
-    // === SUPABASE SETUP ===
-    const supabaseUrl = 'https://your-project.supabase.co'; // REPLACE ME
-    const supabaseAnonKey = 'your-anon-key-here';         // REPLACE ME
-    const { createClient } = supabase;
-    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+    // === 1. SYSTEM CONFIGURATION ===
+    const supabaseUrl = 'https://your-project.supabase.co'; 
+    const supabaseAnonKey = 'your-anon-key';
+    const _supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
-    const ADMIN_PASSWORD = "elite2026";
-    let eliteLeagueId = null;
+    const ADMIN_PASS = "elite2026";
+    let leagueId = null;
     let currentMatchId = null;
 
-    // === CUSTOM CENTERED MODAL SYSTEM ===
-    function openModal(title, message, type = 'alert', callback = null) {
+    // === 2. CENTERED MODAL SYSTEM (Per Instruction) ===
+    function openModal(title, msg, type = 'alert', callback = null) {
       const modal = document.getElementById('globalModal');
       const input = document.getElementById('modalInput');
       document.getElementById('modalTitle').innerText = title;
-      document.getElementById('modalMsg').innerText = message;
+      document.getElementById('modalMsg').innerText = msg;
       
       input.classList.toggle('hidden', type !== 'prompt');
       input.value = "";
@@ -63,290 +47,223 @@
       modal.classList.add('flex');
 
       document.getElementById('modalConfirm').onclick = () => {
-        const value = input.value;
+        const val = input.value;
         closeModal();
-        if (callback) callback(type === 'prompt' ? value : true);
+        if (callback) callback(type === 'prompt' ? val : true);
       };
     }
 
     function closeModal() {
-      const modal = document.getElementById('globalModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
+      document.getElementById('globalModal').classList.add('hidden');
+      document.getElementById('globalModal').classList.remove('flex');
     }
 
-    // === CORE LOGIC ===
-    async function initTerminal() {
-      // Step 1: Security
-      openModal("Security", "Enter Terminal Access Code", "prompt", (pass) => {
-        if (pass !== ADMIN_PASSWORD) window.location.href = "index.html";
+    // === 3. CORE INITIALIZATION ===
+    async function init() {
+      // Access Control via Centered Modal
+      openModal("Security Clearance", "Enter Admin Access Code", "prompt", async (pass) => {
+        if (pass !== ADMIN_PASS) {
+          window.location.reload();
+        } else {
+          // Sync League Data
+          let { data } = await _supabase.from('leagues').select('id').eq('name', 'Elite League').single();
+          if (!data) {
+            const { data: nL } = await _supabase.from('leagues').insert({ name: 'Elite League' }).select().single();
+            leagueId = nL.id;
+          } else { leagueId = data.id; }
+          
+          refreshAll();
+          setInterval(refreshAll, 5000); // Constant Sync
+        }
       });
-
-      // Step 2: Sync Data
-      eliteLeagueId = await ensureLeague();
-      refreshAll();
-      setInterval(refreshAll, 10000);
-    }
-
-    async function ensureLeague() {
-      let { data } = await supabaseClient.from('leagues').select('id').eq('name', 'Elite League').single();
-      if (!data) {
-        const { data: newL } = await supabaseClient.from('leagues').insert({ name: 'Elite League' }).select().single();
-        return newL.id;
-      }
-      return data.id;
     }
 
     async function refreshAll() {
       loadTeams();
       loadFixtures();
-      loadLiveFeeds();
+      loadLive();
     }
 
-    // --- TAB SWITCHING ---
-    function switchTab(tab) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-      document.getElementById(`tab-${tab}`).classList.remove('hidden');
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('tab-active'));
+    // === 4. NAVIGATION ===
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+      document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('tab-active'));
       event.currentTarget.classList.add('tab-active');
     }
 
-    // --- TEAM MANAGEMENT ---
+    // === 5. TEAM MANAGEMENT ===
     async function loadTeams() {
-      const { data: teams } = await supabaseClient.from('teams').select('*').eq('league_id', eliteLeagueId).order('name');
-      const list = document.getElementById('teamsList');
-      const selectH = document.getElementById('homeTeam');
-      const selectA = document.getElementById('awayTeam');
-
-      list.innerHTML = "";
-      selectH.innerHTML = selectA.innerHTML = '<option value="">SELECT UNIT</option>';
-
-      teams.forEach(t => {
-        list.innerHTML += `
-          <div class="glass p-4 rounded-2xl border-l-4 border-cyan-500 hover:scale-105 transition-all">
-            <p class="text-[10px] text-cyan-500 font-black tracking-widest uppercase">Registered Unit</p>
-            <p class="text-lg font-black uppercase italic">${t.name}</p>
-          </div>`;
+      const { data: teams } = await _supabase.from('teams').select('*').eq('league_id', leagueId).order('name');
+      const list = document.getElementById('teamsList'), h = document.getElementById('hSelect'), a = document.getElementById('aSelect');
+      list.innerHTML = ""; h.innerHTML = a.innerHTML = '<option value="">SELECT UNIT</option>';
+      teams?.forEach(t => {
+        list.innerHTML += `<div class="glass p-4 rounded-xl border-l-4 border-blue-500 font-bold uppercase text-xs italic">${t.name}</div>`;
         const opt = `<option value="${t.id}">${t.name}</option>`;
-        selectH.innerHTML += opt; selectA.innerHTML += opt;
+        h.innerHTML += opt; a.innerHTML += opt;
       });
     }
 
-    async function createTeam() {
-      const name = document.getElementById('teamNameInput').value.trim();
-      if (!name) return openModal("Error", "Name required");
-      await supabaseClient.from('teams').insert({ league_id: eliteLeagueId, name });
+    async function addTeam() {
+      const name = document.getElementById('teamNameInput').value;
+      if (!name) return;
+      await _supabase.from('teams').insert({ league_id: leagueId, name });
       document.getElementById('teamNameInput').value = "";
-      refreshAll();
+      loadTeams();
     }
 
-    // --- FIXTURE MANAGEMENT ---
-    async function createMatch() {
-      const h = document.getElementById('homeTeam').value;
-      const a = document.getElementById('awayTeam').value;
-      const d = document.getElementById('matchDate').value;
-      if (!h || !a || !d) return openModal("Warning", "All fields are mandatory for deployment.");
-      
-      await supabaseClient.from('matches').insert({
-        league_id: eliteLeagueId, home_team_id: h, away_team_id: a, date: d, status: 'scheduled'
-      });
-      openModal("Success", "Fixture initialized and scheduled.");
+    // === 6. FIXTURE DEPLOYMENT ===
+    async function createFixture() {
+      const h = document.getElementById('hSelect').value, a = document.getElementById('aSelect').value, d = document.getElementById('mDate').value;
+      if (!h || !a || !d) return openModal("Error", "All deployment fields required.");
+      await _supabase.from('matches').insert({ league_id: leagueId, home_team_id: h, away_team_id: a, date: d, status: 'scheduled' });
+      openModal("Confirmed", "Fixture successfully deployed.");
       refreshAll();
     }
 
     async function loadFixtures() {
-      const { data } = await supabaseClient.from('matches').select('*, home:teams!home_team_id(name), away:teams!away_team_id(name)')
-        .eq('league_id', eliteLeagueId).eq('status', 'scheduled').order('date');
-      
-      const container = document.getElementById('fixturesList');
-      container.innerHTML = data.length ? "" : "<p class='text-gray-600 uppercase text-xs'>No pending deployments</p>";
-      data.forEach(m => {
+      const { data } = await _supabase.from('matches').select('*, home:teams!home_team_id(name), away:teams!away_team_id(name)').eq('status', 'scheduled');
+      const container = document.getElementById('fixtureList');
+      container.innerHTML = "";
+      data?.forEach(m => {
         container.innerHTML += `
-          <div class="glass p-6 rounded-3xl flex justify-between items-center mb-4">
-            <div>
-              <p class="text-xl font-black italic uppercase">${m.home.name} <span class="text-cyan-500">VS</span> ${m.away.name}</p>
-              <p class="text-xs text-gray-400 font-bold uppercase">${new Date(m.date).toLocaleString()}</p>
-            </div>
-            <button onclick="startMatch('${m.id}')" class="bg-cyan-600 hover:bg-cyan-500 px-6 py-3 rounded-2xl font-black uppercase text-xs transition-all">
-              Activate
-            </button>
+          <div class="glass p-5 rounded-2xl flex justify-between items-center mb-3">
+            <p class="font-black italic uppercase text-sm">${m.home.name} VS ${m.away.name}</p>
+            <button onclick="activateMatch('${m.id}')" class="bg-blue-600 px-5 py-2 rounded-lg font-black text-[10px] uppercase">Activate</button>
           </div>`;
       });
     }
 
-    async function startMatch(id) {
-      openModal("Confirmation", "Are you ready to push this fixture LIVE?", "alert", async () => {
-        await supabaseClient.from('matches').update({ status: 'live' }).eq('id', id);
-        switchTab('live');
-        refreshAll();
-      });
+    async function activateMatch(id) {
+      await _supabase.from('matches').update({ status: 'live' }).eq('id', id);
+      switchTab('live');
+      refreshAll();
     }
 
-    // --- LIVE CONTROL ---
-    async function loadLiveFeeds() {
-      const { data } = await supabaseClient.from('matches').select('*, home:teams!home_team_id(name), away:teams!away_team_id(name)')
-        .eq('league_id', eliteLeagueId).eq('status', 'live');
-      
-      const container = document.getElementById('liveMatchesContainer');
-      container.innerHTML = data.length ? "" : "<p class='text-gray-600 py-10 uppercase text-center'>No active feeds detected</p>";
-      data.forEach(m => {
+    // === 7. LIVE FEED & COMMAND PANEL ===
+    async function loadLive() {
+      const { data } = await _supabase.from('matches').select('*, home:teams!home_team_id(name), away:teams!away_team_id(name)').eq('status', 'live');
+      const container = document.getElementById('liveList');
+      container.innerHTML = data?.length ? "" : "<p class='text-center opacity-30 py-20'>WAITING FOR TRANSMISSION...</p>";
+      data?.forEach(m => {
         container.innerHTML += `
-          <div class="glass p-8 rounded-[2.5rem] border-2 border-red-500/30 text-center relative overflow-hidden">
-            <div class="absolute top-4 right-6 flex items-center gap-2">
-              <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-              <span class="text-[10px] font-black text-red-500">LIVE</span>
-            </div>
-            <p class="text-2xl font-black italic mb-4 uppercase">${m.home.name} VS ${m.away.name}</p>
-            <p class="text-6xl font-black mb-6 tracking-tighter">${m.home_score} - ${m.away_score}</p>
-            <button onclick="openControlPanel('${m.id}', '${m.home.name}', '${m.away.name}', ${m.home_score}, ${m.away_score})" 
-                    class="bg-white text-black px-10 py-4 rounded-2xl font-black uppercase text-sm hover:bg-blue-500 hover:text-white transition-all">
-              Open Command Panel
-            </button>
+          <div class="glass p-8 rounded-[3rem] text-center border-red-500/30 border-2 live-glow">
+            <p class="text-[10px] text-red-500 font-black animate-pulse mb-2">LIVE TRANSMISSION</p>
+            <p class="text-2xl font-black uppercase italic mb-4 tracking-tighter">${m.home.name} vs ${m.away.name}</p>
+            <p class="text-7xl font-black mb-8 text-blue-500">${m.home_score} - ${m.away_score}</p>
+            <button onclick="openPanel('${m.id}', '${m.home.name}', '${m.away.name}', ${m.home_score}, ${m.away_score})" class="bg-white text-black px-10 py-4 rounded-2xl font-black text-xs uppercase hover:bg-blue-600 hover:text-white transition-all">Launch Control</button>
           </div>`;
       });
     }
 
-    function openControlPanel(id, hName, aName, hScore, aScore) {
+    function openPanel(id, h, a, hs, as) {
       currentMatchId = id;
-      document.getElementById('controlPanel').classList.remove('hidden');
-      document.getElementById('ctrlTitle').innerText = `${hName} VS ${aName}`;
-      document.getElementById('ctrlScore').innerText = `${hScore} - ${aScore}`;
+      document.getElementById('commandPanel').classList.remove('hidden');
+      document.getElementById('pTitle').innerText = `${h} VS ${a}`;
+      document.getElementById('pScore').innerText = `${hs} - ${as}`;
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
 
-    async function updateScore(team) {
-      if (!currentMatchId) return;
-      const { data: m } = await supabaseClient.from('matches').select('home_score, away_score').eq('id', currentMatchId).single();
-      const newH = team === 'home' ? m.home_score + 1 : m.home_score;
-      const newA = team === 'away' ? m.away_score + 1 : m.away_score;
-      await supabaseClient.from('matches').update({ home_score: newH, away_score: newA }).eq('id', currentMatchId);
-      document.getElementById('ctrlScore').innerText = `${newH} - ${newA}`;
+    async function updateScore(side) {
+      const { data } = await _supabase.from('matches').select('home_score, away_score').eq('id', currentMatchId).single();
+      const up = side === 'h' ? { home_score: data.home_score + 1 } : { away_score: data.away_score + 1 };
+      await _supabase.from('matches').update(up).eq('id', currentMatchId);
       refreshAll();
     }
 
     async function issueCard(color) {
-      openModal("Event Record", `Enter player name for ${color.toUpperCase()} card:`, "prompt", async (pName) => {
+      openModal(`${color.toUpperCase()} CARD`, "Enter Player Name/Number:", "prompt", async (pName) => {
         if (!pName) return;
-        await supabaseClient.from('events').insert({
-          match_id: currentMatchId, type: color + '_card', player_name: pName, minute: new Date().getMinutes()
-        });
-        openModal("Success", `Card recorded for ${pName}`);
+        await _supabase.from('events').insert({ match_id: currentMatchId, type: color + '_card', player_name: pName });
+        openModal("Recorded", `${color.toUpperCase()} card assigned to ${pName}`);
       });
     }
 
-    async function terminateMatch(status) {
-      const msg = status === 'finished' ? "Are you sure you want to end this match? This will finalize the score." : "Pause match feed?";
-      openModal("Confirm Status", msg, "alert", async () => {
-        await supabaseClient.from('matches').update({ status }).eq('id', currentMatchId);
-        if (status === 'finished') document.getElementById('controlPanel').classList.add('hidden');
+    async function setStatus(s) {
+      openModal("System Update", `Confirm status change to: ${s.toUpperCase()}?`, "alert", async () => {
+        await _supabase.from('matches').update({ status: s }).eq('id', currentMatchId);
+        if (s === 'finished') document.getElementById('commandPanel').classList.add('hidden');
         refreshAll();
       });
     }
 
-    window.onload = initTerminal;
+    window.onload = init;
   </script>
 </head>
-<body class="p-6 md:p-12 min-h-screen">
+<body class="p-6 md:p-12">
 
-  <div id="globalModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm">
-    <div class="glass w-full max-w-md p-10 rounded-[3rem] text-center shadow-2xl border-blue-500/50">
-      <h3 id="modalTitle" class="text-3xl font-black italic uppercase text-blue-500 mb-4"></h3>
-      <p id="modalMsg" class="text-gray-400 font-bold mb-8"></p>
-      <input id="modalInput" type="text" placeholder="ENTER VALUE" class="hidden w-full bg-white/5 border border-blue-500/30 rounded-2xl px-6 py-4 mb-8 text-center font-black uppercase outline-none focus:border-blue-500"/>
+  <div id="globalModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/90 backdrop-blur-lg">
+    <div class="glass w-full max-w-sm p-12 rounded-[3.5rem] text-center shadow-2xl border-blue-600/50">
+      <h3 id="modalTitle" class="text-3xl font-black italic uppercase text-blue-500 mb-2"></h3>
+      <p id="modalMsg" class="text-gray-400 font-bold mb-8 text-xs uppercase tracking-widest"></p>
+      <input id="modalInput" type="text" placeholder="IDENTITY..." class="hidden w-full bg-white/5 border border-white/10 rounded-xl px-5 py-5 mb-8 text-center font-black uppercase outline-none focus:border-blue-500"/>
       <div class="flex gap-4">
-        <button id="modalConfirm" class="flex-1 bg-blue-600 hover:bg-blue-500 py-5 rounded-[1.5rem] font-black uppercase tracking-widest transition-all">Continue</button>
-        <button onclick="closeModal()" class="flex-1 bg-white/10 hover:bg-white/20 py-5 rounded-[1.5rem] font-black uppercase tracking-widest transition-all">Cancel</button>
+        <button id="modalConfirm" class="flex-1 bg-blue-600 py-5 rounded-2xl font-black uppercase text-[10px] tracking-tighter">Confirm</button>
+        <button onclick="closeModal()" class="flex-1 bg-white/5 py-5 rounded-2xl font-black uppercase text-[10px] tracking-tighter">Cancel</button>
       </div>
     </div>
   </div>
 
   <div class="max-w-6xl mx-auto">
-    <header class="flex flex-col md:flex-row justify-between items-center gap-8 mb-16">
-      <div class="flex items-center gap-5">
-        <div class="w-3 h-14 bg-blue-600 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.6)]"></div>
-        <div>
-          <h1 class="text-5xl md:text-6xl font-black italic uppercase tracking-tighter">Elite Terminal</h1>
-          <p class="text-[10px] text-blue-500 font-black tracking-[0.5em] uppercase">Control Node // Sector 7</p>
-        </div>
+    <header class="flex flex-col md:flex-row justify-between items-center mb-20 gap-10">
+      <div class="flex items-center gap-4">
+        <div class="w-2 h-14 bg-blue-600 rounded-full"></div>
+        <h1 class="text-6xl font-black italic uppercase tracking-tighter">Elite Terminal</h1>
       </div>
-      
       <nav class="flex gap-2 bg-white/5 p-2 rounded-3xl border border-white/10">
-        <button onclick="switchTab('units')" class="tab-btn tab-active px-8 py-3 rounded-2xl font-black uppercase text-xs">Units</button>
-        <button onclick="switchTab('fixtures')" class="tab-btn px-8 py-3 rounded-2xl font-black uppercase text-xs">Fixtures</button>
-        <button onclick="switchTab('live')" class="tab-btn px-8 py-3 rounded-2xl font-black uppercase text-xs text-red-500">Live Feed</button>
+        <button onclick="switchTab('units')" class="tab-btn tab-active px-8 py-3 rounded-2xl font-black uppercase text-[11px] tracking-widest">Units</button>
+        <button onclick="switchTab('fixtures')" class="tab-btn px-8 py-3 rounded-2xl font-black uppercase text-[11px] tracking-widest">Fixtures</button>
+        <button onclick="switchTab('live')" class="tab-btn px-8 py-3 rounded-2xl font-black uppercase text-[11px] tracking-widest text-red-500">Live Feed</button>
       </nav>
     </header>
 
     <section id="tab-units" class="tab-content">
-      <div class="grid lg:grid-cols-3 gap-12">
-        <div class="lg:col-span-1">
-          <div class="glass p-8 rounded-[3rem]">
-            <h2 class="text-2xl font-black italic uppercase mb-8 italic">Register Unit</h2>
-            <input id="teamNameInput" placeholder="UNIT NAME (E.G. CSC 300)" class="w-full bg-white/5 border border-blue-500/20 rounded-2xl px-6 py-5 mb-6 outline-none font-black uppercase focus:border-blue-500"/>
-            <button onclick="createTeam()" class="w-full bg-blue-600 hover:bg-blue-500 py-5 rounded-2xl font-black uppercase tracking-widest shadow-lg shadow-blue-600/30 transition-all">Deploy to Database</button>
-          </div>
+      <div class="grid md:grid-cols-3 gap-12">
+        <div class="glass p-10 rounded-[3rem] h-fit">
+          <h2 class="text-xl font-black uppercase italic mb-8">Register Unit</h2>
+          <input id="teamNameInput" placeholder="UNIT NAME" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 mb-6 font-black uppercase outline-none focus:border-blue-500"/>
+          <button onclick="addTeam()" class="w-full bg-blue-600 py-5 rounded-2xl font-black uppercase text-xs">Deploy to Roster</button>
         </div>
-        <div class="lg:col-span-2">
-          <div class="glass p-10 rounded-[3rem]">
-            <h2 class="text-2xl font-black italic uppercase mb-8 italic">Active Roster</h2>
-            <div id="teamsList" class="grid grid-cols-2 sm:grid-cols-3 gap-6"></div>
-          </div>
-        </div>
+        <div id="teamsList" class="md:col-span-2 grid grid-cols-2 lg:grid-cols-3 gap-6"></div>
       </div>
     </section>
 
     <section id="tab-fixtures" class="tab-content hidden">
-      <div class="grid lg:grid-cols-3 gap-12">
-        <div class="lg:col-span-1">
-          <div class="glass p-8 rounded-[3rem]">
-            <h2 class="text-2xl font-black italic uppercase mb-8 italic">Initialize Match</h2>
-            <div class="space-y-4">
-              <select id="homeTeam" class="w-full bg-elite-bg border border-white/10 rounded-2xl p-5 font-black uppercase outline-none"></select>
-              <select id="awayTeam" class="w-full bg-elite-bg border border-white/10 rounded-2xl p-5 font-black uppercase outline-none"></select>
-              <input type="datetime-local" id="matchDate" class="w-full bg-elite-bg border border-white/10 rounded-2xl p-5 font-black uppercase outline-none"/>
-              <button onclick="createMatch()" class="w-full bg-cyan-600 hover:bg-cyan-500 py-5 rounded-2xl font-black uppercase tracking-widest mt-4 shadow-lg shadow-cyan-600/30">Commit Fixture</button>
-            </div>
-          </div>
+      <div class="grid md:grid-cols-3 gap-12">
+        <div class="glass p-10 rounded-[3rem] h-fit space-y-5">
+          <h2 class="text-xl font-black uppercase italic mb-4">Initialize Fixture</h2>
+          <select id="hSelect" class="w-full bg-elite-bg border border-white/10 rounded-2xl p-5 font-black uppercase outline-none"></select>
+          <select id="aSelect" class="w-full bg-elite-bg border border-white/10 rounded-2xl p-5 font-black uppercase outline-none"></select>
+          <input type="datetime-local" id="mDate" class="w-full bg-elite-bg border border-white/10 rounded-2xl p-5 font-black uppercase text-xs outline-none"/>
+          <button onclick="createFixture()" class="w-full bg-cyan-600 py-5 rounded-2xl font-black uppercase text-xs">Commit Match</button>
         </div>
-        <div class="lg:col-span-2">
-          <div class="glass p-10 rounded-[3rem]">
-            <h2 class="text-2xl font-black italic uppercase mb-8 italic">Transmission Schedule</h2>
-            <div id="fixturesList" class="space-y-4"></div>
-          </div>
-        </div>
+        <div id="fixtureList" class="md:col-span-2"></div>
       </div>
     </section>
 
     <section id="tab-live" class="tab-content hidden">
-      <div id="liveMatchesContainer" class="grid md:grid-cols-2 gap-8 mb-16"></div>
+      <div id="liveList" class="grid md:grid-cols-2 gap-10 mb-20"></div>
+      
+      <div id="commandPanel" class="hidden glass p-12 rounded-[5rem] text-center border-t-8 border-blue-600 shadow-2xl">
+        <h3 id="pTitle" class="text-2xl font-black italic uppercase text-gray-500 mb-6 tracking-tighter"></h3>
+        <div id="pScore" class="text-[12rem] font-black leading-none mb-14 text-blue-500 tracking-tighter">0 - 0</div>
+        
+        <div class="grid grid-cols-2 gap-8 mb-10">
+          <button onclick="updateScore('h')" class="bg-green-600 py-10 rounded-[2.5rem] font-black uppercase text-3xl hover:scale-105 transition-all">Goal Home</button>
+          <button onclick="updateScore('a')" class="bg-green-600 py-10 rounded-[2.5rem] font-black uppercase text-3xl hover:scale-105 transition-all">Goal Away</button>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-8 mb-12">
+          <button onclick="issueCard('yellow')" class="bg-elite-yellow text-black py-6 rounded-2xl font-black uppercase text-xs tracking-widest italic">Issue Yellow Card</button>
+          <button onclick="issueCard('red')" class="bg-elite-red text-white py-6 rounded-2xl font-black uppercase text-xs tracking-widest italic">Issue Red Card</button>
+        </div>
 
-      <div id="controlPanel" class="hidden glass p-12 rounded-[4rem] border-t-8 border-blue-600 shadow-2xl animate-pulse-slow">
-        <div class="text-center">
-          <h2 id="ctrlTitle" class="text-4xl font-black italic uppercase tracking-tighter mb-4"></h2>
-          <div id="ctrlScore" class="text-[10rem] font-black leading-none mb-12 tracking-tighter text-blue-500">0 - 0</div>
-          
-          <div class="grid grid-cols-2 gap-8 mb-12">
-            <button onclick="updateScore('home')" class="bg-green-600 hover:bg-green-500 py-10 rounded-[2.5rem] text-4xl font-black uppercase shadow-lg shadow-green-600/40">Goal Home</button>
-            <button onclick="updateScore('away')" class="bg-green-600 hover:bg-green-500 py-10 rounded-[2.5rem] text-4xl font-black uppercase shadow-lg shadow-green-600/40">Goal Away</button>
-          </div>
-
-          <div class="grid grid-cols-2 gap-6 mb-12">
-            <button onclick="issueCard('yellow')" class="bg-yellow-500 text-black py-6 rounded-2xl font-black uppercase flex items-center justify-center gap-3">
-              <span class="w-4 h-6 bg-yellow-400 border-2 border-black rounded-sm"></span> Yellow Card
-            </button>
-            <button onclick="issueCard('red')" class="bg-red-600 text-white py-6 rounded-2xl font-black uppercase flex items-center justify-center gap-3">
-              <span class="w-4 h-6 bg-red-400 border-2 border-white rounded-sm"></span> Red Card
-            </button>
-          </div>
-
-          <div class="flex flex-col md:flex-row gap-6">
-            <button onclick="terminateMatch('paused')" class="flex-1 bg-gray-800 hover:bg-gray-700 py-6 rounded-2xl font-black uppercase italic tracking-widest">Pause Feed</button>
-            <button onclick="terminateMatch('finished')" class="flex-1 bg-red-600 hover:bg-red-500 py-6 rounded-2xl font-black uppercase italic tracking-widest shadow-lg shadow-red-600/30">End Transmission (FT)</button>
-          </div>
+        <div class="flex flex-col md:flex-row gap-6">
+          <button onclick="setStatus('paused')" class="flex-1 bg-gray-800 py-6 rounded-2xl font-black uppercase text-[10px] tracking-widest italic opacity-50 hover:opacity-100 transition-all">Pause Feed</button>
+          <button onclick="setStatus('finished')" class="flex-1 bg-red-600 py-6 rounded-2xl font-black uppercase text-[10px] tracking-widest italic shadow-lg shadow-red-600/30">End Transmission (FT)</button>
         </div>
       </div>
     </section>
   </div>
-
 </body>
 </html>
