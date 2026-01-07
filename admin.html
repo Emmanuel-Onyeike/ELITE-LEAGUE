@@ -3,199 +3,225 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Dashboard - Elite League</title>
+  <title>Admin - Elite League</title>
 
+  <!-- Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-  <style>
-    body { font-family: 'Inter', sans-serif; background: #0f172a; }
-    .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
-    .sidebar-link.active { background: #3b82f6; color: white; }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
-  </style>
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
 
   <script>
-    // === SUPABASE CONFIG ===
-    const supabaseUrl = 'https://your-project.supabase.co'; 
-    const supabaseAnonKey = 'your-anon-key-here'; 
+    // === REPLACE THESE LATER WHEN YOU CREATE SUPABASE PROJECT ===
+    const supabaseUrl = 'https://your-project.supabase.co';      // ← Change later
+    const supabaseAnonKey = 'your-anon-key-here';               // ← Change later
+
     const { createClient } = supabase;
     const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
 
+    // Password protection - change this!
     const ADMIN_PASSWORD = "elite2026";
+
+    function checkPassword() {
+      let pass = prompt("Enter admin password:");
+      if (pass !== ADMIN_PASSWORD) {
+        alert("Wrong password!");
+        window.location.href = "index.html";
+      }
+    }
+
     let eliteLeagueId = null;
     let currentMatchId = null;
 
-    // === CUSTOM MODAL SYSTEM ===
-    function showAlert(title, message, callback = null) {
-        const modal = document.getElementById('customModal');
-        document.getElementById('modalTitle').innerText = title;
-        document.getElementById('modalMessage').innerText = message;
-        document.getElementById('modalPromptInput').classList.add('hidden');
-        document.getElementById('modalConfirmBtn').onclick = () => {
-            modal.classList.add('hidden');
-            if(callback) callback();
-        };
-        modal.classList.remove('hidden');
-    }
-
-    function showPrompt(title, message, callback) {
-        const modal = document.getElementById('customModal');
-        const input = document.getElementById('modalPromptInput');
-        document.getElementById('modalTitle').innerText = title;
-        document.getElementById('modalMessage').innerText = message;
-        input.classList.remove('hidden');
-        input.value = "";
-        document.getElementById('modalConfirmBtn').onclick = () => {
-            modal.classList.add('hidden');
-            callback(input.value);
-        };
-        modal.classList.remove('hidden');
-    }
-
-    // === TAB SYSTEM ===
-    function showSection(sectionId) {
-        document.querySelectorAll('.admin-section').forEach(s => s.classList.add('hidden'));
-        document.getElementById(sectionId).classList.remove('hidden');
-        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-        event.currentTarget.classList.add('active');
-    }
-
-    // === AUTH ===
-    async function checkPassword() {
-      showPrompt("Security Check", "Please enter the admin access code:", (pass) => {
-          if (pass !== ADMIN_PASSWORD) {
-              window.location.href = "index.html";
-          }
-      });
-    }
-
-    // === DATA LOGIC (Modified to use Custom Modals) ===
+    // Create Elite League automatically
     async function ensureEliteLeagueExists() {
-      let { data, error } = await supabaseClient.from('leagues').select('id').eq('name', 'Elite League').single();
-      if (error && error.code !== 'PGRST116') return null;
+      let { data, error } = await supabaseClient
+        .from('leagues')
+        .select('id')
+        .eq('name', 'Elite League')
+        .single();
+
+      if (error && error.code !== 'PGRST116') {
+        console.error(error);
+        return null;
+      }
+
       if (data) return data.id;
-      const { data: newLeague } = await supabaseClient.from('leagues').insert({ name: 'Elite League' }).select().single();
+
+      const { data: newLeague } = await supabaseClient
+        .from('leagues')
+        .insert({ name: 'Elite League' })
+        .select()
+        .single();
+
       return newLeague.id;
     }
 
+    // Load all teams (for display and dropdowns)
     async function loadTeams() {
       if (!eliteLeagueId) return;
-      const { data: teams } = await supabaseClient.from('teams').select('*').eq('league_id', eliteLeagueId).order('name');
-      
+
+      const { data: teams } = await supabaseClient
+        .from('teams')
+        .select('*')
+        .eq('league_id', eliteLeagueId)
+        .order('name');
+
+      // Update dropdowns
       const home = document.getElementById('homeTeam');
       const away = document.getElementById('awayTeam');
       home.innerHTML = away.innerHTML = '<option value="">Select Team</option>';
-      
-      const list = document.getElementById('teamsList');
-      list.innerHTML = '';
-      
+
       teams.forEach(team => {
         const opt = `<option value="${team.id}">${team.name}</option>`;
-        home.innerHTML += opt; away.innerHTML += opt;
-        list.innerHTML += `<div class="glass p-4 rounded-xl flex items-center justify-between border-l-4 border-blue-500">
-          <span class="font-semibold text-blue-100">${team.name}</span>
-          <span class="text-xs text-gray-400 uppercase tracking-widest">Active</span>
-        </div>`;
+        home.innerHTML += opt;
+        away.innerHTML += opt;
       });
+
+      // Update teams list
+      const list = document.getElementById('teamsList');
+      if (teams.length === 0) {
+        list.innerHTML = '<p class="text-gray-400">No teams added yet.</p>';
+      } else {
+        list.innerHTML = '';
+        teams.forEach(team => {
+          list.innerHTML += `
+            <div class="bg-gray-700 p-4 rounded-lg">
+              <span class="font-bold">${team.name}</span>
+            </div>`;
+        });
+      }
     }
 
+    // Create Team
     async function createTeam() {
-      const name = document.getElementById('teamName').value.trim();
-      if (!name) return showAlert("Error", "Team name cannot be empty.");
-      const { error } = await supabaseClient.from('teams').insert({ league_id: eliteLeagueId, name: name });
-      if (error) showAlert("Database Error", error.message);
+      const teamName = document.getElementById('teamName').value.trim();
+      if (!teamName) return alert("Enter team name");
+
+      const { error } = await supabaseClient
+        .from('teams')
+        .insert({ league_id: eliteLeagueId, name: teamName });
+
+      if (error) alert("Error: " + error.message);
       else {
-        showAlert("Success", `${name} added to the league.`);
+        alert("Team added: " + teamName);
         document.getElementById('teamName').value = '';
         loadTeams();
       }
     }
 
+    // Create Match
     async function createMatch() {
       const homeId = document.getElementById('homeTeam').value;
       const awayId = document.getElementById('awayTeam').value;
       const date = document.getElementById('matchDate').value;
-      if (!homeId || !awayId || !date) return showAlert("Incomplete", "Please select teams and set a date.");
+
+      if (!homeId || !awayId || !date) return alert("Select teams and date");
 
       const { error } = await supabaseClient.from('matches').insert({
-        league_id: eliteLeagueId, home_team_id: homeId, away_team_id: awayId,
-        date: date, status: 'scheduled', home_score: 0, away_score: 0
+        league_id: eliteLeagueId,
+        home_team_id: homeId,
+        away_team_id: awayId,
+        date: date,
+        status: 'scheduled',
+        home_score: 0,
+        away_score: 0
       });
 
-      if (error) showAlert("Error", error.message);
+      if (error) alert("Error: " + error.message);
       else {
-        showAlert("Scheduled", "New match successfully created.");
+        alert("Match created!");
         loadUpcomingMatches();
       }
     }
 
+    // Load Upcoming Matches
     async function loadUpcomingMatches() {
-      const { data } = await supabaseClient.from('matches').select('*, home:teams!home_team_id(name), away:teams!away_team_id(name)')
-        .eq('league_id', eliteLeagueId).in('status', ['scheduled']).order('date');
+      if (!eliteLeagueId) return;
+
+      const now = new Date().toISOString();
+
+      const { data } = await supabaseClient
+        .from('matches')
+        .select('*, home:teams!home_team_id(name), away:teams!away_team_id(name)')
+        .eq('league_id', eliteLeagueId)
+        .in('status', ['scheduled'])
+        .gte('date', now)
+        .order('date');
 
       const container = document.getElementById('upcomingMatches');
-      container.innerHTML = (data.length === 0) ? '<p class="text-gray-500 py-4">No scheduled fixtures.</p>' : '';
-      
+      if (!data || data.length === 0) {
+        container.innerHTML = '<p class="text-gray-400">No upcoming matches.</p>';
+        return;
+      }
+
+      container.innerHTML = '';
       data.forEach(match => {
-        const d = new Date(match.date);
+        const matchDate = new Date(match.date).toLocaleString();
         container.innerHTML += `
-          <div class="glass p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
-            <div>
-                <p class="text-xl font-bold">${match.home.name} vs ${match.away.name}</p>
-                <p class="text-sm text-blue-400 font-medium">${d.toLocaleDateString()} @ ${d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
-            </div>
-            <button onclick="startMatch('${match.id}')" class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2 rounded-full font-bold transition-all">
-              Go Live
+          <div class="bg-gray-700 p-5 rounded-xl mb-4">
+            <p class="text-lg font-bold">${match.home.name} vs ${match.away.name}</p>
+            <p class="text-sm text-gray-300">${matchDate}</p>
+            <button onclick="startMatch('${match.id}')" class="bg-green-600 hover:bg-green-700 px-5 py-2 rounded mt-3 text-sm">
+              Start Match (Go Live)
             </button>
           </div>`;
       });
     }
 
+    // Start Match (set status to live)
     async function startMatch(matchId) {
-        await supabaseClient.from('matches').update({ status: 'live' }).eq('id', matchId);
-        showSection('section-live');
-        loadLiveMatches();
-        loadUpcomingMatches();
+      const confirmStart = confirm("Start this match and make it LIVE?");
+      if (!confirmStart) return;
+
+      await supabaseClient
+        .from('matches')
+        .update({ status: 'live' })
+        .eq('id', matchId);
+
+      loadLiveMatches();
+      loadUpcomingMatches();
     }
 
+    // Load Live Matches
     async function loadLiveMatches() {
-      const { data } = await supabaseClient.from('matches').select('*, home:teams!home_team_id(name), away:teams!away_team_id(name)')
-        .eq('league_id', eliteLeagueId).eq('status', 'live');
+      if (!eliteLeagueId) return;
+
+      const { data } = await supabaseClient
+        .from('matches')
+        .select('*, home:teams!home_team_id(name), away:teams!away_team_id(name)')
+        .eq('league_id', eliteLeagueId)
+        .eq('status', 'live');
 
       const container = document.getElementById('liveMatches');
-      container.innerHTML = (data.length === 0) ? '<p class="text-gray-500 text-center py-10">No matches are currently live.</p>' : '';
+      if (!data || data.length === 0) {
+        container.innerHTML = '<p class="text-gray-400">No live matches.</p>';
+        return;
+      }
 
+      container.innerHTML = '';
       data.forEach(match => {
         container.innerHTML += `
-          <div class="bg-gradient-to-r from-blue-900 to-indigo-900 p-8 rounded-3xl border border-blue-400/30 shadow-2xl relative overflow-hidden mb-6">
-            <div class="absolute top-4 right-4 flex items-center gap-2">
-                <span class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
-                <span class="text-xs font-bold text-red-400 uppercase tracking-widest">Live Now</span>
-            </div>
-            <div class="flex justify-between items-center text-center">
-                <div class="flex-1 text-2xl font-black">${match.home.name}</div>
-                <div class="flex-1 text-6xl font-black px-4">${match.home_score} - ${match.away_score}</div>
-                <div class="flex-1 text-2xl font-black">${match.away.name}</div>
-            </div>
+          <div class="p-6 bg-gradient-to-br from-purple-900 to-blue-900 rounded-xl mb-6">
+            <p class="text-2xl font-bold text-center">${match.home.name} vs ${match.away.name}</p>
+            <p class="text-5xl font-bold text-center my-4">${match.home_score} - ${match.away_score}</p>
             <button onclick="selectLiveMatch('${match.id}', '${match.home.name}', '${match.away.name}', ${match.home_score}, ${match.away_score})"
-                    class="mt-8 block mx-auto bg-white text-blue-900 hover:bg-blue-100 px-10 py-3 rounded-xl font-black transition-transform active:scale-95">
-              Open Control Panel
+                    class="block mx-auto bg-yellow-600 hover:bg-yellow-700 px-8 py-3 rounded-lg font-bold">
+              Control This Match
             </button>
           </div>`;
       });
     }
 
+    // Select match for control
     function selectLiveMatch(id, home, away, hScore, aScore) {
       currentMatchId = id;
       document.getElementById('liveControl').classList.remove('hidden');
       document.getElementById('liveTitle').innerText = `${home} vs ${away}`;
       document.getElementById('currentScore').innerText = `${hScore} - ${aScore}`;
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
 
+    // Goal
     async function addGoal(team) {
       if (!currentMatchId) return;
       const isHome = team === 'home';
@@ -206,38 +232,85 @@
 
       await supabaseClient.from('matches').update({ home_score: newHome, away_score: newAway }).eq('id', currentMatchId);
       await supabaseClient.from('events').insert({
-        match_id: currentMatchId, type: 'goal', minute: new Date().getMinutes(),
+        match_id: currentMatchId,
+        type: 'goal',
+        minute: new Date().getMinutes(),
         team_name: isHome ? document.getElementById('liveTitle').innerText.split(' vs ')[0] : document.getElementById('liveTitle').innerText.split(' vs ')[1]
       });
 
       document.getElementById('currentScore').innerText = `${newHome} - ${newAway}`;
-      loadLiveMatches();
     }
 
+    // Yellow / Red Card
     async function addCard(type) {
-      showPrompt("Record Card", `Player name for ${type.toUpperCase()}:`, async (playerName) => {
-          if (!playerName) return;
-          await supabaseClient.from('events').insert({
-            match_id: currentMatchId, type: type === 'yellow' ? 'yellow_card' : 'red_card',
-            minute: new Date().getMinutes(), player_name: playerName
-          });
-          showAlert("Event Recorded", `${type.toUpperCase()} card assigned to ${playerName}.`);
+      if (!currentMatchId) return;
+      const playerName = prompt(`Enter player name for ${type === 'yellow' ? 'Yellow' : 'Red'} card:`);
+      if (!playerName) return;
+
+      await supabaseClient.from('events').insert({
+        match_id: currentMatchId,
+        type: type === 'yellow' ? 'yellow_card' : 'red_card',
+        minute: new Date().getMinutes(),
+        player_name: playerName
       });
+
+      alert(`${type === 'yellow' ? 'Yellow' : 'Red'} card added to ${playerName}`);
     }
 
+    // Pause / End Match
     async function updateMatchStatus(newStatus) {
-      const msg = newStatus === 'paused' ? 'Pause match clock?' : 'Confirm Full Time? This cannot be undone.';
-      showAlert("Confirm Status Change", msg, async () => {
-          await supabaseClient.from('matches').update({ status: newStatus }).eq('id', currentMatchId);
-          if (newStatus === 'finished') {
-              document.getElementById('liveControl').classList.add('hidden');
-              currentMatchId = null;
-          }
-          loadLiveMatches();
-          loadUpcomingMatches();
+      if (!currentMatchId) return;
+      const confirmMsg = newStatus === 'paused' ? 'Pause the match?' : 'End the match (Full Time)?';
+      if (!confirm(confirmMsg)) return;
+
+      await supabaseClient.from('matches').update({ status: newStatus }).eq('id', currentMatchId);
+
+      if (newStatus === 'finished') {
+        document.getElementById('liveControl').classList.add('hidden');
+        currentMatchId = null;
+      }
+
+      loadLiveMatches();
+      loadUpcomingMatches();
+    }
+
+    // Public Live Scores (for testing or embedding in index.html)
+    async function loadPublicLiveScores() {
+      const { data } = await supabaseClient
+        .from('matches')
+        .select('*, home:teams!home_team_id(name), away:teams!away_team_id(name)')
+        .eq('league_id', eliteLeagueId)
+        .in('status', ['live', 'finished'])
+        .order('date', { ascending: false });
+
+      const zone = document.getElementById('publicLiveScores');
+      if (!zone) return;
+
+      if (!data || data.length === 0) {
+        zone.innerHTML = '<p class="text-center text-gray-400 text-xl">No active or recent matches</p>';
+        return;
+      }
+
+      zone.innerHTML = '<h2 class="text-4xl font-bold text-center mb-8">Live & Recent Scores</h2>';
+      data.forEach(match => {
+        const statusBadge = match.status === 'live'
+          ? '<span class="bg-red-600 text-white px-4 py-1 rounded-full text-sm animate-pulse">LIVE</span>'
+          : '<span class="bg-gray-600 text-white px-4 py-1 rounded-full text-sm">Full Time</span>';
+
+        zone.innerHTML += `
+          <div class="bg-gray-800 p-10 rounded-3xl text-center mb-8 shadow-2xl">
+            <div class="flex justify-center items-center gap-4 mb-4">
+              <span class="text-2xl font-bold">${match.home.name}</span>
+              <span class="text-gray-500">vs</span>
+              <span class="text-2xl font-bold">${match.away.name}</span>
+            </div>
+            <p class="text-7xl font-black my-6">${match.home_score} - ${match.away_score}</p>
+            <div>${statusBadge}</div>
+          </div>`;
       });
     }
 
+    // Start everything
     window.onload = async function() {
       checkPassword();
       eliteLeagueId = await ensureEliteLeagueExists();
@@ -245,106 +318,116 @@
         loadTeams();
         loadUpcomingMatches();
         loadLiveMatches();
-        setInterval(() => { loadLiveMatches(); loadUpcomingMatches(); }, 5000);
+        loadPublicLiveScores();
+
+        // Auto refresh every 5 seconds
+        setInterval(() => {
+          loadLiveMatches();
+          loadUpcomingMatches();
+          loadPublicLiveScores();
+        }, 5000);
       }
     };
   </script>
 </head>
 
-<body class="text-gray-100 min-h-screen flex">
+<body class="bg-gray-900 text-white min-h-screen p-6">
+  <div class="max-w-5xl mx-auto">
+    <h1 class="text-5xl font-black text-center mb-12">Elite League Admin Control</h1>
 
-  <div id="customModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
-      <div class="glass relative w-full max-w-md p-8 rounded-3xl shadow-2xl border border-white/20 text-center">
-          <h3 id="modalTitle" class="text-2xl font-black mb-2 text-white">Alert</h3>
-          <p id="modalMessage" class="text-gray-400 mb-6">Message content goes here.</p>
-          <input id="modalPromptInput" type="text" class="hidden w-full bg-gray-900 border border-gray-700 p-4 rounded-xl mb-6 text-center outline-none focus:border-blue-500 transition-colors" placeholder="Enter value...">
-          <button id="modalConfirmBtn" class="bg-blue-600 hover:bg-blue-500 w-full py-4 rounded-xl font-bold uppercase tracking-widest transition-all">Continue</button>
+    <!-- ALL TEAMS LIST -->
+    <div class="bg-gray-800 p-8 rounded-2xl mb-10">
+      <h2 class="text-3xl font-bold mb-6">All Teams</h2>
+      <div id="teamsList" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <!-- Teams will appear here -->
       </div>
+    </div>
+
+    <!-- ADD TEAM -->
+    <div class="bg-gray-800 p-8 rounded-2xl mb-10">
+      <h2 class="text-3xl font-bold mb-6">Add New Team</h2>
+      <div class="flex gap-4 items-end">
+        <input id="teamName" placeholder="e.g. CSC 300" class="bg-gray-700 p-4 rounded-lg flex-1" />
+        <button onclick="createTeam()" class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-bold">
+          Add Team
+        </button>
+      </div>
+    </div>
+
+    <!-- CREATE MATCH -->
+    <div class="bg-gray-800 p-8 rounded-2xl mb-10">
+      <h2 class="text-3xl font-bold mb-6">Create New Match</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block mb-2">Home Team</label>
+          <select id="homeTeam" class="bg-gray-700 p-4 rounded-lg w-full"></select>
+        </div>
+        <div>
+          <label class="block mb-2">Away Team</label>
+          <select id="awayTeam" class="bg-gray-700 p-4 rounded-lg w-full"></select>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block mb-2">Date & Time</label>
+          <input type="datetime-local" id="matchDate" class="bg-gray-700 p-4 rounded-lg w-full" />
+        </div>
+        <div class="md:col-span-2">
+          <button onclick="createMatch()" class="bg-green-600 hover:bg-green-700 px-10 py-4 rounded-lg font-bold w-full">
+            Create Match
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- UPCOMING MATCHES -->
+    <div class="bg-gray-800 p-8 rounded-2xl mb-10">
+      <h2 class="text-3xl font-bold mb-6">Upcoming Matches</h2>
+      <div id="upcomingMatches" class="space-y-4"></div>
+    </div>
+
+    <!-- LIVE MATCHES -->
+    <div class="bg-gray-800 p-8 rounded-2xl mb-10">
+      <h2 class="text-3xl font-bold mb-6">Live Matches</h2>
+      <div id="liveMatches" class="space-y-4"></div>
+    </div>
+
+    <!-- LIVE CONTROL PANEL -->
+    <div id="liveControl" class="hidden bg-gradient-to-br from-purple-900 to-pink-900 p-10 rounded-3xl mb-10">
+      <h3 id="liveTitle" class="text-4xl font-black text-center mb-8"></h3>
+      <p class="text-6xl font-black text-center mb-10">Score: <span id="currentScore">0 - 0</span></p>
+
+      <div class="grid grid-cols-2 gap-6 mb-8">
+        <button onclick="addGoal('home')" class="bg-green-600 hover:bg-green-700 py-6 rounded-2xl text-2xl font-black">
+          Goal Home
+        </button>
+        <button onclick="addGoal('away')" class="bg-green-600 hover:bg-green-700 py-6 rounded-2xl text-2xl font-black">
+          Goal Away
+        </button>
+      </div>
+
+      <div class="grid grid-cols-2 gap-6 mb-8">
+        <button onclick="addCard('yellow')" class="bg-yellow-600 hover:bg-yellow-700 py-5 rounded-2xl text-xl font-black">
+          Yellow Card
+        </button>
+        <button onclick="addCard('red')" class="bg-red-600 hover:bg-red-700 py-5 rounded-2xl text-xl font-black">
+          Red Card
+        </button>
+      </div>
+
+      <div class="flex justify-center gap-6">
+        <button onclick="updateMatchStatus('paused')" class="bg-orange-600 hover:bg-orange-700 px-10 py-5 rounded-2xl text-xl font-black">
+          Pause Match
+        </button>
+        <button onclick="updateMatchStatus('finished')" class="bg-gray-600 hover:bg-gray-700 px-10 py-5 rounded-2xl text-xl font-black">
+          End Match (Full Time)
+        </button>
+      </div>
+    </div>
+
+    <!-- PUBLIC LIVE SCORES (You can copy this section to your index.html) -->
+    <div class="bg-gray-800 p-10 rounded-3xl">
+      <h2 class="text-4xl font-bold text-center mb-10">Public Live Scores Preview</h2>
+      <div id="publicLiveScores" class="space-y-6"></div>
+    </div>
   </div>
-
-  <aside class="w-20 md:w-64 glass border-r border-white/5 flex flex-col items-center py-8 gap-8">
-      <div class="text-2xl font-black bg-gradient-to-br from-blue-400 to-indigo-600 bg-clip-text text-transparent">ELITE</div>
-      <nav class="flex flex-col w-full px-4 gap-2">
-          <button onclick="showSection('section-teams')" class="sidebar-link active flex items-center gap-4 p-4 rounded-xl transition-all hover:bg-white/5">
-              <span class="text-xl">🛡️</span> <span class="hidden md:block font-semibold">Teams</span>
-          </button>
-          <button onclick="showSection('section-matches')" class="sidebar-link flex items-center gap-4 p-4 rounded-xl transition-all hover:bg-white/5">
-              <span class="text-xl">📅</span> <span class="hidden md:block font-semibold">Fixtures</span>
-          </button>
-          <button onclick="showSection('section-live')" class="sidebar-link flex items-center gap-4 p-4 rounded-xl transition-all hover:bg-white/5">
-              <span class="text-xl">🎮</span> <span class="hidden md:block font-semibold">Live Panel</span>
-          </button>
-      </nav>
-  </aside>
-
-  <main class="flex-1 h-screen overflow-y-auto p-4 md:p-12">
-    
-    <div id="section-teams" class="admin-section max-w-4xl mx-auto">
-        <h1 class="text-4xl font-black mb-8">League Teams</h1>
-        <div class="glass p-8 rounded-3xl mb-10">
-            <h2 class="text-xl font-bold mb-6">Add New Contender</h2>
-            <div class="flex flex-col md:flex-row gap-4">
-                <input id="teamName" placeholder="Enter Team Name (e.g. CSC 400)" class="bg-gray-900 p-4 rounded-xl flex-1 border border-gray-700 focus:border-blue-500 outline-none" />
-                <button onclick="createTeam()" class="bg-blue-600 hover:bg-blue-500 px-10 py-4 rounded-xl font-bold">Add Team</button>
-            </div>
-        </div>
-        <div id="teamsList" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
-    </div>
-
-    <div id="section-matches" class="admin-section hidden max-w-4xl mx-auto">
-        <h1 class="text-4xl font-black mb-8">Scheduling</h1>
-        <div class="glass p-8 rounded-3xl mb-10">
-            <h2 class="text-xl font-bold mb-6">Create New Match</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="text-xs font-bold text-gray-500 uppercase ml-1">Home Team</label>
-                    <select id="homeTeam" class="bg-gray-900 p-4 rounded-xl w-full border border-gray-700 mt-2 outline-none"></select>
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-gray-500 uppercase ml-1">Away Team</label>
-                    <select id="awayTeam" class="bg-gray-900 p-4 rounded-xl w-full border border-gray-700 mt-2 outline-none"></select>
-                </div>
-                <div class="md:col-span-2">
-                    <label class="text-xs font-bold text-gray-500 uppercase ml-1">Kick-off Date & Time</label>
-                    <input type="datetime-local" id="matchDate" class="bg-gray-900 p-4 rounded-xl w-full border border-gray-700 mt-2 outline-none" />
-                </div>
-                <button onclick="createMatch()" class="md:col-span-2 bg-indigo-600 hover:bg-indigo-500 py-4 rounded-xl font-bold text-lg">Schedule Match</button>
-            </div>
-        </div>
-        <h2 class="text-2xl font-black mb-6">Upcoming Fixtures</h2>
-        <div id="upcomingMatches" class="space-y-4"></div>
-    </div>
-
-    <div id="section-live" class="admin-section hidden max-w-4xl mx-auto">
-        <h1 class="text-4xl font-black mb-8">Live Match Control</h1>
-        <div id="liveMatches" class="mb-10"></div>
-
-        <div id="liveControl" class="hidden glass p-10 rounded-[3rem] border-t-4 border-indigo-500 bg-gradient-to-b from-gray-800/50 to-transparent">
-            <h3 id="liveTitle" class="text-center text-3xl font-black mb-2 text-blue-300"></h3>
-            <div id="currentScore" class="text-center text-8xl font-black mb-12 tracking-tighter">0 - 0</div>
-
-            <div class="grid grid-cols-2 gap-4 mb-8">
-                <button onclick="addGoal('home')" class="bg-emerald-600 hover:bg-emerald-500 py-8 rounded-3xl text-2xl font-black shadow-lg shadow-emerald-900/20 active:scale-95 transition-all">Goal Home</button>
-                <button onclick="addGoal('away')" class="bg-emerald-600 hover:bg-emerald-500 py-8 rounded-3xl text-2xl font-black shadow-lg shadow-emerald-900/20 active:scale-95 transition-all">Goal Away</button>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4 mb-8">
-                <button onclick="addCard('yellow')" class="bg-yellow-500 text-black py-4 rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-yellow-400">
-                    <span class="w-4 h-6 bg-yellow-300 rounded-sm"></span> Yellow Card
-                </button>
-                <button onclick="addCard('red')" class="bg-red-600 text-white py-4 rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-red-500">
-                    <span class="w-4 h-6 bg-red-400 rounded-sm"></span> Red Card
-                </button>
-            </div>
-
-            <div class="flex flex-col sm:flex-row gap-4">
-                <button onclick="updateMatchStatus('paused')" class="flex-1 bg-gray-700 hover:bg-gray-600 py-4 rounded-2xl font-bold">Pause Match</button>
-                <button onclick="updateMatchStatus('finished')" class="flex-1 bg-rose-600 hover:bg-rose-500 py-4 rounded-2xl font-black">End Match (Full Time)</button>
-            </div>
-        </div>
-    </div>
-
-  </main>
 </body>
 </html>
