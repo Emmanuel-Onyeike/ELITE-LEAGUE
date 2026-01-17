@@ -603,11 +603,12 @@ const contentData = {
                     <table class="w-full min-w-[300px]">
                         <tbody class="divide-y divide-white/[0.02]">
                             ${[
+                                         { name: "Hassan", val: "6" },
                                 { name: "Chukwuemeka", val: "6" },
                                 { name: "Emmanuel", val: "4" },
                                 { name: "OBI", val: "4" },
-                                { name: "Mello", val: "3" },
-                                { name: "Hassan", val: "3" }
+                                { name: "Mello", val: "3" }
+                           
                             ].map((player, i) => `
                                 <tr class="group hover:bg-cyan-600/[0.03] transition-colors">
                                     <td class="py-5 pl-6 w-12">
@@ -970,15 +971,15 @@ const contentData = {
                     </div>
                 </div>
 
-                <h3 class="text-4xl font-black text-white uppercase tracking-tighter italic leading-tight">Chukwu<br><span class="text-blue-500">emeka</span></h3>
+                <h3 class="text-4xl font-black text-white uppercase tracking-tighter italic leading-tight">Ha<br><span class="text-blue-500">laand</span></h3>
                 
                 <div class="grid grid-cols-2 gap-8 mt-12 w-full pt-8 border-t border-white/5">
                     <div class="text-center">
-                        <span class="block text-4xl font-black text-white">06</span>
+                        <span class="block text-4xl font-black text-white">07</span>
                         <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-1">Gls</span>
                     </div>
                     <div class="text-center border-l border-white/5">
-                        <span class="block text-4xl font-black text-white">06</span>
+                        <span class="block text-4xl font-black text-white">00</span>
                         <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-1">Ast</span>
                     </div>
                 </div>
@@ -1066,7 +1067,7 @@ const contentData = {
                     </div>
                 </div>
 
-                <h3 class="text-4xl font-black text-white uppercase tracking-tighter italic leading-tight">Chukwu<br><span class="text-blue-500">emeka</span></h3>
+                <h3 class="text-4xl font-black text-white uppercase tracking-tighter italic leading-tight">Ha<br><span class="text-blue-500">ssan</span></h3>
                 
                 <div class="grid grid-cols-2 gap-8 mt-12 w-full pt-8 border-t border-white/5">
                     <div class="text-center">
@@ -1074,7 +1075,7 @@ const contentData = {
                         <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-1">Asts</span>
                     </div>
                     <div class="text-center border-l border-white/5">
-                        <span class="block text-4xl font-black text-white">06</span>
+                        <span class="block text-4xl font-black text-white">-</span>
                         <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-1">Goals</span>
                     </div>
                 </div>
