@@ -489,7 +489,7 @@ const contentData = {
                 { id: 3, home: "CSC-300", away: "MSS-300" },
                 { id: 4, home: "CSC-400", away: "LAW-500" },
                 { id: 5, home: "LAW-200", away: "LAW-100" },
-                 { id: 6, home: "CSC-400", away: "LAW-200" },
+                 { id: 6, home: "CSC-400 (10)", away: "LAW-200 (2)" },
                 { id: 7, home: "MSS-300", away: "LAW-500" }
                 
             ].map((match) => `
