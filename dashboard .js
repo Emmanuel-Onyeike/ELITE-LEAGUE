@@ -489,7 +489,9 @@ const contentData = {
                 { id: 3, home: "CSC-300", away: "MSS-300" },
                 { id: 4, home: "CSC-400", away: "LAW-500" },
                 { id: 5, home: "LAW-200", away: "LAW-100" },
-                { id: 6, home: "MSS-300", away: "LAW-500" }
+                 { id: 6, home: "CSC-400", away: "LAW-200" },
+                { id: 7, home: "MSS-300", away: "LAW-500" }
+                
             ].map((match) => `
                 <div class="p-6 bg-[#030816] border border-blue-500/10 rounded-[2.5rem] transition-all hover:border-blue-500/30 group">
                     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
@@ -2347,7 +2349,8 @@ const eliteMatchIntel = {
     3: { prob: "50%", scout: "Internal Circuit rivalry; zero margin for error." },
     4: { prob: "65%", scout: "CSC-400 physical dominance predicted." },
     5: { prob: "50%", scout: "Tactical deadlock expected in the LAW node." },
-    6: { prob: "55%", scout: "Final matchday 01 calibration match." }
+      6: { prob: "100%", scout: "CSC 400 dominated and won  10 goals to 2." },
+    7: { prob: "55%", scout: "Final matchday 01 calibration match." }
 };
 
 /**
