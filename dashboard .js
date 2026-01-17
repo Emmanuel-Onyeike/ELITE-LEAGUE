@@ -560,11 +560,12 @@ const contentData = {
                     <table class="w-full min-w-[300px]">
                         <tbody class="divide-y divide-white/[0.02]">
                             ${[
+                                 { name: "Halaand", val: "7" },
                                 { name: "Chukwuemeka", val: "6" },
+                                 { name: "dior", val: "5" },
                                 { name: "Austin", val: "5" },
-                                { name: "Ebuka", val: "4" },
-                                { name: "Halaand", val: "4" },
-                                { name: "Christian Dior", val: "3" }
+                                { name: "Ebuka", val: "4" }
+                              
                             ].map((player, i) => `
                                 <tr class="group hover:bg-blue-600/[0.03] transition-colors">
                                     <td class="py-5 pl-6 w-12">
@@ -606,7 +607,7 @@ const contentData = {
                                 { name: "Emmanuel", val: "4" },
                                 { name: "OBI", val: "4" },
                                 { name: "Mello", val: "3" },
-                                { name: "Kev o", val: "3" }
+                                { name: "Hassan", val: "3" }
                             ].map((player, i) => `
                                 <tr class="group hover:bg-cyan-600/[0.03] transition-colors">
                                     <td class="py-5 pl-6 w-12">
