@@ -662,7 +662,7 @@ const contentData = {
                     <span class="text-[9px] text-gray-500 font-black uppercase tracking-widest">Efficiency</span>
                 </div>
                 <h5 class="text-white font-black text-xs uppercase tracking-widest mb-1 italic">Goal / Node Ratio</h5>
-                <p class="text-4xl md:text-5xl font-black italic text-white tracking-tighter">4.07</p>
+                <p class="text-4xl md:text-5xl font-black italic text-white tracking-tighter">5.10</p>
                 <p class="text-[9px] text-gray-600 font-bold uppercase mt-2 tracking-widest">Total Goals: 110</p>
             </div>
         </div>
@@ -993,16 +993,16 @@ const contentData = {
 
             <div class="space-y-4">
                 ${[
+                     { name: "Halaand", val: "7", unit: "CSC 400" },
                     { name: "Chukwuemeka", val: "6", unit: "CSC 100" },
+                      { name: "Christian Dior", val: "5", unit: "CSC 400" },
                     { name: "Austin", val: "5", unit: "NUR 200" },
                     { name: "Ebuka", val: "4", unit: "MSS 200" },
-                    { name: "Halaand", val: "4", unit: "CSC 400" },
-                    { name: "Christian Dior", val: "3", unit: "CSC 400" },
                     { name: "Paschal", val: "3", unit: "CSC 200" },
                     { name: "Sporty", val: "3", unit: "MSS 300" },
                     { name: "Zubby", val: "2", unit: "CSC 200" },
                     { name: "IK", val: "2", unit: "MSS 200" },
-                    { name: "Sammy", val: "1", unit: "CSC 200" }
+                    { name: "Jesse", val: "2", unit: "CSC 400" }
                 ].map((player, i) => `
                     <div class="flex items-center justify-between p-6 md:p-8 bg-white/[0.01] border border-white/5 rounded-[2.5rem] group hover:bg-blue-600/[0.03] hover:border-blue-500/20 transition-all duration-500">
                         <div class="flex items-center gap-6">
@@ -1089,11 +1089,11 @@ const contentData = {
 
             <div class="space-y-4">
                 ${[
+                      { name: "Hassan", val: "6", unit: "CSC 400" },
                     { name: "Chukwuemeka", val: "6", unit: "CSC 100" },
                     { name: "Emmanuel", val: "4", unit: "NUr 200" },
                     { name: "Obi", val: "4", unit: "CSC 400" },
                     { name: "Mello", val: "3", unit: "MSS 200" },
-                    { name: "Hassan", val: "3", unit: "CSC 400" },
                     { name: "Cush", val: "3", unit: "CSC 200" },
                     { name: "Kev O", val: "3", unit: "CSC 200" },
                     { name: "Paschal", val: "2", unit: "CSC 200" },
