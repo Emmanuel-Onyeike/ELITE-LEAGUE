@@ -145,45 +145,55 @@
         </p>
     </header>
 
-  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+ <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 p-4">
 
-    <div class="stat-card flex items-center justify-between p-6 bg-blue-600/[0.02] border border-blue-500/10 rounded-[2rem]">
-        <div>
-            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Tactical Units</p>
-            <p class="stat-value text-2xl font-black italic text-white uppercase tracking-tighter">12 Teams</p>
+    <div class="group relative overflow-hidden bg-[#030816] border border-blue-500/20 rounded-[2.5rem] p-8 transition-all duration-500 hover:border-blue-400 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)]">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 blur-[50px] -mr-16 -mt-16 group-hover:bg-blue-600/10"></div>
+        <div class="flex items-start justify-between relative z-10">
+            <div>
+                <p class="uppercase tracking-[0.3em] font-black text-[10px] text-blue-500/60 mb-3">Tactical Units</p>
+                <h3 class="text-4xl font-black italic text-white tracking-tighter uppercase">12 <span class="text-xs not-italic font-bold text-gray-500 tracking-normal ml-1">Teams</span></h3>
+            </div>
+            <div class="w-14 h-14 bg-blue-600/10 rounded-2xl flex items-center justify-center border border-blue-500/20 group-hover:scale-110 transition-transform">
+                <i class="fas fa-shield-halved text-blue-400 text-xl"></i>
+            </div>
         </div>
-        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5">
-            <i class="fas fa-shield-halved text-blue-600 text-xl"></i>
+    </div>
+
+    <div class="group relative overflow-hidden bg-[#030816] border border-blue-500/20 rounded-[2.5rem] p-8 transition-all duration-500 hover:border-blue-400 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)]">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 blur-[50px] -mr-16 -mt-16 group-hover:bg-blue-600/10"></div>
+        <div class="flex items-start justify-between relative z-10">
+            <div>
+                <p class="uppercase tracking-[0.3em] font-black text-[10px] text-blue-500/60 mb-3">Combat History</p>
+                <h3 class="text-4xl font-black italic text-white tracking-tighter uppercase">28 <span class="text-xs not-italic font-bold text-gray-500 tracking-normal ml-1">Matches</span></h3>
+            </div>
+            <div class="w-14 h-14 bg-blue-600/10 rounded-2xl flex items-center justify-center border border-blue-500/20 group-hover:scale-110 transition-transform">
+                <i class="fas fa-microchip text-blue-400 text-xl"></i>
+            </div>
+        </div>
+    </div> <div class="group relative overflow-hidden bg-[#030816] border border-blue-500/20 rounded-[2.5rem] p-8 transition-all duration-500 hover:border-blue-400 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)]">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 blur-[50px] -mr-16 -mt-16 group-hover:bg-blue-600/10"></div>
+        <div class="flex items-start justify-between relative z-10">
+            <div>
+                <p class="uppercase tracking-[0.3em] font-black text-[10px] text-blue-500/60 mb-3">Total Payload</p>
+                <h3 class="text-4xl font-black italic text-white tracking-tighter uppercase">122 <span class="text-xs not-italic font-bold text-gray-500 tracking-normal ml-1">Goals</span></h3>
+            </div>
+            <div class="w-14 h-14 bg-blue-600/10 rounded-2xl flex items-center justify-center border border-blue-500/20 group-hover:scale-110 transition-transform">
+                <i class="fas fa-bolt text-blue-400 text-xl"></i>
+            </div>
         </div>
     </div>
 
- <div class="stat-card flex items-center justify-between p-6 bg-blue-600/[0.02] border border-blue-500/10 rounded-[2rem] hover:bg-blue-600/[0.04] transition-all">
-    <div>
-        <p class="stat-title uppercase tracking-[0.2em] font-black text-[9px] text-gray-500 mb-1">Combat History</p>
-        <p class="stat-value text-2xl font-black italic text-white">28 <span class="text-[10px] text-blue-500/50 not-italic ml-1 font-mono tracking-tighter">MATCHES</span></p>
-    </div>
-    <div class="w-12 h-12 bg-zinc-950 rounded-2xl flex items-center justify-center border border-white/5 shadow-[0_0_20px_rgba(37,99,235,0.1)]">
-        <i class="fas fa-microchip text-blue-600 text-xl"></i>
-
-<div class="stat-card flex items-center justify-between p-6 bg-blue-600/[0.02] border border-white/5 rounded-[2rem] hover:bg-blue-600/[0.04] transition-all">
-    <div>
-        <p class="stat-title uppercase tracking-[0.2em] font-black text-[9px] text-gray-500 mb-1">Total Payload</p>
-        <p class="stat-value text-2xl font-black italic text-white">122 <span class="text-[10px] text-blue-500/50 not-italic ml-1 font-mono tracking-tighter">GOALS</span></p>
-    </div>
-    <div class="w-12 h-12 bg-zinc-950 rounded-2xl flex items-center justify-center border border-white/5 shadow-[0_0_20px_rgba(37,99,235,0.1)]">
-        <i class="fas fa-bolt text-blue-600 text-xl"></i>
-    </div>
-</div>
-
-
-
-    <div class="stat-card flex items-center justify-between p-6 border border-blue-600/30 bg-blue-600/[0.05] rounded-[2rem]">
-        <div>
-            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-blue-400 mb-1">Status</p>
-            <p class="stat-value text-2xl font-black italic text-blue-500 uppercase tracking-tighter">Active</p>
-        </div>
-        <div class="w-12 h-12 bg-blue-600/10 rounded-2xl flex items-center justify-center border border-blue-600/20">
-            <i class="fas fa-bolt text-blue-600 text-xl animate-pulse"></i>
+    <div class="group relative overflow-hidden bg-blue-600/10 border-2 border-blue-500/40 rounded-[2.5rem] p-8 transition-all duration-500 hover:bg-blue-600/20">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-50"></div>
+        <div class="flex items-start justify-between relative z-10">
+            <div>
+                <p class="uppercase tracking-[0.3em] font-black text-[10px] text-blue-400 mb-3">System Status</p>
+                <h3 class="text-4xl font-black italic text-blue-500 tracking-tighter uppercase animate-pulse">Active</h3>
+            </div>
+            <div class="w-14 h-14 bg-blue-600/20 rounded-2xl flex items-center justify-center border border-blue-500/30">
+                <i class="fas fa-broadcast-tower text-blue-400 text-xl"></i>
+            </div>
         </div>
     </div>
 
