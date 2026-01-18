@@ -3,554 +3,228 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ELITE League – Command Center</title>
+    <title>ELITE 2030 // Command Center</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="dashboard.css" />
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Plus+Jakarta+Sans:wght@300;500;800&display=swap');
+
+        :root {
+            --accent: #3b82f6;
+            --danger: #ef4444;
+            --bg: #02040a;
+        }
+
+        body {
+            background: radial-gradient(circle at 50% -20%, #1e293b 0%, #02040a 100%);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #e2e8f0;
+        }
+
+        .font-sync { font-family: 'Syncopate', sans-serif; }
+
+        /* Glassmorphism 2.0 */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+        }
+
+        /* Neon Glow Effect */
+        .neon-border {
+            position: relative;
+        }
+        .neon-border::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(45deg, var(--accent), transparent, var(--danger));
+            z-index: -1;
+            border-radius: inherit;
+            opacity: 0.3;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+        .bento-item {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .bento-item:hover {
+            transform: translateY(-5px) scale(1.01);
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+        
+        /* Modal Center Override */
+        .modal-center {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+    </style>
 </head>
 
-<body class="bg-[#020617] text-gray-200 overflow-x-hidden">
+<body class="min-h-screen overflow-x-hidden">
 
-<header class="md:hidden flex items-center justify-between px-6 py-5 border-b border-blue-500/10 bg-[#030816]/95 backdrop-blur-md sticky top-0 z-40">
-    <div class="flex items-center gap-2">
-        <img src="elite logo.png" alt="MIKOKO Logo" class="w-8 h-8 rounded-lg object-cover shadow-lg shadow-red-600/20">
-        <h1 class="font-bold tracking-tighter text-xl text-white">ELITE</h1>
-    </div>
-    <button id="menuBtn" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10">
-        <i class="fas fa-bars-staggered text-blue-400"></i>
-    </button>
-</header>
-
-
-
-<aside id="sidebar" class="fixed inset-y-0 left-0 z-[100] w-72 bg-[#030816] border-r border-blue-500/10 p-7 flex flex-col transform -translate-x-full md:translate-x-0 transition-transform duration-500 ease-in-out">
-   
-    <div class="flex items-center gap-3 mb-10">
-        <img src="elite logo.png" alt="MIKOKO" class="w-10 h-10 rounded-xl object-cover border border-white/10">
-        <h2 class="text-xl font-black tracking-tighter text-white">ELITE</h2>
+<aside class="fixed left-6 top-6 bottom-6 w-20 hover:w-64 transition-all duration-500 ease-in-out z-50 glass-panel rounded-3xl flex flex-col items-center py-8 group overflow-hidden border-blue-500/20">
+    <div class="mb-12 flex items-center gap-4 px-6 w-full">
+        <div class="min-w-[40px] h-10 bg-gradient-to-tr from-blue-600 to-cyan-400 rounded-xl shadow-lg shadow-blue-500/20"></div>
+        <span class="font-sync font-bold text-xl opacity-0 group-hover:opacity-100 transition-opacity">ELITE</span>
     </div>
 
-    <nav class="sidebar-nav flex-1 flex flex-col h-full overflow-y-auto pr-2 custom-scroll">
-        
-        <div class="space-y-1">
-            <a class="sidebar-item active" onclick="updateView('Overview')">
-                <i class="fas fa-columns w-6"></i> <span>Overview</span>
-            </a>
-            <a class="sidebar-item" onclick="updateView('Standings')">
-                <i class="fa-solid fa-trophy w-6"></i> <span>Standings</span>
-            </a>
-            <a class="sidebar-item" onclick="updateView('Live')">
-                <i class="fas fa-satellite-dish w-6 text-blue-500"></i> <span>Live Arena</span>
-            </a>
-            <a class="sidebar-item" onclick="updateView('Glory Cup')">
-            <i class="fas fa-medal w-6 text-blue-500 group-hover:text-cyan-400 transition-colors"></i> 
-        <span class="text-blue-500 group-hover:text-cyan-400 font-black uppercase tracking-widest text-[11px] transition-all">
-            Elite Cup
-        </span>
-            </a>
-            <a class="sidebar-item" onclick="updateView('Upcoming')">
-                <i class="fas fa-calendar-check w-6"></i> <span>Upcoming</span>
-            </a>
-        </div>
-
-        <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-blue-500/10 to-transparent my-6"></div>
-
-        <div class="space-y-1">
-            <a class="sidebar-item" onclick="updateView('Stats')">
-                <i class="fas fa-chart-line w-6"></i> <span>Stats</span>
-            </a>
-            <a class="sidebar-item" onclick="updateView('Highlights')">
-                <i class="fas fa-circle-play w-6"></i> <span>Highlights</span>
-            </a>
-            <a class="sidebar-item" onclick="updateView('News')">
-                <i class="fas fa-bullhorn w-6"></i> <span>News</span>
-            </a>
-            <a class="sidebar-item group" onclick="updateView('LiveSession')">
-                <div class="relative w-6 flex justify-center">
-                    <i class="fas fa-tower-broadcast text-rose-500 group-hover:text-rose-400 transition-colors"></i>
-                    <span class="absolute -top-1 -right-1 w-2 h-2 bg-zinc-500 rounded-full animate-ping"></span>
-                </div>
-                <div class="flex flex-col items-start leading-none ml-1">
-                    <span class="text-rose-500 font-bold uppercase tracking-tighter">Live Session</span>
-                    <span class="text-[7px] text-zinc-500 font-black uppercase tracking-[0.2em] mt-1 flex items-center gap-1">
-                        <span class="w-1 h-1 bg-zinc-600 rounded-full"></span>
-                        OFFLINE
-                    </span>
-                </div>
-            </a>
-            <div class="h-[1px] w-2/3 bg-blue-500/5 my-2 mx-auto"></div>
-            <a class="sidebar-item" onclick="updateView('Goals Leaderboard')">
-                <i class="fas fa-fire w-6 text-orange-500"></i> <span>Goals Leaderboard</span>
-            </a>
-            <a class="sidebar-item" onclick="updateView('Assists Leaderboard')">
-                <i class="fas fa-magic-wand-sparkles w-6 text-blue-400"></i> <span>Assists Leaderboard</span>
-            </a>
-        </div>
-
-        <div class="h-[1px] w-full bg-blue-500/10 my-4"></div>
-
-    <div class="space-y-2 px-2">
-   
-    <a class="sidebar-item group" onclick="updateView('Player Selection')">
-        <i class="fas fa-user-check w-6 text-blue-500 group-hover:text-white transition-colors"></i> 
-        <span class="tracking-widest uppercase text-[10px] font-black">Player Selection</span>
-    </a>
-
-    <div class="h-[1px] w-2/3 bg-blue-500/10 my-4 mx-auto"></div>
-
-    <a class="sidebar-item group" onclick="updateView('Transfer Market')">
-        <i class="fas fa-cart-shopping w-6 text-blue-400 group-hover:text-white transition-colors"></i> 
-        <span class="tracking-widest uppercase text-[10px] font-black">Transfer Market</span>
-    </a>
-    
-    <a class="sidebar-item group border-l-2 border-transparent hover:border-blue-500 bg-blue-500/5" onclick="updateView('Transfer News')">
-        <i class="fas fa-newspaper w-6 text-blue-500 group-hover:text-white transition-colors animate-pulse"></i> 
-        <span class="tracking-widest uppercase text-[10px] font-black">Transfer News</span>
-    </a>
-
-    <a class="sidebar-item group mt-2" onclick="updateView('Mikoko Payment')">
-        <i class="fas fa-wallet w-6 text-green-500 group-hover:text-white transition-colors"></i> 
-        <span class="tracking-widest uppercase text-[10px] font-black text-green-500/80">Elite Payment</span>
-    </a>
-</div>
-        <div class="mt-auto pt-6 pb-4">
-            <div class="h-[1px] w-full bg-blue-500/5 mb-4"></div>
-            <a onclick="updateView('Team Lab')" class="sidebar-item group">
-                <i class="fas fa-flask w-6 group-hover:text-blue-500 transition-colors"></i> 
-                <span>Team Lab</span>
-            </a>
-            <a onclick="updateView('Pure Stream')" class="sidebar-item group">
-                <i class="fas fa-play-circle w-6 group-hover:text-blue-500 transition-colors"></i> 
-                <span>Pure Stream</span>
-            </a>
-            <a onclick="updateView('Messages')" class="sidebar-item group">
-                <div class="relative">
-                    <i class="fas fa-comment-alt w-6 group-hover:text-blue-500 transition-colors"></i>
-                    <span class="absolute -top-1 -right-1 w-2 h-2 bg-blue-600 rounded-full animate-pulse"></span>
-                </div>
-                <span>Messages</span>
-            </a>
-        </div>
+    <nav class="flex-1 w-full space-y-2 px-3">
+        <a href="#" class="flex items-center gap-4 p-4 rounded-2xl bg-blue-500/10 text-blue-400">
+            <i class="fas fa-th-large text-xl"></i>
+            <span class="font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Command</span>
+        </a>
+        <a href="#" class="flex items-center gap-4 p-4 rounded-2xl hover:bg-white/5 text-gray-500 hover:text-white transition-all">
+            <i class="fas fa-bolt text-xl"></i>
+            <span class="font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Live Arena</span>
+        </a>
+        <a href="#" class="flex items-center gap-4 p-4 rounded-2xl hover:bg-white/5 text-gray-500 hover:text-white transition-all">
+            <i class="fas fa-trophy text-xl"></i>
+            <span class="font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">League</span>
+        </a>
     </nav>
 </aside>
 
-<div id="overlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[90] hidden md:hidden"></div>
-
-<main class="flex-1 md:ml-72 p-10 overflow-y-auto bg-[#020617] min-h-screen">
-    <header class="mb-10">
-        <h1 id="greeting" class="text-4xl md:text-5xl font-black tracking-tight text-white uppercase italic"></h1>
-        <p id="viewTitle" class="text-blue-500/60 mt-2 font-bold text-xs uppercase tracking-[0.2em]">
-            Uplink Active // Dec 19, 2025
-        </p>
+<main class="ml-32 mr-8 py-12">
+    
+    <header class="flex justify-between items-end mb-12">
+        <div>
+            <div class="flex items-center gap-2 mb-2">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span class="text-[10px] font-bold tracking-[0.3em] text-blue-400 uppercase">System Status: Optimal</span>
+            </div>
+            <h1 class="text-6xl font-black font-sync italic tracking-tighter text-white">OPERATOR <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">HUB</span></h1>
+        </div>
+        <div class="text-right">
+            <p class="text-gray-500 font-mono text-sm uppercase">2030 // JAN 18</p>
+            <p class="text-xl font-bold text-white">22:27:58 UTC</p>
+        </div>
     </header>
 
-  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-    <div class="stat-card flex items-center justify-between p-6 bg-blue-600/[0.02] border border-blue-500/10 rounded-[2rem]">
-        <div>
-            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-gray-500 mb-1">Tactical Units</p>
-            <p class="stat-value text-2xl font-black italic text-white uppercase tracking-tighter">12 Teams</p>
+    <div class="grid grid-cols-4 gap-6 mb-8">
+        <div class="col-span-1 glass-panel p-8 rounded-[2.5rem] bento-item border-l-4 border-l-blue-500">
+            <i class="fas fa-shield-halved text-blue-500 mb-4 text-2xl"></i>
+            <p class="text-gray-400 font-bold text-xs tracking-widest uppercase">Tactical Units</p>
+            <h3 class="text-4xl font-black text-white mt-1">12</h3>
         </div>
-        <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5">
-            <i class="fas fa-shield-halved text-blue-600 text-xl"></i>
-        </div>
-    </div>
-
- <div class="stat-card flex items-center justify-between p-6 bg-blue-600/[0.02] border border-blue-500/10 rounded-[2rem] hover:bg-blue-600/[0.04] transition-all">
-    <div>
-        <p class="stat-title uppercase tracking-[0.2em] font-black text-[9px] text-gray-500 mb-1">Combat History</p>
-        <p class="stat-value text-2xl font-black italic text-white">28 <span class="text-[10px] text-blue-500/50 not-italic ml-1 font-mono tracking-tighter">MATCHES</span></p>
-    </div>
-    <div class="w-12 h-12 bg-zinc-950 rounded-2xl flex items-center justify-center border border-white/5 shadow-[0_0_20px_rgba(37,99,235,0.1)]">
-        <i class="fas fa-microchip text-blue-600 text-xl"></i>
-    </div>
-</div>
-
-<div class="stat-card flex items-center justify-between p-6 bg-blue-600/[0.02] border border-white/5 rounded-[2rem] hover:bg-blue-600/[0.04] transition-all">
-    <div>
-        <p class="stat-title uppercase tracking-[0.2em] font-black text-[9px] text-gray-500 mb-1">Total Payload</p>
-        <p class="stat-value text-2xl font-black italic text-white">122 <span class="text-[10px] text-blue-500/50 not-italic ml-1 font-mono tracking-tighter">GOALS</span></p>
-    </div>
-    <div class="w-12 h-12 bg-zinc-950 rounded-2xl flex items-center justify-center border border-white/5 shadow-[0_0_20px_rgba(37,99,235,0.1)]">
-        <i class="fas fa-bolt text-blue-600 text-xl"></i>
-    </div>
-</div>
-
-
-
-    <div class="stat-card flex items-center justify-between p-6 border border-blue-600/30 bg-blue-600/[0.05] rounded-[2rem]">
-        <div>
-            <p class="stat-title uppercase tracking-[0.2em] font-bold text-[9px] text-blue-400 mb-1">Status</p>
-            <p class="stat-value text-2xl font-black italic text-blue-500 uppercase tracking-tighter">Active</p>
-        </div>
-        <div class="w-12 h-12 bg-blue-600/10 rounded-2xl flex items-center justify-center border border-blue-600/20">
-            <i class="fas fa-bolt text-blue-600 text-xl animate-pulse"></i>
-        </div>
-    </div>
-
-</section>
-<div id="eliteModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 backdrop-blur-md transition-all">
-    <div class="absolute inset-0 bg-[#030816]/90" onclick="closeEliteModal()"></div>
-    
-    <div class="relative bg-[#030816] border border-blue-500/20 w-full max-w-md rounded-[3.5rem] shadow-[0_0_100px_rgba(37,99,235,0.15)] animate-in overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
         
-        <div class="p-10">
-            <div class="flex justify-between items-center mb-8">
-                <h4 id="modalTitle" class="text-2xl font-black italic uppercase text-white tracking-tighter italic">INTEL FEED</h4>
-                <button onclick="closeEliteModal()" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-blue-500">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
+        <div class="col-span-1 glass-panel p-8 rounded-[2.5rem] bento-item border-l-4 border-l-purple-500">
+            <i class="fas fa-microchip text-purple-500 mb-4 text-2xl"></i>
+            <p class="text-gray-400 font-bold text-xs tracking-widest uppercase">Combat History</p>
+            <h3 class="text-4xl font-black text-white mt-1">28 <span class="text-sm font-normal text-gray-500">XP</span></h3>
+        </div>
 
-            <div id="modalBody" class="space-y-6">
-                </div>
+        <div class="col-span-2 glass-panel p-8 rounded-[2.5rem] bento-item relative overflow-hidden group">
+            <div class="relative z-10">
+                <p class="text-gray-400 font-bold text-xs tracking-widest uppercase">Network Throughput</p>
+                <h3 class="text-4xl font-black text-white mt-1">122 <span class="text-blue-500">GOALS</span></h3>
+            </div>
+            <div class="absolute right-0 bottom-0 top-0 w-1/2 bg-gradient-to-l from-blue-600/10 to-transparent flex items-center justify-center">
+                <i class="fas fa-chart-line text-8xl text-blue-500/10 group-hover:scale-110 transition-transform"></i>
+            </div>
         </div>
     </div>
-</div>
 
-<div id="eliteAlert" class="fixed inset-0 z-[110] hidden flex items-center justify-center p-6 pointer-events-none">
-    <div class="bg-[#030816] border border-blue-500/40 p-8 rounded-[2.5rem] shadow-[0_0_80px_rgba(37,99,235,0.3)] max-w-sm w-full text-center animate-in pointer-events-auto">
-        <div class="w-16 h-16 bg-blue-600/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-blue-500/30">
-            <i class="fas fa-satellite-dish text-blue-500 text-2xl animate-pulse"></i>
+    <div class="grid grid-cols-3 gap-6">
+        <div class="col-span-2 glass-panel rounded-[3rem] p-10">
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="text-2xl font-sync font-bold italic">LIVE <span class="text-red-500 animate-pulse">ARENA</span></h2>
+                <button class="px-6 py-2 bg-white/5 hover:bg-white/10 rounded-full border border-white/10 text-xs font-bold uppercase tracking-widest">Filter Data</button>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="p-8 rounded-[2rem] bg-gradient-to-r from-white/[0.03] to-transparent border border-white/5 flex items-center justify-between">
+                    <div class="text-center w-32">
+                        <span class="text-xs font-bold text-gray-500 block mb-2">HOME</span>
+                        <h4 class="text-2xl font-black">TITANS</h4>
+                    </div>
+                    <div class="flex items-center gap-8">
+                        <span class="text-6xl font-black font-sync">3</span>
+                        <div class="text-center">
+                            <span class="text-[10px] bg-red-500/20 text-red-500 px-3 py-1 rounded-full font-bold">67' LIVE</span>
+                            <div class="h-[1px] w-12 bg-white/10 my-2"></div>
+                        </div>
+                        <span class="text-6xl font-black font-sync">1</span>
+                    </div>
+                    <div class="text-center w-32">
+                        <span class="text-xs font-bold text-gray-500 block mb-2">AWAY</span>
+                        <h4 class="text-2xl font-black">DRAGONS</h4>
+                    </div>
+                </div>
+            </div>
         </div>
-        <h5 class="text-white font-black italic uppercase tracking-tighter text-xl mb-2">Uplink Established</h5>
-        <p id="alertMessage" class="text-gray-400 text-[10px] font-bold uppercase tracking-widest leading-relaxed mb-6"></p>
-        <button onclick="closeEliteAlert()" class="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white text-[9px] font-black uppercase tracking-[0.3em] rounded-xl transition-all">
-            Acknowledge
+
+        <div class="col-span-1 space-y-6">
+            <div class="glass-panel p-8 rounded-[3rem] border-t border-t-blue-500/30">
+                <h3 class="font-sync text-sm font-bold mb-6">INTEL FEED</h3>
+                <div class="space-y-6">
+                    <div class="flex gap-4 border-l-2 border-blue-500/20 pl-4 py-1">
+                        <div>
+                            <p class="text-[10px] text-blue-400 font-bold mb-1">12:00 UTC</p>
+                            <p class="text-xs text-gray-300">Transfer Market protocols updated for Q1.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 border-l-2 border-red-500/20 pl-4 py-1">
+                        <div>
+                            <p class="text-[10px] text-red-400 font-bold mb-1">09:15 UTC</p>
+                            <p class="text-xs text-gray-300">Elite Cup Season 4 registration ends in 2h.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="triggerAlert()" class="w-full glass-panel p-8 rounded-[3rem] group hover:bg-blue-600 transition-all duration-500 text-left">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-xs font-bold text-blue-400 group-hover:text-blue-100 tracking-[0.2em] mb-1">AUTHORIZATION</p>
+                        <h4 class="text-xl font-black group-hover:text-white">DEPLOY BROADCAST</h4>
+                    </div>
+                    <i class="fas fa-arrow-right -rotate-45 group-hover:rotate-0 transition-transform text-2xl"></i>
+                </div>
+            </button>
+        </div>
+    </div>
+</main>
+
+<div id="modalOverlay" class="fixed inset-0 bg-black/80 backdrop-blur-xl z-[999] hidden"></div>
+<div id="systemModal" class="modal-center w-full max-w-lg glass-panel rounded-[3.5rem] p-12 border border-blue-500/30">
+    <div class="text-center">
+        <div class="w-20 h-20 bg-blue-600/20 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-blue-500/50">
+            <i class="fas fa-satellite-dish text-blue-500 text-3xl animate-pulse"></i>
+        </div>
+        <h3 id="modalTitle" class="text-3xl font-sync font-bold italic mb-4">UPLINK ACTIVE</h3>
+        <p id="modalMsg" class="text-gray-400 text-sm font-medium leading-relaxed mb-10 tracking-wide">
+            Transmission established with the Elite League Core. All protocols are synchronized for the upcoming combat cycle.
+        </p>
+        <button onclick="closeModal()" class="w-full py-5 bg-blue-600 hover:bg-blue-500 text-white font-sync font-bold text-xs tracking-[0.4em] rounded-2xl transition-all shadow-lg shadow-blue-500/20">
+            ACKNOWLEDGE
         </button>
     </div>
 </div>
-    <div id="adminModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-[#020617]/95 backdrop-blur-md px-6">
-    <div class="w-full max-w-md bg-[#050c1f] border border-white/10 rounded-[3rem] p-10 text-center shadow-2xl">
-        <i class="fas fa-shield-halved text-blue-500 text-4xl mb-6"></i>
-        <h3 class="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">Security Challenge</h3>
-        <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-8">Enter Elite Authorization Key</p>
-        
-        <input type="password" id="adminPin" maxlength="4" placeholder="••••" 
-            class="w-full bg-white/5 border border-white/10 rounded-2xl py-4 text-center text-2xl text-white font-mono tracking-[1em] focus:outline-none focus:border-blue-500 transition-all mb-8">
-        
-        <div class="flex gap-4">
-            <button onclick="document.getElementById('adminModal').style.display='none'" class="flex-1 py-4 text-[10px] text-gray-500 font-black uppercase tracking-widest hover:text-white transition-colors">Abort</button>
-            <button onclick="verifyEliteAccess()" class="flex-1 bg-blue-600 hover:bg-blue-500 py-4 rounded-2xl text-[10px] text-white font-black uppercase tracking-widest transition-all shadow-lg shadow-blue-600/20">Verify</button>
-        </div>
-    </div>
-</div>
-
-<div id="broadcastModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-[#020617]/98 backdrop-blur-xl px-6">
-    <div class="w-full max-w-2xl bg-zinc-900 border border-white/10 rounded-[3.5rem] p-8 md:p-12 shadow-2xl overflow-y-auto max-h-[90vh]">
-        <div class="flex justify-between items-center mb-10">
-            <div>
-                <span class="text-[9px] text-rose-500 font-black uppercase tracking-[0.4em]">Broadcast Uplink</span>
-                <h3 class="text-3xl font-black text-white uppercase italic tracking-tighter">New <span class="text-rose-500">Packet</span></h3>
-            </div>
-            <button onclick="document.getElementById('broadcastModal').style.display='none'" class="text-gray-500 hover:text-white"><i class="fas fa-times text-2xl"></i></button>
-        </div>
-
-        <div class="space-y-6">
-            <input type="text" id="postTitle" placeholder="PACKET TITLE (OPTIONAL)" class="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-white text-[10px] font-bold uppercase tracking-widest focus:outline-none focus:border-rose-500">
-            
-            <textarea id="postContent" rows="5" placeholder="ENTER TRANSMISSION DATA..." class="w-full bg-white/5 border border-white/10 rounded-3xl p-6 text-white text-[10px] font-bold uppercase tracking-widest leading-loose focus:outline-none focus:border-rose-500 resize-none"></textarea>
-            
-            <div class="relative group">
-                <input type="file" id="imageUpload" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer">
-                <div class="bg-white/5 border border-dashed border-white/10 rounded-2xl p-6 text-center group-hover:border-rose-500/50 transition-colors">
-                    <i class="fas fa-image text-gray-500 text-xl mb-2"></i>
-                    <p class="text-[9px] text-gray-500 font-black uppercase tracking-widest">Attach Visual Intel</p>
-                </div>
-            </div>
-
-            <button id="publishBtn" onclick="handleElitePublish()" class="w-full bg-rose-600 hover:bg-rose-500 py-5 rounded-2xl text-[11px] text-white font-black uppercase tracking-[0.3em] transition-all shadow-xl shadow-rose-600/20">
-                Deploy Broadcast
-            </button>
-        </div>
-    </div>
-</div>
-
-    <div id="broadcastFeedbackModal" class="fixed inset-0 z-[120] hidden items-center justify-center bg-[#020617]/90 backdrop-blur-xl px-6">
-    <div class="absolute inset-0 bg-blue-500/5"></div>
-
-    <div class="relative w-full max-w-md bg-[#050c1f] border border-white/5 rounded-[3rem] p-1 p-[2px] overflow-hidden shadow-2xl shadow-blue-500/10">
-        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-blue-500 to-transparent animate-pulse"></div>
-        
-        <div class="bg-[#050c1f] rounded-[2.9rem] p-10 text-center">
-            <div class="relative w-24 h-24 mx-auto mb-8 flex items-center justify-center">
-                <div id="feedbackGlow" class="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full animate-pulse"></div>
-                <i id="feedbackIcon" class="fas fa-check-circle text-6xl text-blue-500 relative z-10"></i>
-            </div>
-
-            <span class="text-[9px] text-blue-500 font-black uppercase tracking-[0.4em] mb-2 block">System Response</span>
-            <h3 id="feedbackTitle" class="text-3xl font-black text-white uppercase italic tracking-tighter mb-4 leading-none">
-                SIGNAL STABILIZED
-            </h3>
-            
-            <div class="flex items-center justify-center gap-2 mb-8">
-                <span class="w-8 h-[1px] bg-white/10"></span>
-                <p id="feedbackMessage" class="text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em] whitespace-nowrap">
-                    BROADCAST LIVE
-                </p>
-                <span class="w-8 h-[1px] bg-white/10"></span>
-            </div>
-
-            <button onclick="closeBroadcastFeedback()" class="group relative w-full overflow-hidden rounded-2xl bg-blue-600 py-5 transition-all hover:bg-blue-500 active:scale-95">
-                <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500"></div>
-                <span class="relative text-[10px] text-white font-black uppercase tracking-[0.4em]">Acknowledge Transmission</span>
-            </button>
-        </div>
-    </div>
-</div>
-    <div id="mainDisplay" class="mt-10 bg-[#030816] border border-blue-500/10 rounded-[2.5rem] p-10 min-h-[500px] transition-all duration-500">
-        </div>
-</main>
- <!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    try {
-      const firebaseConfig = {
-        apiKey: "AIzaSyALpkq15pxX-0M0SV7-p417EeanTeMpUNI",
-        authDomain: "eliteleague-92cce.firebaseapp.com",
-        databaseURL: "https://eliteleague-92cce-default-rtdb.firebaseio.com",
-        projectId: "eliteleague-92cce",
-        storageBucket: "eliteleague-92cce.firebasestorage.app",
-        messagingSenderId: "1050191750222",
-        appId: "1:1050191750222:web:c9dd71c24c063b685ecf1f",
-        measurementId: "G-K9S69VNN7H"
-      };
-
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      window.db = firebase.database();
-
-      // Capture the ORIGINAL verify function (for broadcasts PIN 3478)
-      const originalVerifyEliteAccess = window.verifyEliteAccess || function() {};
-
-      // === 1. LIVE PACKETS (Existing News System) ===
-      window.eliteLivePackets = [];
-      const packetsRef = window.db.ref('livePackets').orderByChild('timestamp').limitToLast(50);
-      packetsRef.on('value', (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          window.eliteLivePackets = Object.keys(data)
-            .map(key => ({ id: key, ...data[key] }))
-            .reverse();
-        } else {
-          window.eliteLivePackets = [];
-        }
-        if (document.getElementById('viewTitle')?.innerText.includes('News')) {
-          if (typeof renderLiveInjection === 'function') renderLiveInjection();
-        }
-      });
-
-      // === 2. LIVE MATCHES (Football Live Scores) ===
-      window.eliteLiveMatches = [];
-      const matchesRef = window.db.ref('liveMatches');
-      matchesRef.on('value', (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          window.eliteLiveMatches = Object.keys(data)
-            .map(key => ({ id: key, ...data[key] }))
-            .sort((a, b) => {
-              const order = { live: 0, ht: 1, interrupted: 2, not_started: 3, ft: 4 };
-              return (order[a.status || 'not_started'] || 5) - (order[b.status || 'not_started'] || 5);
-            });
-        } else {
-          window.eliteLiveMatches = [];
-        }
-        // Re-render whenever data changes AND we're on Live page
-        if (document.getElementById('viewTitle')?.innerText.includes('Live')) {
-          if (typeof renderLiveMatches === 'function') renderLiveMatches();
-        }
-      });
-
-      console.log('Supreme Controller Online – Live Matches + Broadcasts Active');
-    } catch (e) {
-      console.warn('Firebase init failed:', e);
-      window.eliteLivePackets = [];
-      window.eliteLiveMatches = [];
-    }
-  });
-
-  // === RENDER LIVE MATCHES ===
-  function renderLiveMatches() {
-    const zone = document.getElementById('liveMatchesZone');
-    const notice = document.getElementById('noMatchesNotice');
-    if (!zone || !notice) return;
-
-    const matches = window.eliteLiveMatches || [];
-
-    if (matches.length === 0) {
-      notice.style.display = 'block';
-      zone.innerHTML = '';
-      return;
+    function triggerAlert() {
+        document.getElementById('modalOverlay').style.display = 'block';
+        document.getElementById('systemModal').style.display = 'block';
     }
 
-    notice.style.display = 'none';
-
-    const matchesHTML = matches.map(match => {
-      const dotClass =
-        match.dotColor === 'red' ? 'bg-red-500 animate-ping' :
-        match.dotColor === 'black' ? 'bg-black' :
-        match.dotColor === 'orange' ? 'bg-orange-500' :
-        'bg-gray-500';
-
-      const statusText =
-        (match.status || 'not_started') === 'not_started' ? 'NOT STARTED YET' :
-        match.status === 'live' ? 'LIVE' :
-        match.status === 'ht' ? 'HT' :
-        match.status === 'ft' ? 'FULL TIME' :
-        match.status === 'interrupted' ? 'INTERRUPTED' : 'NOT STARTED';
-
-      const statusColor =
-        match.status === 'live' ? 'text-red-500' :
-        match.status === 'ht' ? 'text-yellow-500' :
-        match.status === 'interrupted' ? 'text-orange-500' :
-        match.status === 'ft' ? 'text-gray-400' : 'text-gray-500';
-
-      return `
-      <div class="bg-white/5 border border-white/10 rounded-[2.5rem] p-10 hover:border-red-500/30 transition-all group shadow-2xl">
-        <div class="flex items-center justify-between">
-          <div class="flex-1 grid grid-cols-3 items-center text-center gap-8">
-            <div>
-              <p class="text-white font-black text-2xl uppercase tracking-tight">${match.homeTeam || 'HOME'}</p>
-              <span onclick="editScore('${match.id}', 'home')" 
-                    class="cursor-pointer text-7xl font-black text-white hover:text-red-400 transition-all block mt-4">
-                ${match.homeScore || 0}
-              </span>
-            </div>
-            <div class="text-5xl font-black text-gray-600">-</div>
-            <div>
-              <p class="text-white font-black text-2xl uppercase tracking-tight">${match.awayTeam || 'AWAY'}</p>
-              <span onclick="editScore('${match.id}', 'away')" 
-                    class="cursor-pointer text-7xl font-black text-white hover:text-red-400 transition-all block mt-4">
-                ${match.awayScore || 0}
-              </span>
-            </div>
-          </div>
-          <div class="ml-12 flex flex-col items-center gap-6">
-            <div class="w-6 h-6 rounded-full ${dotClass} shadow-2xl"></div>
-            <span onclick="controlMatchStatus('${match.id}', '${match.status || 'not_started'}')"
-                  class="cursor-pointer text-[12px] font-black uppercase tracking-widest ${statusColor} hover:underline">
-              ${statusText}
-            </span>
-          </div>
-        </div>
-        ${match.lastUpdated ? 
-          `<p class="text-[9px] text-gray-600 text-center mt-8 uppercase tracking-widest opacity-60">
-             LAST UPDATE: ${match.lastUpdated}
-           </p>` : ''}
-      </div>`;
-    }).join('');
-
-    zone.innerHTML = matchesHTML;
-  }
-
-  // === LIVE MATCH CONTROL ===
-  let currentMatchId = null;
-  let currentAction = null;
-  let currentMatchStatus = null;
-
-  function editScore(matchId, side) {
-    currentMatchId = matchId;
-    currentAction = 'score_' + side;
-    openAdminModal();
-  }
-
-  function controlMatchStatus(matchId, status) {
-    currentMatchId = matchId;
-    currentAction = 'status';
-    currentMatchStatus = status;
-    openAdminModal();
-  }
-
-  // TEMPORARILY OVERRIDE verifyEliteAccess for Live Scores (PIN 2000)
-  window.verifyEliteAccess = function() {
-    const pinField = document.getElementById('adminPin');
-    if (!pinField) return;
-
-    if (pinField.value === '2000') {
-      document.getElementById('adminModal').style.display = 'none';
-      pinField.value = '';
-
-      const now = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase() +
-                  ' - ' +
-                  new Date().toTimeString().slice(0, 5) + ' UTC';
-
-      if (currentAction?.startsWith('score')) {
-        const side = currentAction === 'score_home' ? 'HOME' : 'AWAY';
-        const newScore = prompt(`NEW SCORE FOR ${side} TEAM:`);
-        if (newScore === null) return;
-        const score = parseInt(newScore);
-        if (isNaN(score) || score < 0) {
-          alert('INVALID SCORE');
-          return;
-        }
-        window.db.ref(`liveMatches/${currentMatchId}`).update({
-          [`${currentAction.split('_')[1]}Score`]: score,
-          lastUpdated: now
-        });
-      }
-
-      else if (currentAction === 'status') {
-        let promptText = "ELITE CONTROL PANEL\n\n";
-        if (currentMatchStatus === 'not_started') {
-          promptText += "1 → START MATCH (GO LIVE)\n";
-        } else if (currentMatchStatus === 'live') {
-          promptText += "1 → HALF TIME (HT)\n2 → INTERRUPTED\n3 → FULL TIME (FT)\n";
-        } else if (currentMatchStatus === 'ht') {
-          promptText += "1 → RESUME MATCH (2ND HALF - LIVE)\n2 → FULL TIME (FT)\n";
-        } else {
-          promptText += "1 → RESUME / RESTART\n";
-        }
-
-        const choice = prompt(promptText, "1");
-        if (!choice) return;
-
-        let updates = { lastUpdated: now };
-
-        if ((currentMatchStatus === 'not_started' && choice === '1') ||
-            (currentMatchStatus === 'ht' && choice === '1')) {
-          updates.status = 'live';
-          updates.dotColor = 'red';
-        } else if (currentMatchStatus === 'live' && choice === '1') {
-          updates.status = 'ht';
-          updates.dotColor = 'black';
-        } else if (currentMatchStatus === 'live' && choice === '2') {
-          updates.status = 'interrupted';
-          updates.dotColor = 'orange';
-        } else if ((currentMatchStatus === 'live' && choice === '3') ||
-                   (currentMatchStatus === 'ht' && choice === '2')) {
-          updates.status = 'ft';
-          updates.dotColor = 'grey';
-        }
-
-        window.db.ref(`liveMatches/${currentMatchId}`).update(updates);
-      }
-    } else {
-      alert("ACCESS DENIED: INVALID PIN");
-      pinField.value = '';
+    function closeModal() {
+        document.getElementById('modalOverlay').style.display = 'none';
+        document.getElementById('systemModal').style.display = 'none';
     }
-
-    // Reset control variables
-    currentAction = null;
-    currentMatchId = null;
-    currentMatchStatus = null;
-  };
-
-  // Restore original verifyEliteAccess when modal is closed (click outside)
-  document.getElementById('adminModal')?.addEventListener('click', (e) => {
-    if (e.target.id === 'adminModal') {
-      const original = window.originalVerifyEliteAccess || function() {};
-      window.verifyEliteAccess = original;
-    }
-  });
-
-  // Store original for safety
-  window.originalVerifyEliteAccess = window.verifyEliteAccess;
 </script>
-  <script src="dashboard .js"></script>
+
 </body>
 </html>
