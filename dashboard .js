@@ -110,7 +110,14 @@ const contentData = {
 
                 </div>
 <div class="mt-16 flex flex-col items-center gap-4">
-                    <p class="text-[10px] text-gray-500 font-black uppercase tracking-[0.5em] animate-pulse">Transmission Active: Mid-Season Resumption</p>
+<p class="text-[11px] font-extrabold uppercase tracking-[0.45em] 
+           bg-gradient-to-r from-red-600 via-black to-blue-600 
+           bg-clip-text text-transparent 
+           drop-shadow-[0_0_6px_rgba(255,0,0,0.35)] 
+           animate-pulse">
+  C-LAW CLÁSICO · Transmission Active · Mid-Season Resumption
+</p>
+
                     <button onclick="updateView('Live')" class="group relative px-10 py-4 bg-transparent border border-blue-500/30 overflow-hidden rounded-2xl transition-all">
                         <div class="absolute inset-0 bg-blue-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                         <span class="relative z-10 text-white font-black uppercase text-[10px] tracking-widest group-hover:text-white">Enter Arena Intel</span>
