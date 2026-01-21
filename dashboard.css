@@ -272,29 +272,34 @@ body {
 }
 .notification-box {
     position: fixed;
-    top: 24px;
-    right: -400px; 
-    width: 320px;
-    /* Glassmorphism Background */
-    background: rgba(26, 26, 26, 0.95);
-    backdrop-filter: blur(10px);
+    /* Centering logic */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0;
+    visibility: hidden;
+    
+    width: 340px;
+    /* Glassmorphism Background: Dark Blue */
+    background: rgba(10, 25, 47, 0.95);
+    backdrop-filter: blur(12px);
     
     color: #fff;
-    padding: 20px;
-    border-radius: 12px;
+    padding: 24px;
+    border-radius: 16px;
     
-    /* Elegant Gold Border & Glow */
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    border-left: 5px solid #ffd700;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 
-                0 0 15px rgba(255, 215, 0, 0.1);
+    /* Elegant Light Blue Border & Glow */
+    border: 1px solid rgba(0, 200, 255, 0.3);
+    border-top: 4px solid #00b4ff; /* Accent line moved to top for modal look */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 
+                0 0 20px rgba(0, 180, 255, 0.15);
     
-    transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     z-index: 1000;
-    overflow: hidden; /* Needed for the shine effect */
+    overflow: hidden;
 }
 
-/* The Shine Sweep Animation */
+/* The Shine Sweep Animation (Light Blue) */
 .notification-box::before {
     content: '';
     position: absolute;
@@ -305,51 +310,57 @@ body {
     background: linear-gradient(
         120deg, 
         transparent, 
-        rgba(255, 215, 0, 0.2), 
+        rgba(0, 180, 255, 0.2), 
         transparent
     );
-    transition: all 0.6s;
 }
 
 .notification-box.active {
-    right: 24px;
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .notification-box.active::before {
     left: 150%;
-    transition: all 1.5s ease-in-out;
+    transition: all 1.2s ease-in-out;
 }
 
 .notif-content {
     display: flex;
+    flex-direction: column; /* Stacked for a cleaner modal look */
     align-items: center;
-    gap: 15px;
+    text-align: center;
+    gap: 12px;
 }
 
 .notif-content .icon-container {
-    background: linear-gradient(135deg, #ffd700, #b8860b);
-    width: 40px;
-    height: 40px;
+    /* Gradient: Deep Blue to Light Blue */
+    background: linear-gradient(135deg, #0077ff, #00b4ff);
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    font-size: 22px;
+    box-shadow: 0 0 15px rgba(0, 119, 255, 0.5);
+    margin-bottom: 8px;
 }
 
 .notif-content strong {
     display: block;
-    font-size: 15px;
+    font-size: 16px;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #ffd700;
-    text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+    letter-spacing: 1.5px;
+    color: #00b4ff; /* Light Blue Text */
+    text-shadow: 0 0 10px rgba(0, 180, 255, 0.4);
 }
 
 .notif-content p {
     margin: 4px 0 0;
-    font-size: 13px;
-    color: #e0e0e0;
+    font-size: 14px;
+    color: #d1d9e6; /* Soft blue-grey text */
     font-family: 'Inter', sans-serif;
+    line-height: 1.5;
 }
