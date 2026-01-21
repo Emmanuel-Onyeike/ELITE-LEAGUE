@@ -2739,3 +2739,7 @@ function showEliteNotification() {
 
 // Example: Trigger on page load
 window.onload = showEliteNotification;
+// Add this to your JS to link the notification to your preferred modal alert
+document.getElementById('notification-slide').addEventListener('click', () => {
+    openCentralModal("Elite League Details", "You have been promoted to the Platinum tier.");
+});
