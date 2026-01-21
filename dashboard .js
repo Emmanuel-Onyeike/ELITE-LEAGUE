@@ -78,13 +78,13 @@ const contentData = {
                         <div class="relative mb-6 transform group-hover:scale-110 transition-transform duration-500">
                             <div class="absolute -inset-8 bg-blue-600/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
                             <div class="relative w-32 h-32 md:w-44 md:h-44 bg-gradient-to-tr from-zinc-900 to-black rounded-[3rem] border border-blue-500/20 flex items-center justify-center p-6 shadow-2xl">
-                                <img src="CSC 300.jpeg" alt="CSC" class="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(37,99,235,0.4)]">
+                                <img src="CSC 400.jpeg" alt="CSC" class="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(37,99,235,0.4)]">
                             </div>
                             <div class="absolute -bottom-2 -right-2 w-10 h-10 bg-blue-600 rounded-2xl flex items-center justify-center border-4 border-[#020617]">
                                 <i class="fas fa-code text-white text-xs"></i>
                             </div>
                         </div>
-                        <h4 class="text-3xl font-black text-white italic tracking-tighter uppercase">CSC 300</h4>
+                        <h4 class="text-3xl font-black text-white italic tracking-tighter uppercase">CSC 400</h4>
                         <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.3em] mt-2">The Technicians</span>
                     </div>
 
