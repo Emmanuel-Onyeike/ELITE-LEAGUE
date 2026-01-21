@@ -2720,3 +2720,22 @@ window.closeBroadcastFeedback = function() {
     const modal = document.getElementById('broadcastFeedbackModal');
     if (modal) modal.style.display = 'none';
 };
+
+
+
+
+/// for the notification
+function showEliteNotification() {
+    const notif = document.getElementById('notification-slide');
+    
+    // Slide In
+    notif.classList.add('active');
+
+    // Slide Out after 6 seconds
+    setTimeout(() => {
+        notif.classList.remove('active');
+    }, 6000);
+}
+
+// Example: Trigger on page load
+window.onload = showEliteNotification;
