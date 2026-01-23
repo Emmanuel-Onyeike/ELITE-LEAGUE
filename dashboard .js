@@ -328,7 +328,8 @@ const contentData = {
   </div>
 
   <div id="liveMatchesZone" class="space-y-8">
-    <div class="bg-zinc-900/50 border border-white/5 rounded-[2rem] overflow-hidden backdrop-blur-md">
+    <div class="match-card bg-zinc-900/50 border border-white/5 rounded-[2rem] overflow-hidden backdrop-blur-md">
+      
       <div class="p-6 border-b border-white/5 bg-gradient-to-r from-transparent via-red-500/5 to-transparent flex flex-col md:flex-row items-center justify-between gap-6">
         <div class="flex-1 text-center md:text-right">
           <label class="block text-[10px] text-gray-500 font-black uppercase tracking-widest mb-1">Home</label>
@@ -352,61 +353,47 @@ const contentData = {
         <div class="p-6 space-y-4">
           <div class="flex justify-between items-center mb-2">
             <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-red-500 italic">Scorer Logs</h4>
-            <button class="text-[9px] font-bold uppercase bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white px-3 py-1 rounded-full transition-all">+ Add Goal</button>
+            <button onclick="addGoalRow(this)" class="text-[9px] font-bold uppercase bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white px-3 py-1 rounded-full transition-all">+ Add Goal</button>
           </div>
-          <div class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/5">
-            <i class="fas fa-futbol text-red-500 text-xs animate-pulse"></i>
-            <input type="text" placeholder="Player Name" class="bg-transparent text-[11px] font-bold uppercase text-white outline-none flex-1">
-            <input type="text" placeholder="Time'" class="bg-transparent text-[11px] font-black text-red-400 outline-none w-10">
-          </div>
+          <div class="goal-container space-y-3">
+             </div>
         </div>
 
         <div class="p-6 space-y-4">
           <div class="flex justify-between items-center mb-2">
             <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-yellow-500 italic">Disciplinary</h4>
-            <button class="text-[9px] font-bold uppercase bg-yellow-500/10 hover:bg-yellow-500 text-yellow-500 hover:text-white px-3 py-1 rounded-full transition-all">+ Add Card</button>
+            <button onclick="addCardRow(this)" class="text-[9px] font-bold uppercase bg-yellow-500/10 hover:bg-yellow-500 text-yellow-500 hover:text-white px-3 py-1 rounded-full transition-all">+ Add Card</button>
           </div>
-          <div class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/5">
-            <select class="bg-transparent text-[11px] font-black text-yellow-500 outline-none uppercase">
-                <option class="bg-zinc-900">Yellow</option>
-                <option class="bg-zinc-900">Red</option>
-            </select>
-            <input type="text" placeholder="Player Name" class="bg-transparent text-[11px] font-bold uppercase text-white outline-none flex-1">
-            <input type="text" placeholder="Min'" class="bg-transparent text-[11px] font-black text-gray-400 outline-none w-10">
-          </div>
+          <div class="card-container space-y-3">
+             </div>
         </div>
-
       </div>
 
       <div class="p-4 bg-white/5 flex justify-center">
-          <button onclick="triggerSystemModal()" class="text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-red-500 transition-colors">
+          <button onclick="spawnAlert('Match data synchronization successful.')" class="text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-red-500 transition-colors">
             Finalize Match Report
           </button>
       </div>
     </div>
   </div>
-
-  <div id="noMatchesNotice" class="hidden py-20 text-center border border-red-500/10 rounded-[3rem] bg-red-600/5 backdrop-blur-sm">
-    <i class="fas fa-futbol text-red-500 text-7xl mb-8 opacity-40 animate-pulse"></i>
-    <p class="text-red-400 text-[14px] font-black uppercase tracking-widest">NO ACTIVE FIXTURES DETECTED</p>
-    <p class="text-gray-500 text-[11px] mt-4 uppercase tracking-widest italic">Awaiting kickoff command from Supreme Controller...</p>
-  </div>
 </div>
 
-<div id="systemModal" class="fixed inset-0 z-[999] hidden flex items-center justify-center p-6 bg-black/90 backdrop-blur-xl">
-    <div class="bg-zinc-900 border-2 border-red-600 w-full max-w-sm rounded-[2.5rem] p-8 text-center shadow-[0_0_50px_rgba(239,68,68,0.3)] transform animate-in zoom-in-95 duration-300">
-        <div class="w-20 h-20 bg-red-600/20 rounded-full flex items-center justify-center mx-auto mb-6">
-            <i class="fas fa-shield-alt text-red-500 text-3xl"></i>
+<div id="authorityAlert" class="fixed inset-0 z-[9999] hidden flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl">
+    <div class="bg-zinc-950 border-2 border-red-600 w-full max-w-[400px] rounded-[3rem] p-10 text-center shadow-[0_0_80px_rgba(239,68,68,0.25)] animate-in zoom-in-95 duration-300">
+        <div class="relative w-24 h-24 mx-auto mb-8">
+            <div class="absolute inset-0 bg-red-600/20 rounded-full animate-ping"></div>
+            <div class="relative w-full h-full bg-red-600 rounded-full flex items-center justify-center border-4 border-black">
+                <i class="fas fa-shield-alt text-white text-3xl"></i>
+            </div>
         </div>
-        <h2 class="text-2xl font-black italic uppercase tracking-tighter text-white mb-2">Authority <span class="text-red-500">Alert</span></h2>
-        <p class="text-gray-400 text-xs font-bold uppercase tracking-widest leading-relaxed mb-8">Match data synchronization successful. Data transmitted to Supreme Controller database.</p>
-        <button onclick="closeSystemModal()" class="w-full py-4 bg-red-600 hover:bg-red-500 text-white font-black uppercase tracking-[0.3em] rounded-2xl shadow-lg transition-all">
-            Acknowledge
-        </button>
+        <h2 class="text-3xl font-black italic uppercase tracking-tighter text-white mb-3">System <span class="text-red-500">Alert</span></h2>
+        <p id="alertMessage" class="text-gray-400 text-[13px] font-bold uppercase tracking-widest leading-relaxed mb-10"></p>
+        <button onclick="closeAuthorityAlert()" class="w-full py-5 bg-red-600 text-white font-black uppercase tracking-[0.5em] rounded-2xl transition-all shadow-lg">Acknowledge</button>
     </div>
 </div>
 `,
 
+    
     'Glory Cup': `
 <div class="space-y-8 animate-in pb-20 px-4 md:px-0">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-blue-500/20 pb-8 gap-4">
@@ -2824,19 +2811,21 @@ document.getElementById('notification-slide').addEventListener('click', () => {
 // --- ELITE MATCH AUTHORITY: CORE CONTROLLER ---
 
 /**
- * Initializes the dashboard state
+ * DOM Elements
  */
 const liveMatchesZone = document.getElementById('liveMatchesZone');
 const noMatchesNotice = document.getElementById('noMatchesNotice');
 
 /**
  * Adds a new match fixture to the Authority Uplink
+ * Generates a unique match card with interactive score and event tracking
  */
 function addMatch() {
-    const matchId = `match_${Date.now()}`;
+    const matchId = `match_${Date.now()}`; // Unique ID for targeting rows
     
     const matchHTML = `
-        <div id="${matchId}" class="bg-zinc-900/50 border border-white/5 rounded-[2.5rem] overflow-hidden backdrop-blur-md animate-in slide-in-from-top-4 duration-500">
+        <div id="${matchId}" class="match-card bg-zinc-900/50 border border-white/5 rounded-[2.5rem] overflow-hidden backdrop-blur-md animate-in slide-in-from-top-4 duration-500 mb-8">
+            
             <div class="p-6 border-b border-white/5 bg-gradient-to-r from-transparent via-red-500/5 to-transparent flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="flex-1 text-center md:text-right">
                     <label class="block text-[10px] text-gray-500 font-black uppercase tracking-widest mb-1">Home</label>
@@ -2844,9 +2833,9 @@ function addMatch() {
                 </div>
 
                 <div class="flex items-center gap-4 px-6 py-2 bg-black/40 rounded-2xl border border-white/10">
-                    <input type="number" value="0" class="score-input w-12 bg-transparent text-3xl font-black text-white text-center outline-none">
+                    <input type="number" value="0" class="w-12 bg-transparent text-3xl font-black text-white text-center outline-none">
                     <span class="text-red-500 font-black italic">:</span>
-                    <input type="number" value="0" class="score-input w-12 bg-transparent text-3xl font-black text-white text-center outline-none">
+                    <input type="number" value="0" class="w-12 bg-transparent text-3xl font-black text-white text-center outline-none">
                 </div>
 
                 <div class="flex-1 text-center md:text-left">
@@ -2856,12 +2845,14 @@ function addMatch() {
             </div>
 
             <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/5">
+                
                 <div class="p-6 space-y-4">
                     <div class="flex justify-between items-center mb-2">
                         <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-red-500 italic">Scorer Logs</h4>
                         <button onclick="addGoalRow('${matchId}')" class="text-[9px] font-bold uppercase bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white px-3 py-1 rounded-full transition-all">+ Add Goal</button>
                     </div>
-                    <div id="${matchId}_goals" class="space-y-3"></div>
+                    <div id="${matchId}_goals" class="space-y-3">
+                        </div>
                 </div>
 
                 <div class="p-6 space-y-4">
@@ -2869,13 +2860,16 @@ function addMatch() {
                         <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-yellow-500 italic">Disciplinary</h4>
                         <button onclick="addBookingRow('${matchId}')" class="text-[9px] font-bold uppercase bg-yellow-500/10 hover:bg-yellow-500 text-yellow-500 hover:text-white px-3 py-1 rounded-full transition-all">+ Add Card</button>
                     </div>
-                    <div id="${matchId}_bookings" class="space-y-3"></div>
+                    <div id="${matchId}_bookings" class="space-y-3">
+                        </div>
                 </div>
             </div>
 
             <div class="p-4 bg-white/5 flex justify-between items-center px-8">
                 <button onclick="deleteMatch('${matchId}')" class="text-[9px] font-black uppercase text-gray-600 hover:text-red-500 transition-colors">Terminate Match</button>
-                <button onclick="spawnAlert('Match report synchronized with Supreme Controller.')" class="text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-red-500 transition-colors">Finalize Report</button>
+                <button onclick="spawnAlert('Match data synchronization successful. Data transmitted to Supreme Controller.')" class="text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-red-500 transition-colors">
+                    Finalize Match Report
+                </button>
             </div>
         </div>
     `;
@@ -2885,14 +2879,14 @@ function addMatch() {
 }
 
 /**
- * Appends a new Goal entry to a specific match
+ * Appends a new Goal entry to a specific match via Match ID
  */
 function addGoalRow(matchId) {
     const container = document.getElementById(`${matchId}_goals`);
     const row = `
-        <div class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/5 animate-in fade-in zoom-in-95">
-            <i class="fas fa-futbol text-red-500 text-xs"></i>
-            <input type="text" placeholder="Scorer Name" class="bg-transparent text-[11px] font-bold uppercase text-white outline-none flex-1">
+        <div class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/5 animate-in slide-in-from-left-2 duration-300">
+            <i class="fas fa-futbol text-red-500 text-xs animate-pulse"></i>
+            <input type="text" placeholder="Player Name" class="bg-transparent text-[11px] font-bold uppercase text-white outline-none flex-1">
             <input type="text" placeholder="Min'" class="bg-transparent text-[11px] font-black text-red-400 outline-none w-10 text-center">
         </div>
     `;
@@ -2900,12 +2894,12 @@ function addGoalRow(matchId) {
 }
 
 /**
- * Appends a new Booking entry to a specific match
+ * Appends a new Booking entry to a specific match via Match ID
  */
 function addBookingRow(matchId) {
     const container = document.getElementById(`${matchId}_bookings`);
     const row = `
-        <div class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/5 animate-in fade-in zoom-in-95">
+        <div class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/5 animate-in slide-in-from-right-2 duration-300">
             <select class="bg-transparent text-[11px] font-black text-yellow-500 outline-none uppercase cursor-pointer">
                 <option class="bg-zinc-950">Yellow</option>
                 <option class="bg-zinc-950 text-red-500">Red</option>
@@ -2919,26 +2913,41 @@ function addBookingRow(matchId) {
 
 /**
  * Authority Alert System (Centered Modal)
+ * Displays the modal at the center of the page as requested
  */
 function spawnAlert(message) {
     const modal = document.getElementById('authorityAlert');
     const msgBox = document.getElementById('alertMessage');
-    msgBox.innerText = message.toUpperCase();
-    modal.classList.remove('hidden');
+    
+    if (modal && msgBox) {
+        msgBox.innerText = message.toUpperCase();
+        modal.classList.remove('hidden');
+        modal.classList.add('flex'); // Ensures flexbox centering is active
+    }
 }
 
 function closeAuthorityAlert() {
-    document.getElementById('authorityAlert').classList.add('hidden');
+    const modal = document.getElementById('authorityAlert');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
 }
 
 /**
- * Utilities
+ * Utility: Remove match and update empty state
  */
 function deleteMatch(matchId) {
-    document.getElementById(matchId).remove();
-    toggleEmptyState();
+    const matchElement = document.getElementById(matchId);
+    if (matchElement) {
+        matchElement.remove();
+        toggleEmptyState();
+    }
 }
 
+/**
+ * Utility: Checks if active fixtures exist
+ */
 function toggleEmptyState() {
     if (liveMatchesZone.children.length > 0) {
         noMatchesNotice.classList.add('hidden');
