@@ -229,10 +229,9 @@ const contentData = {
                             <th class="py-5 text-right pr-8 text-white">PTS</th>
                         </tr>
                     </thead>
-              <tbody class="text-gray-300 font-bold divide-y divide-white/[0.03]">
-                        ${[
-                         { rank: 1, team: "CSC-400", mp: 4, w: 4, d: 0, l: 0, gf: 22, ga: 8, gd: "+14", pts: 12, crown: true }
-
+          <tbody class="text-gray-300 font-bold divide-y divide-white/[0.03]">
+    ${[
+        { rank: 1, team: "CSC-400", mp: 4, w: 4, d: 0, l: 0, gf: 22, ga: 8, gd: "+14", pts: 12, crown: true },
         { rank: 2, team: "MSS-200", mp: 3, w: 2, d: 1, l: 0, gf: 18, ga: 11, gd: "+7", pts: 7 },
         { rank: 3, team: "CSC-200", mp: 5, w: 2, d: 1, l: 2, gf: 15, ga: 21, gd: "-6", pts: 7 },
         { rank: 4, team: "CSC-100", mp: 5, w: 2, d: 0, l: 3, gf: 16, ga: 17, gd: "-1", pts: 6 },
@@ -244,35 +243,38 @@ const contentData = {
         { rank: 10, team: "MSS-300", mp: 1, w: 0, d: 0, l: 1, gf: 5, ga: 7, gd: "-2", pts: 0 },
         { rank: 11, team: "MED-200", mp: 1, w: 0, d: 0, l: 1, gf: 4, ga: 7, gd: "-3", pts: 0 },
         { rank: 12, team: "CSC-300", mp: 1, w: 0, d: 0, l: 1, gf: 1, ga: 5, gd: "-4", pts: 0 },
-         { rank: 13, team: "LAW 500", mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 3, gd: "-3", pts: 0 }
-
-                        ].map((data) => `
-                            <tr class="hover:bg-blue-600/[0.03] transition-colors group">
-                                <td class="py-5 pl-8">
-                                    <span class="text-xs font-mono ${data.rank <= 4 ? 'text-blue-500' : 'text-gray-600'}">${data.rank.toString().padStart(2, '0')}</span>
-                                </td>
-                                <td class="py-5">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-lg bg-zinc-900 border border-white/5 flex items-center justify-center text-[8px] text-gray-500 italic group-hover:border-blue-500/50 transition-all uppercase">
-                                            ${data.team.split('-')[0]}
-                                        </div>
-                                        <span class="text-sm font-black tracking-tighter text-white uppercase italic flex items-center gap-2">
-                                            ${data.team}
-                                            ${data.crown ? '<i class="fas fa-crown text-[10px] text-yellow-500"></i>' : ''}
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="py-5 text-center font-mono text-xs text-gray-400">${data.mp}</td>
-                                <td class="py-5 text-center font-mono text-xs text-blue-400">${data.w}</td>
-                                <td class="py-5 text-center font-mono text-xs text-gray-500">${data.d}</td>
-                                <td class="py-5 text-center font-mono text-xs text-red-900/50">${data.l}</td>
-                                <td class="py-5 text-center font-mono text-xs text-gray-400">${data.gf}</td>
-                                <td class="py-5 text-center font-mono text-xs text-gray-400">${data.ga}</td>
-                                <td class="py-5 text-center font-mono text-xs ${data.gd.startsWith('+') ? 'text-green-500' : data.gd.startsWith('-') ? 'text-red-500' : 'text-gray-500'}">${data.gd}</td>
-                                <td class="py-5 text-right pr-8 font-black text-white text-base">${data.pts}</td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
+        { rank: 13, team: "LAW-500", mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 3, gd: "-3", pts: 0 }
+    ].map((data) => `
+        <tr class="hover:bg-blue-600/[0.03] transition-colors group">
+            <td class="py-5 pl-8">
+                <span class="text-xs font-mono ${data.rank <= 4 ? 'text-blue-500' : 'text-gray-600'}">
+                    ${data.rank.toString().padStart(2, '0')}
+                </span>
+            </td>
+            <td class="py-5">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-zinc-900 border border-white/5 flex items-center justify-center text-[8px] text-gray-500 italic group-hover:border-blue-500/50 transition-all uppercase">
+                        ${data.team.split('-')[0]}
+                    </div>
+                    <span class="text-sm font-black tracking-tighter text-white uppercase italic flex items-center gap-2">
+                        ${data.team}
+                        ${data.crown ? '<i class="fas fa-crown text-[10px] text-yellow-500"></i>' : ''}
+                    </span>
+                </div>
+            </td>
+            <td class="py-5 text-center font-mono text-xs text-gray-400">${data.mp}</td>
+            <td class="py-5 text-center font-mono text-xs text-blue-400">${data.w}</td>
+            <td class="py-5 text-center font-mono text-xs text-gray-500">${data.d}</td>
+            <td class="py-5 text-center font-mono text-xs text-red-900/50">${data.l}</td>
+            <td class="py-5 text-center font-mono text-xs text-gray-400">${data.gf}</td>
+            <td class="py-5 text-center font-mono text-xs text-gray-400">${data.ga}</td>
+            <td class="py-5 text-center font-mono text-xs ${data.gd.startsWith('+') ? 'text-green-500' : data.gd.startsWith('-') ? 'text-red-500' : 'text-gray-500'}">
+                ${data.gd}
+            </td>
+            <td class="py-5 text-right pr-8 font-black text-white text-base">${data.pts}</td>
+        </tr>
+    `).join('')}
+</tbody>
                 </table>
             </div>
         </div>
