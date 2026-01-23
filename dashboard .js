@@ -231,7 +231,8 @@ const contentData = {
                     </thead>
               <tbody class="text-gray-300 font-bold divide-y divide-white/[0.03]">
                         ${[
-                           { rank: 1, team: "CSC-400", mp: 3, w: 3, d: 0, l: 0, gf: 22, ga: 8, gd: "+14", pts: 9, crown: true },
+                         { rank: 1, team: "CSC-400", mp: 4, w: 4, d: 0, l: 0, gf: 22, ga: 8, gd: "+14", pts: 12, crown: true }
+
         { rank: 2, team: "MSS-200", mp: 3, w: 2, d: 1, l: 0, gf: 18, ga: 11, gd: "+7", pts: 7 },
         { rank: 3, team: "CSC-200", mp: 5, w: 2, d: 1, l: 2, gf: 15, ga: 21, gd: "-6", pts: 7 },
         { rank: 4, team: "CSC-100", mp: 5, w: 2, d: 0, l: 3, gf: 16, ga: 17, gd: "-1", pts: 6 },
@@ -242,7 +243,9 @@ const contentData = {
         { rank: 9, team: "MED-500", mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: "0", pts: 0 },
         { rank: 10, team: "MSS-300", mp: 1, w: 0, d: 0, l: 1, gf: 5, ga: 7, gd: "-2", pts: 0 },
         { rank: 11, team: "MED-200", mp: 1, w: 0, d: 0, l: 1, gf: 4, ga: 7, gd: "-3", pts: 0 },
-        { rank: 12, team: "CSC-300", mp: 1, w: 0, d: 0, l: 1, gf: 1, ga: 5, gd: "-4", pts: 0 }
+        { rank: 12, team: "CSC-300", mp: 1, w: 0, d: 0, l: 1, gf: 1, ga: 5, gd: "-4", pts: 0 },
+         { rank: 13, team: "LAW 500", mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 3, gd: "-3", pts: 0 }
+
                         ].map((data) => `
                             <tr class="hover:bg-blue-600/[0.03] transition-colors group">
                                 <td class="py-5 pl-8">
