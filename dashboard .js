@@ -1719,77 +1719,35 @@ const contentData = {
 </div>`,
 
 
-
 'Messages': `
-<div class="animate-in pb-40 px-6 md:px-16 space-y-16">
-    <div class="pt-10 flex flex-col gap-6">
-        <div class="flex items-center gap-4">
-            <div class="h-[1px] w-12 bg-blue-500"></div>
-            <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.5em]">Sector: COMMS_CENTER</span>
-        </div>
-        <h3 class="text-6xl md:text-8xl font-black italic uppercase tracking-tighter text-white leading-[0.85]">
-            Secure <br><span class="text-transparent stroke-blue-500" style="-webkit-text-stroke: 1px #3b82f6;">Comms</span>
-        </h3>
-        <p class="text-gray-500 text-[11px] uppercase tracking-[0.3em] font-bold">Status: <span class="text-yellow-500 italic">Establishing Connection...</span></p>
-    </div>
-
-    <div class="relative min-h-[500px] bg-[#020617] border border-blue-500/10 rounded-[4rem] overflow-hidden flex flex-col p-8 md:p-16 shadow-2xl">
+<div class="flex flex-col items-center justify-center min-h-[400px] animate-in fade-in zoom-in duration-500">
+    <div class="relative group">
+        <div class="absolute -inset-4 bg-blue-500/20 rounded-full blur-xl group-hover:bg-blue-500/40 transition-all duration-500 animate-pulse"></div>
         
-        <div class="absolute inset-0 opacity-[0.03] pointer-events-none" 
-             style="background-image: radial-gradient(#3b82f6 1px, transparent 1px); background-size: 20px 20px;"></div>
-
-        <div class="relative z-10 flex justify-between items-center mb-16 border-b border-white/5 pb-8">
-            <div class="flex items-center gap-4">
-                <div class="w-3 h-3 rounded-full bg-yellow-500 animate-pulse"></div>
-                <span class="text-[9px] text-gray-500 font-black uppercase tracking-widest">Signal: WEAK_ENCRYPTION</span>
-            </div>
-            <span class="text-[8px] text-gray-700 font-mono">NODE_771_ALPHA</span>
-        </div>
-
-        <div class="flex-1 space-y-12 relative z-10">
-            <div class="max-w-md space-y-4">
-                <div class="flex items-center gap-3">
-                    <span class="text-[8px] text-blue-500 font-black uppercase tracking-widest px-3 py-1 bg-blue-500/5 border border-blue-500/20 rounded-full">System Admin</span>
-                    <span class="text-[8px] text-gray-700 font-mono">12:00:00</span>
-                </div>
-                <div class="p-8 bg-white/[0.02] border border-white/5 rounded-[2.5rem] rounded-tl-none">
-                    <div class="flex gap-4">
-                        <div class="h-1 w-8 bg-blue-500/40 rounded-full mt-2"></div>
-                        <p class="text-xs text-gray-400 font-bold uppercase leading-loose tracking-widest italic">
-                            Comms bridge protocol is currently <span class="text-white">Under Construction</span>. Direct Peer-to-Peer messaging is being architected for the Elite 2025 season.
-                        </p>
-                    </div>
-                </div>
+        <button onclick="window.location.href='message.html'" 
+            class="relative px-12 py-6 bg-[#020617] border border-blue-500/30 rounded-2xl flex flex-col items-center gap-2 transition-all hover:border-blue-500 hover:scale-105 active:scale-95 group">
+            
+            <i class="fas fa-comment-dots text-blue-500 text-xl mb-1 group-hover:animate-bounce"></i>
+            
+            <span class="text-xs font-black uppercase tracking-[0.5em] text-white italic">
+                Initialize Secure Comms
+            </span>
+            
+            <div class="flex items-center gap-2 mt-2">
+                <div class="h-[1px] w-4 bg-blue-500/50"></div>
+                <span class="text-[8px] text-blue-400/60 font-mono uppercase tracking-widest">Access Node: Message.html</span>
+                <div class="h-[1px] w-4 bg-blue-500/50"></div>
             </div>
 
-            <div class="max-w-md ml-auto space-y-4 opacity-30">
-                <div class="flex items-center justify-end gap-3">
-                    <span class="text-[8px] text-gray-700 font-mono">12:00:01</span>
-                    <span class="text-[8px] text-gray-500 font-black uppercase tracking-widest px-3 py-1 bg-white/5 border border-white/10 rounded-full">Member Node</span>
-                </div>
-                <div class="p-8 bg-blue-500/5 border border-blue-500/10 rounded-[2.5rem] rounded-tr-none blur-[2px]">
-                    <p class="text-[10px] text-blue-300 font-bold uppercase tracking-widest">Incoming encrypted stream detected... Data unreadable.</p>
-                </div>
+            <div class="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500/5 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
             </div>
-        </div>
-
-        <div class="mt-auto pt-16">
-            <div class="relative p-10 bg-blue-600/5 border border-blue-500/10 rounded-[3rem] text-center overflow-hidden">
-                <div class="relative z-10 flex flex-col items-center gap-4">
-                    <i class="fas fa-lock text-blue-500 mb-2"></i>
-                    <h5 class="text-white font-black uppercase italic text-sm tracking-widest">Next Update Required</h5>
-                    <p class="text-[9px] text-blue-400/60 font-black uppercase tracking-[0.4em]">Stay Tuned for Comms v2.0 Initialization</p>
-                </div>
-                <div class="absolute inset-0 bg-blue-500/5 animate-pulse"></div>
-            </div>
-        </div>
+        </button>
     </div>
 
-    <div class="pt-10 text-center opacity-20">
-        <p class="text-[8px] text-gray-800 font-black uppercase tracking-[0.8em]">
-            Elite Secure Uplink // Authorized Personnel Only
-        </p>
-    </div>
+    <p class="mt-8 text-[9px] text-gray-600 font-black uppercase tracking-[0.6em] animate-pulse">
+        System Ready // Uplink Available
+    </p>
 </div>`,
 };
 
