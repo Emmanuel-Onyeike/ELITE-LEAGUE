@@ -1051,7 +1051,7 @@ const contentData = {
                       { name: "Christian Dior", val: "5", unit: "CSC 400" },
                     { name: "Austin", val: "5", unit: "NUR 200" },
                     { name: "Ebuka", val: "4", unit: "MSS 200" },
-                    { name: "Paschal", val: "3", unit: "CSC 200" },
+                    { name: "Fomat", val: "4", unit: "CSC 300" },
                     { name: "Sporty", val: "3", unit: "MSS 300" },
                     { name: "Zubby", val: "2", unit: "CSC 200" },
                     { name: "IK", val: "2", unit: "MSS 200" },
