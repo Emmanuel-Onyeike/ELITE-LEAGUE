@@ -326,76 +326,68 @@ const contentData = {
       <h3 class="text-5xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none">Live <span class="text-red-500">Scores</span></h3>
       <p class="text-gray-500 text-[11px] uppercase tracking-[0.3em] font-bold mt-3">2026 Cycle • Direct Uplink Active</p>
     </div>
-    <div class="bg-red-600/10 border border-red-500/30 px-8 py-4 rounded-2xl text-center">
-      <span class="text-[10px] text-red-400 font-black uppercase tracking-[0.3em]">Broadcast ID: 04.01.2026</span>
+    <div class="flex items-center gap-4">
+      <div class="bg-red-600/10 border border-red-500/30 px-8 py-4 rounded-2xl text-center">
+        <span class="text-[10px] text-red-400 font-black uppercase tracking-[0.3em]">Broadcast ID: 04.01.2026</span>
+      </div>
+      <button onclick="document.getElementById('loginModal').classList.remove('hidden'); document.getElementById('loginModal').classList.add('flex');"
+              class="px-6 py-3 bg-red-600/30 hover:bg-red-600 text-red-300 hover:text-white font-black uppercase tracking-widest rounded-xl transition-all border border-red-500/40 shadow-sm">
+        Access Scores Data
+      </button>
     </div>
   </div>
 
-  <div id="liveMatchesZone" class="space-y-8">
-    <div class="match-card bg-zinc-900/50 border border-white/5 rounded-[2rem] overflow-hidden backdrop-blur-md">
-      
-      <div class="p-6 border-b border-white/5 bg-gradient-to-r from-transparent via-red-500/5 to-transparent flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="flex-1 text-center md:text-right">
-          <label class="block text-[10px] text-gray-500 font-black uppercase tracking-widest mb-1">Home</label>
-          <input type="text" placeholder="TEAM ALPHA" class="bg-transparent text-2xl font-black italic uppercase tracking-tighter text-white text-center md:text-right outline-none focus:text-red-500 transition-colors w-full">
-        </div>
-
-        <div class="flex items-center gap-4 px-6 py-2 bg-black/40 rounded-2xl border border-white/10">
-          <input type="number" value="0" class="w-12 bg-transparent text-3xl font-black text-white text-center outline-none">
-          <span class="text-red-500 font-black italic">:</span>
-          <input type="number" value="0" class="w-12 bg-transparent text-3xl font-black text-white text-center outline-none">
-        </div>
-
-        <div class="flex-1 text-center md:text-left">
-          <label class="block text-[10px] text-gray-500 font-black uppercase tracking-widest mb-1">Away</label>
-          <input type="text" placeholder="TEAM OMEGA" class="bg-transparent text-2xl font-black italic uppercase tracking-tighter text-white text-center md:text-left outline-none focus:text-red-500 transition-colors w-full">
-        </div>
-      </div>
-
-      <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/5">
-        
-        <div class="p-6 space-y-4">
-          <div class="flex justify-between items-center mb-2">
-            <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-red-500 italic">Scorer Logs</h4>
-            <button onclick="addGoalRow(this)" class="text-[9px] font-bold uppercase bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white px-3 py-1 rounded-full transition-all">+ Add Goal</button>
-          </div>
-          <div class="goal-container space-y-3">
-             </div>
-        </div>
-
-        <div class="p-6 space-y-4">
-          <div class="flex justify-between items-center mb-2">
-            <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-yellow-500 italic">Disciplinary</h4>
-            <button onclick="addCardRow(this)" class="text-[9px] font-bold uppercase bg-yellow-500/10 hover:bg-yellow-500 text-yellow-500 hover:text-white px-3 py-1 rounded-full transition-all">+ Add Card</button>
-          </div>
-          <div class="card-container space-y-3">
-             </div>
-        </div>
-      </div>
-
-      <div class="p-4 bg-white/5 flex justify-center">
-          <button onclick="spawnAlert('Match data synchronization successful.')" class="text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-red-500 transition-colors">
-            Finalize Match Report
-          </button>
-      </div>
-    </div>
+  <div id="liveMatchesZone" class="space-y-8"></div>
+  <div id="noMatchesNotice" class="text-center py-16 text-gray-600 hidden">
+    <p class="text-xl font-bold uppercase tracking-widest">No active matches</p>
+    <p class="text-sm mt-2">Waiting for authority uplink...</p>
   </div>
 </div>
 
+<!-- Authority Alert Modal -->
 <div id="authorityAlert" class="fixed inset-0 z-[9999] hidden flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl">
-    <div class="bg-zinc-950 border-2 border-red-600 w-full max-w-[400px] rounded-[3rem] p-10 text-center shadow-[0_0_80px_rgba(239,68,68,0.25)] animate-in zoom-in-95 duration-300">
-        <div class="relative w-24 h-24 mx-auto mb-8">
-            <div class="absolute inset-0 bg-red-600/20 rounded-full animate-ping"></div>
-            <div class="relative w-full h-full bg-red-600 rounded-full flex items-center justify-center border-4 border-black">
-                <i class="fas fa-shield-alt text-white text-3xl"></i>
-            </div>
-        </div>
-        <h2 class="text-3xl font-black italic uppercase tracking-tighter text-white mb-3">System <span class="text-red-500">Alert</span></h2>
-        <p id="alertMessage" class="text-gray-400 text-[13px] font-bold uppercase tracking-widest leading-relaxed mb-10"></p>
-        <button onclick="closeAuthorityAlert()" class="w-full py-5 bg-red-600 text-white font-black uppercase tracking-[0.5em] rounded-2xl transition-all shadow-lg">Acknowledge</button>
+  <div class="bg-zinc-950 border-2 border-red-600 w-full max-w-[400px] rounded-[3rem] p-10 text-center shadow-[0_0_80px_rgba(239,68,68,0.25)] animate-in zoom-in-95 duration-300">
+    <div class="relative w-24 h-24 mx-auto mb-8">
+      <div class="absolute inset-0 bg-red-600/20 rounded-full animate-ping"></div>
+      <div class="relative w-full h-full bg-red-600 rounded-full flex items-center justify-center border-4 border-black">
+        <i class="fas fa-shield-alt text-white text-3xl"></i>
+      </div>
     </div>
+    <h2 class="text-3xl font-black italic uppercase tracking-tighter text-white mb-3">System <span class="text-red-500">Alert</span></h2>
+    <p id="alertMessage" class="text-gray-400 text-[13px] font-bold uppercase tracking-widest leading-relaxed mb-10"></p>
+    <button onclick="document.getElementById('authorityAlert').classList.add('hidden'); document.getElementById('authorityAlert').classList.remove('flex');"
+            class="w-full py-5 bg-red-600 text-white font-black uppercase tracking-[0.5em] rounded-2xl transition-all shadow-lg">Acknowledge</button>
+  </div>
 </div>
+
+<!-- Login Modal -->
+<div id="loginModal" class="fixed inset-0 z-[9999] hidden flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl">
+  <div class="bg-zinc-950 border-2 border-red-600 w-full max-w-[400px] rounded-[3rem] p-10 text-center">
+    <h2 class="text-3xl font-black italic uppercase tracking-tighter text-white mb-6">Authority Access</h2>
+    <input id="adminEmail" type="email" placeholder="Email" class="w-full mb-4 p-4 bg-black/40 rounded-2xl text-white outline-none border border-white/10">
+    <input id="adminPassword" type="password" placeholder="Password" class="w-full mb-6 p-4 bg-black/40 rounded-2xl text-white outline-none border border-white/10">
+    <button onclick="handleAdminLogin()" class="w-full py-5 bg-red-600 text-white font-black uppercase tracking-[0.5em] rounded-2xl mb-4">Login</button>
+    <button onclick="document.getElementById('loginModal').classList.add('hidden'); document.getElementById('loginModal').classList.remove('flex');"
+            class="text-gray-400 text-sm">Cancel</button>
+  </div>
+</div>
+
+<!-- Admin Panel Modal -->
+<div id="adminPanel" class="fixed inset-0 z-[9999] hidden flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl overflow-y-auto">
+  <div class="bg-zinc-950 border-2 border-red-600 w-full max-w-5xl rounded-[3rem] p-8 text-center relative max-h-[90vh]">
+    <button onclick="document.getElementById('adminPanel').classList.add('hidden'); document.getElementById('adminPanel').classList.remove('flex');"
+            class="absolute top-6 right-8 text-gray-400 text-3xl hover:text-red-400">&times;</button>
+    <h2 class="text-4xl font-black italic uppercase tracking-tighter text-white mb-6">Admin Control Panel</h2>
+    <button onclick="addNewMatch()" class="mb-8 px-8 py-4 bg-red-600/30 hover:bg-red-600 text-red-300 hover:text-white font-black uppercase tracking-widest rounded-2xl transition-all border border-red-500/40">
+      + Add New Match
+    </button>
+    <div id="adminMatchesZone" class="space-y-10"></div>
+  </div>
+</div>
+
+
 `,
+
 
     
     'Glory Cup': `
@@ -2814,150 +2806,291 @@ document.getElementById('notification-slide').addEventListener('click', () => {
 
 
 /// for the live arena 
-// --- ELITE MATCH AUTHORITY: CORE CONTROLLER ---
 
-/**
- * DOM Elements
- */
-const liveMatchesZone = document.getElementById('liveMatchesZone');
-const noMatchesNotice = document.getElementById('noMatchesNotice');
+  // Supabase (your project)
+  const supabase = createClient(
+    'https://jntwqqwmqkwaurdliacc.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpudHdxcXdtcWt3YXVyZGxpYWNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkyMzM3NzAsImV4cCI6MjA4NDgwOTc3MH0.A62LwJfU3E9Iq1cRYbYDxj1r0a-WDqlGsp7JQ3QTDiE'
+  );
 
-/**
- * Adds a new match fixture to the Authority Uplink
- * Generates a unique match card with interactive score and event tracking
- */
-function addMatch() {
-    const matchId = `match_${Date.now()}`; // Unique ID for targeting rows
-    
-    const matchHTML = `
-        <div id="${matchId}" class="match-card bg-zinc-900/50 border border-white/5 rounded-[2.5rem] overflow-hidden backdrop-blur-md animate-in slide-in-from-top-4 duration-500 mb-8">
-            
-            <div class="p-6 border-b border-white/5 bg-gradient-to-r from-transparent via-red-500/5 to-transparent flex flex-col md:flex-row items-center justify-between gap-6">
-                <div class="flex-1 text-center md:text-right">
-                    <label class="block text-[10px] text-gray-500 font-black uppercase tracking-widest mb-1">Home</label>
-                    <input type="text" placeholder="TEAM ALPHA" class="bg-transparent text-2xl font-black italic uppercase tracking-tighter text-white text-center md:text-right outline-none focus:text-red-500 transition-colors w-full">
-                </div>
+  const liveMatchesZone = document.getElementById('liveMatchesZone');
+  const noMatchesNotice = document.getElementById('noMatchesNotice');
 
-                <div class="flex items-center gap-4 px-6 py-2 bg-black/40 rounded-2xl border border-white/10">
-                    <input type="number" value="0" class="w-12 bg-transparent text-3xl font-black text-white text-center outline-none">
-                    <span class="text-red-500 font-black italic">:</span>
-                    <input type="number" value="0" class="w-12 bg-transparent text-3xl font-black text-white text-center outline-none">
-                </div>
+  let isAdmin = false;
 
-                <div class="flex-1 text-center md:text-left">
-                    <label class="block text-[10px] text-gray-500 font-black uppercase tracking-widest mb-1">Away</label>
-                    <input type="text" placeholder="TEAM OMEGA" class="bg-transparent text-2xl font-black italic uppercase tracking-tighter text-white text-center md:text-left outline-none focus:text-red-500 transition-colors w-full">
-                </div>
-            </div>
+  // Load public view + real-time
+  async function loadPublicView() {
+    const { data: matches, error } = await supabase.from('matches').select('*').order('id');
+    if (error) {
+      spawnAlert('Uplink error: ' + error.message);
+      return;
+    }
 
-            <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/5">
-                
-                <div class="p-6 space-y-4">
-                    <div class="flex justify-between items-center mb-2">
-                        <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-red-500 italic">Scorer Logs</h4>
-                        <button onclick="addGoalRow('${matchId}')" class="text-[9px] font-bold uppercase bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white px-3 py-1 rounded-full transition-all">+ Add Goal</button>
-                    </div>
-                    <div id="${matchId}_goals" class="space-y-3">
-                        </div>
-                </div>
+    liveMatchesZone.innerHTML = '';
+    if (matches.length === 0) {
+      noMatchesNotice.classList.remove('hidden');
+      return;
+    }
+    noMatchesNotice.classList.add('hidden');
 
-                <div class="p-6 space-y-4">
-                    <div class="flex justify-between items-center mb-2">
-                        <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-yellow-500 italic">Disciplinary</h4>
-                        <button onclick="addBookingRow('${matchId}')" class="text-[9px] font-bold uppercase bg-yellow-500/10 hover:bg-yellow-500 text-yellow-500 hover:text-white px-3 py-1 rounded-full transition-all">+ Add Card</button>
-                    </div>
-                    <div id="${matchId}_bookings" class="space-y-3">
-                        </div>
-                </div>
-            </div>
-
-            <div class="p-4 bg-white/5 flex justify-between items-center px-8">
-                <button onclick="deleteMatch('${matchId}')" class="text-[9px] font-black uppercase text-gray-600 hover:text-red-500 transition-colors">Terminate Match</button>
-                <button onclick="spawnAlert('Match data synchronization successful. Data transmitted to Supreme Controller.')" class="text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-red-500 transition-colors">
-                    Finalize Match Report
-                </button>
-            </div>
+    for (const match of matches) {
+      const card = document.createElement('div');
+      card.className = 'match-card bg-zinc-900/50 border border-white/5 rounded-[2.5rem] overflow-hidden backdrop-blur-md mb-8';
+      card.innerHTML = \`
+        <div class="p-6 border-b border-white/5 bg-gradient-to-r from-transparent via-red-500/5 to-transparent flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="flex-1 text-center md:text-right">
+            <label class="block text-[10px] text-gray-500 font-black uppercase tracking-widest mb-1">Home</label>
+            <div class="text-2xl font-black italic uppercase tracking-tighter text-white">${match.home_team}</div>
+          </div>
+          <div class="flex items-center gap-4 px-6 py-2 bg-black/40 rounded-2xl border border-white/10">
+            <div class="w-12 text-3xl font-black text-white text-center">${match.home_score}</div>
+            <span class="text-red-500 font-black italic">:</span>
+            <div class="w-12 text-3xl font-black text-white text-center">${match.away_score}</div>
+          </div>
+          <div class="flex-1 text-center md:text-left">
+            <label class="block text-[10px] text-gray-500 font-black uppercase tracking-widest mb-1">Away</label>
+            <div class="text-2xl font-black italic uppercase tracking-tighter text-white">${match.away_team}</div>
+          </div>
         </div>
-    `;
-
-    liveMatchesZone.insertAdjacentHTML('beforeend', matchHTML);
-    toggleEmptyState();
-}
-
-/**
- * Appends a new Goal entry to a specific match via Match ID
- */
-function addGoalRow(matchId) {
-    const container = document.getElementById(`${matchId}_goals`);
-    const row = `
-        <div class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/5 animate-in slide-in-from-left-2 duration-300">
-            <i class="fas fa-futbol text-red-500 text-xs animate-pulse"></i>
-            <input type="text" placeholder="Player Name" class="bg-transparent text-[11px] font-bold uppercase text-white outline-none flex-1">
-            <input type="text" placeholder="Min'" class="bg-transparent text-[11px] font-black text-red-400 outline-none w-10 text-center">
+        <div class="p-6 border-b border-white/5 text-center">
+          <span class="text-[11px] font-black uppercase tracking-widest text-gray-400">Status: ${match.status.toUpperCase()}</span>
         </div>
-    `;
-    container.insertAdjacentHTML('beforeend', row);
-}
-
-/**
- * Appends a new Booking entry to a specific match via Match ID
- */
-function addBookingRow(matchId) {
-    const container = document.getElementById(`${matchId}_bookings`);
-    const row = `
-        <div class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/5 animate-in slide-in-from-right-2 duration-300">
-            <select class="bg-transparent text-[11px] font-black text-yellow-500 outline-none uppercase cursor-pointer">
-                <option class="bg-zinc-950">Yellow</option>
-                <option class="bg-zinc-950 text-red-500">Red</option>
-            </select>
-            <input type="text" placeholder="Player Name" class="bg-transparent text-[11px] font-bold uppercase text-white outline-none flex-1">
-            <input type="text" placeholder="Min'" class="bg-transparent text-[11px] font-black text-gray-400 outline-none w-10 text-center">
+        <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/5">
+          <div class="p-6 space-y-4">
+            <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-red-500 italic text-center md:text-left">Scorer Logs</h4>
+            <div id="goals-\${match.id}" class="space-y-3"></div>
+          </div>
+          <div class="p-6 space-y-4">
+            <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-yellow-500 italic text-center md:text-left">Disciplinary</h4>
+            <div id="cards-\${match.id}" class="space-y-3"></div>
+          </div>
         </div>
-    `;
-    container.insertAdjacentHTML('beforeend', row);
-}
+      \`;
+      liveMatchesZone.appendChild(card);
 
-/**
- * Authority Alert System (Centered Modal)
- * Displays the modal at the center of the page as requested
- */
-function spawnAlert(message) {
-    const modal = document.getElementById('authorityAlert');
-    const msgBox = document.getElementById('alertMessage');
-    
-    if (modal && msgBox) {
-        msgBox.innerText = message.toUpperCase();
-        modal.classList.remove('hidden');
-        modal.classList.add('flex'); // Ensures flexbox centering is active
-    }
-}
+      // Load goals
+      const { data: goals } = await supabase.from('goals').select('*').eq('match_id', match.id);
+      const goalsDiv = document.getElementById('goals-' + match.id);
+      goals.forEach(g => {
+        goalsDiv.innerHTML += \`
+          <div class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/5">
+            <i class="fas fa-futbol text-red-500 text-xs"></i>
+            <span class="text-[11px] font-bold uppercase text-white flex-1">${g.player || 'Unknown'}</span>
+            <span class="text-[11px] font-black text-red-400 w-10 text-center">${g.minute || '?'}'</span>
+            <span class="text-[11px] uppercase ${g.team === 'home' ? 'text-blue-400' : 'text-green-400'}">${g.team}</span>
+          </div>
+        \`;
+      });
 
-function closeAuthorityAlert() {
-    const modal = document.getElementById('authorityAlert');
-    if (modal) {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
+      // Load cards
+      const { data: cards } = await supabase.from('bookings').select('*').eq('match_id', match.id);
+      const cardsDiv = document.getElementById('cards-' + match.id);
+      cards.forEach(c => {
+        cardsDiv.innerHTML += \`
+          <div class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/5">
+            <span class="text-[11px] font-black uppercase ${c.type === 'yellow' ? 'text-yellow-500' : 'text-red-500'}">${c.type}</span>
+            <span class="text-[11px] font-bold uppercase text-white flex-1">${c.player || 'Unknown'}</span>
+            <span class="text-[11px] font-black text-gray-400 w-10 text-center">${c.minute || '?'}'</span>
+            <span class="text-[11px] uppercase ${c.team === 'home' ? 'text-blue-400' : 'text-green-400'}">${c.team}</span>
+          </div>
+        \`;
+      });
     }
-}
+  }
 
-/**
- * Utility: Remove match and update empty state
- */
-function deleteMatch(matchId) {
-    const matchElement = document.getElementById(matchId);
-    if (matchElement) {
-        matchElement.remove();
-        toggleEmptyState();
-    }
-}
+  // Real-time subscription
+  supabase.channel('live-scores')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'matches' }, loadPublicView)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'goals' }, loadPublicView)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'bookings' }, loadPublicView)
+    .subscribe();
 
-/**
- * Utility: Checks if active fixtures exist
- */
-function toggleEmptyState() {
-    if (liveMatchesZone.children.length > 0) {
-        noMatchesNotice.classList.add('hidden');
-    } else {
-        noMatchesNotice.classList.remove('hidden');
+  // Load public view on start
+  loadPublicView();
+
+  async function handleAdminLogin() {
+    const email = document.getElementById('adminEmail').value.trim();
+    const password = document.getElementById('adminPassword').value;
+
+    if (!email || !password) {
+      spawnAlert('Enter email and password');
+      return;
     }
-}
+
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error || !data.user) {
+      spawnAlert('Access Denied - Invalid credentials');
+      return;
+    }
+
+    // Check if admin
+    const { data: adminCheck } = await supabase
+      .from('admins')
+      .select('user_id')
+      .eq('user_id', data.user.id)
+      .single();
+
+    if (!adminCheck) {
+      spawnAlert('Access Denied - Not authorized');
+      await supabase.auth.signOut();
+      return;
+    }
+
+    // Success - open admin panel
+    document.getElementById('loginModal').classList.add('hidden');
+    document.getElementById('adminPanel').classList.remove('hidden');
+    document.getElementById('adminPanel').classList.add('flex');
+    loadAdminPanel();
+  }
+
+  async function loadAdminPanel() {
+    const { data: matches } = await supabase.from('matches').select('*');
+    const zone = document.getElementById('adminMatchesZone');
+    zone.innerHTML = '';
+
+    matches.forEach(m => {
+      const card = document.createElement('div');
+      card.className = 'match-card bg-zinc-900/70 border border-red-500/30 rounded-[2.5rem] overflow-hidden backdrop-blur-md';
+      card.innerHTML = \`
+        <div class="p-6 border-b border-white/10 bg-gradient-to-r from-transparent via-red-500/10 to-transparent flex flex-col md:flex-row items-center justify-between gap-6">
+          <input type="text" value="${m.home_team}" onblur="updateMatch('${m.id}', 'home_team', this.value)" class="flex-1 bg-transparent text-2xl font-black italic uppercase tracking-tighter text-white text-center md:text-right outline-none focus:text-red-400">
+          <div class="flex items-center gap-4 px-6 py-2 bg-black/50 rounded-2xl border border-red-500/20">
+            <input type="number" value="${m.home_score}" onblur="updateMatch('${m.id}', 'home_score', this.value)" class="w-14 bg-transparent text-3xl font-black text-white text-center outline-none focus:text-red-400">
+            <span class="text-red-500 font-black italic">:</span>
+            <input type="number" value="${m.away_score}" onblur="updateMatch('${m.id}', 'away_score', this.value)" class="w-14 bg-transparent text-3xl font-black text-white text-center outline-none focus:text-red-400">
+          </div>
+          <input type="text" value="${m.away_team}" onblur="updateMatch('${m.id}', 'away_team', this.value)" class="flex-1 bg-transparent text-2xl font-black italic uppercase tracking-tighter text-white text-center md:text-left outline-none focus:text-red-400">
+        </div>
+
+        <div class="p-4 flex justify-center gap-3 flex-wrap border-b border-white/10">
+          <button onclick="updateMatch('${m.id}', 'status', 'live')" class="px-5 py-2 bg-green-600/30 hover:bg-green-600 text-green-300 rounded-full text-sm font-bold">Live</button>
+          <button onclick="updateMatch('${m.id}', 'status', 'ht')" class="px-5 py-2 bg-blue-600/30 hover:bg-blue-600 text-blue-300 rounded-full text-sm font-bold">HT</button>
+          <button onclick="updateMatch('${m.id}', 'status', 'ft')" class="px-5 py-2 bg-purple-600/30 hover:bg-purple-600 text-purple-300 rounded-full text-sm font-bold">FT</button>
+          <button onclick="updateMatch('${m.id}', 'status', 'interrupted')" class="px-5 py-2 bg-orange-600/30 hover:bg-orange-600 text-orange-300 rounded-full text-sm font-bold">Interrupted</button>
+          <span class="self-center text-gray-400 text-sm">Current: ${m.status.toUpperCase()}</span>
+        </div>
+
+        <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/10">
+          <div class="p-6">
+            <div class="flex justify-between mb-3">
+              <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-red-500 italic">Goals</h4>
+              <button onclick="addGoalForm('${m.id}')" class="text-[9px] bg-red-500/20 hover:bg-red-500 text-red-400 hover:text-white px-4 py-1 rounded-full">+ Goal</button>
+            </div>
+            <div id="admin-goals-\${m.id}" class="space-y-3"></div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between mb-3">
+              <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-yellow-500 italic">Cards</h4>
+              <button onclick="addCardForm('${m.id}')" class="text-[9px] bg-yellow-500/20 hover:bg-yellow-500 text-yellow-400 hover:text-white px-4 py-1 rounded-full">+ Card</button>
+            </div>
+            <div id="admin-cards-\${m.id}" class="space-y-3"></div>
+          </div>
+        </div>
+
+        <div class="p-4 bg-white/5 flex justify-between px-8">
+          <button onclick="deleteMatch('${m.id}')" class="text-[10px] text-red-400 hover:text-red-600 uppercase font-black">Delete Match</button>
+          <button onclick="spawnAlert('Match synchronized to central uplink')" class="text-[10px] text-white/70 hover:text-white uppercase font-black tracking-widest">Finalize Report</button>
+        </div>
+      \`;
+      zone.appendChild(card);
+
+      // Load existing goals/cards for editing
+      loadAdminEvents(m.id);
+    });
+  }
+
+  async function loadAdminEvents(matchId) {
+    const { data: goals } = await supabase.from('goals').select('*').eq('match_id', matchId);
+    const gDiv = document.getElementById('admin-goals-' + matchId);
+    gDiv.innerHTML = '';
+    goals.forEach(g => {
+      gDiv.innerHTML += \`
+        <div class="flex gap-3 bg-white/5 p-3 rounded-xl">
+          <input type="text" value="${g.player}" class="flex-1 bg-transparent text-white text-[11px] font-bold uppercase outline-none">
+          <input type="number" value="${g.minute}" class="w-12 bg-transparent text-red-400 text-[11px] font-black text-center outline-none">
+          <span class="text-[11px] uppercase self-center">${g.team}</span>
+        </div>
+      \`;
+    });
+
+    const { data: cards } = await supabase.from('bookings').select('*').eq('match_id', matchId);
+    const cDiv = document.getElementById('admin-cards-' + matchId);
+    cDiv.innerHTML = '';
+    cards.forEach(c => {
+      cDiv.innerHTML += \`
+        <div class="flex gap-3 bg-white/5 p-3 rounded-xl">
+          <select class="bg-transparent text-${c.type === 'yellow' ? 'yellow' : 'red'}-500 text-[11px] font-black uppercase outline-none">
+            <option ${c.type === 'yellow' ? 'selected' : ''}>Yellow</option>
+            <option ${c.type === 'red' ? 'selected' : ''}>Red</option>
+          </select>
+          <input type="text" value="${c.player}" class="flex-1 bg-transparent text-white text-[11px] font-bold uppercase outline-none">
+          <input type="number" value="${c.minute}" class="w-12 bg-transparent text-gray-400 text-[11px] font-black text-center outline-none">
+          <span class="text-[11px] uppercase self-center">${c.team}</span>
+        </div>
+      \`;
+    });
+  }
+
+  async function updateMatch(id, field, value) {
+    let updateObj = {};
+    updateObj[field] = field.includes('score') ? Number(value) : value;
+    await supabase.from('matches').update(updateObj).eq('id', id);
+  }
+
+  function addGoalForm(matchId) {
+    const div = document.getElementById('admin-goals-' + matchId);
+    const form = document.createElement('div');
+    form.className = 'flex gap-3 bg-white/10 p-3 rounded-xl';
+    form.innerHTML = \`
+      <input type="text" placeholder="Player" class="flex-1 bg-transparent text-white text-[11px] font-bold uppercase outline-none player">
+      <input type="number" placeholder="Min" class="w-12 bg-transparent text-red-400 text-[11px] font-black text-center outline-none minute">
+      <select class="bg-transparent text-white text-[11px] uppercase outline-none team">
+        <option>home</option>
+        <option>away</option>
+      </select>
+      <button onclick="saveGoal(this, '${matchId}')" class="text-green-400 text-xs uppercase font-bold">Save</button>
+    \`;
+    div.appendChild(form);
+  }
+
+  async function saveGoal(btn, matchId) {
+    const row = btn.parentElement;
+    const player = row.querySelector('.player').value;
+    const minute = row.querySelector('.minute').value;
+    const team = row.querySelector('.team').value;
+
+    if (!player || !minute) return spawnAlert('Fill player and minute');
+
+    await supabase.from('goals').insert({ match_id: matchId, player, minute: Number(minute), team });
+    row.remove();
+    loadPublicView(); // refresh public
+  }
+
+  // Similar for addCardForm / saveCard (you can copy pattern above and adjust for type/player/minute/team)
+
+  async function addNewMatch() {
+    await supabase.from('matches').insert({
+      home_team: 'New Home Team',
+      away_team: 'New Away Team',
+      status: 'scheduled'
+    });
+    loadPublicView();
+    loadAdminPanel();
+  }
+
+  async function deleteMatch(id) {
+    if (!confirm('Delete this match?')) return;
+    await supabase.from('matches').delete().eq('id', id);
+    loadPublicView();
+    loadAdminPanel();
+  }
+
+  function spawnAlert(msg) {
+    document.getElementById('alertMessage').innerText = msg.toUpperCase();
+    document.getElementById('authorityAlert').classList.remove('hidden');
+    document.getElementById('authorityAlert').classList.add('flex');
+  }
+
+  // Initial load
+  loadPublicView();
