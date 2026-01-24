@@ -314,8 +314,7 @@ const contentData = {
         </div>
     </div>`,
 
-
-'Live': `
+'live': `
 <div class="space-y-8 animate-in pb-20 px-4 md:px-12">
   <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
     <div>
@@ -344,7 +343,6 @@ const contentData = {
   </div>
 </div>
 
-<!-- Authority Alert Modal -->
 <div id="authorityAlert" class="fixed inset-0 z-[9999] hidden flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl">
   <div class="bg-zinc-950 border-2 border-red-600 w-full max-w-[400px] rounded-[3rem] p-10 text-center shadow-[0_0_80px_rgba(239,68,68,0.25)] animate-in zoom-in-95 duration-300">
     <div class="relative w-24 h-24 mx-auto mb-8">
@@ -360,7 +358,6 @@ const contentData = {
   </div>
 </div>
 
-<!-- Login Modal -->
 <div id="loginModal" class="fixed inset-0 z-[9999] hidden flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl">
   <div class="bg-zinc-950 border-2 border-red-600 w-full max-w-[400px] rounded-[3rem] p-10 text-center">
     <h2 class="text-3xl font-black italic uppercase tracking-tighter text-white mb-6">Authority Access</h2>
@@ -372,7 +369,6 @@ const contentData = {
   </div>
 </div>
 
-<!-- Admin Panel Modal -->
 <div id="adminPanel" class="fixed inset-0 z-[9999] hidden flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl overflow-y-auto">
   <div class="bg-zinc-950 border-2 border-red-600 w-full max-w-5xl rounded-[3rem] p-8 text-center relative max-h-[90vh]">
     <button onclick="document.getElementById('adminPanel').classList.add('hidden'); document.getElementById('adminPanel').classList.remove('flex');"
@@ -384,10 +380,7 @@ const contentData = {
     <div id="adminMatchesZone" class="space-y-10"></div>
   </div>
 </div>
-
-
 `,
-
 
     
     'Glory Cup': `
