@@ -596,110 +596,102 @@
 </script>
 
     
-    <Script>
-        // ────────────────────────────────────────────────────────────────
-// Supabase integration – add this ONCE at the bottom of your script
+  <script>
 // ────────────────────────────────────────────────────────────────
-
-// Initialize Supabase client (only once – safe even if run multiple times)
+// Supabase integration
+// ────────────────────────────────────────────────────────────────
 const supabaseUrl = 'https://jntwqqwmqkwaurdliacc.supabase.co';
 const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpudHdxcXdtcWt3YXVyZGxpYWNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkyMzM3NzAsImV4cCI6MjA4NDgwOTc3MH0.A62LwJfU3E9Iq1cRYbYDxj1r0a-WDqlGsp7JQ3QTDiE';
 
 const supabase = window.supabase || createClient(supabaseUrl, supabaseAnonKey);
-window.supabase = supabase;  // make it globally available if needed
+window.supabase = supabase;
 
 // ────────────────────────────────────────────────────────────────
-// Admin login handler – called when user clicks "Login" in modal
+// Admin login handler
 // ────────────────────────────────────────────────────────────────
 async function handleAdminLogin() {
-  const email    = document.getElementById('adminEmail')?.value?.trim();
-  const password = document.getElementById('adminPassword')?.value;
+    const email = document.getElementById('adminEmail')?.value?.trim();
+    const password = document.getElementById('adminPassword')?.value;
 
-  if (!email || !password) {
-    spawnAlert('Please enter email and password');
-    return;
-  }
+    if (!email || !password) {
+        spawnAlert('Please enter email and password');
+        return;
+    }
 
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
-  if (error || !data?.user) {
-    spawnAlert('Access Denied – Invalid credentials');
-    return;
-  }
+    if (error || !data?.user) {
+        spawnAlert('Access Denied – Invalid credentials');
+        return;
+    }
 
-  // Verify this user is in the admins table
-  const { data: adminCheck, error: adminErr } = await supabase
-    .from('admins')
-    .select('user_id')
-    .eq('user_id', data.user.id)
-    .single();
+    const { data: adminCheck, error: adminErr } = await supabase
+        .from('admins')
+        .select('user_id')
+        .eq('user_id', data.user.id)
+        .single();
 
-  if (adminErr || !adminCheck) {
-    spawnAlert('Access Denied – Not authorized as admin');
-    await supabase.auth.signOut();
-    return;
-  }
+    if (adminErr || !adminCheck) {
+        spawnAlert('Access Denied – Not authorized as admin');
+        await supabase.auth.signOut();
+        return;
+    }
 
-  // Success
-  document.getElementById('loginModal').classList.add('hidden');
-  document.getElementById('loginModal').classList.remove('flex');
+    document.getElementById('loginModal').classList.add('hidden');
+    document.getElementById('loginModal').classList.remove('flex');
+    document.getElementById('adminPanel').classList.remove('hidden');
+    document.getElementById('adminPanel').classList.add('flex');
 
-  document.getElementById('adminPanel').classList.remove('hidden');
-  document.getElementById('adminPanel').classList.add('flex');
-
-  // Load your admin dashboard / editable matches
-  // Replace 'loadAdminPanel' with YOUR actual function name that shows editable cards
-  if (typeof loadAdminPanel === 'function') {
-    loadAdminPanel();
-  } else {
-    console.warn('Admin panel load function not found. Call your real function here.');
-    // Example fallback: if you have addMatch() or similar, you can trigger a refresh
-    toggleEmptyState();
-  }
+    if (typeof loadAdminPanel === 'function') {
+        loadAdminPanel();
+    } else {
+        console.warn('Admin panel load function not found.');
+        toggleEmptyState();
+    }
 }
 
 // ────────────────────────────────────────────────────────────────
-// Real-time updates – this will auto-refresh when data changes
-// Replace the three console.log lines with YOUR refresh function
+// Real-time updates
 // ────────────────────────────────────────────────────────────────
-supabase.channel('elite-live-scores-' + Date.now())  // unique channel name to avoid conflicts
-  .on('postgres_changes', { event: '*', schema: 'public', table: 'matches' }, () => {
-    console.log('[Realtime] Matches changed → refreshing view');
-    // ───── REPLACE THIS LINE WITH YOUR REAL REFRESH FUNCTION ─────
-    // Examples:
-    // loadMatches();               ← common name
-    // renderMatches();             ← another common name
-    // refreshLiveMatches();        ← if you named it that
-    // toggleEmptyState();          ← basic refresh
-    // addMatch();                  ← if you want to force reload
-    // YOUR_FUNCTION_HERE();        ← put the correct name here
-  })
-  .on('postgres_changes', { event: '*', schema: 'public', table: 'goals' }, () => {
-    console.log('[Realtime] Goal changed → refreshing');
-    // REPLACE WITH YOUR REFRESH FUNCTION
-  })
-  .on('postgres_changes', { event: '*', schema: 'public', table: 'bookings' }, () => {
-    console.log('[Realtime] Card changed → refreshing');
-    // REPLACE WITH YOUR REFRESH FUNCTION
-  })
-  .subscribe((status) => {
-    if (status === 'SUBSCRIBED') {
-      console.log('Real-time updates connected successfully');
-    } else if (status === 'CLOSED' || status === 'CHANNEL_ERROR') {
-      console.warn('Real-time channel issue:', status);
-    }
-  });
+supabase.channel('elite-live-scores-' + Date.now())
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'matches' }, () => {
+        console.log('[Realtime] Matches changed');
+        if (typeof renderMatches === 'function') renderMatches(); 
+    })
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'goals' }, () => {
+        if (typeof renderMatches === 'function') renderMatches();
+    })
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'bookings' }, () => {
+        if (typeof renderMatches === 'function') renderMatches();
+    })
+    .subscribe((status) => {
+        if (status === 'SUBSCRIBED') console.log('Real-time updates connected');
+    });
 
 // ────────────────────────────────────────────────────────────────
-// Optional: Auto-refresh on page focus (helps when tab is reopened)
+// Window Focus & Alerts
 // ────────────────────────────────────────────────────────────────
 window.addEventListener('focus', () => {
-  console.log('Window focused – checking for updates');
-  // Call your refresh function here too if you want
-  // e.g. loadMatches();
+    if (typeof renderMatches === 'function') renderMatches();
 });
 
+// Helper: Custom Modal Alert (Centered)
+function spawnAlert(message) {
+    const modal = document.createElement('div');
+    modal.className = "fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4";
+    modal.innerHTML = `
+        <div class="bg-zinc-900 border border-white/10 p-6 rounded-2xl shadow-2xl max-w-sm w-full transform animate-in zoom-in duration-200">
+            <p class="text-gray-200 text-center font-bold mb-4">${message}</p>
+            <button onclick="this.parentElement.parentElement.remove()" 
+                    class="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors font-black uppercase text-xs tracking-widest">
+                Understood
+            </button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
+
 console.log('Elite Match Authority real-time & admin access loaded');
-    </script>
+</script>
   <script src="dashboard .js"></script>
 </body>
