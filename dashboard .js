@@ -535,15 +535,14 @@ const contentData = {
 
         <div class="grid gap-5">
             ${[
-                { id: 1, home: "CSC-300", away: "LAW-500" },
+                { id: 1, home: "CSC-300 (3)", away: "LAW-500 (0)" },
                 { id: 2, home: "MSS-300", away: "LAW-100" },
                 { id: 3, home: "CSC-300", away: "MSS-300" },
-                { id: 4, home: "CSC-400", away: "LAW-500" },
-                { id: 5, home: "LAW-200", away: "LAW-100" },
-                 { id: 6, home: "LAW-400", away: "CSC-300" },
-                 { id: 7, home: "CSC-400 (10)", away: "LAW-200 (2)" },
-                { id: 8, home: "CSC-400 (3)", away: "LAW-500 (0)" },
-                { id: 9, home: "MSS-300", away: "LAW-500" }
+              { id: 4, home: "LAW-100 (4)", away: "MSS-100 (5)" },
+               { id: 5, home: "LAW-200 (3)", away: "MSS-200 (2)" },
+                 { id: 6, home: "CSC-400 (10)", away: "LAW-200 (2)" },
+                { id: 7, home: "CSC-300 (4)", away: "LAW-400 (4)" },
+                { id: 8, home: "MSS-300", away: "LAW-500" }
                 
             ].map((match) => `
                 <div class="p-6 bg-[#030816] border border-blue-500/10 rounded-[2.5rem] transition-all hover:border-blue-500/30 group">
