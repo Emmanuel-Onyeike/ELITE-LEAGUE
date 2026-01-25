@@ -1312,7 +1312,50 @@ const contentData = {
     </div>
 </div>`,
 
+'vote': `
+<div class="space-y-8 animate-in pb-20 px-4 md:px-12">
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+    <div>
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-3 h-3 bg-blue-500 rounded-full animate-pulse shadow-[0_0_15px_rgba(59,130,246,0.4)]"></div>
+        <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.5em]">
+          Official Voting Authority
+        </span>
+      </div>
 
+      <h3 class="text-5xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none">
+        Cast Your <span class="text-blue-500">Vote</span>
+      </h3>
+
+      <p class="text-gray-500 text-[11px] uppercase tracking-[0.3em] font-bold mt-3">
+        2026 Cycle • Secure Ballot Channel
+      </p>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <div class="bg-blue-600/10 border border-blue-500/30 px-8 py-4 rounded-2xl text-center">
+        <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.3em]">
+          Ballot ID: 04.01.2026
+        </span>
+      </div>
+
+      <button onclick="document.getElementById('loginModal').classList.remove('hidden'); document.getElementById('loginModal').classList.add('flex');"
+              class="px-6 py-3 bg-blue-600/30 hover:bg-blue-600 text-blue-300 hover:text-white font-black uppercase tracking-widest rounded-xl transition-all border border-blue-500/40 shadow-sm">
+        Access Voting Booth
+      </button>
+    </div>
+  </div>
+
+  <div id="votingZone" class="space-y-8"></div>
+
+  <div id="noVotingNotice" class="text-center py-16 text-gray-600 hidden">
+    <p class="text-xl font-bold uppercase tracking-widest">No active ballots</p>
+    <p class="text-sm mt-2">Awaiting authority release…</p>
+  </div>
+</div>
+`,
+
+    
 
 'Transfer Market': `
 <div class="animate-in pb-40 px-6 md:px-16 space-y-16">
