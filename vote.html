@@ -1,113 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Elite Voting Terminal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Tailwind (CDN for simplicity) -->
+  <meta charset="UTF-8">
+  <title>Elite Dior Voting Terminal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+    
     body {
-      background: radial-gradient(circle at top, #020617, #000);
+      background: radial-gradient(circle at top right, #0a0a1a, #000000);
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
     }
-    .elite-glow {
-      box-shadow: 0 0 40px rgba(59,130,246,0.25);
+
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
+
+    .category-card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+      transform: translateY(-4px);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
   </style>
 </head>
+<body class="text-white min-h-screen pb-20">
 
-<body class="text-white min-h-screen flex items-center justify-center">
-
-  <main class="w-full max-w-5xl px-6 py-16 space-y-12">
-
-    <!-- HEADER -->
-    <header class="text-center space-y-4">
-      <div class="flex items-center justify-center gap-3">
-        <div class="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
-        <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.5em]">
-          Official Voting Authority
-        </span>
-      </div>
-
-      <h1 class="text-5xl md:text-6xl font-black italic uppercase tracking-tighter">
-        Voting <span class="text-blue-500">Terminal</span>
-      </h1>
-
-      <p class="text-gray-500 text-[11px] uppercase tracking-[0.3em] font-bold">
-        Secure Ballot • One Vote Per Identity
-      </p>
-    </header>
-
-    <!-- VOTING ZONE -->
-    <section id="votingZone" class="grid md:grid-cols-2 gap-8">
-
-      <!-- OPTION 1 -->
-      <div class="border border-blue-500/30 rounded-3xl p-8 elite-glow bg-blue-600/5">
-        <h3 class="text-2xl font-black uppercase tracking-widest mb-4">
-          Option A
-        </h3>
-        <p class="text-gray-400 mb-8">
-          Approve Proposal Alpha for the 2026 cycle.
-        </p>
-        <button onclick="castVote('Option A')"
-          class="w-full py-4 bg-blue-600 hover:bg-blue-500 font-black uppercase tracking-[0.4em] rounded-xl transition">
-          Vote
-        </button>
-      </div>
-
-      <!-- OPTION 2 -->
-      <div class="border border-red-500/30 rounded-3xl p-8 bg-red-600/5">
-        <h3 class="text-2xl font-black uppercase tracking-widest mb-4">
-          Option B
-        </h3>
-        <p class="text-gray-400 mb-8">
-          Reject Proposal Alpha and maintain current state.
-        </p>
-        <button onclick="castVote('Option B')"
-          class="w-full py-4 bg-red-600 hover:bg-red-500 font-black uppercase tracking-[0.4em] rounded-xl transition">
-          Vote
-        </button>
-      </div>
-
-    </section>
-
-    <!-- STATUS -->
-    <div id="statusMessage"
-      class="hidden text-center text-sm font-black uppercase tracking-widest text-green-400">
+<div id="customAlert" class="fixed inset-0 hidden z-[100] flex items-center justify-center p-6 bg-black/90">
+  <div class="glass border-blue-500/50 rounded-3xl p-8 max-w-sm w-full text-center">
+    <div id="alertIcon" class="text-4xl mb-4 text-blue-500">
+      <i class="fa-solid fa-circle-info"></i>
     </div>
+    <p id="alertMessage" class="text-lg font-bold mb-6 italic uppercase tracking-wider"></p>
+    <button onclick="closeAlert()" class="w-full py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-black uppercase tracking-widest transition">
+      Acknowledge
+    </button>
+  </div>
+</div>
 
-    <!-- FOOTER -->
-    <footer class="text-center text-[10px] text-gray-600 uppercase tracking-[0.3em]">
-      Ballot ID: 04.01.2026 • Encrypted Channel Active
-    </footer>
+<header class="relative pt-20 pb-12 px-6 text-center">
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-64 bg-blue-600/10 blur-[120px] -z-10"></div>
+  <h1 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter leading-none">
+    ELITE <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-700">AWARDS</span>
+  </h1>
+  <div class="flex items-center justify-center gap-4 mt-6">
+    <span class="h-[1px] w-12 bg-gray-700"></span>
+    <p class="text-gray-400 text-xs md:text-sm font-bold tracking-[0.3em] uppercase">
+      Official Voting Terminal 2026
+    </p>
+    <span class="h-[1px] w-12 bg-gray-700"></span>
+  </div>
+</header>
 
-  </main>
+<main class="max-w-7xl mx-auto px-6">
+  <div class="flex items-center justify-between mb-8">
+    <h2 class="text-xl font-black uppercase tracking-widest border-l-4 border-blue-600 pl-4">Categories</h2>
+    <p class="text-gray-500 text-xs">Total: 11 Fields</p>
+  </div>
 
-  <!-- SCRIPT -->
-  <script>
-    function castVote(option) {
-      const status = document.getElementById('statusMessage');
+  <div id="categoriesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    </div>
+</main>
 
-      // Simulated lock (local only)
-      if (localStorage.getItem('vote_cast')) {
-        status.textContent = 'VOTE ALREADY RECORDED';
-        status.classList.remove('hidden');
-        status.classList.replace('text-green-400', 'text-red-400');
-        return;
-      }
+<div id="votingModal" class="fixed inset-0 hidden bg-black/95 backdrop-blur-md z-[60] overflow-y-auto">
+  <div class="min-h-screen flex items-center justify-center p-4 md:p-10">
+    <div class="bg-zinc-950 border border-white/10 rounded-[2.5rem] w-full max-w-6xl p-6 md:p-12 relative">
+      <button onclick="closeVotingModal()" class="absolute top-6 right-6 text-gray-500 hover:text-white text-3xl">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      
+      <div class="mb-10">
+        <h2 id="modalTitle" class="text-4xl md:text-5xl font-black italic uppercase italic"></h2>
+        <p class="text-blue-500 font-bold uppercase tracking-widest text-sm mt-2">Select your choice</p>
+      </div>
 
-      localStorage.setItem('vote_cast', option);
+      <div id="nomineesGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        </div>
+    </div>
+  </div>
+</div>
 
-      status.textContent = `VOTE CONFIRMED: ${option}`;
-      status.classList.remove('hidden');
-      status.classList.add('animate-pulse');
-    }
-  </script>
+<div class="fixed bottom-6 right-6 flex flex-col gap-3">
+  <button onclick="adminAction()" class="w-14 h-14 bg-white text-black rounded-2xl flex items-center justify-center shadow-2xl hover:scale-110 transition active:scale-95">
+    <i class="fa-solid fa-lock text-xl"></i>
+  </button>
+</div>
 
+<script>
+/* ---------------- DATA ---------------- */
+const categories = {
+  best_player: { name: "Best Player", max: 5, nominees: [], votes: {} },
+  best_goalkeeper: { name: "Best Goalkeeper", max: 5, nominees: [], votes: {} },
+  best_defender: { name: "Best Defender", max: 5, nominees: [], votes: {} },
+  best_midfielder: { name: "Best Midfielder", max: 5, nominees: [], votes: {} },
+  best_playmaker: { name: "Best Playmaker", max: 5, nominees: [], votes: {} },
+  best_assist: { name: "Best Assist", max: 5, nominees: [], votes: {} },
+  best_scorer: { name: "Best Goal Scorer", max: 5, nominees: [], votes: {} },
+  best_team: { name: "Best Team", max: 5, nominees: [], votes: {} },
+  best_coach: { name: "Best Coach", max: 5, nominees: [], votes: {} },
+  elite_dior_nominees: { name: "Elite Dior Nominees", max: 30, nominees: [], votes: {} },
+  elite_dior: { name: "Elite Dior", max: 1, nominees: [], votes: {} }
+};
+
+let currentCategoryKey = null;
+
+/* ---------------- UI LOGIC ---------------- */
+function init() {
+  const container = document.getElementById("categoriesGrid");
+  container.innerHTML = "";
+  
+  Object.keys(categories).forEach(key => {
+    const cat = categories[key];
+    const isFull = cat.nominees.length >= cat.max;
+    
+    container.innerHTML += `
+      <div onclick="openVotingModal('${key}')"
+        class="category-card glass rounded-2xl p-6 transition-all cursor-pointer group relative overflow-hidden">
+        <div class="absolute -right-4 -top-4 w-20 h-20 bg-blue-600/5 rounded-full group-hover:bg-blue-600/20 transition"></div>
+        <h3 class="font-black uppercase tracking-tighter text-lg leading-tight">${cat.name}</h3>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Nominees</span>
+          <span class="${isFull ? 'text-green-500' : 'text-blue-500'} font-mono text-sm">
+            ${cat.nominees.length} / ${cat.max}
+          </span>
+        </div>
+        <div class="w-full bg-white/5 h-1 mt-3 rounded-full overflow-hidden">
+          <div class="bg-blue-600 h-full transition-all duration-500" style="width: ${(cat.nominees.length / cat.max) * 100}%"></div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+/* ---------------- CUSTOM ALERTS ---------------- */
+function showAlert(message, icon = "fa-circle-info") {
+  document.getElementById("alertMessage").textContent = message;
+  document.getElementById("alertIcon").innerHTML = `<i class="fa-solid ${icon}"></i>`;
+  document.getElementById("customAlert").classList.remove("hidden");
+}
+
+function closeAlert() {
+  document.getElementById("customAlert").classList.add("hidden");
+}
+
+/* ---------------- VOTING ---------------- */
+function openVotingModal(key) {
+  currentCategoryKey = key;
+  const cat = categories[key];
+  
+  if (cat.nominees.length === 0) {
+    showAlert("No nominees added to this category yet.");
+    return;
+  }
+
+  document.getElementById("modalTitle").textContent = cat.name;
+  const grid = document.getElementById("nomineesGrid");
+  grid.innerHTML = "";
+
+  cat.nominees.forEach(n => {
+    grid.innerHTML += `
+      <div class="glass border-white/5 rounded-3xl p-4 text-center group hover:border-blue-500/50 transition duration-500">
+        <div class="relative overflow-hidden rounded-2xl mb-4 aspect-square">
+          <img src="${n.image || 'https://via.placeholder.com/300'}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+        </div>
+        <h4 class="font-black uppercase text-sm tracking-tight">${n.name}</h4>
+        <p class="text-[10px] text-gray-500 font-bold uppercase mt-1 tracking-widest">${n.position}</p>
+        <button onclick="castVote('${n.id}')"
+          class="mt-6 w-full py-3 bg-white text-black text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-blue-600 hover:text-white transition">
+          Confirm Vote
+        </button>
+      </div>
+    `;
+  });
+
+  document.getElementById("votingModal").classList.remove("hidden");
+  document.body.style.overflow = 'hidden';
+}
+
+function closeVotingModal() {
+  document.getElementById("votingModal").classList.add("hidden");
+  document.body.style.overflow = 'auto';
+}
+
+function castVote(nomineeId) {
+  const voted = JSON.parse(localStorage.getItem("elite_votes") || "{}");
+  
+  if (voted[currentCategoryKey]) {
+    showAlert("Security Check: You have already voted in this category.", "fa-shield-halved");
+    return;
+  }
+
+  voted[currentCategoryKey] = nomineeId;
+  localStorage.setItem("elite_votes", JSON.stringify(voted));
+  showAlert("Vote successfully encrypted and recorded.", "fa-circle-check");
+  closeVotingModal();
+}
+
+/* ---------------- ADMIN PANEL ---------------- */
+function adminAction() {
+  const pin = prompt("Admin Security PIN Required:");
+  if (pin !== "3478") {
+    showAlert("Access Denied: Invalid PIN.", "fa-triangle-exclamation");
+    return;
+  }
+
+  const catKey = prompt("Target Category Key (e.g., best_player):");
+  if (!categories[catKey]) {
+    showAlert("Error: Category ID not found.");
+    return;
+  }
+
+  if (categories[catKey].nominees.length >= categories[catKey].max) {
+    showAlert("Limit Reached: This category is full.");
+    return;
+  }
+
+  const name = prompt("Nominee Name:");
+  if (!name) return;
+  const position = prompt("Role/Position:");
+  const image = prompt("Image URL (leave blank for default):");
+
+  categories[catKey].nominees.push({
+    id: 'nom-' + Date.now(),
+    name,
+    position: position || "Candidate",
+    image: image || "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=400"
+  });
+
+  init();
+  showAlert("Nominee successfully added to registry.", "fa-user-plus");
+}
+
+init();
+</script>
 </body>
 </html>
