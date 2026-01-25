@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Elite Voting Terminal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tailwind (CDN for simplicity) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: radial-gradient(circle at top, #020617, #000);
+    }
+    .elite-glow {
+      box-shadow: 0 0 40px rgba(59,130,246,0.25);
+    }
+  </style>
+</head>
+
+<body class="text-white min-h-screen flex items-center justify-center">
+
+  <main class="w-full max-w-5xl px-6 py-16 space-y-12">
+
+    <!-- HEADER -->
+    <header class="text-center space-y-4">
+      <div class="flex items-center justify-center gap-3">
+        <div class="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+        <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.5em]">
+          Official Voting Authority
+        </span>
+      </div>
+
+      <h1 class="text-5xl md:text-6xl font-black italic uppercase tracking-tighter">
+        Voting <span class="text-blue-500">Terminal</span>
+      </h1>
+
+      <p class="text-gray-500 text-[11px] uppercase tracking-[0.3em] font-bold">
+        Secure Ballot • One Vote Per Identity
+      </p>
+    </header>
+
+    <!-- VOTING ZONE -->
+    <section id="votingZone" class="grid md:grid-cols-2 gap-8">
+
+      <!-- OPTION 1 -->
+      <div class="border border-blue-500/30 rounded-3xl p-8 elite-glow bg-blue-600/5">
+        <h3 class="text-2xl font-black uppercase tracking-widest mb-4">
+          Option A
+        </h3>
+        <p class="text-gray-400 mb-8">
+          Approve Proposal Alpha for the 2026 cycle.
+        </p>
+        <button onclick="castVote('Option A')"
+          class="w-full py-4 bg-blue-600 hover:bg-blue-500 font-black uppercase tracking-[0.4em] rounded-xl transition">
+          Vote
+        </button>
+      </div>
+
+      <!-- OPTION 2 -->
+      <div class="border border-red-500/30 rounded-3xl p-8 bg-red-600/5">
+        <h3 class="text-2xl font-black uppercase tracking-widest mb-4">
+          Option B
+        </h3>
+        <p class="text-gray-400 mb-8">
+          Reject Proposal Alpha and maintain current state.
+        </p>
+        <button onclick="castVote('Option B')"
+          class="w-full py-4 bg-red-600 hover:bg-red-500 font-black uppercase tracking-[0.4em] rounded-xl transition">
+          Vote
+        </button>
+      </div>
+
+    </section>
+
+    <!-- STATUS -->
+    <div id="statusMessage"
+      class="hidden text-center text-sm font-black uppercase tracking-widest text-green-400">
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-[10px] text-gray-600 uppercase tracking-[0.3em]">
+      Ballot ID: 04.01.2026 • Encrypted Channel Active
+    </footer>
+
+  </main>
+
+  <!-- SCRIPT -->
+  <script>
+    function castVote(option) {
+      const status = document.getElementById('statusMessage');
+
+      // Simulated lock (local only)
+      if (localStorage.getItem('vote_cast')) {
+        status.textContent = 'VOTE ALREADY RECORDED';
+        status.classList.remove('hidden');
+        status.classList.replace('text-green-400', 'text-red-400');
+        return;
+      }
+
+      localStorage.setItem('vote_cast', option);
+
+      status.textContent = `VOTE CONFIRMED: ${option}`;
+      status.classList.remove('hidden');
+      status.classList.add('animate-pulse');
+    }
+  </script>
+
+</body>
+</html>
