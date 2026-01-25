@@ -1,436 +1,438 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>ELITE DIOR | Official Voting Terminal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;700;900&display=swap');
+    <meta charset="UTF-8">
+    <title>ELITE DIOR | Premier Voting Terminal v2.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     
-    :root {
-      --elite-blue: #3b82f6;
-      --elite-gold: #fbbf24;
-      --glass: rgba(255, 255, 255, 0.03);
-    }
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;700;800;900&display=swap');
 
-    body {
-      background: #000;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
-        radial-gradient(circle at 100% 100%, rgba(30, 58, 138, 0.15) 0%, transparent 40%);
-      background-attachment: fixed;
-    }
+        /* ---------------- ROOT VARIABLES ---------------- */
+        :root {
+            --elite-blue: #3b82f6;
+            --elite-gold: #fbbf24;
+            --surface-solid: #0a0a0f;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
 
-    .heading-font { font-family: 'Syncopate', sans-serif; }
+        /* ---------------- CORE STYLES ---------------- */
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, rgba(30, 58, 138, 0.15) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
 
-    /* Custom Glassmorphism */
-    .glass-panel {
-      background: var(--glass);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
+        .heading-font { font-family: 'Syncopate', sans-serif; letter-spacing: -0.02em; }
 
-    /* Premium Hover Effects */
-    .cat-card {
-      position: relative;
-      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-      overflow: hidden;
-    }
+        /* ---------------- MODAL DEPTH (FIXED TRANSPARENCY) ---------------- */
+        .solid-modal {
+            background: var(--surface-solid) !important;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 0 60px rgba(0, 0, 0, 1);
+            backdrop-filter: blur(40px);
+        }
 
-    .cat-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-      transform: translateX(-100%);
-      transition: 0.6s;
-    }
+        .alert-modal-centered {
+            background: #0d0d12;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 2.5rem;
+            max-width: 400px;
+            width: 90%;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(59, 130, 246, 0.1);
+        }
 
-    .cat-card:hover::before { transform: translateX(100%); }
+        /* ---------------- PREMIUM CARD EFFECTS ---------------- */
+        .cat-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 2rem;
+            padding: 2.5rem;
+            transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+            cursor: pointer;
+        }
 
-    .cat-card:hover {
-      border-color: var(--elite-blue);
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.3);
-    }
+        .cat-card:hover {
+            background: rgba(59, 130, 246, 0.05);
+            border-color: var(--elite-blue);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+        }
 
-    /* Gold Text Effect */
-    .gold-gradient {
-      background: linear-gradient(to right, #b45309, #fbbf24, #f59e0b, #fff, #b45309);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shine 4s linear infinite;
-    }
+        .gold-gradient {
+            background: linear-gradient(to right, #b45309, #fbbf24, #fff, #fbbf24, #b45309);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 6s linear infinite;
+        }
 
-    @keyframes shine {
-      to { background-position: 200% center; }
-    }
+        @keyframes shine { to { background-position: 200% center; } }
 
-    /* Admin Styles */
-    .admin-bg { background: linear-gradient(to bottom, #05050a, #000); }
-    
-    input, select {
-      background: rgba(255, 255, 255, 0.04) !important;
-      border: 1px solid rgba(255, 255, 255, 0.1) !important;
-      color: white !important;
-      outline: none;
-    }
-    input:focus { border-color: var(--elite-blue) !important; }
+        /* ---------------- FORM ELEMENTS ---------------- */
+        input, select {
+            background: rgba(255, 255, 255, 0.03) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+            border-radius: 1rem !important;
+            padding: 1rem 1.25rem !important;
+            outline: none;
+            transition: border 0.3s ease;
+        }
 
-    /* Modal Scrollbar */
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    
-    .status-badge {
-        font-size: 9px;
-        padding: 2px 8px;
-        border-radius: 99px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-  </style>
+        input:focus { border-color: var(--elite-blue) !important; }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        /* ---------------- ANIMATIONS ---------------- */
+        @keyframes modalEntry {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-entry { animation: modalEntry 0.4s ease forwards; }
+
+    </style>
 </head>
-<body class="min-h-screen pb-20">
+<body>
 
-<div id="alertModal" class="fixed inset-0 hidden z-[500] flex items-center justify-center p-6 bg-black/90 backdrop-blur-xl">
-  <div class="glass-panel rounded-[3rem] p-10 max-w-sm w-full text-center border-blue-500/40">
-    <div id="alertIcon" class="text-5xl mb-6 text-blue-500"></div>
-    <h3 id="alertTitle" class="heading-font text-xs mb-3 uppercase tracking-widest text-white"></h3>
-    <p id="alertMessage" class="text-gray-400 text-sm leading-relaxed mb-8"></p>
-    <button onclick="closeAlert()" class="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] transition-all">
-      Acknowledge
-    </button>
-  </div>
-</div>
-
-<div id="authModal" class="fixed inset-0 hidden z-[300] flex items-center justify-center p-6 bg-black/95">
-  <div class="glass-panel rounded-[3rem] p-12 max-w-md w-full text-center">
-    <div class="w-20 h-20 bg-blue-600/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-blue-500/20">
-        <i class="fa-solid fa-shield-halved text-3xl text-blue-500"></i>
-    </div>
-    <h2 class="heading-font text-xl mb-2 italic">GATEWAY</h2>
-    <p class="text-gray-500 text-[9px] mb-10 uppercase tracking-[0.4em]">Administration Security</p>
-    
-    <input type="password" id="pinInput" placeholder="••••" maxlength="4" 
-      class="w-full text-center text-5xl tracking-[0.5em] py-6 rounded-3xl mb-8 font-black">
-    
-    <div class="flex gap-4">
-        <button onclick="closeAuth()" class="flex-1 py-4 text-gray-500 text-[10px] font-bold uppercase tracking-widest">Cancel</button>
-        <button onclick="verifyPin()" class="flex-1 py-4 bg-white text-black rounded-2xl font-black text-[10px] uppercase tracking-widest">Verify</button>
-    </div>
-  </div>
-</div>
-
-<div id="adminDashboard" class="fixed inset-0 hidden z-[400] admin-bg overflow-y-auto no-scrollbar">
-    <nav class="p-6 border-b border-white/5 flex justify-between items-center sticky top-0 bg-black/80 backdrop-blur-xl z-[10]">
-        <div>
-            <h2 class="heading-font text-lg italic tracking-tighter">ADMIN <span class="text-blue-500">DASHBOARD</span></h2>
-            <p class="text-[9px] text-gray-500 uppercase tracking-widest">Registry Management System</p>
-        </div>
-        <button onclick="closeDashboard()" class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/5 hover:bg-red-500/20 transition-all">
-            <i class="fa-solid fa-xmark text-xl"></i>
-        </button>
-    </nav>
-
-    <div class="max-w-7xl mx-auto p-6 lg:p-12 grid lg:grid-cols-2 gap-10">
-        <div class="glass-panel rounded-[2.5rem] p-8">
-            <h3 class="heading-font text-[10px] mb-8 uppercase text-blue-500 tracking-widest flex items-center gap-3">
-                <i class="fa-solid fa-plus-circle"></i> Create New Entry
-            </h3>
-            <div class="space-y-5">
-                <div>
-                    <label class="text-[9px] uppercase font-black text-gray-500 ml-2 mb-2 block">Category Selection</label>
-                    <select id="adminCatSelect" onchange="refreshAdminList()" class="w-full p-5 rounded-2xl"></select>
-                </div>
-                <div>
-                    <label class="text-[9px] uppercase font-black text-gray-500 ml-2 mb-2 block">Candidate Details</label>
-                    <input type="text" id="nomName" placeholder="Full Name" class="w-full p-5 rounded-2xl mb-4">
-                    <input type="text" id="nomPos" placeholder="Position / Role" class="w-full p-5 rounded-2xl mb-4">
-                    <input type="text" id="nomImg" placeholder="Image URL (Direct Link)" class="w-full p-5 rounded-2xl">
-                </div>
-                <button onclick="saveNominee()" class="w-full py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-black uppercase text-xs tracking-[0.2em] transition-all shadow-xl shadow-blue-600/20 mt-4">
-                    Register Nominee
-                </button>
-            </div>
-        </div>
-
-        <div class="glass-panel rounded-[2.5rem] p-8">
-            <div class="flex justify-between items-center mb-8">
-                <h3 class="heading-font text-[10px] uppercase tracking-widest">Current Registry</h3>
-                <span id="regCount" class="status-badge bg-blue-600/10 text-blue-400">0 Items</span>
-            </div>
-            <div id="adminNomineeList" class="space-y-4 max-h-[600px] overflow-y-auto pr-2 no-scrollbar">
-                </div>
-        </div>
-    </div>
-</div>
-
-<header class="relative pt-32 pb-20 px-6 text-center">
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-blue-600/10 blur-[120px] -z-10 rounded-full"></div>
-    <h1 class="heading-font text-5xl md:text-8xl italic leading-none tracking-tighter mb-4">
-        ELITE <span class="gold-gradient">DIOR</span>
-    </h1>
-    <div class="flex items-center justify-center gap-4">
-        <div class="h-[1px] w-12 bg-blue-600/30"></div>
-        <p class="text-gray-500 text-[10px] md:text-xs tracking-[0.6em] uppercase font-bold">Official Awards 2026</p>
-        <div class="h-[1px] w-12 bg-blue-600/30"></div>
-    </div>
-</header>
-
-<main class="max-w-7xl mx-auto px-6">
-    <div class="mb-10 flex items-center justify-between border-b border-white/5 pb-6">
-        <h2 class="heading-font text-sm md:text-xl italic tracking-widest">Award Categories</h2>
-        <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest">11 Fields Live</span>
-    </div>
-    
-    <div id="publicGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pb-40">
-        </div>
-</main>
-
-<div id="votingModal" class="fixed inset-0 hidden z-[200] bg-black/98 overflow-y-auto no-scrollbar">
-    <div class="p-8 md:p-20 max-w-7xl mx-auto">
-        <div class="flex justify-between items-start mb-20">
-            <div>
-                <h2 id="votingTitle" class="heading-font text-4xl md:text-6xl italic gold-gradient mb-4"></h2>
-                <p class="text-xs text-gray-500 uppercase tracking-[0.4em]">Secure Balloting Procedure</p>
-            </div>
-            <button onclick="closeVoting()" class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all">
-                <i class="fa-solid fa-xmark text-2xl"></i>
+    <div id="alertOverlay" class="fixed inset-0 hidden z-[1000] flex items-center justify-center bg-black/80 backdrop-blur-md">
+        <div class="alert-modal-centered animate-entry">
+            <div id="alertIcon" class="text-6xl mb-6"></div>
+            <h3 id="alertTitle" class="heading-font text-xs uppercase tracking-[0.3em] mb-4 text-white"></h3>
+            <p id="alertMessage" class="text-gray-400 text-sm mb-10 leading-relaxed"></p>
+            <button onclick="closeAlert()" class="w-full py-4 bg-white text-black rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-blue-600 hover:text-white transition-all">
+                Dismiss
             </button>
         </div>
-        
-        <div id="votingGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8">
-            </div>
     </div>
-</div>
 
-<button onclick="openAuth()" class="fixed bottom-10 right-10 w-16 h-16 bg-blue-600 text-white rounded-[1.5rem] flex items-center justify-center shadow-2xl z-50 hover:scale-110 active:scale-95 transition-all shadow-blue-600/30">
-    <i class="fa-solid fa-crown text-xl"></i>
-</button>
+    <div id="authModal" class="fixed inset-0 hidden z-[500] flex items-center justify-center bg-black/95">
+        <div class="alert-modal-centered border-white/5 animate-entry">
+            <div class="w-20 h-20 rounded-full bg-blue-600/10 flex items-center justify-center mx-auto mb-8 border border-blue-500/20">
+                <i class="fa-solid fa-key text-blue-500 text-2xl"></i>
+            </div>
+            <h2 class="heading-font text-lg mb-8 italic">AUTHORIZATION</h2>
+            <input type="password" id="pinInput" placeholder="••••" maxlength="4" class="w-full text-center text-5xl tracking-[0.5em] mb-8">
+            <div class="flex gap-4">
+                <button onclick="closeAuth()" class="flex-1 py-4 text-gray-500 text-[10px] font-bold uppercase tracking-widest">Abort</button>
+                <button onclick="verifyPin()" class="flex-1 py-4 bg-blue-600 rounded-2xl font-black text-[10px] uppercase tracking-widest">Unlock</button>
+            </div>
+        </div>
+    </div>
 
-<script>
-/* ---------------- FULL STATE (11 CATEGORIES) ---------------- */
-let categories = JSON.parse(localStorage.getItem('elite_league_final')) || {
-  best_player: { name: "Best Player", max: 5, nominees: [] },
-  best_goalkeeper: { name: "Best Goalkeeper", max: 5, nominees: [] },
-  best_defender: { name: "Best Defender", max: 5, nominees: [] },
-  best_midfielder: { name: "Best Midfielder", max: 5, nominees: [] },
-  best_playmaker: { name: "Best Playmaker", max: 5, nominees: [] },
-  best_assist: { name: "Best Assist", max: 5, nominees: [] },
-  best_scorer: { name: "Best Goal Scorer", max: 5, nominees: [] },
-  best_team: { name: "Best Team", max: 5, nominees: [] },
-  best_coach: { name: "Best Coach", max: 5, nominees: [] },
-  elite_dior_nominees: { name: "Elite Dior Nominees", max: 30, nominees: [] },
-  elite_dior: { name: "Elite Dior", max: 1, nominees: [] }
-};
+    <div id="adminDashboard" class="fixed inset-0 hidden z-[600] bg-black overflow-y-auto no-scrollbar">
+        <nav class="p-8 border-b border-white/5 flex justify-between items-center sticky top-0 bg-black/90 backdrop-blur-xl z-10">
+            <div>
+                <h2 class="heading-font text-lg italic tracking-tighter">ADMIN <span class="text-blue-500">SUITE</span></h2>
+                <p class="text-[9px] text-gray-500 uppercase tracking-widest">Registry Control v2.0</p>
+            </div>
+            <button onclick="closeDashboard()" class="w-14 h-14 flex items-center justify-center rounded-2xl bg-white/5 hover:bg-red-500/10 transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </nav>
 
-/* ---------------- CORE INITIALIZATION ---------------- */
-function init() {
-    localStorage.setItem('elite_league_final', JSON.stringify(categories));
-    const grid = document.getElementById('publicGrid');
-    const select = document.getElementById('adminCatSelect');
-    grid.innerHTML = "";
-    select.innerHTML = "";
-
-    Object.keys(categories).forEach(key => {
-        const cat = categories[key];
-        const count = cat.nominees.length;
-        
-        // Public Cards
-        grid.innerHTML += `
-            <div onclick="openVoting('${key}')" class="glass-panel cat-card p-10 rounded-[2.5rem] cursor-pointer group">
-                <div class="flex flex-col h-full">
-                    <h3 class="heading-font text-[10px] uppercase mb-12 tracking-wider group-hover:text-blue-400 transition-colors leading-relaxed">${cat.name}</h3>
-                    <div class="mt-auto flex items-center justify-between">
-                        <div class="flex flex-col">
-                            <span class="text-[9px] text-gray-500 font-bold uppercase tracking-widest mb-1">Status</span>
-                            <span class="text-xs font-black ${count > 0 ? 'text-blue-500' : 'text-gray-600'}">${count} / ${cat.max}</span>
+        <div class="max-w-7xl mx-auto p-6 lg:p-12 grid lg:grid-cols-12 gap-10">
+            <div class="lg:col-span-5">
+                <div class="solid-modal rounded-[2.5rem] p-10">
+                    <h3 class="heading-font text-[10px] mb-10 uppercase text-blue-500 flex items-center gap-4">
+                        <i class="fa-solid fa-user-plus"></i> New Candidate
+                    </h3>
+                    <div class="space-y-6">
+                        <div>
+                            <label class="text-[9px] uppercase font-black text-gray-500 ml-2 mb-2 block">Category</label>
+                            <select id="adminCatSelect" onchange="refreshAdminList()" class="w-full"></select>
                         </div>
-                        <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-blue-600 transition-all">
-                            <i class="fa-solid fa-arrow-right-long text-[10px]"></i>
+                        <div>
+                            <label class="text-[9px] uppercase font-black text-gray-500 ml-2 mb-2 block">Player Details</label>
+                            <input type="text" id="nomName" placeholder="Candidate Name" class="w-full mb-4">
+                            <input type="text" id="nomPos" placeholder="Position / Role" class="w-full mb-4">
+                            <input type="text" id="nomImg" placeholder="Image URL (Unsplash/Imgur)" class="w-full">
                         </div>
+                        <button onclick="saveNominee()" class="w-full py-5 bg-white text-black rounded-2xl font-black uppercase text-xs tracking-[0.2em] hover:bg-blue-600 hover:text-white transition-all mt-4">
+                            Commit to Registry
+                        </button>
                     </div>
                 </div>
             </div>
-        `;
-        
-        // Admin Options
-        select.innerHTML += `<option value="${key}">${cat.name}</option>`;
-    });
-}
 
-/* ---------------- ALERT SYSTEM (Centered) ---------------- */
-function showAlert(title, message, iconClass = "fa-circle-info") {
-    document.getElementById('alertTitle').textContent = title;
-    document.getElementById('alertMessage').textContent = message;
-    document.getElementById('alertIcon').innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
-    document.getElementById('alertModal').classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeAlert() {
-    document.getElementById('alertModal').classList.add('hidden');
-    if (!document.getElementById('votingModal').classList.contains('hidden') || 
-        !document.getElementById('adminDashboard').classList.contains('hidden')) {
-        document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = 'auto';
-    }
-}
-
-/* ---------------- ADMIN AUTH ---------------- */
-function openAuth() { document.getElementById('authModal').classList.remove('hidden'); }
-function closeAuth() { document.getElementById('authModal').classList.add('hidden'); }
-
-function verifyPin() {
-    const pin = document.getElementById('pinInput').value;
-    if(pin === "3478") {
-        closeAuth();
-        document.getElementById('pinInput').value = "";
-        document.getElementById('adminDashboard').classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-        refreshAdminList();
-    } else {
-        showAlert("Access Denied", "Incorrect PIN code. Authorization failed.", "fa-lock");
-    }
-}
-
-function closeDashboard() { 
-    document.getElementById('adminDashboard').classList.add('hidden'); 
-    document.body.style.overflow = 'auto';
-}
-
-/* ---------------- ADMIN LOGIC ---------------- */
-function refreshAdminList() {
-    const key = document.getElementById('adminCatSelect').value;
-    const list = document.getElementById('adminNomineeList');
-    list.innerHTML = "";
-    document.getElementById('regCount').textContent = `${categories[key].nominees.length} Entries`;
-
-    categories[key].nominees.forEach((nom, index) => {
-        list.innerHTML += `
-            <div class="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/5 group">
-                <img src="${nom.image}" class="w-12 h-12 rounded-xl object-cover border border-white/10">
-                <div class="flex-1 overflow-hidden">
-                    <p class="text-[10px] font-black uppercase truncate">${nom.name}</p>
-                    <p class="text-[8px] text-gray-500 uppercase tracking-widest">${nom.position}</p>
+            <div class="lg:col-span-7">
+                <div class="solid-modal rounded-[2.5rem] p-10 min-h-[500px]">
+                    <div class="flex justify-between items-center mb-10">
+                        <h3 class="heading-font text-[10px] uppercase tracking-widest">Live Registry</h3>
+                        <span id="regCount" class="px-4 py-1 rounded-full bg-blue-600/10 text-blue-500 text-[10px] font-black uppercase">0 Entries</span>
+                    </div>
+                    <div id="adminNomineeList" class="grid sm:grid-cols-2 gap-4">
+                        </div>
                 </div>
-                <button onclick="deleteNominee('${key}', ${index})" class="w-10 h-10 flex items-center justify-center text-red-500/50 hover:text-red-500 transition-all">
-                    <i class="fa-solid fa-trash-can"></i>
+            </div>
+        </div>
+    </div>
+
+    <header class="pt-32 pb-20 text-center relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/10 blur-[150px] -z-10"></div>
+        <h1 class="heading-font text-5xl md:text-8xl italic leading-none mb-6">
+            ELITE <span class="gold-gradient">DIOR</span>
+        </h1>
+        <div class="flex items-center justify-center gap-6">
+            <div class="h-[1px] w-16 bg-white/10"></div>
+            <p class="text-gray-500 text-[10px] md:text-xs tracking-[0.6em] uppercase font-bold">2026 Awards Terminal</p>
+            <div class="h-[1px] w-16 bg-white/10"></div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6">
+        <div id="publicGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-40">
+            </div>
+    </main>
+
+    <div id="votingModal" class="fixed inset-0 hidden z-[400] bg-black overflow-y-auto no-scrollbar">
+        <div class="p-8 md:p-20 max-w-7xl mx-auto">
+            <div class="flex justify-between items-start mb-20">
+                <div>
+                    <h2 id="votingTitle" class="heading-font text-4xl md:text-6xl italic gold-gradient mb-4"></h2>
+                    <p class="text-xs text-gray-500 uppercase tracking-[0.4em]">Official Selection Process</p>
+                </div>
+                <button onclick="closeVoting()" class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
                 </button>
             </div>
-        `;
-    });
-}
-
-function saveNominee() {
-    const key = document.getElementById('adminCatSelect').value;
-    const name = document.getElementById('nomName').value;
-    const pos = document.getElementById('nomPos').value;
-    const img = document.getElementById('nomImg').value;
-
-    if(!name || !pos) {
-        showAlert("Entry Error", "Candidate name and position are required fields.", "fa-triangle-exclamation");
-        return;
-    }
-
-    if(categories[key].nominees.length >= categories[key].max) {
-        showAlert("Registry Full", "This category has reached its maximum nominee limit.", "fa-box");
-        return;
-    }
-
-    categories[key].nominees.push({
-        id: 'id-' + Date.now(),
-        name,
-        position: pos,
-        image: img || 'https://images.unsplash.com/photo-1543351611-58f69d7c1781?auto=format&fit=crop&q=80&w=400'
-    });
-
-    document.getElementById('nomName').value = "";
-    document.getElementById('nomPos').value = "";
-    document.getElementById('nomImg').value = "";
-
-    init();
-    refreshAdminList();
-    showAlert("Confirmed", `${name} has been enrolled in ${categories[key].name}.`, "fa-circle-check");
-}
-
-function deleteNominee(key, index) {
-    categories[key].nominees.splice(index, 1);
-    init();
-    refreshAdminList();
-}
-
-/* ---------------- VOTING SYSTEM ---------------- */
-let activeVotingKey = null;
-
-function openVoting(key) {
-    activeVotingKey = key;
-    const cat = categories[key];
-    document.getElementById('votingTitle').textContent = cat.name;
-    const grid = document.getElementById('votingGrid');
-    
-    // Check if category is empty
-    if(cat.nominees.length === 0) {
-        grid.innerHTML = `
-            <div class="col-span-full py-32 flex flex-col items-center text-center opacity-40">
-                <div class="w-24 h-24 mb-8 border-2 border-dashed border-gray-600 rounded-full flex items-center justify-center">
-                    <i class="fa-solid fa-lock text-3xl"></i>
+            
+            <div id="votingGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8">
                 </div>
-                <h3 class="heading-font text-xl mb-3">NOMINEES NOT YET RELEASED</h3>
-                <p class="text-[9px] uppercase tracking-[0.4em] text-gray-400">Registry access is restricted by Elite League Administration</p>
-            </div>
-        `;
-    } else {
-        grid.innerHTML = "";
-        cat.nominees.forEach(n => {
-            grid.innerHTML += `
-                <div class="glass-panel p-6 rounded-[2.5rem] flex flex-col items-center group hover:border-blue-500 transition-all duration-500">
-                    <div class="w-full aspect-[4/5] rounded-3xl overflow-hidden mb-6 border border-white/5 relative">
-                        <img src="${n.image}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+        </div>
+    </div>
+
+    <button onclick="openAuth()" class="fixed bottom-10 right-10 w-16 h-16 bg-blue-600 text-white rounded-[1.5rem] flex items-center justify-center shadow-2xl z-50 hover:scale-110 active:scale-95 transition-all">
+        <i class="fa-solid fa-crown text-xl"></i>
+    </button>
+
+    <script>
+        /* ---------------- STATE MANAGEMENT (11 CATEGORIES) ---------------- */
+        let categories = JSON.parse(localStorage.getItem('elite_league_db_v2')) || {
+            best_player: { name: "Best Player", max: 5, nominees: [] },
+            best_goalkeeper: { name: "Best Goalkeeper", max: 5, nominees: [] },
+            best_defender: { name: "Best Defender", max: 5, nominees: [] },
+            best_midfielder: { name: "Best Midfielder", max: 5, nominees: [] },
+            best_playmaker: { name: "Best Playmaker", max: 5, nominees: [] },
+            best_assist: { name: "Best Assist", max: 5, nominees: [] },
+            best_scorer: { name: "Best Goal Scorer", max: 5, nominees: [] },
+            best_team: { name: "Best Team", max: 5, nominees: [] },
+            best_coach: { name: "Best Coach", max: 5, nominees: [] },
+            elite_dior_nominees: { name: "Elite Dior Nominees", max: 30, nominees: [] },
+            elite_dior: { name: "Elite Dior Winner", max: 1, nominees: [] }
+        };
+
+        /* ---------------- INITIALIZATION ---------------- */
+        function initTerminal() {
+            localStorage.setItem('elite_league_db_v2', JSON.stringify(categories));
+            const grid = document.getElementById('publicGrid');
+            const select = document.getElementById('adminCatSelect');
+            
+            grid.innerHTML = "";
+            select.innerHTML = "";
+
+            Object.keys(categories).forEach(key => {
+                const cat = categories[key];
+                
+                // Public Grid Item
+                grid.innerHTML += `
+                    <div onclick="openVoting('${key}')" class="cat-card group">
+                        <div class="flex flex-col h-full">
+                            <h3 class="heading-font text-[11px] uppercase mb-16 tracking-widest leading-relaxed">${cat.name}</h3>
+                            <div class="mt-auto flex justify-between items-center">
+                                <span class="text-xs font-black text-blue-500">${cat.nominees.length}/${cat.max}</span>
+                                <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-blue-600 transition-colors">
+                                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <h4 class="heading-font text-[10px] uppercase text-center mb-1 group-hover:text-blue-400 transition-colors">${n.name}</h4>
-                    <p class="text-[8px] text-gray-500 font-black uppercase mb-8 tracking-[0.2em]">${n.position}</p>
-                    <button onclick="submitVote('${n.id}')" class="w-full py-4 bg-white text-black font-black text-[9px] uppercase tracking-widest rounded-2xl hover:bg-blue-600 hover:text-white transition-all shadow-xl active:scale-95">
-                        Cast Choice
-                    </button>
-                </div>
-            `;
-        });
-    }
+                `;
 
-    document.getElementById('votingModal').classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-}
+                // Admin Category Dropdown
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = cat.name;
+                select.appendChild(option);
+            });
+        }
 
-function closeVoting() {
-    document.getElementById('votingModal').classList.add('hidden');
-    document.body.style.overflow = 'auto';
-}
+        /* ---------------- CENTERED ALERTS ---------------- */
+        function showAlert(title, message, iconType = "info") {
+            const icons = {
+                info: "fa-circle-info text-blue-500",
+                success: "fa-circle-check text-green-500",
+                error: "fa-shield-halved text-red-500"
+            };
+            document.getElementById('alertTitle').textContent = title;
+            document.getElementById('alertMessage').textContent = message;
+            document.getElementById('alertIcon').innerHTML = `<i class="fa-solid ${icons[iconType]}"></i>`;
+            document.getElementById('alertOverlay').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
 
-function submitVote(nomineeId) {
-    const votes = JSON.parse(localStorage.getItem('elite_votes_final')) || {};
-    
-    if(votes[activeVotingKey]) {
-        showAlert("Security Lockdown", "You have already finalized your selection for this category.", "fa-shield-halved");
-        return;
-    }
+        function closeAlert() {
+            document.getElementById('alertOverlay').classList.add('hidden');
+            if (document.getElementById('votingModal').classList.contains('hidden') && 
+                document.getElementById('adminDashboard').classList.contains('hidden')) {
+                document.body.style.overflow = 'auto';
+            }
+        }
 
-    votes[activeVotingKey] = nomineeId;
-    localStorage.setItem('elite_votes_final', JSON.stringify(votes));
-    showAlert("Vote Received", "Your choice has been securely transmitted and encrypted in the league vault.", "fa-circle-check");
-    closeVoting();
-}
+        /* ---------------- AUTHENTICATION ---------------- */
+        function openAuth() { document.getElementById('authModal').classList.remove('hidden'); }
+        function closeAuth() { 
+            document.getElementById('authModal').classList.add('hidden'); 
+            document.getElementById('pinInput').value = "";
+        }
 
-// Global Init
-init();
-</script>
+        function verifyPin() {
+            const pin = document.getElementById('pinInput').value;
+            if(pin === "3478") {
+                closeAuth();
+                document.getElementById('adminDashboard').classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                refreshAdminList();
+            } else {
+                showAlert("Access Denied", "Security PIN provided is incorrect.", "error");
+            }
+        }
+
+        function closeDashboard() { 
+            document.getElementById('adminDashboard').classList.add('hidden'); 
+            document.body.style.overflow = 'auto';
+        }
+
+        /* ---------------- ADMIN OPERATIONS ---------------- */
+        function refreshAdminList() {
+            const key = document.getElementById('adminCatSelect').value;
+            const list = document.getElementById('adminNomineeList');
+            list.innerHTML = "";
+            document.getElementById('regCount').textContent = `${categories[key].nominees.length} Entries`;
+
+            categories[key].nominees.forEach((n, index) => {
+                list.innerHTML += `
+                    <div class="bg-white/5 p-4 rounded-2xl flex items-center gap-4 border border-white/5">
+                        <img src="${n.image}" class="w-12 h-12 rounded-xl object-cover">
+                        <div class="flex-1 overflow-hidden">
+                            <h4 class="text-[10px] font-black uppercase truncate">${n.name}</h4>
+                            <p class="text-[8px] text-gray-500 uppercase">${n.position}</p>
+                        </div>
+                        <button onclick="deleteNominee('${key}', ${index})" class="text-red-500/50 hover:text-red-500 transition-colors p-2">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                `;
+            });
+        }
+
+        function saveNominee() {
+            const key = document.getElementById('adminCatSelect').value;
+            const name = document.getElementById('nomName').value;
+            const pos = document.getElementById('nomPos').value;
+            const img = document.getElementById('nomImg').value;
+
+            if(!name || !pos) return showAlert("Input Error", "Name and Position are required.", "error");
+            if(categories[key].nominees.length >= categories[key].max) return showAlert("Limit Reached", "Category is currently full.", "error");
+
+            categories[key].nominees.push({
+                id: 'player-' + Date.now(),
+                name,
+                position: pos,
+                image: img || 'https://via.placeholder.com/400x500/0a0a0f/ffffff?text=ELITE+NOMINEE'
+            });
+
+            document.getElementById('nomName').value = "";
+            document.getElementById('nomPos').value = "";
+            document.getElementById('nomImg').value = "";
+
+            initTerminal();
+            refreshAdminList();
+            showAlert("Success", "Candidate registered successfully.", "success");
+        }
+
+        function deleteNominee(key, index) {
+            categories[key].nominees.splice(index, 1);
+            initTerminal();
+            refreshAdminList();
+        }
+
+        /* ---------------- PUBLIC VOTING ENGINE ---------------- */
+        let currentKey = null;
+
+        function openVoting(key) {
+            currentKey = key;
+            const cat = categories[key];
+            document.getElementById('votingTitle').textContent = cat.name;
+            const grid = document.getElementById('votingGrid');
+            
+            if(cat.nominees.length === 0) {
+                // LOCKDOWN STATE
+                grid.innerHTML = `
+                    <div class="col-span-full py-40 flex flex-col items-center justify-center text-center">
+                        <div class="w-24 h-24 mb-10 border border-white/10 rounded-full flex items-center justify-center relative">
+                            <i class="fa-solid fa-lock text-3xl opacity-20"></i>
+                            <div class="absolute inset-0 animate-pulse bg-blue-600/5 rounded-full"></div>
+                        </div>
+                        <h3 class="heading-font text-2xl mb-4 gold-gradient">REGISTRY LOCKED</h3>
+                        <p class="text-[10px] tracking-[0.4em] text-gray-500 uppercase font-black">Nominees for this category have not been released yet</p>
+                    </div>
+                `;
+            } else {
+                // VOTING STATE
+                grid.innerHTML = "";
+                cat.nominees.forEach(n => {
+                    grid.innerHTML += `
+                        <div class="solid-modal p-6 rounded-[2.5rem] flex flex-col items-center group">
+                            <div class="w-full aspect-[4/5] rounded-3xl overflow-hidden mb-6 border border-white/5 relative">
+                                <img src="${n.image}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            </div>
+                            <h4 class="heading-font text-[11px] uppercase text-center mb-1">${n.name}</h4>
+                            <p class="text-[9px] text-gray-500 font-black uppercase mb-8 tracking-[0.2em]">${n.position}</p>
+                            <button onclick="submitVote('${n.id}')" class="w-full py-5 bg-white text-black font-black text-[10px] uppercase tracking-widest rounded-2xl hover:bg-blue-600 hover:text-white transition-all">
+                                Cast Ballot
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+
+            document.getElementById('votingModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVoting() {
+            document.getElementById('votingModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function submitVote(playerId) {
+            const votes = JSON.parse(localStorage.getItem('elite_terminal_ballots')) || {};
+            
+            if(votes[currentKey]) {
+                showAlert("Duplicate Entry", "You have already cast a vote in this category.", "error");
+                return;
+            }
+
+            votes[currentKey] = playerId;
+            localStorage.setItem('elite_terminal_ballots', JSON.stringify(votes));
+            showAlert("Confirmed", "Your selection has been securely recorded.", "success");
+            closeVoting();
+        }
+
+        /* ---------------- RUN ---------------- */
+        initTerminal();
+
+    </script>
 </body>
 </html>
