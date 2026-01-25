@@ -1192,68 +1192,6 @@ const contentData = {
     <div class="pt-10 flex flex-col gap-6">
         <div class="flex items-center gap-4">
             <div class="h-[1px] w-12 bg-blue-500"></div>
-            <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.5em]">Sector: PERSONNEL_REGISTRY</span>
-        </div>
-        <h3 class="text-6xl md:text-8xl font-black italic uppercase tracking-tighter text-white leading-[0.85]">
-            Player <br><span class="text-transparent stroke-blue-500" style="-webkit-text-stroke: 1px #3b82f6;">Selection</span>
-        </h3>
-    </div>
-
-    <div class="relative p-12 md:p-24 bg-[#020617] border border-blue-500/10 rounded-[4rem] overflow-hidden flex flex-col items-center justify-center text-center shadow-[0_50px_100px_rgba(0,0,0,0.8)]">
-        
-        <div class="absolute inset-0 opacity-20 pointer-events-none">
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_0%,transparent_80%)]"></div>
-            <div class="absolute inset-0" style="background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 30px 30px;"></div>
-        </div>
-
-        <div class="relative z-10 max-w-2xl">
-            <div class="w-24 h-24 bg-blue-600/5 text-blue-500 rounded-[2.5rem] flex items-center justify-center mx-auto mb-12 border border-blue-500/20 shadow-[0_0_60px_rgba(59,130,246,0.1)]">
-                <i class="fas fa-fingerprint text-4xl animate-pulse"></i>
-            </div>
-            
-            <h4 class="text-3xl md:text-5xl font-black text-white italic tracking-tighter uppercase leading-tight mb-8">
-                Registry <br>
-                <span class="text-blue-500">Suspended</span>
-            </h4>
-
-            <div class="inline-block px-8 py-3 bg-zinc-950 border border-white/5 rounded-2xl mb-12">
-                <span class="text-[10px] text-gray-500 font-black uppercase tracking-[0.5em]">Auth: ELITE_BOARD_ONLY</span>
-            </div>
-
-            <p class="text-base md:text-lg text-gray-400 font-bold uppercase leading-[2] tracking-widest mb-12 italic">
-                The personnel database is currently <span class="text-white">non-operational</span>. Player registration will commence once the <span class="text-blue-500 underline underline-offset-8 decoration-blue-500/30">Kick-off protocols</span> are verified by the board.
-            </p>
-
-            <div class="p-8 bg-blue-600/5 border border-blue-500/10 rounded-[3rem]">
-                <p class="text-[11px] text-blue-400 font-black uppercase tracking-[0.4em] leading-relaxed">
-                    Personnel uplink standby. Check back in the next update.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="flex flex-col gap-8 opacity-40">
-        <div class="flex items-center gap-6 p-8 border border-white/5 rounded-[2.5rem] bg-white/[0.01]">
-            <i class="fas fa-satellite-dish animate-bounce text-blue-500"></i>
-            <span class="text-[10px] text-gray-600 font-black uppercase tracking-widest leading-loose">Pinging personnel database... No response from Coord_Node.</span>
-        </div>
-    </div>
-
-    <div class="pt-10 text-center">
-        <p class="text-[8px] text-gray-800 font-black uppercase tracking-[0.8em]">
-            Elite League Identification System // Ver 2.0
-        </p>
-    </div>
-</div>`,
-
-
-
-
-'Team Selection': `
-<div class="animate-in pb-40 px-6 md:px-16 space-y-16">
-    <div class="pt-10 flex flex-col gap-6">
-        <div class="flex items-center gap-4">
-            <div class="h-[1px] w-12 bg-blue-500"></div>
             <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.5em]">Sector: VOTE_AUTHORIZATION</span>
         </div>
         <h3 class="text-6xl md:text-8xl font-black italic uppercase tracking-tighter text-white leading-[0.85]">
@@ -1311,9 +1249,6 @@ const contentData = {
         </p>
     </div>
 </div>`,
-
-    
-
 
     
 
