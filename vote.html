@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Elite Dior | Premier Voting Terminal</title>
+  <title>ELITE DIOR | Official Voting Terminal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;700;900&display=swap');
     
     :root {
       --elite-blue: #3b82f6;
@@ -16,199 +16,223 @@
     }
 
     body {
-      background-color: #000;
+      background: #000;
       color: #fff;
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
       background-image: 
-        radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 35%),
-        radial-gradient(circle at 100% 100%, rgba(30, 58, 138, 0.2) 0%, transparent 35%);
+        radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 100% 100%, rgba(30, 58, 138, 0.15) 0%, transparent 40%);
+      background-attachment: fixed;
     }
 
-    .heading-font { font-family: 'Syncopate', sans-serif; letter-spacing: -0.05em; }
+    .heading-font { font-family: 'Syncopate', sans-serif; }
 
-    /* Animated background glow */
-    .bg-glow {
-      position: fixed;
-      width: 100vw;
-      height: 100vh;
-      top: 0; left: 0;
-      background: radial-gradient(circle at 50% -20%, #1e3a8a 0%, transparent 50%);
-      z-index: -1;
-      opacity: 0.5;
-    }
-
+    /* Custom Glassmorphism */
     .glass-panel {
       background: var(--glass);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .premium-card {
-      background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
-      border: 1px solid rgba(255,255,255,0.05);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Premium Hover Effects */
+    .cat-card {
+      position: relative;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      overflow: hidden;
     }
 
-    .premium-card:hover {
+    .cat-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transform: translateX(-100%);
+      transition: 0.6s;
+    }
+
+    .cat-card:hover::before { transform: translateX(100%); }
+
+    .cat-card:hover {
       border-color: var(--elite-blue);
-      box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
-      transform: translateY(-8px) scale(1.02);
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.3);
     }
 
-    .gold-text {
-      background: linear-gradient(to right, #f59e0b, #fbbf24, #f59e0b);
+    /* Gold Text Effect */
+    .gold-gradient {
+      background: linear-gradient(to right, #b45309, #fbbf24, #f59e0b, #fff, #b45309);
+      background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      animation: shine 4s linear infinite;
     }
 
-    /* Custom Input Styles */
+    @keyframes shine {
+      to { background-position: 200% center; }
+    }
+
+    /* Admin Styles */
+    .admin-bg { background: linear-gradient(to bottom, #05050a, #000); }
+    
     input, select {
-      background: rgba(0, 0, 0, 0.4) !important;
+      background: rgba(255, 255, 255, 0.04) !important;
       border: 1px solid rgba(255, 255, 255, 0.1) !important;
-      transition: border 0.3s ease;
+      color: white !important;
+      outline: none;
     }
     input:focus { border-color: var(--elite-blue) !important; }
 
+    /* Modal Scrollbar */
     .no-scrollbar::-webkit-scrollbar { display: none; }
+    
+    .status-badge {
+        font-size: 9px;
+        padding: 2px 8px;
+        border-radius: 99px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
   </style>
 </head>
-<body class="min-h-screen pb-10">
+<body class="min-h-screen pb-20">
 
-<div class="bg-glow"></div>
-
-<div id="alertModal" class="fixed inset-0 hidden z-[300] flex items-center justify-center p-6 bg-black/90 backdrop-blur-md">
-  <div class="glass-panel border-blue-500/50 rounded-[2.5rem] p-10 max-w-sm w-full text-center scale-up">
-    <div id="alertIcon" class="text-5xl mb-6"></div>
-    <h3 id="alertTitle" class="heading-font text-sm mb-3 uppercase tracking-widest text-white"></h3>
+<div id="alertModal" class="fixed inset-0 hidden z-[500] flex items-center justify-center p-6 bg-black/90 backdrop-blur-xl">
+  <div class="glass-panel rounded-[3rem] p-10 max-w-sm w-full text-center border-blue-500/40">
+    <div id="alertIcon" class="text-5xl mb-6 text-blue-500"></div>
+    <h3 id="alertTitle" class="heading-font text-xs mb-3 uppercase tracking-widest text-white"></h3>
     <p id="alertMessage" class="text-gray-400 text-sm leading-relaxed mb-8"></p>
-    <button onclick="closeAlert()" class="w-full py-4 bg-white text-black rounded-2xl font-black uppercase text-xs tracking-[0.2em] hover:bg-blue-500 hover:text-white transition-all">
-      Continue
+    <button onclick="closeAlert()" class="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] transition-all">
+      Acknowledge
     </button>
   </div>
 </div>
 
-<div id="authModal" class="fixed inset-0 hidden z-[200] flex items-center justify-center p-6 bg-black/95">
+<div id="authModal" class="fixed inset-0 hidden z-[300] flex items-center justify-center p-6 bg-black/95">
   <div class="glass-panel rounded-[3rem] p-12 max-w-md w-full text-center">
-    <div class="w-20 h-20 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-8">
-        <i class="fa-solid fa-fingerprint text-4xl text-blue-500"></i>
+    <div class="w-20 h-20 bg-blue-600/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-blue-500/20">
+        <i class="fa-solid fa-shield-halved text-3xl text-blue-500"></i>
     </div>
-    <h2 class="heading-font text-2xl mb-2 italic">SECURE LOGIN</h2>
-    <p class="text-gray-500 text-[10px] mb-10 uppercase tracking-[0.4em]">Elite League Administrator</p>
+    <h2 class="heading-font text-xl mb-2 italic">GATEWAY</h2>
+    <p class="text-gray-500 text-[9px] mb-10 uppercase tracking-[0.4em]">Administration Security</p>
     
     <input type="password" id="pinInput" placeholder="••••" maxlength="4" 
-      class="w-full text-center text-5xl tracking-[0.5em] py-6 rounded-3xl mb-8 outline-none font-black text-white">
+      class="w-full text-center text-5xl tracking-[0.5em] py-6 rounded-3xl mb-8 font-black">
     
-    <div class="flex flex-col gap-3">
-        <button onclick="verifyPin()" class="w-full py-5 bg-blue-600 rounded-2xl font-black text-xs tracking-widest uppercase shadow-lg shadow-blue-600/20">Authorize Access</button>
-        <button onclick="closeAuth()" class="w-full py-4 text-gray-500 text-xs font-bold uppercase tracking-widest">Abort</button>
+    <div class="flex gap-4">
+        <button onclick="closeAuth()" class="flex-1 py-4 text-gray-500 text-[10px] font-bold uppercase tracking-widest">Cancel</button>
+        <button onclick="verifyPin()" class="flex-1 py-4 bg-white text-black rounded-2xl font-black text-[10px] uppercase tracking-widest">Verify</button>
     </div>
   </div>
 </div>
 
-<div id="adminDashboard" class="fixed inset-0 hidden z-[250] bg-[#020205] overflow-y-auto no-scrollbar">
-    <header class="p-8 border-b border-white/5 flex justify-between items-center sticky top-0 bg-black/80 backdrop-blur-xl z-10">
+<div id="adminDashboard" class="fixed inset-0 hidden z-[400] admin-bg overflow-y-auto no-scrollbar">
+    <nav class="p-6 border-b border-white/5 flex justify-between items-center sticky top-0 bg-black/80 backdrop-blur-xl z-[10]">
         <div>
-            <h2 class="heading-font text-xl italic text-blue-500">ADMIN SUITE</h2>
-            <p class="text-[9px] text-gray-500 uppercase tracking-widest">Registry Management v2.4</p>
+            <h2 class="heading-font text-lg italic tracking-tighter">ADMIN <span class="text-blue-500">DASHBOARD</span></h2>
+            <p class="text-[9px] text-gray-500 uppercase tracking-widest">Registry Management System</p>
         </div>
-        <button onclick="closeDashboard()" class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/5 hover:bg-red-500/20 transition-colors">
+        <button onclick="closeDashboard()" class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/5 hover:bg-red-500/20 transition-all">
             <i class="fa-solid fa-xmark text-xl"></i>
         </button>
-    </header>
+    </nav>
 
-    <div class="max-w-7xl mx-auto p-6 lg:p-12 grid lg:grid-cols-12 gap-10">
-        <div class="lg:col-span-5 space-y-8">
-            <div class="glass-panel rounded-[2.5rem] p-8">
-                <h3 class="text-lg font-black uppercase mb-8 flex items-center gap-4">
-                    <span class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-xs"><i class="fa-solid fa-plus"></i></span>
-                    Enroll Nominee
-                </h3>
-                <div class="space-y-5">
-                    <div>
-                        <label class="text-[10px] uppercase font-black text-blue-500 ml-2 mb-2 block">Target Category</label>
-                        <select id="adminCatSelect" onchange="refreshAdminList()" class="w-full p-5 rounded-2xl outline-none focus:ring-2 ring-blue-500/50"></select>
-                    </div>
-                    <input type="text" id="nomName" placeholder="Candidate Full Name" class="w-full p-5 rounded-2xl outline-none">
-                    <input type="text" id="nomPos" placeholder="Role (e.g., Striker, Manager)" class="w-full p-5 rounded-2xl outline-none">
-                    <input type="text" id="nomImg" placeholder="Display Image URL" class="w-full p-5 rounded-2xl outline-none">
-                    
-                    <button onclick="saveNominee()" class="w-full py-5 bg-white text-black rounded-2xl font-black uppercase text-xs tracking-[0.2em] hover:bg-blue-500 hover:text-white transition-all mt-4">
-                        Confirm Registration
-                    </button>
+    <div class="max-w-7xl mx-auto p-6 lg:p-12 grid lg:grid-cols-2 gap-10">
+        <div class="glass-panel rounded-[2.5rem] p-8">
+            <h3 class="heading-font text-[10px] mb-8 uppercase text-blue-500 tracking-widest flex items-center gap-3">
+                <i class="fa-solid fa-plus-circle"></i> Create New Entry
+            </h3>
+            <div class="space-y-5">
+                <div>
+                    <label class="text-[9px] uppercase font-black text-gray-500 ml-2 mb-2 block">Category Selection</label>
+                    <select id="adminCatSelect" onchange="refreshAdminList()" class="w-full p-5 rounded-2xl"></select>
                 </div>
+                <div>
+                    <label class="text-[9px] uppercase font-black text-gray-500 ml-2 mb-2 block">Candidate Details</label>
+                    <input type="text" id="nomName" placeholder="Full Name" class="w-full p-5 rounded-2xl mb-4">
+                    <input type="text" id="nomPos" placeholder="Position / Role" class="w-full p-5 rounded-2xl mb-4">
+                    <input type="text" id="nomImg" placeholder="Image URL (Direct Link)" class="w-full p-5 rounded-2xl">
+                </div>
+                <button onclick="saveNominee()" class="w-full py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-black uppercase text-xs tracking-[0.2em] transition-all shadow-xl shadow-blue-600/20 mt-4">
+                    Register Nominee
+                </button>
             </div>
         </div>
 
-        <div class="lg:col-span-7">
-            <div class="glass-panel rounded-[2.5rem] p-8 min-h-[600px]">
-                <div class="flex justify-between items-center mb-8">
-                    <h3 class="text-lg font-black uppercase">Live Registry</h3>
-                    <span id="regCount" class="bg-blue-600/20 text-blue-400 px-4 py-1 rounded-full text-[10px] font-bold">0 Active</span>
-                </div>
-                <div id="adminNomineeList" class="grid sm:grid-cols-2 gap-4">
-                    </div>
+        <div class="glass-panel rounded-[2.5rem] p-8">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="heading-font text-[10px] uppercase tracking-widest">Current Registry</h3>
+                <span id="regCount" class="status-badge bg-blue-600/10 text-blue-400">0 Items</span>
             </div>
+            <div id="adminNomineeList" class="space-y-4 max-h-[600px] overflow-y-auto pr-2 no-scrollbar">
+                </div>
         </div>
     </div>
 </div>
 
-<header class="relative pt-32 pb-20 px-6 text-center overflow-hidden">
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/10 blur-[150px] -z-10 rounded-full"></div>
-    <h1 class="heading-font text-5xl md:text-8xl italic tracking-tighter leading-none mb-6">
-        ELITE <span class="gold-text">DIOR</span>
+<header class="relative pt-32 pb-20 px-6 text-center">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-blue-600/10 blur-[120px] -z-10 rounded-full"></div>
+    <h1 class="heading-font text-5xl md:text-8xl italic leading-none tracking-tighter mb-4">
+        ELITE <span class="gold-gradient">DIOR</span>
     </h1>
     <div class="flex items-center justify-center gap-4">
-        <div class="h-[1px] w-12 bg-blue-500/30"></div>
-        <p class="text-gray-400 text-[10px] md:text-xs tracking-[0.6em] uppercase font-medium">AWARDS TERMINAL 2026</p>
-        <div class="h-[1px] w-12 bg-blue-500/30"></div>
+        <div class="h-[1px] w-12 bg-blue-600/30"></div>
+        <p class="text-gray-500 text-[10px] md:text-xs tracking-[0.6em] uppercase font-bold">Official Awards 2026</p>
+        <div class="h-[1px] w-12 bg-blue-600/30"></div>
     </div>
 </header>
 
 <main class="max-w-7xl mx-auto px-6">
-    <div class="mb-12 flex items-end justify-between border-b border-white/5 pb-6">
-        <h2 class="heading-font text-xl italic">Categories</h2>
-        <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Select to cast vote</p>
+    <div class="mb-10 flex items-center justify-between border-b border-white/5 pb-6">
+        <h2 class="heading-font text-sm md:text-xl italic tracking-widest">Award Categories</h2>
+        <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest">11 Fields Live</span>
     </div>
-    <div id="publicGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pb-32"></div>
+    
+    <div id="publicGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pb-40">
+        </div>
 </main>
 
-<div id="votingModal" class="fixed inset-0 hidden z-[150] bg-black/98 overflow-y-auto no-scrollbar">
-    <div class="p-8 md:p-16 max-w-7xl mx-auto">
-        <div class="flex justify-between items-center mb-16">
+<div id="votingModal" class="fixed inset-0 hidden z-[200] bg-black/98 overflow-y-auto no-scrollbar">
+    <div class="p-8 md:p-20 max-w-7xl mx-auto">
+        <div class="flex justify-between items-start mb-20">
             <div>
-                <h2 id="votingTitle" class="heading-font text-4xl italic mb-2 gold-text"></h2>
-                <p class="text-xs text-gray-500 uppercase tracking-[0.3em]">Choose your champion</p>
+                <h2 id="votingTitle" class="heading-font text-4xl md:text-6xl italic gold-gradient mb-4"></h2>
+                <p class="text-xs text-gray-500 uppercase tracking-[0.4em]">Secure Balloting Procedure</p>
             </div>
-            <button onclick="closeVoting()" class="w-16 h-16 flex items-center justify-center rounded-full border border-white/10 hover:bg-white hover:text-black transition-all">
+            <button onclick="closeVoting()" class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all">
                 <i class="fa-solid fa-xmark text-2xl"></i>
             </button>
         </div>
-        <div id="votingGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8"></div>
+        
+        <div id="votingGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8">
+            </div>
     </div>
 </div>
 
-<button onclick="openAuth()" class="fixed bottom-10 right-10 w-16 h-16 bg-blue-600 text-white rounded-[1.5rem] flex items-center justify-center shadow-2xl shadow-blue-600/40 z-50 hover:scale-110 active:scale-95 transition-all">
+<button onclick="openAuth()" class="fixed bottom-10 right-10 w-16 h-16 bg-blue-600 text-white rounded-[1.5rem] flex items-center justify-center shadow-2xl z-50 hover:scale-110 active:scale-95 transition-all shadow-blue-600/30">
     <i class="fa-solid fa-crown text-xl"></i>
 </button>
 
 <script>
-/* ---------------- DATA ---------------- */
-let categories = JSON.parse(localStorage.getItem('elite_dior_v3')) || {
+/* ---------------- FULL STATE (11 CATEGORIES) ---------------- */
+let categories = JSON.parse(localStorage.getItem('elite_league_final')) || {
   best_player: { name: "Best Player", max: 5, nominees: [] },
   best_goalkeeper: { name: "Best Goalkeeper", max: 5, nominees: [] },
   best_defender: { name: "Best Defender", max: 5, nominees: [] },
   best_midfielder: { name: "Best Midfielder", max: 5, nominees: [] },
   best_playmaker: { name: "Best Playmaker", max: 5, nominees: [] },
-  best_scorer: { name: "Best Scorer", max: 5, nominees: [] },
+  best_assist: { name: "Best Assist", max: 5, nominees: [] },
+  best_scorer: { name: "Best Goal Scorer", max: 5, nominees: [] },
+  best_team: { name: "Best Team", max: 5, nominees: [] },
   best_coach: { name: "Best Coach", max: 5, nominees: [] },
-  elite_dior: { name: "Elite Dior", max: 30, nominees: [] }
+  elite_dior_nominees: { name: "Elite Dior Nominees", max: 30, nominees: [] },
+  elite_dior: { name: "Elite Dior", max: 1, nominees: [] }
 };
 
-/* ---------------- CORE ENGINE ---------------- */
+/* ---------------- CORE INITIALIZATION ---------------- */
 function init() {
-    localStorage.setItem('elite_dior_v3', JSON.stringify(categories));
+    localStorage.setItem('elite_league_final', JSON.stringify(categories));
     const grid = document.getElementById('publicGrid');
     const select = document.getElementById('adminCatSelect');
     grid.innerHTML = "";
@@ -216,52 +240,64 @@ function init() {
 
     Object.keys(categories).forEach(key => {
         const cat = categories[key];
-        const isFull = cat.nominees.length >= cat.max;
+        const count = cat.nominees.length;
         
+        // Public Cards
         grid.innerHTML += `
-            <div onclick="openVoting('${key}')" class="premium-card p-8 rounded-[2.5rem] cursor-pointer relative group">
-                <div class="absolute top-6 right-8 text-[10px] font-black ${isFull ? 'text-green-500' : 'text-blue-500'}">
-                    ${cat.nominees.length}/${cat.max}
-                </div>
-                <h3 class="heading-font text-xs uppercase mb-12 tracking-wider group-hover:text-blue-400 transition-colors">${cat.name}</h3>
-                <div class="flex items-center justify-between mt-auto">
-                    <span class="text-[9px] text-gray-500 font-bold uppercase tracking-widest">View Nominees</span>
-                    <i class="fa-solid fa-arrow-right-long text-blue-500 group-hover:translate-x-2 transition-transform"></i>
+            <div onclick="openVoting('${key}')" class="glass-panel cat-card p-10 rounded-[2.5rem] cursor-pointer group">
+                <div class="flex flex-col h-full">
+                    <h3 class="heading-font text-[10px] uppercase mb-12 tracking-wider group-hover:text-blue-400 transition-colors leading-relaxed">${cat.name}</h3>
+                    <div class="mt-auto flex items-center justify-between">
+                        <div class="flex flex-col">
+                            <span class="text-[9px] text-gray-500 font-bold uppercase tracking-widest mb-1">Status</span>
+                            <span class="text-xs font-black ${count > 0 ? 'text-blue-500' : 'text-gray-600'}">${count} / ${cat.max}</span>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-blue-600 transition-all">
+                            <i class="fa-solid fa-arrow-right-long text-[10px]"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
+        
+        // Admin Options
         select.innerHTML += `<option value="${key}">${cat.name}</option>`;
     });
 }
 
-/* ---------------- CUSTOM ALERTS ---------------- */
-function showAlert(title, msg, iconType = "info") {
-    const icons = {
-        info: "fa-circle-info text-blue-500",
-        success: "fa-circle-check text-green-500",
-        warn: "fa-triangle-exclamation text-yellow-500",
-        error: "fa-shield-halved text-red-500"
-    };
+/* ---------------- ALERT SYSTEM (Centered) ---------------- */
+function showAlert(title, message, iconClass = "fa-circle-info") {
     document.getElementById('alertTitle').textContent = title;
-    document.getElementById('alertMessage').textContent = msg;
-    document.getElementById('alertIcon').innerHTML = `<i class="fa-solid ${icons[iconType]}"></i>`;
+    document.getElementById('alertMessage').textContent = message;
+    document.getElementById('alertIcon').innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
     document.getElementById('alertModal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
 }
-function closeAlert() { document.getElementById('alertModal').classList.add('hidden'); }
 
-/* ---------------- ADMIN SYSTEM ---------------- */
+function closeAlert() {
+    document.getElementById('alertModal').classList.add('hidden');
+    if (!document.getElementById('votingModal').classList.contains('hidden') || 
+        !document.getElementById('adminDashboard').classList.contains('hidden')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
+    }
+}
+
+/* ---------------- ADMIN AUTH ---------------- */
 function openAuth() { document.getElementById('authModal').classList.remove('hidden'); }
 function closeAuth() { document.getElementById('authModal').classList.add('hidden'); }
 
 function verifyPin() {
-    if(document.getElementById('pinInput').value === "3478") {
+    const pin = document.getElementById('pinInput').value;
+    if(pin === "3478") {
         closeAuth();
         document.getElementById('pinInput').value = "";
         document.getElementById('adminDashboard').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
         refreshAdminList();
     } else {
-        showAlert("Access Denied", "Unauthorized PIN entry detected. Security lockdown bypassed.", "error");
+        showAlert("Access Denied", "Incorrect PIN code. Authorization failed.", "fa-lock");
     }
 }
 
@@ -270,22 +306,23 @@ function closeDashboard() {
     document.body.style.overflow = 'auto';
 }
 
+/* ---------------- ADMIN LOGIC ---------------- */
 function refreshAdminList() {
     const key = document.getElementById('adminCatSelect').value;
     const list = document.getElementById('adminNomineeList');
     list.innerHTML = "";
-    document.getElementById('regCount').textContent = `${categories[key].nominees.length} Registered`;
-    
-    categories[key].nominees.forEach((n, index) => {
+    document.getElementById('regCount').textContent = `${categories[key].nominees.length} Entries`;
+
+    categories[key].nominees.forEach((nom, index) => {
         list.innerHTML += `
-            <div class="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/5">
-                <img src="${n.image}" class="w-12 h-12 rounded-xl object-cover border border-white/10">
+            <div class="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/5 group">
+                <img src="${nom.image}" class="w-12 h-12 rounded-xl object-cover border border-white/10">
                 <div class="flex-1 overflow-hidden">
-                    <p class="text-[10px] font-black uppercase truncate">${n.name}</p>
-                    <p class="text-[8px] text-gray-500 uppercase font-bold">${n.position}</p>
+                    <p class="text-[10px] font-black uppercase truncate">${nom.name}</p>
+                    <p class="text-[8px] text-gray-500 uppercase tracking-widest">${nom.position}</p>
                 </div>
-                <button onclick="deleteNominee('${key}', ${index})" class="text-red-500/50 hover:text-red-500 transition-colors">
-                    <i class="fa-solid fa-trash-can text-sm"></i>
+                <button onclick="deleteNominee('${key}', ${index})" class="w-10 h-10 flex items-center justify-center text-red-500/50 hover:text-red-500 transition-all">
+                    <i class="fa-solid fa-trash-can"></i>
                 </button>
             </div>
         `;
@@ -298,20 +335,30 @@ function saveNominee() {
     const pos = document.getElementById('nomPos').value;
     const img = document.getElementById('nomImg').value;
 
-    if(!name || !pos) return showAlert("Missing Info", "Nominee name and role are mandatory.", "warn");
-    if(categories[key].nominees.length >= categories[key].max) return showAlert("Capacity Full", "Maximum nominee limit reached for this field.", "error");
+    if(!name || !pos) {
+        showAlert("Entry Error", "Candidate name and position are required fields.", "fa-triangle-exclamation");
+        return;
+    }
+
+    if(categories[key].nominees.length >= categories[key].max) {
+        showAlert("Registry Full", "This category has reached its maximum nominee limit.", "fa-box");
+        return;
+    }
 
     categories[key].nominees.push({
-        id: Date.now(),
+        id: 'id-' + Date.now(),
         name,
         position: pos,
-        image: img || 'https://images.unsplash.com/photo-1543351611-58f69d7c1781?auto=format&fit=crop&q=80&w=300'
+        image: img || 'https://images.unsplash.com/photo-1543351611-58f69d7c1781?auto=format&fit=crop&q=80&w=400'
     });
 
-    ['nomName', 'nomPos', 'nomImg'].forEach(id => document.getElementById(id).value = "");
+    document.getElementById('nomName').value = "";
+    document.getElementById('nomPos').value = "";
+    document.getElementById('nomImg').value = "";
+
     init();
     refreshAdminList();
-    showAlert("Nominee Registered", `${name} has been added to the Elite registry.`, "success");
+    showAlert("Confirmed", `${name} has been enrolled in ${categories[key].name}.`, "fa-circle-check");
 }
 
 function deleteNominee(key, index) {
@@ -322,51 +369,67 @@ function deleteNominee(key, index) {
 
 /* ---------------- VOTING SYSTEM ---------------- */
 let activeVotingKey = null;
+
 function openVoting(key) {
     activeVotingKey = key;
     const cat = categories[key];
-    if(cat.nominees.length === 0) return showAlert("Notice", "Nominees for this category are strictly classified at this time.", "info");
-
     document.getElementById('votingTitle').textContent = cat.name;
     const grid = document.getElementById('votingGrid');
-    grid.innerHTML = "";
-
-    cat.nominees.forEach(n => {
-        grid.innerHTML += `
-            <div class="premium-card p-6 rounded-[2.5rem] flex flex-col items-center group">
-                <div class="w-full aspect-[4/5] rounded-3xl overflow-hidden mb-6 border border-white/5 relative">
-                    <img src="${n.image}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+    
+    // Check if category is empty
+    if(cat.nominees.length === 0) {
+        grid.innerHTML = `
+            <div class="col-span-full py-32 flex flex-col items-center text-center opacity-40">
+                <div class="w-24 h-24 mb-8 border-2 border-dashed border-gray-600 rounded-full flex items-center justify-center">
+                    <i class="fa-solid fa-lock text-3xl"></i>
                 </div>
-                <h4 class="heading-font text-[10px] uppercase text-center mb-1">${n.name}</h4>
-                <p class="text-[8px] text-gray-500 font-black uppercase mb-8 tracking-[0.2em]">${n.position}</p>
-                <button onclick="submitVote(${n.id})" class="w-full py-4 bg-white text-black font-black text-[9px] uppercase tracking-widest rounded-2xl hover:bg-blue-600 hover:text-white transition-all shadow-xl">
-                    Cast Choice
-                </button>
+                <h3 class="heading-font text-xl mb-3">NOMINEES NOT YET RELEASED</h3>
+                <p class="text-[9px] uppercase tracking-[0.4em] text-gray-400">Registry access is restricted by Elite League Administration</p>
             </div>
         `;
-    });
+    } else {
+        grid.innerHTML = "";
+        cat.nominees.forEach(n => {
+            grid.innerHTML += `
+                <div class="glass-panel p-6 rounded-[2.5rem] flex flex-col items-center group hover:border-blue-500 transition-all duration-500">
+                    <div class="w-full aspect-[4/5] rounded-3xl overflow-hidden mb-6 border border-white/5 relative">
+                        <img src="${n.image}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    </div>
+                    <h4 class="heading-font text-[10px] uppercase text-center mb-1 group-hover:text-blue-400 transition-colors">${n.name}</h4>
+                    <p class="text-[8px] text-gray-500 font-black uppercase mb-8 tracking-[0.2em]">${n.position}</p>
+                    <button onclick="submitVote('${n.id}')" class="w-full py-4 bg-white text-black font-black text-[9px] uppercase tracking-widest rounded-2xl hover:bg-blue-600 hover:text-white transition-all shadow-xl active:scale-95">
+                        Cast Choice
+                    </button>
+                </div>
+            `;
+        });
+    }
+
     document.getElementById('votingModal').classList.remove('hidden');
     document.body.style.overflow = 'hidden';
 }
 
-function closeVoting() { 
-    document.getElementById('votingModal').classList.add('hidden'); 
+function closeVoting() {
+    document.getElementById('votingModal').classList.add('hidden');
     document.body.style.overflow = 'auto';
 }
 
-function submitVote(id) {
-    const votes = JSON.parse(localStorage.getItem('elite_user_votes')) || {};
+function submitVote(nomineeId) {
+    const votes = JSON.parse(localStorage.getItem('elite_votes_final')) || {};
+    
     if(votes[activeVotingKey]) {
-        showAlert("Vote Registered", "Our system indicates you have already finalized your selection for this category.", "error");
+        showAlert("Security Lockdown", "You have already finalized your selection for this category.", "fa-shield-halved");
         return;
     }
-    votes[activeVotingKey] = id;
-    localStorage.setItem('elite_user_votes', JSON.stringify(votes));
-    showAlert("Transmission Successful", "Your vote has been securely encrypted and stored in the league vault.", "success");
+
+    votes[activeVotingKey] = nomineeId;
+    localStorage.setItem('elite_votes_final', JSON.stringify(votes));
+    showAlert("Vote Received", "Your choice has been securely transmitted and encrypted in the league vault.", "fa-circle-check");
     closeVoting();
 }
 
+// Global Init
 init();
 </script>
 </body>
