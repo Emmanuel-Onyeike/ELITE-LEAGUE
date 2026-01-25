@@ -1312,7 +1312,9 @@ const contentData = {
     </div>
 </div>`,
 
-'vote': `
+    
+
+'Vote': `
 <div class="space-y-8 animate-in pb-20 px-4 md:px-12">
   <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
     <div>
