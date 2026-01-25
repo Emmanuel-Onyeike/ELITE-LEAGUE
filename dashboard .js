@@ -1254,10 +1254,10 @@ const contentData = {
     <div class="pt-10 flex flex-col gap-6">
         <div class="flex items-center gap-4">
             <div class="h-[1px] w-12 bg-blue-500"></div>
-            <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.5em]">Sector: UNIT_ASSIGNMENT</span>
+            <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.5em]">Sector: VOTE_AUTHORIZATION</span>
         </div>
         <h3 class="text-6xl md:text-8xl font-black italic uppercase tracking-tighter text-white leading-[0.85]">
-            Team <br><span class="text-transparent stroke-blue-500" style="-webkit-text-stroke: 1px #3b82f6;">Selection</span>
+            Vote <br><span class="text-transparent stroke-blue-500" style="-webkit-text-stroke: 1px #3b82f6;">Selection</span>
         </h3>
     </div>
 
@@ -1270,38 +1270,38 @@ const contentData = {
 
         <div class="relative z-10 max-w-2xl">
             <div class="w-24 h-24 bg-blue-600/5 text-blue-500 rounded-[2.5rem] flex items-center justify-center mx-auto mb-12 border border-blue-500/20 shadow-[0_0_60px_rgba(59,130,246,0.1)]">
-                <i class="fas fa-lock text-4xl animate-pulse"></i>
+                <i class="fas fa-check-to-slot text-4xl animate-bounce"></i>
             </div>
             
             <h4 class="text-3xl md:text-5xl font-black text-white italic tracking-tighter uppercase leading-tight mb-8">
-                Tactical Units <br>
-                <span class="text-blue-500">Offline</span>
+                Ballot Portal <br>
+                <span class="text-blue-500">Live & Active</span>
             </h4>
 
             <div class="inline-block px-8 py-3 bg-zinc-950 border border-white/5 rounded-2xl mb-12">
-                <span class="text-[10px] text-gray-500 font-black uppercase tracking-[0.5em]">Protocol: LOCKED_BY_COORDINATORS</span>
+                <span class="text-[10px] text-gray-500 font-black uppercase tracking-[0.5em]">Protocol: ELITE_CUP_BALLOT_2026</span>
             </div>
 
             <p class="text-base md:text-lg text-gray-400 font-bold uppercase leading-[2] tracking-widest mb-12 italic">
-                The assignment terminal is currently <span class="text-white">encrypted</span>. Access will be authorized once the <span class="text-blue-500 underline underline-offset-8 decoration-blue-500/30">Coordinators</span> finalize the Elite Cup roster updates.
+                The voting terminal is now <span class="text-white">decrypted</span>. Cast your selection for the <span class="text-blue-500 underline underline-offset-8 decoration-blue-500/30">Elite Cup MVP</span> or authorize the starting roster.
             </p>
 
-            <div class="p-8 bg-blue-600/5 border border-blue-500/10 rounded-[3rem]">
+            <div class="p-8 bg-blue-600/10 border border-blue-500/20 rounded-[3rem] group cursor-pointer hover:bg-blue-600/20 transition-all">
                 <p class="text-[11px] text-blue-400 font-black uppercase tracking-[0.4em] leading-relaxed">
-                    Check back after the next system synchronization.
+                    Select a candidate below to initiate authorization.
                 </p>
             </div>
         </div>
     </div>
 
-    <div class="flex flex-col gap-8 opacity-40">
+    <div class="flex flex-col gap-8">
         <div class="flex items-center gap-6 p-8 border border-white/5 rounded-[2.5rem] bg-white/[0.01]">
-            <i class="fas fa-circle-notch animate-spin text-blue-500"></i>
-            <span class="text-[10px] text-gray-600 font-black uppercase tracking-widest">Awaiting board authorization for Unit 01...</span>
+            <i class="fas fa-user-check text-blue-500"></i>
+            <span class="text-[10px] text-gray-400 font-black uppercase tracking-widest">Voter Identity Verified: STANDBY...</span>
         </div>
         <div class="flex items-center gap-6 p-8 border border-white/5 rounded-[2.5rem] bg-white/[0.01]">
-            <i class="fas fa-circle-notch animate-spin text-blue-500"></i>
-            <span class="text-[10px] text-gray-600 font-black uppercase tracking-widest">Pending synchronization with Player Selection node...</span>
+            <i class="fas fa-database text-blue-500"></i>
+            <span class="text-[10px] text-gray-400 font-black uppercase tracking-widest">Synchronization with Player Selection node: SECURE</span>
         </div>
     </div>
 
@@ -1314,48 +1314,6 @@ const contentData = {
 
     
 
-'Vote': `
-<div class="space-y-8 animate-in pb-20 px-4 md:px-12">
-  <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
-    <div>
-      <div class="flex items-center gap-4 mb-4">
-        <div class="w-3 h-3 bg-blue-500 rounded-full animate-pulse shadow-[0_0_15px_rgba(59,130,246,0.4)]"></div>
-        <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.5em]">
-          Official Voting Authority
-        </span>
-      </div>
-
-      <h3 class="text-5xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none">
-        Cast Your <span class="text-blue-500">Vote</span>
-      </h3>
-
-      <p class="text-gray-500 text-[11px] uppercase tracking-[0.3em] font-bold mt-3">
-        2026 Cycle • Secure Ballot Channel
-      </p>
-    </div>
-
-    <div class="flex items-center gap-4">
-      <div class="bg-blue-600/10 border border-blue-500/30 px-8 py-4 rounded-2xl text-center">
-        <span class="text-[10px] text-blue-400 font-black uppercase tracking-[0.3em]">
-          Ballot ID: 04.01.2026
-        </span>
-      </div>
-
-      <button onclick="document.getElementById('loginModal').classList.remove('hidden'); document.getElementById('loginModal').classList.add('flex');"
-              class="px-6 py-3 bg-blue-600/30 hover:bg-blue-600 text-blue-300 hover:text-white font-black uppercase tracking-widest rounded-xl transition-all border border-blue-500/40 shadow-sm">
-        Access Voting Booth
-      </button>
-    </div>
-  </div>
-
-  <div id="votingZone" class="space-y-8"></div>
-
-  <div id="noVotingNotice" class="text-center py-16 text-gray-600 hidden">
-    <p class="text-xl font-bold uppercase tracking-widest">No active ballots</p>
-    <p class="text-sm mt-2">Awaiting authority release…</p>
-  </div>
-</div>
-`,
 
     
 
