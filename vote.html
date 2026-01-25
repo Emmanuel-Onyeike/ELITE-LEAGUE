@@ -2,242 +2,286 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Elite Dior Voting Terminal</title>
+  <title>Elite Dior Voting Terminal | Admin Suite</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;700;900&display=swap');
     
     body {
-      background: radial-gradient(circle at top right, #0a0a1a, #000000);
+      background: radial-gradient(circle at top right, #050510, #000);
       font-family: 'Inter', sans-serif;
-      scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
+    .heading-font { font-family: 'Syncopate', sans-serif; }
+
     .glass {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .admin-gradient {
+      background: linear-gradient(135deg, #1e3a8a 0%, #000 100%);
+    }
+
+    input, select {
+      background: rgba(255,255,255,0.05) !important;
+      border: 1px solid rgba(255,255,255,0.1) !important;
+      color: white !important;
     }
 
     .category-card:hover {
       border-color: #3b82f6;
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
-      transform: translateY(-4px);
+      transform: translateY(-5px);
     }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #000; }
-    ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
   </style>
 </head>
-<body class="text-white min-h-screen pb-20">
+<body class="text-white min-h-screen">
 
-<div id="customAlert" class="fixed inset-0 hidden z-[100] flex items-center justify-center p-6 bg-black/90">
-  <div class="glass border-blue-500/50 rounded-3xl p-8 max-w-sm w-full text-center">
-    <div id="alertIcon" class="text-4xl mb-4 text-blue-500">
-      <i class="fa-solid fa-circle-info"></i>
-    </div>
-    <p id="alertMessage" class="text-lg font-bold mb-6 italic uppercase tracking-wider"></p>
-    <button onclick="closeAlert()" class="w-full py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-black uppercase tracking-widest transition">
-      Acknowledge
-    </button>
+<div id="alertModal" class="fixed inset-0 hidden z-[200] flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm">
+  <div class="glass border-blue-500 rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl">
+    <div id="alertIcon" class="text-4xl mb-4 text-blue-500"></div>
+    <h3 id="alertTitle" class="heading-font text-sm mb-2 uppercase tracking-widest">Notification</h3>
+    <p id="alertMessage" class="text-gray-400 text-sm mb-6"></p>
+    <button onclick="closeAlert()" class="w-full py-3 bg-blue-600 rounded-xl font-bold uppercase text-xs tracking-widest">Dismiss</button>
   </div>
 </div>
 
-<header class="relative pt-20 pb-12 px-6 text-center">
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-64 bg-blue-600/10 blur-[120px] -z-10"></div>
-  <h1 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter leading-none">
-    ELITE <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-700">AWARDS</span>
-  </h1>
-  <div class="flex items-center justify-center gap-4 mt-6">
-    <span class="h-[1px] w-12 bg-gray-700"></span>
-    <p class="text-gray-400 text-xs md:text-sm font-bold tracking-[0.3em] uppercase">
-      Official Voting Terminal 2026
-    </p>
-    <span class="h-[1px] w-12 bg-gray-700"></span>
+<div id="authModal" class="fixed inset-0 hidden z-[150] flex items-center justify-center p-6 bg-black/95">
+  <div class="glass border-white/10 rounded-[2rem] p-10 max-w-md w-full text-center">
+    <i class="fa-solid fa-shield-halved text-5xl text-blue-600 mb-6"></i>
+    <h2 class="heading-font text-xl mb-2 uppercase italic">Admin Access</h2>
+    <p class="text-gray-500 text-xs mb-8 uppercase tracking-widest">Enter Security Credentials</p>
+    <input type="password" id="pinInput" placeholder="••••" maxlength="4" class="w-full text-center text-3xl tracking-[1em] py-4 rounded-2xl mb-6 outline-none focus:border-blue-500 transition">
+    <div class="flex gap-4">
+        <button onclick="closeAuth()" class="flex-1 py-4 text-gray-500 font-bold">Cancel</button>
+        <button onclick="verifyPin()" class="flex-1 py-4 bg-white text-black rounded-xl font-black">Login</button>
+    </div>
   </div>
+</div>
+
+<div id="adminDashboard" class="fixed inset-0 hidden z-[160] admin-gradient overflow-y-auto">
+    <nav class="p-6 border-b border-white/5 flex justify-between items-center sticky top-0 bg-black/50 backdrop-blur-md">
+        <h2 class="heading-font text-lg italic tracking-tighter">Admin <span class="text-blue-500">Panel</span></h2>
+        <button onclick="closeDashboard()" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </nav>
+
+    <div class="max-w-6xl mx-auto p-6 grid lg:grid-cols-2 gap-10 mt-8">
+        <div class="glass rounded-[2rem] p-8">
+            <h3 class="text-xl font-black uppercase mb-6 flex items-center gap-3">
+                <i class="fa-solid fa-plus text-blue-500"></i> New Nominee
+            </h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[10px] uppercase font-bold text-gray-500 ml-2">Select Category</label>
+                    <select id="adminCatSelect" onchange="refreshAdminList()" class="w-full p-4 rounded-xl outline-none focus:border-blue-500"></select>
+                </div>
+                <input type="text" id="nomName" placeholder="Player Name" class="w-full p-4 rounded-xl outline-none">
+                <input type="text" id="nomPos" placeholder="Position (e.g. Forward)" class="w-full p-4 rounded-xl outline-none">
+                <input type="text" id="nomImg" placeholder="Image URL (Unsplash/Imgur)" class="w-full p-4 rounded-xl outline-none">
+                <button onclick="saveNominee()" class="w-full py-4 bg-blue-600 rounded-xl font-black uppercase tracking-widest hover:bg-blue-500 transition mt-4">
+                    Register Nominee
+                </button>
+            </div>
+        </div>
+
+        <div class="glass rounded-[2rem] p-8">
+            <h3 class="text-xl font-black uppercase mb-6">Current Registry</h3>
+            <div id="adminNomineeList" class="space-y-3 max-h-[500px] overflow-y-auto pr-2">
+                </div>
+        </div>
+    </div>
+</div>
+
+<header class="text-center pt-24 pb-12 px-6">
+    <h1 class="heading-font text-4xl md:text-7xl italic leading-none">
+        ELITE <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-white">DIOR</span>
+    </h1>
+    <p class="text-gray-500 text-[10px] tracking-[0.5em] uppercase font-bold mt-4">Security Terminal • v2.0</p>
 </header>
 
-<main class="max-w-7xl mx-auto px-6">
-  <div class="flex items-center justify-between mb-8">
-    <h2 class="text-xl font-black uppercase tracking-widest border-l-4 border-blue-600 pl-4">Categories</h2>
-    <p class="text-gray-500 text-xs">Total: 11 Fields</p>
-  </div>
+<main id="publicGrid" class="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pb-20"></main>
 
-  <div id="categoriesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-    </div>
-</main>
-
-<div id="votingModal" class="fixed inset-0 hidden bg-black/95 backdrop-blur-md z-[60] overflow-y-auto">
-  <div class="min-h-screen flex items-center justify-center p-4 md:p-10">
-    <div class="bg-zinc-950 border border-white/10 rounded-[2.5rem] w-full max-w-6xl p-6 md:p-12 relative">
-      <button onclick="closeVotingModal()" class="absolute top-6 right-6 text-gray-500 hover:text-white text-3xl">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-      
-      <div class="mb-10">
-        <h2 id="modalTitle" class="text-4xl md:text-5xl font-black italic uppercase italic"></h2>
-        <p class="text-blue-500 font-bold uppercase tracking-widest text-sm mt-2">Select your choice</p>
-      </div>
-
-      <div id="nomineesGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+<div id="votingModal" class="fixed inset-0 hidden z-[100] bg-black overflow-y-auto">
+    <div class="p-6 md:p-12">
+        <div class="flex justify-between items-center mb-12">
+            <h2 id="votingTitle" class="heading-font text-3xl italic"></h2>
+            <button onclick="closeVoting()" class="text-3xl text-gray-500">&times;</button>
         </div>
+        <div id="votingGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6"></div>
     </div>
-  </div>
 </div>
 
-<div class="fixed bottom-6 right-6 flex flex-col gap-3">
-  <button onclick="adminAction()" class="w-14 h-14 bg-white text-black rounded-2xl flex items-center justify-center shadow-2xl hover:scale-110 transition active:scale-95">
-    <i class="fa-solid fa-lock text-xl"></i>
-  </button>
-</div>
+<button onclick="openAuth()" class="fixed bottom-6 right-6 w-14 h-14 bg-white text-black rounded-2xl flex items-center justify-center shadow-2xl z-50">
+    <i class="fa-solid fa-gears text-xl"></i>
+</button>
 
 <script>
-/* ---------------- DATA ---------------- */
-const categories = {
-  best_player: { name: "Best Player", max: 5, nominees: [], votes: {} },
-  best_goalkeeper: { name: "Best Goalkeeper", max: 5, nominees: [], votes: {} },
-  best_defender: { name: "Best Defender", max: 5, nominees: [], votes: {} },
-  best_midfielder: { name: "Best Midfielder", max: 5, nominees: [], votes: {} },
-  best_playmaker: { name: "Best Playmaker", max: 5, nominees: [], votes: {} },
-  best_assist: { name: "Best Assist", max: 5, nominees: [], votes: {} },
-  best_scorer: { name: "Best Goal Scorer", max: 5, nominees: [], votes: {} },
-  best_team: { name: "Best Team", max: 5, nominees: [], votes: {} },
-  best_coach: { name: "Best Coach", max: 5, nominees: [], votes: {} },
-  elite_dior_nominees: { name: "Elite Dior Nominees", max: 30, nominees: [], votes: {} },
-  elite_dior: { name: "Elite Dior", max: 1, nominees: [], votes: {} }
+/* ---------------- STATE ---------------- */
+let categories = JSON.parse(localStorage.getItem('elite_data')) || {
+  best_player: { name: "Best Player", max: 5, nominees: [] },
+  best_goalkeeper: { name: "Best Goalkeeper", max: 5, nominees: [] },
+  best_defender: { name: "Best Defender", max: 5, nominees: [] },
+  best_midfielder: { name: "Best Midfielder", max: 5, nominees: [] },
+  best_playmaker: { name: "Best Playmaker", max: 5, nominees: [] },
+  best_assist: { name: "Best Assist", max: 5, nominees: [] },
+  best_scorer: { name: "Best Goal Scorer", max: 5, nominees: [] },
+  best_team: { name: "Best Team", max: 5, nominees: [] },
+  best_coach: { name: "Best Coach", max: 5, nominees: [] },
+  elite_dior_nominees: { name: "Elite Dior Nominees", max: 30, nominees: [] },
+  elite_dior: { name: "Elite Dior", max: 1, nominees: [] }
 };
 
-let currentCategoryKey = null;
-
-/* ---------------- UI LOGIC ---------------- */
+/* ---------------- CORE ---------------- */
 function init() {
-  const container = document.getElementById("categoriesGrid");
-  container.innerHTML = "";
-  
-  Object.keys(categories).forEach(key => {
-    const cat = categories[key];
-    const isFull = cat.nominees.length >= cat.max;
+    localStorage.setItem('elite_data', JSON.stringify(categories));
+    const grid = document.getElementById('publicGrid');
+    const select = document.getElementById('adminCatSelect');
+    grid.innerHTML = "";
+    select.innerHTML = "";
+
+    Object.keys(categories).forEach(key => {
+        const cat = categories[key];
+        // Public UI
+        grid.innerHTML += `
+            <div onclick="openVoting('${key}')" class="category-card glass p-6 rounded-2xl cursor-pointer transition-all border border-white/5 hover:bg-blue-600/10">
+                <div class="flex justify-between items-start mb-6">
+                    <h3 class="font-black uppercase text-sm leading-tight max-w-[120px]">${cat.name}</h3>
+                    <i class="fa-solid fa-chevron-right text-[10px] text-gray-600"></i>
+                </div>
+                <div class="flex items-end justify-between">
+                    <span class="text-xs font-bold text-blue-500">${cat.nominees.length} / ${cat.max}</span>
+                    <span class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Nominees</span>
+                </div>
+            </div>
+        `;
+        // Admin Select
+        select.innerHTML += `<option value="${key}">${cat.name}</option>`;
+    });
+}
+
+/* ---------------- ALERT MODAL ---------------- */
+function showAlert(title, msg, icon = "fa-circle-info") {
+    document.getElementById('alertTitle').textContent = title;
+    document.getElementById('alertMessage').textContent = msg;
+    document.getElementById('alertIcon').innerHTML = `<i class="fa-solid ${icon}"></i>`;
+    document.getElementById('alertModal').classList.remove('hidden');
+}
+function closeAlert() { document.getElementById('alertModal').classList.add('hidden'); }
+
+/* ---------------- AUTH & ADMIN ---------------- */
+function openAuth() { document.getElementById('authModal').classList.remove('hidden'); }
+function closeAuth() { document.getElementById('authModal').classList.add('hidden'); }
+
+function verifyPin() {
+    const pin = document.getElementById('pinInput').value;
+    if(pin === "3478") {
+        closeAuth();
+        document.getElementById('pinInput').value = "";
+        document.getElementById('adminDashboard').classList.remove('hidden');
+        refreshAdminList();
+    } else {
+        showAlert("Access Denied", "The security PIN provided is incorrect.", "fa-shield-halved");
+    }
+}
+
+function closeDashboard() { document.getElementById('adminDashboard').classList.add('hidden'); }
+
+function refreshAdminList() {
+    const key = document.getElementById('adminCatSelect').value;
+    const list = document.getElementById('adminNomineeList');
+    list.innerHTML = "";
     
-    container.innerHTML += `
-      <div onclick="openVotingModal('${key}')"
-        class="category-card glass rounded-2xl p-6 transition-all cursor-pointer group relative overflow-hidden">
-        <div class="absolute -right-4 -top-4 w-20 h-20 bg-blue-600/5 rounded-full group-hover:bg-blue-600/20 transition"></div>
-        <h3 class="font-black uppercase tracking-tighter text-lg leading-tight">${cat.name}</h3>
-        <div class="mt-4 flex items-center justify-between">
-          <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Nominees</span>
-          <span class="${isFull ? 'text-green-500' : 'text-blue-500'} font-mono text-sm">
-            ${cat.nominees.length} / ${cat.max}
-          </span>
-        </div>
-        <div class="w-full bg-white/5 h-1 mt-3 rounded-full overflow-hidden">
-          <div class="bg-blue-600 h-full transition-all duration-500" style="width: ${(cat.nominees.length / cat.max) * 100}%"></div>
-        </div>
-      </div>
-    `;
-  });
+    categories[key].nominees.forEach((n, index) => {
+        list.innerHTML += `
+            <div class="flex items-center gap-4 bg-white/5 p-3 rounded-xl">
+                <img src="${n.image}" class="w-10 h-10 rounded-lg object-cover">
+                <div class="flex-1">
+                    <p class="text-xs font-black uppercase">${n.name}</p>
+                    <p class="text-[10px] text-gray-500">${n.position}</p>
+                </div>
+                <button onclick="deleteNominee('${key}', ${index})" class="text-red-500 hover:scale-110 transition px-2">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            </div>
+        `;
+    });
 }
 
-/* ---------------- CUSTOM ALERTS ---------------- */
-function showAlert(message, icon = "fa-circle-info") {
-  document.getElementById("alertMessage").textContent = message;
-  document.getElementById("alertIcon").innerHTML = `<i class="fa-solid ${icon}"></i>`;
-  document.getElementById("customAlert").classList.remove("hidden");
+function saveNominee() {
+    const key = document.getElementById('adminCatSelect').value;
+    const name = document.getElementById('nomName').value;
+    const pos = document.getElementById('nomPos').value;
+    const img = document.getElementById('nomImg').value;
+
+    if(!name || !pos) return showAlert("Input Required", "Please fill in the name and position.");
+    if(categories[key].nominees.length >= categories[key].max) return showAlert("Limit Reached", "This category is full.");
+
+    categories[key].nominees.push({
+        id: Date.now(),
+        name,
+        position: pos,
+        image: img || 'https://via.placeholder.com/300'
+    });
+
+    document.getElementById('nomName').value = "";
+    document.getElementById('nomPos').value = "";
+    document.getElementById('nomImg').value = "";
+    
+    init();
+    refreshAdminList();
+    showAlert("Success", "Nominee has been added to the registry.", "fa-circle-check");
 }
 
-function closeAlert() {
-  document.getElementById("customAlert").classList.add("hidden");
+function deleteNominee(key, index) {
+    categories[key].nominees.splice(index, 1);
+    init();
+    refreshAdminList();
 }
 
 /* ---------------- VOTING ---------------- */
-function openVotingModal(key) {
-  currentCategoryKey = key;
-  const cat = categories[key];
-  
-  if (cat.nominees.length === 0) {
-    showAlert("No nominees added to this category yet.");
-    return;
-  }
+let activeVotingKey = null;
+function openVoting(key) {
+    activeVotingKey = key;
+    const cat = categories[key];
+    if(cat.nominees.length === 0) return showAlert("Notice", "Nominees for this category have not been released yet.");
 
-  document.getElementById("modalTitle").textContent = cat.name;
-  const grid = document.getElementById("nomineesGrid");
-  grid.innerHTML = "";
+    document.getElementById('votingTitle').textContent = cat.name;
+    const grid = document.getElementById('votingGrid');
+    grid.innerHTML = "";
 
-  cat.nominees.forEach(n => {
-    grid.innerHTML += `
-      <div class="glass border-white/5 rounded-3xl p-4 text-center group hover:border-blue-500/50 transition duration-500">
-        <div class="relative overflow-hidden rounded-2xl mb-4 aspect-square">
-          <img src="${n.image || 'https://via.placeholder.com/300'}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-        </div>
-        <h4 class="font-black uppercase text-sm tracking-tight">${n.name}</h4>
-        <p class="text-[10px] text-gray-500 font-bold uppercase mt-1 tracking-widest">${n.position}</p>
-        <button onclick="castVote('${n.id}')"
-          class="mt-6 w-full py-3 bg-white text-black text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-blue-600 hover:text-white transition">
-          Confirm Vote
-        </button>
-      </div>
-    `;
-  });
-
-  document.getElementById("votingModal").classList.remove("hidden");
-  document.body.style.overflow = 'hidden';
+    cat.nominees.forEach(n => {
+        grid.innerHTML += `
+            <div class="glass p-4 rounded-[2rem] text-center border-white/5 group hover:border-blue-500 transition-all duration-500">
+                <img src="${n.image}" class="w-full aspect-[4/5] object-cover rounded-2xl mb-4 group-hover:scale-105 transition">
+                <h4 class="font-black text-sm uppercase tracking-tight">${n.name}</h4>
+                <p class="text-[10px] text-gray-500 font-bold uppercase mt-1 mb-6">${n.position}</p>
+                <button onclick="submitVote(${n.id})" class="w-full py-3 bg-white text-black font-black text-[10px] uppercase rounded-xl hover:bg-blue-600 hover:text-white transition">
+                    Submit Vote
+                </button>
+            </div>
+        `;
+    });
+    document.getElementById('votingModal').classList.remove('hidden');
 }
 
-function closeVotingModal() {
-  document.getElementById("votingModal").classList.add("hidden");
-  document.body.style.overflow = 'auto';
-}
+function closeVoting() { document.getElementById('votingModal').classList.add('hidden'); }
 
-function castVote(nomineeId) {
-  const voted = JSON.parse(localStorage.getItem("elite_votes") || "{}");
-  
-  if (voted[currentCategoryKey]) {
-    showAlert("Security Check: You have already voted in this category.", "fa-shield-halved");
-    return;
-  }
-
-  voted[currentCategoryKey] = nomineeId;
-  localStorage.setItem("elite_votes", JSON.stringify(voted));
-  showAlert("Vote successfully encrypted and recorded.", "fa-circle-check");
-  closeVotingModal();
-}
-
-/* ---------------- ADMIN PANEL ---------------- */
-function adminAction() {
-  const pin = prompt("Admin Security PIN Required:");
-  if (pin !== "3478") {
-    showAlert("Access Denied: Invalid PIN.", "fa-triangle-exclamation");
-    return;
-  }
-
-  const catKey = prompt("Target Category Key (e.g., best_player):");
-  if (!categories[catKey]) {
-    showAlert("Error: Category ID not found.");
-    return;
-  }
-
-  if (categories[catKey].nominees.length >= categories[catKey].max) {
-    showAlert("Limit Reached: This category is full.");
-    return;
-  }
-
-  const name = prompt("Nominee Name:");
-  if (!name) return;
-  const position = prompt("Role/Position:");
-  const image = prompt("Image URL (leave blank for default):");
-
-  categories[catKey].nominees.push({
-    id: 'nom-' + Date.now(),
-    name,
-    position: position || "Candidate",
-    image: image || "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=400"
-  });
-
-  init();
-  showAlert("Nominee successfully added to registry.", "fa-user-plus");
+function submitVote(id) {
+    const votes = JSON.parse(localStorage.getItem('user_votes') || '{}');
+    if(votes[activeVotingKey]) {
+        showAlert("Security Alert", "You have already cast your choice for this category.", "fa-shield-halved");
+        return;
+    }
+    votes[activeVotingKey] = id;
+    localStorage.setItem('user_votes', JSON.stringify(votes));
+    showAlert("Confirmed", "Your vote has been securely transmitted.", "fa-circle-check");
+    closeVoting();
 }
 
 init();
