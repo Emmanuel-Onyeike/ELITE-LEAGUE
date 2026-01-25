@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ELITE DIOR | Real-Time Terminal</title>
+    <title>ZEDI LEAGUE | Elite Dior 2026</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
@@ -22,40 +22,40 @@
             background-color: #000;
             color: #fff;
             font-family: 'Inter', sans-serif;
-            background-image: radial-gradient(circle at 50% 0%, #1e3a8a22 0%, transparent 50%);
+            background-image: radial-gradient(circle at 50% 0%, #1e3a8a33 0%, transparent 50%);
             background-attachment: fixed;
             overflow-x: hidden;
         }
 
         .heading-font { font-family: 'Syncopate', sans-serif; letter-spacing: -0.02em; }
 
-        /* MODAL SYSTEM - SOLID & CENTERED */
+        /* CENTERED ALERT SYSTEM - AS REQUESTED */
         .modal-overlay {
             background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             z-index: 1000;
         }
 
-        .solid-panel {
-            background: #0d0d12;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 60px rgba(0, 0, 0, 1);
-        }
-
         .alert-box {
-            background: #0f0f16;
-            border: 1px solid var(--elite-blue);
-            border-radius: 2.5rem;
+            background: #0d0d14;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 3rem;
             width: 90%;
-            max-width: 420px;
-            padding: 3.5rem;
+            max-width: 440px;
+            padding: 4rem;
             text-align: center;
-            box-shadow: 0 0 40px rgba(59, 130, 246, 0.2);
+            box-shadow: 0 0 80px rgba(59, 130, 246, 0.15);
+            animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* LIVE PROGRESS BARS */
-        .bar-bg { background: rgba(255, 255, 255, 0.05); height: 8px; border-radius: 10px; overflow: hidden; }
-        .bar-fill { height: 100%; background: linear-gradient(90deg, #3b82f6, #60a5fa); transition: width 1.5s ease-in-out; }
+        @keyframes modalPop {
+            from { transform: scale(0.8) translateY(20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        /* LIVE PROGRESS INTERFACE */
+        .bar-bg { background: rgba(255, 255, 255, 0.05); height: 10px; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.03); }
+        .bar-fill { height: 100%; background: linear-gradient(90deg, #3b82f6, #60a5fa); transition: width 1.5s cubic-bezier(0.2, 1, 0.3, 1); }
 
         .gold-text {
             background: linear-gradient(to right, #b45309, #fbbf24, #fff, #fbbf24);
@@ -64,113 +64,139 @@
         }
 
         .card-hover {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s ease;
         }
-        .card-hover:hover { transform: translateY(-10px); border-color: var(--elite-blue); }
+        .card-hover:hover { 
+            transform: translateY(-12px); 
+            background: rgba(59, 130, 246, 0.05);
+            border-color: var(--elite-blue);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
 
-        input, select {
-            background: #16161d !important;
+        .admin-input {
+            background: #111118 !important;
             border: 1px solid rgba(255, 255, 255, 0.1) !important;
             color: white !important;
-            padding: 1.25rem !important;
-            border-radius: 1rem !important;
+            padding: 1.5rem !important;
+            border-radius: 1.25rem !important;
             outline: none;
+            transition: border 0.3s;
         }
+        .admin-input:focus { border-color: var(--elite-blue) !important; }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
+        
+        #countdown-timer {
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.1em;
+        }
     </style>
 </head>
 <body>
 
     <div id="alertOverlay" class="fixed inset-0 hidden modal-overlay flex items-center justify-center">
         <div class="alert-box">
-            <div id="alertIcon" class="text-6xl mb-6"></div>
-            <h3 id="alertTitle" class="heading-font text-xs uppercase tracking-widest mb-4">System Message</h3>
-            <p id="alertMessage" class="text-gray-400 text-sm mb-10 leading-relaxed"></p>
-            <button onclick="closeAlert()" class="w-full py-4 bg-blue-600 rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-blue-500 transition-all">Dismiss</button>
+            <div id="alertIcon" class="text-7xl mb-8"></div>
+            <h3 id="alertTitle" class="heading-font text-[10px] uppercase tracking-[0.5em] mb-4 text-blue-500"></h3>
+            <p id="alertMessage" class="text-gray-400 text-sm mb-12 leading-relaxed"></p>
+            <button onclick="closeAlert()" class="w-full py-5 bg-blue-600 rounded-3xl font-black uppercase text-[11px] tracking-widest hover:bg-blue-500 transition-all shadow-lg">Confirm & Dismiss</button>
         </div>
     </div>
 
     <div id="authModal" class="fixed inset-0 hidden modal-overlay flex items-center justify-center z-[500]">
         <div class="alert-box border-white/5">
-            <h2 class="heading-font text-xl mb-10 italic gold-text">ADMIN ACCESS</h2>
-            <input type="password" id="pinInput" placeholder="••••" maxlength="4" class="w-full text-center text-5xl tracking-[0.5em] mb-10 font-black">
-            <div class="flex gap-4">
-                <button onclick="closeAuth()" class="flex-1 text-gray-500 font-bold uppercase text-[10px]">Cancel</button>
-                <button onclick="verifyPin()" class="flex-1 py-4 bg-white text-black rounded-2xl font-black text-[10px] uppercase tracking-widest">Unlock</button>
+            <h2 class="heading-font text-xl mb-12 italic gold-text">ENCRYPTED LOGIN</h2>
+            <input type="password" id="pinInput" placeholder="••••" maxlength="4" class="w-full text-center text-6xl tracking-[0.5em] mb-12 font-black bg-transparent border-b border-white/10 outline-none">
+            <div class="flex gap-6">
+                <button onclick="closeAuth()" class="flex-1 text-gray-500 font-bold uppercase text-[10px] tracking-widest">Abort</button>
+                <button onclick="verifyPin()" class="flex-1 py-5 bg-white text-black rounded-3xl font-black text-[10px] uppercase tracking-widest">Unlock</button>
             </div>
         </div>
     </div>
 
     <div id="adminDashboard" class="fixed inset-0 hidden z-[600] bg-black overflow-y-auto no-scrollbar">
-        <nav class="p-8 border-b border-white/5 flex justify-between items-center sticky top-0 bg-black/90 backdrop-blur-xl">
-            <h2 class="heading-font text-lg italic gold-text tracking-tighter">ELITE CLOUD CONTROL</h2>
-            <button onclick="closeDashboard()" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5"><i class="fa-solid fa-xmark"></i></button>
+        <nav class="p-10 border-b border-white/5 flex justify-between items-center sticky top-0 bg-black/95 backdrop-blur-2xl">
+            <h2 class="heading-font text-lg italic gold-text tracking-tighter">ZEDI CLOUD COMMAND</h2>
+            <div class="flex items-center gap-6">
+                <span class="text-[9px] font-black text-green-500 uppercase flex items-center gap-2"><div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div> Live Sync On</span>
+                <button onclick="closeDashboard()" class="w-14 h-14 flex items-center justify-center rounded-2xl bg-white/5"><i class="fa-solid fa-xmark"></i></button>
+            </div>
         </nav>
-        <div class="max-w-7xl mx-auto p-10 grid lg:grid-cols-12 gap-12">
-            <div class="lg:col-span-5 solid-panel rounded-[3rem] p-10 h-fit">
-                <h3 class="heading-font text-[10px] mb-8 text-blue-500 uppercase">Enroll Candidate</h3>
-                <div class="space-y-6">
-                    <select id="adminCatSelect" onchange="refreshAdminList()" class="w-full"></select>
-                    <input type="text" id="nomName" placeholder="Candidate Name" class="w-full">
-                    <input type="text" id="nomPos" placeholder="Position (e.g. Forward, Defender)" class="w-full">
-                    <input type="text" id="nomImg" placeholder="Image URL (Unsplash/Imgur)" class="w-full">
-                    <button onclick="saveNominee()" class="w-full py-5 bg-blue-600 rounded-2xl font-black uppercase text-xs tracking-widest hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-all">Update Cloud Registry</button>
+        
+        <div class="max-w-7xl mx-auto p-12 grid lg:grid-cols-12 gap-12">
+            <div class="lg:col-span-5 bg-[#0a0a0f] border border-white/5 rounded-[3.5rem] p-12 h-fit">
+                <h3 class="heading-font text-[10px] mb-10 text-blue-500 uppercase tracking-widest">1. Registry Management</h3>
+                <div class="space-y-8">
+                    <select id="adminCatSelect" onchange="refreshAdminList()" class="w-full admin-input"></select>
+                    <input type="text" id="nomName" placeholder="Candidate Full Name" class="w-full admin-input">
+                    <input type="text" id="nomPos" placeholder="Position (e.g. Forward)" class="w-full admin-input">
+                    <input type="text" id="nomImg" placeholder="Image URL (Direct Link)" class="w-full admin-input">
+                    <button onclick="saveNominee()" class="w-full py-6 bg-blue-600 rounded-[2rem] font-black uppercase text-xs tracking-widest hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all">Publish to Global Phones</button>
                 </div>
             </div>
-            <div class="lg:col-span-7 solid-panel rounded-[3rem] p-10">
-                <h3 class="heading-font text-[10px] mb-8 uppercase">Global Live Registry</h3>
-                <div id="adminNomineeList" class="space-y-4 max-h-[600px] overflow-y-auto no-scrollbar"></div>
+            
+            <div class="lg:col-span-7 bg-[#0a0a0f] border border-white/5 rounded-[3.5rem] p-12">
+                <div class="flex justify-between items-center mb-10">
+                    <h3 class="heading-font text-[10px] uppercase tracking-widest">2. Active Database</h3>
+                    <button onclick="resetAllVotes()" class="text-[9px] font-black text-red-500 uppercase border border-red-500/20 px-4 py-2 rounded-full">Reset All Votes</button>
+                </div>
+                <div id="adminNomineeList" class="space-y-4 max-h-[650px] overflow-y-auto no-scrollbar"></div>
             </div>
         </div>
     </div>
 
-    <header class="pt-40 pb-24 text-center">
-        <h1 class="heading-font text-6xl md:text-9xl italic leading-none mb-6 gold-text tracking-tighter">ELITE DIOR</h1>
-        <p class="text-gray-500 text-[10px] tracking-[0.8em] uppercase font-bold opacity-60">Global Synchronization Active</p>
+    <header class="pt-48 pb-24 text-center">
+        <div class="mb-12 inline-flex items-center px-6 py-2 rounded-full bg-white/5 border border-white/10">
+            <span id="countdown-timer" class="heading-font text-xs gold-text uppercase">Syncing Clock...</span>
+        </div>
+        <h1 class="heading-font text-7xl md:text-9xl italic leading-none mb-8 gold-text tracking-tighter">ZEDI LEAGUE</h1>
+        <p class="text-gray-500 text-[11px] tracking-[1em] uppercase font-bold opacity-60">Elite Dior Awards 2026</p>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6">
-        <div id="publicGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-48">
+    <main class="max-w-7xl mx-auto px-8">
+        <div id="publicGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-64">
             </div>
     </main>
 
     <div id="votingModal" class="fixed inset-0 hidden z-[400] bg-black overflow-y-auto no-scrollbar">
-        <div class="p-8 md:p-20 max-w-7xl mx-auto min-h-screen">
-            <div class="flex justify-between items-start mb-24">
+        <div class="p-10 md:p-24 max-w-7xl mx-auto min-h-screen">
+            <div class="flex flex-col md:flex-row justify-between items-start mb-24 gap-8">
                 <div>
-                    <h2 id="votingTitle" class="heading-font text-5xl md:text-7xl italic gold-text uppercase"></h2>
-                    <p class="text-xs text-gray-500 uppercase tracking-[0.4em] mt-4">Real-Time Ballot System</p>
+                    <h2 id="votingTitle" class="heading-font text-5xl md:text-8xl italic gold-text uppercase leading-none"></h2>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-[0.5em] mt-6 font-black flex items-center gap-3">
+                        <span class="w-2 h-2 bg-blue-500 rounded-full animate-ping"></span> Live Global Polling Open
+                    </p>
                 </div>
-                <button onclick="closeVoting()" class="w-20 h-20 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all">
-                    <i class="fa-solid fa-xmark text-3xl"></i>
+                <button onclick="closeVoting()" class="w-24 h-24 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all">
+                    <i class="fa-solid fa-xmark text-4xl"></i>
                 </button>
             </div>
-            <div id="votingGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-10"></div>
+            <div id="votingGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-12"></div>
         </div>
     </div>
 
-    <button onclick="openAuth()" class="fixed bottom-12 right-12 w-20 h-20 bg-blue-600 text-white rounded-[2rem] flex items-center justify-center shadow-2xl z-50 hover:scale-110 active:scale-95 transition-all">
-        <i class="fa-solid fa-crown text-2xl"></i>
+    <button onclick="openAuth()" class="fixed bottom-12 right-12 w-24 h-24 bg-blue-600 text-white rounded-[2.5rem] flex items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-50 hover:scale-110 active:scale-95 transition-all">
+        <i class="fa-solid fa-crown text-3xl"></i>
     </button>
 
     <script>
-        // --- 1. FIREBASE CONFIG (REPLACE THIS WITH YOUR DATA) ---
+        // --- 1. FIREBASE INFRASTRUCTURE ---
         const firebaseConfig = {
-            apiKey: "PASTE_YOUR_API_KEY_HERE",
-            authDomain: "YOUR_PROJECT.firebaseapp.com",
-            databaseURL: "https://YOUR_PROJECT.firebaseio.com",
-            projectId: "YOUR_PROJECT",
-            storageBucket: "YOUR_PROJECT.appspot.com",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "AIzaSyB-TUlHB2_uFYASIwzAFMOk-u9wS7w9V5Q",
+            authDomain: "zedi-league.firebaseapp.com",
+            projectId: "zedi-league",
+            storageBucket: "zedi-league.firebasestorage.app",
+            messagingSenderId: "371690609229",
+            appId: "1:371690609229:web:3f77dd340a53eea21bda04",
+            measurementId: "G-11XX8PK35S"
         };
 
-        // Initialize Cloud
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // --- 2. CATEGORY DEFINITIONS ---
+        // --- 2. CORE CONFIG ---
         const categories = {
             best_player: { name: "Best Player", max: 5 },
             best_goalkeeper: { name: "Best Goalkeeper", max: 5 },
@@ -182,14 +208,13 @@
             best_team: { name: "Best Team", max: 5 },
             best_coach: { name: "Best Coach", max: 5 },
             elite_dior_nominees: { name: "Elite Dior Nominees", max: 30 },
-            elite_dior: { name: "Elite Dior Finalist", max: 1 }
+            elite_dior: { name: "Elite Dior Winner", max: 1 }
         };
 
         let liveRegistry = {};
         let activeKey = "";
 
-        // --- 3. LIVE SYNC LISTENER (The Heart) ---
-        // This listens to the cloud and updates the screen for EVERYONE instantly.
+        // --- 3. THE SYNC ENGINE ---
         db.ref('elite_dior_2026').on('value', (snapshot) => {
             liveRegistry = snapshot.val() || {};
             renderPublic();
@@ -204,17 +229,17 @@
             grid.innerHTML = ""; select.innerHTML = "";
 
             Object.keys(categories).forEach(key => {
-                const nominees = liveRegistry[key] ? Object.keys(liveRegistry[key]).length : 0;
+                const count = liveRegistry[key] ? Object.keys(liveRegistry[key]).length : 0;
                 grid.innerHTML += `
-                    <div onclick="openVoting('${key}')" class="solid-panel p-10 rounded-[2.5rem] card-hover cursor-pointer border-white/5">
-                        <h3 class="heading-font text-[11px] uppercase mb-16 tracking-widest leading-relaxed">${categories[key].name}</h3>
+                    <div onclick="openVoting('${key}')" class="card-hover p-12 rounded-[3rem] cursor-pointer">
+                        <h3 class="heading-font text-[11px] uppercase mb-20 tracking-widest leading-relaxed">${categories[key].name}</h3>
                         <div class="flex justify-between items-end">
                             <div>
-                                <p class="text-[8px] text-gray-600 font-black uppercase mb-1">Live Nominees</p>
-                                <p class="text-sm font-black text-blue-500">${nominees} / ${categories[key].max}</p>
+                                <p class="text-[8px] text-gray-600 font-black uppercase mb-1">Live Status</p>
+                                <p class="text-sm font-black text-blue-500">${count} / ${categories[key].max}</p>
                             </div>
-                            <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-blue-400">
-                                <i class="fa-solid fa-bolt-lightning"></i>
+                            <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-blue-400">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
                             </div>
                         </div>
                     </div>`;
@@ -222,7 +247,7 @@
             });
         }
 
-        // --- 4. VOTING ENGINE ---
+        // --- 4. VOTING SYSTEM ---
         function openVoting(key) {
             activeKey = key;
             document.getElementById('votingTitle').textContent = categories[key].name;
@@ -236,10 +261,9 @@
             const nominees = liveRegistry[key] ? Object.values(liveRegistry[key]) : [];
             
             if(nominees.length === 0) {
-                grid.innerHTML = `<div class="col-span-full py-48 flex flex-col items-center justify-center opacity-20">
-                    <i class="fa-solid fa-fingerprint text-6xl mb-6"></i>
-                    <h3 class="heading-font text-2xl uppercase">Encrypted</h3>
-                    <p class="text-[10px] tracking-[0.5em] mt-4 font-black">Registry Data Not Yet Released</p>
+                grid.innerHTML = `<div class="col-span-full py-48 text-center opacity-10">
+                    <i class="fa-solid fa-lock text-9xl mb-8"></i><br>
+                    <h2 class="heading-font text-3xl">SECURED</h2>
                 </div>`;
                 return;
             }
@@ -247,70 +271,55 @@
             const totalVotes = nominees.reduce((acc, curr) => acc + (curr.votes || 0), 0);
             grid.innerHTML = "";
 
-            nominees.forEach(n => {
+            nominees.sort((a,b) => (b.votes || 0) - (a.votes || 0)).forEach(n => {
                 const percent = totalVotes === 0 ? 0 : Math.round((n.votes / totalVotes) * 100);
                 grid.innerHTML += `
-                    <div class="solid-panel p-8 rounded-[3rem] group border-white/5 hover:border-blue-500/50 transition-all duration-700">
-                        <div class="aspect-[4/5] rounded-[2rem] overflow-hidden mb-8 relative border border-white/5">
-                            <img src="${n.image}" class="w-full h-full object-cover">
+                    <div class="bg-[#0a0a0f] p-10 rounded-[3.5rem] border border-white/5 group hover:border-blue-500/50 transition-all duration-1000">
+                        <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden mb-10 relative">
+                            <img src="${n.image}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000">
                             <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                            <div class="absolute bottom-6 left-6">
+                            <div class="absolute bottom-8 left-8">
                                 <p class="text-[10px] text-blue-400 font-black uppercase tracking-widest mb-1">${n.position}</p>
-                                <h4 class="heading-font text-[13px] uppercase">${n.name}</h4>
+                                <h4 class="heading-font text-[14px] uppercase">${n.name}</h4>
                             </div>
                         </div>
-                        <div class="mb-10 px-2">
-                            <div class="flex justify-between text-[10px] font-black mb-3">
-                                <span class="text-gray-500">${percent}% RANK</span>
-                                <span class="gold-text">${n.votes || 0} VOTES</span>
+                        <div class="mb-12 px-2">
+                            <div class="flex justify-between text-[10px] font-black mb-4">
+                                <span class="text-gray-500">GLOBAL RANK</span>
+                                <span class="gold-text">${percent}% / ${n.votes || 0} VOTES</span>
                             </div>
                             <div class="bar-bg"><div class="bar-fill" style="width: ${percent}%"></div></div>
                         </div>
-                        <button onclick="castBallot('${n.id}')" class="w-full py-5 bg-white text-black rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-xl active:scale-95">
-                            Secure Ballot
+                        <button onclick="castBallot('${n.id}')" class="w-full py-6 bg-white text-black rounded-3xl font-black text-[11px] uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-xl active:scale-95">
+                            Sync Ballot
                         </button>
                     </div>`;
             });
         }
 
         function castBallot(pid) {
-            const hasVoted = localStorage.getItem('ballot_' + activeKey);
-            if(hasVoted) return showAlert("Security Alert", "You have already finalized your selection for this category.", "error");
-
-            // Cloud Transaction: Increment vote globally
-            const voteRef = db.ref(`elite_dior_2026/${activeKey}/${pid}/votes`);
-            voteRef.transaction((current) => (current || 0) + 1);
-
-            localStorage.setItem('ballot_' + activeKey, 'true');
-            showAlert("Confirmed", "Your selection has been securely synced to the cloud.", "success");
+            if(localStorage.getItem('zedivote_' + activeKey)) {
+                return showAlert("Security Access", "Ballot already registered for this device.", "error");
+            }
+            db.ref(`elite_dior_2026/${activeKey}/${pid}/votes`).transaction(c => (c || 0) + 1);
+            localStorage.setItem('zedivote_' + activeKey, 'true');
+            showAlert("Ballot Synced", "Selection has been distributed to the cloud database.", "success");
         }
 
-        // --- 5. ADMIN CONTROLS ---
+        // --- 5. CLOUD CONTROLS ---
         function saveNominee() {
             const key = document.getElementById('adminCatSelect').value;
-            const pid = 'id_' + Date.now();
+            const pid = 'p_' + Date.now();
             const data = {
-                id: pid,
-                name: document.getElementById('nomName').value,
+                id: pid, name: document.getElementById('nomName').value,
                 position: document.getElementById('nomPos').value,
-                image: document.getElementById('nomImg').value || 'https://via.placeholder.com/600x800/0a0a0c/ffffff?text=ELITE+NOMINEE',
+                image: document.getElementById('nomImg').value || 'https://via.placeholder.com/600x800',
                 votes: 0
             };
-            
-            if(!data.name || !data.position) return showAlert("Input Error", "All fields are required.", "error");
-
-            // Save to Firebase Cloud
+            if(!data.name || !data.position) return showAlert("Input Error", "All fields must be valid.", "error");
             db.ref(`elite_dior_2026/${key}/${pid}`).set(data);
-            showAlert("Success", "Candidate is now live on all devices.", "success");
-            
-            document.getElementById('nomName').value = "";
-            document.getElementById('nomPos').value = "";
-            document.getElementById('nomImg').value = "";
+            showAlert("Database Updated", "Nominee is now live across all user devices.", "success");
             refreshAdminList();
-        }
-
-        function deleteNominee(key, pid) {
-            db.ref(`elite_dior_2026/${key}/${pid}`).remove();
         }
 
         function refreshAdminList() {
@@ -319,28 +328,37 @@
             list.innerHTML = "";
             const items = liveRegistry[key] ? Object.values(liveRegistry[key]) : [];
             items.forEach(n => {
-                list.innerHTML += `<div class="bg-white/5 p-5 rounded-2xl flex justify-between items-center border border-white/5">
-                    <div><p class="text-[11px] font-black uppercase text-blue-400">${n.name}</p><p class="text-[8px] text-gray-500 uppercase">${n.position}</p></div>
-                    <button onclick="deleteNominee('${key}', '${n.id}')" class="text-red-500/30 hover:text-red-500 transition-all"><i class="fa-solid fa-trash-can"></i></button>
+                list.innerHTML += `<div class="bg-white/5 p-6 rounded-2xl flex justify-between items-center border border-white/5">
+                    <div><p class="text-[12px] font-black uppercase text-blue-400">${n.name}</p><p class="text-[9px] text-gray-500 uppercase">${n.position}</p></div>
+                    <button onclick="db.ref('elite_dior_2026/${key}/${n.id}').remove()" class="text-red-500/40 hover:text-red-500"><i class="fa-solid fa-trash-can"></i></button>
                 </div>`;
             });
         }
 
-        // --- 6. INTERFACE UTILS ---
+        // --- 6. UTILS ---
         function showAlert(t, m, type) {
             document.getElementById('alertTitle').textContent = t;
             document.getElementById('alertMessage').textContent = m;
-            const icon = document.getElementById('alertIcon');
-            icon.className = `text-6xl mb-6 fa-solid ${type === 'success' ? 'fa-circle-check text-green-500' : 'fa-triangle-exclamation text-red-500'}`;
+            document.getElementById('alertIcon').innerHTML = type === 'success' ? 
+                '<i class="fa-solid fa-circle-check text-green-500"></i>' : 
+                '<i class="fa-solid fa-shield-halved text-red-500"></i>';
             document.getElementById('alertOverlay').classList.remove('hidden');
         }
+
+        function updateTimer() {
+            const now = new Date();
+            document.getElementById('countdown-timer').textContent = 
+                now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+        }
+        setInterval(updateTimer, 1000);
 
         function verifyPin() {
             if(document.getElementById('pinInput').value === "3478") {
                 document.getElementById('authModal').classList.add('hidden');
                 document.getElementById('adminDashboard').classList.remove('hidden');
                 refreshAdminList();
-            } else { showAlert("Denied", "Security PIN Error", "error"); }
+                document.getElementById('pinInput').value = "";
+            } else { showAlert("Denied", "Incorrect Security PIN", "error"); }
         }
 
         function closeAlert() { document.getElementById('alertOverlay').classList.add('hidden'); }
