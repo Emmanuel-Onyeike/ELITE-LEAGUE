@@ -668,7 +668,7 @@ const contentData = {
                             ${[
                                          { name: "Hassan", val: "6" },
                                 { name: "Chukwuemeka", val: "6" },
-                                { name: "Emmanuel", val: "4" },
+                                { name: "Noble", val: "5" },
                                 { name: "OBI", val: "4" },
                                 { name: "Mello", val: "3" }
                            
