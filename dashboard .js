@@ -625,8 +625,8 @@ const contentData = {
                             ${[
                                  { name: "Halaand", val: "7" },
                                 { name: "Chukwuemeka", val: "6" },
-                                 { name: "dior", val: "5" },
-                                { name: "Austin", val: "5" },
+                                 { name: "Ororo", val: "6" },
+                                { name: "Dior", val: "5" },
                                 { name: "Ebuka", val: "4" }
                               
                             ].map((player, i) => `
@@ -1059,14 +1059,14 @@ const contentData = {
                 ${[
                      { name: "Halaand", val: "7", unit: "CSC 400" },
                     { name: "Chukwuemeka", val: "6", unit: "CSC 100" },
-                      { name: "Christian Dior", val: "5", unit: "CSC 400" },
-                    { name: "Austin", val: "5", unit: "NUR 200" },
+                      { name: "Ororo", val: "6", unit: "LAW 200" },
+                    { name: "Christian Dior", val: "5", unit: "NUR 200" },
                     { name: "Ebuka", val: "4", unit: "MSS 200" },
                     { name: "Fomat", val: "4", unit: "CSC 300" },
                     { name: "Sporty", val: "3", unit: "MSS 300" },
                     { name: "Zubby", val: "2", unit: "CSC 200" },
                     { name: "IK", val: "2", unit: "MSS 200" },
-                    { name: "Jesse", val: "2", unit: "CSC 400" }
+                    { name: "Von", val: "2", unit: "MSS 300" }
                 ].map((player, i) => `
                     <div class="flex items-center justify-between p-6 md:p-8 bg-white/[0.01] border border-white/5 rounded-[2.5rem] group hover:bg-blue-600/[0.03] hover:border-blue-500/20 transition-all duration-500">
                         <div class="flex items-center gap-6">
@@ -1156,8 +1156,8 @@ const contentData = {
                       { name: "Hassan", val: "6", unit: "CSC 400" },
                     { name: "Chukwuemeka", val: "6", unit: "CSC 100" },
                     { name: "Emmanuel", val: "4", unit: "NUr 200" },
+                      { name: "Noble", val: "5", unit: "MSS 200" },
                     { name: "Obi", val: "4", unit: "CSC 400" },
-                    { name: "Mello", val: "3", unit: "MSS 200" },
                     { name: "Cush", val: "3", unit: "CSC 200" },
                     { name: "Kev O", val: "3", unit: "CSC 200" },
                     { name: "Paschal", val: "2", unit: "CSC 200" },
