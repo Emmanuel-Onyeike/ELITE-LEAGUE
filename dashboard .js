@@ -1155,9 +1155,9 @@ const contentData = {
                 ${[
                       { name: "Hassan", val: "6", unit: "CSC 400" },
                     { name: "Chukwuemeka", val: "6", unit: "CSC 100" },
-                    { name: "Emmanuel", val: "4", unit: "NUr 200" },
-                      { name: "Noble", val: "5", unit: "MSS 200" },
+                     { name: "Noble", val: "5", unit: "LAW 100" },
                     { name: "Obi", val: "4", unit: "CSC 400" },
+                      { name: "Mello", val: "5", unit: "MSS 200" },
                     { name: "Cush", val: "3", unit: "CSC 200" },
                     { name: "Kev O", val: "3", unit: "CSC 200" },
                     { name: "Paschal", val: "2", unit: "CSC 200" },
