@@ -1590,7 +1590,8 @@ const contentData = {
     
    'Pure Stream': `
 <div class="animate-in pb-40 px-6 md:px-20 space-y-24">
-    <div class="pt-16 flex flex-col items-center text-center">
+    <!-- Header -->
+    <div class="pt-16 flex flex-col items-center text-center relative">
         <div class="flex items-center gap-6 mb-8">
             <div class="h-[1px] w-8 bg-blue-500/30"></div>
             <span class="text-[9px] text-blue-500 font-black uppercase tracking-[0.8em]">Elite_Broadcasting_Service</span>
@@ -1600,73 +1601,89 @@ const contentData = {
             PURE <br>
             <span class="text-transparent stroke-blue-500" style="-webkit-text-stroke: 1px #3b82f6;">STREAM</span>
         </h3>
+
+        <!-- ADMIN BUTTON – top right -->
+        <button id="admin-btn" class="absolute top-0 right-0 md:right-10 px-6 py-3 bg-blue-600/30 hover:bg-blue-600/50 border border-blue-500/40 rounded-full text-blue-300 font-bold uppercase tracking-wider text-sm transition-all shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+            ADMIN ACCESS
+        </button>
     </div>
 
-    <div class="relative group">
-        <div class="absolute -inset-1 bg-blue-500/5 rounded-[5rem] blur-2xl"></div>
+    <!-- Games Grid – this is where the 6 live matches appear -->
+    <div id="games-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 pt-10"></div>
 
-        <div class="relative aspect-[9/16] md:aspect-video bg-black border border-white/5 rounded-[4.5rem] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.9)]">
-            
-            <div class="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-screen bg-[url('https://media.giphy.com/media/oEI9uWUicGLeU/giphy.gif')] bg-cover"></div>
-            
-            <div class="absolute inset-0 pointer-events-none" 
-                 style="background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03)); background-size: 100% 4px, 3px 100%;">
-            </div>
-
-            <div class="absolute inset-0 flex flex-col items-center justify-center p-12 text-center">
-                <div class="relative mb-12">
-                    <div class="w-32 h-32 rounded-full border border-blue-500/10 flex items-center justify-center">
-                        <i class="fas fa-wifi text-blue-500/20 text-4xl animate-pulse"></i>
-                    </div>
-                    <div class="absolute inset-0 animate-spin-slow" style="animation: spin 8s linear infinite;">
-                        <div class="w-3 h-3 bg-blue-500 rounded-full absolute -top-1.5 left-1/2 -translate-x-1/2 shadow-[0_0_15px_#3b82f6]"></div>
-                    </div>
-                </div>
-
-                <h4 class="text-2xl font-black text-white uppercase italic tracking-[0.5em] mb-6">Initialising...</h4>
-                
-                <div class="max-w-xs space-y-6">
-                    <p class="text-[10px] text-gray-500 font-bold uppercase leading-[2.5] tracking-[0.3em]">
-                        The Elite Media Node is currently <span class="text-blue-500">Scanning for Signal</span>. High-definition match-day downlink is restricted until the 2025 opening ceremony.
-                    </p>
-                    <div class="h-[1px] w-12 bg-blue-500/20 mx-auto"></div>
-                </div>
-            </div>
-
-            <div class="absolute top-12 left-12 flex flex-col gap-2">
-                <span class="text-[8px] text-blue-500/40 font-mono font-black tracking-widest uppercase">REC [OFF]</span>
-                <span class="text-[8px] text-gray-700 font-mono font-black tracking-widest uppercase">4K_ULTRA_HD</span>
-            </div>
-
-            <div class="absolute bottom-12 left-12 flex items-center gap-4">
-                <div class="w-2 h-2 rounded-full bg-blue-500/20 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
-                <span class="text-[9px] text-gray-500 font-black uppercase tracking-[0.4em]">Uplink: Standing By...</span>
-            </div>
+    <!-- PIN Modal -->
+    <div id="pin-modal" class="modal fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+        <div class="bg-gray-900/90 border border-blue-500/30 rounded-2xl p-10 max-w-md w-full backdrop-blur-md">
+            <h2 class="text-2xl font-black text-white uppercase tracking-widest mb-6 text-center">Admin Authentication</h2>
+            <input type="password" id="pin-input" placeholder="Enter PIN" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-5 py-4 text-white text-center text-xl mb-6 focus:outline-none focus:border-blue-400">
+            <button id="submit-pin" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold uppercase tracking-wider py-4 rounded-lg transition-all">Verify</button>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 pt-10">
-        <div class="flex flex-col items-center md:items-start gap-4">
-            <span class="text-[8px] text-gray-600 font-black uppercase tracking-[0.5em]">Encryption</span>
-            <span class="text-xs text-blue-500 font-black uppercase italic tracking-widest">Elite_Level_01</span>
-        </div>
-        <div class="flex flex-col items-center gap-4">
-            <span class="text-[8px] text-gray-600 font-black uppercase tracking-[0.5em]">Coordinates</span>
-            <span class="text-xs text-white font-black uppercase italic tracking-widest">Sat_Node: 20.25_N</span>
-        </div>
-        <div class="flex flex-col items-center md:items-end gap-4">
-            <span class="text-[8px] text-gray-600 font-black uppercase tracking-[0.5em]">Status</span>
-            <span class="text-xs text-blue-500 font-black uppercase italic tracking-widest animate-pulse underline underline-offset-8">Searching</span>
+    <!-- Admin Panel Modal -->
+    <div id="admin-modal" class="modal fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+        <div class="bg-gray-900/95 border border-blue-500/30 rounded-3xl p-10 max-w-4xl w-full max-h-[90vh] overflow-y-auto backdrop-blur-lg">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-black text-white uppercase tracking-widest">Pure Stream Admin Control</h2>
+                <button id="save-btn" class="px-8 py-3 bg-green-600/70 hover:bg-green-600 border border-green-400/40 rounded-full text-white font-bold uppercase tracking-wider transition-all">Save & Close</button>
+            </div>
+            <div id="admin-games" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </div>
     </div>
 
-    <div class="pt-20 text-center opacity-10">
-        <p class="text-[7px] text-white font-black uppercase tracking-[1em]">
-            Elite Broadcast Security Protocol // No Signal Detected
-        </p>
+    <!-- Edit Game Modal -->
+    <div id="edit-modal" class="modal fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+        <div class="bg-gray-900/95 border border-blue-500/30 rounded-2xl p-8 max-w-lg w-full backdrop-blur-md">
+            <h2 class="text-2xl font-black text-white uppercase tracking-widest mb-6">Edit Match</h2>
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <input type="text" id="teamA" placeholder="Team A Name" class="bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400">
+                <input type="text" id="teamB" placeholder="Team B Name" class="bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400">
+            </div>
+
+            <h3 class="text-lg font-bold text-blue-400 uppercase tracking-wider mb-4">Add Event</h3>
+            <div class="space-y-4">
+                <select id="event-type" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
+                    <option value="goal">Goal</option>
+                    <option value="yellow">Yellow Card</option>
+                    <option value="red">Red Card</option>
+                </select>
+                <select id="event-team" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
+                    <option value="A">Team A</option>
+                    <option value="B">Team B</option>
+                </select>
+                <input type="text" id="event-player" placeholder="Player / Recipient Name" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
+                <input type="text" id="event-time" placeholder="Time (e.g. 45'+2')" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
+                <input type="text" id="event-assist" placeholder="Assist (optional)" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
+                <select id="goal-type" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white" style="display:none;">
+                    <option value="normal">Normal Goal</option>
+                    <option value="penalty">Penalty</option>
+                    <option value="free-kick">Free Kick</option>
+                    <option value="own-goal">Own Goal</option>
+                </select>
+                <button id="add-event" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold uppercase tracking-wider py-4 rounded-lg transition-all">Add Event</button>
+            </div>
+
+            <div id="events-list" class="mt-8 space-y-3 text-gray-300 text-sm"></div>
+
+            <button id="close-edit" class="mt-8 w-full bg-gray-700 hover:bg-gray-600 text-white font-bold uppercase tracking-wider py-4 rounded-lg transition-all">Save Teams & Close</button>
+        </div>
     </div>
+
+    <!-- Notification Dropdown -->
+    <div id="notification" class="fixed top-0 left-0 right-0 bg-green-600/90 text-white text-center py-4 font-bold uppercase tracking-wider transform -translate-y-full transition-transform duration-500 z-50 shadow-lg"></div>
+
+    <!-- Audio -->
+    <audio id="goal-sound" preload="auto">
+        <!-- Free public goal horn (short clip from Pixabay / similar royalty-free sources) -->
+        <source src="https://cdn.pixabay.com/audio/2023/08/07/audio_3b7d8d7e8e.mp3" type="audio/mpeg">
+        <!-- Alternative: https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-2164.mp3 (coin-like celebration) -->
+        Your browser does not support the audio element.
+    </audio>
 </div>`,
 
+
+
+    
 
 'Messages': `
 <div class="flex flex-col items-center justify-center min-h-[400px] animate-in fade-in zoom-in duration-500">
