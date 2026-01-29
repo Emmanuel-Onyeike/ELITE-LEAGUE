@@ -350,191 +350,256 @@
 </main>
  <!-- Firebase SDKs -->
 
-
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
-<!-- Your Script – paste this in a <script> tag at the bottom or in script.js -->
 <script>
-// Your exact Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyDtTYEHEdPopiYv9Iq2XYAcXTKk3gzWL_A",
-  authDomain: "goteach-1eaa3.firebaseapp.com",
-  projectId: "goteach-1eaa3",
-  storageBucket: "goteach-1eaa3.firebasestorage.app",
-  messagingSenderId: "486448948939",
-  appId: "1:486448948939:web:3058788ea1a134804d1d4e",
-  measurementId: "G-FMSL801KQB",
-  databaseURL: "https://goteach-1eaa3-default-rtdb.firebaseio.com/"
-};
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('Pure Stream: DOM fully loaded – initializing script');
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-const gamesRef = db.ref('pure_stream_games');
-
-// Initialize 6 games if empty
-gamesRef.once('value').then(snap => {
-  if (!snap.exists()) {
-    const initial = Array(6).fill().map(() => ({
-      teamA: 'NIL', teamB: 'NIL',
-      scoreA: 0, scoreB: 0,
-      events: []
-    }));
-    gamesRef.set(initial);
-  }
-});
-
-// Render public view
-function renderGames(games) {
-  const container = document.getElementById('games-container');
-  container.innerHTML = '';
-  games.forEach(game => {
-    const div = document.createElement('div');
-    div.className = 'bg-black/60 border border-blue-500/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:border-blue-400/40 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.6)]';
-    div.innerHTML = `
-      <h4 class="text-2xl md:text-3xl font-black text-white mb-4 tracking-tight">
-        ${game.teamA} <span class="text-blue-400">${game.scoreA}</span> – <span class="text-blue-400">${game.scoreB}</span> ${game.teamB}
-      </h4>
-      <div class="text-left text-sm text-gray-300 space-y-1.5 min-h-[120px]">
-        ${game.events.map(e => `
-          <div class="flex justify-between ${e.type === 'goal' ? 'text-green-400 font-semibold' : e.type === 'yellow' ? 'text-yellow-400' : 'text-red-500'}">
-            <span>${e.time}</span>
-            <span>${e.type.toUpperCase()}: ${e.player}${e.assist ? ` (A: ${e.assist})` : ''}${e.goalType ? ` (${e.goalType})` : ''}</span>
-          </div>
-        `).join('')}
-      </div>
-    `;
-    container.appendChild(div);
-  });
-}
-
-// Real-time listener + goal detection
-gamesRef.on('value', snap => {
-  const games = snap.val() || [];
-  renderGames(games);
-
-  // Simple new goal check (you can improve with timestamps later)
-  const hasGoal = games.some(g => g.events.some(e => e.type === 'goal' && !e.processed));
-  if (hasGoal) {
-    document.getElementById('goal-sound').currentTime = 0;
-    document.getElementById('goal-sound').play().catch(() => {});
-    showNotification('GOOOAAAL!!!');
-    document.querySelectorAll('#games-container > div').forEach(el => {
-      el.classList.add('animate-pulse');
-      setTimeout(() => el.classList.remove('animate-pulse'), 2000);
-    });
-  }
-});
-
-// Admin logic
-document.getElementById('admin-btn').onclick = () => {
-  document.getElementById('pin-modal').classList.remove('hidden');
-};
-
-document.getElementById('submit-pin').onclick = () => {
-  if (document.getElementById('pin-input').value === '3478') {
-    document.getElementById('pin-modal').classList.add('hidden');
-    document.getElementById('admin-modal').classList.remove('hidden');
-    renderAdminGames();
-  } else {
-    alert('Incorrect PIN');
-  }
-};
-
-function renderAdminGames() {
-  gamesRef.once('value').then(snap => {
-    const games = snap.val() || [];
-    const container = document.getElementById('admin-games');
-    container.innerHTML = '';
-    games.forEach((game, i) => {
-      const btn = document.createElement('button');
-      btn.className = 'bg-blue-900/40 hover:bg-blue-700/60 border border-blue-500/30 rounded-xl p-6 text-left transition-all';
-      btn.innerHTML = `<div class="font-black text-lg text-white">${game.teamA} vs ${game.teamB}</div><div class="text-sm text-gray-400">${game.scoreA} - ${game.scoreB}</div>`;
-      btn.onclick = () => openEditModal(i);
-      container.appendChild(btn);
-    });
-  });
-}
-
-let editingIndex = null;
-
-function openEditModal(index) {
-  editingIndex = index;
-  gamesRef.once('value').then(snap => {
-    const game = snap.val()[index];
-    document.getElementById('teamA').value = game.teamA;
-    document.getElementById('teamB').value = game.teamB;
-    renderEventsList(game.events);
-    document.getElementById('edit-modal').classList.remove('hidden');
-  });
-
-  const typeSelect = document.getElementById('event-type');
-  typeSelect.onchange = () => {
-    document.getElementById('goal-type').style.display = typeSelect.value === 'goal' ? 'block' : 'none';
+  const firebaseConfig = {
+    apiKey: "AIzaSyDtTYEHEdPopiYv9Iq2XYAcXTKk3gzWL_A",
+    authDomain: "goteach-1eaa3.firebaseapp.com",
+    projectId: "goteach-1eaa3",
+    storageBucket: "goteach-1eaa3.firebasestorage.app",
+    messagingSenderId: "486448948939",
+    appId: "1:486448948939:web:3058788ea1a134804d1d4e",
+    measurementId: "G-FMSL801KQB",
+    databaseURL: "https://goteach-1eaa3-default-rtdb.firebaseio.com/"
   };
-}
 
-document.getElementById('add-event').onclick = () => {
-  const type = document.getElementById('event-type').value;
-  const team = document.getElementById('event-team').value;
-  const player = document.getElementById('event-player').value.trim();
-  const time = document.getElementById('event-time').value.trim();
-  const assist = document.getElementById('event-assist').value.trim();
-  const goalType = type === 'goal' ? document.getElementById('goal-type').value : '';
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+  const gamesRef = db.ref('pure_stream_games');
 
-  if (!player || !time) return alert('Player name and time are required');
-
+  // Initialize 6 games if empty
   gamesRef.once('value').then(snap => {
-    let games = snap.val();
-    let game = games[editingIndex];
+    if (!snap.exists()) {
+      const initial = Array(6).fill().map(() => ({
+        teamA: 'NIL', teamB: 'NIL',
+        scoreA: 0, scoreB: 0,
+        events: []
+      }));
+      gamesRef.set(initial);
+      console.log('Pure Stream: Initialized 6 empty games');
+    }
+  }).catch(err => console.error('Firebase init error:', err));
 
-    if (type === 'goal') {
-      if (team === 'A') game.scoreA++;
-      else game.scoreB++;
+  // Guarded render function
+  function renderGames(games) {
+    const container = document.getElementById('games-container');
+    if (!container) {
+      console.error('Pure Stream: #games-container not found in DOM');
+      return;
+    }
+    container.innerHTML = '';
+    (games || []).forEach(game => {
+      const div = document.createElement('div');
+      div.className = 'bg-black/60 border border-blue-500/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:border-blue-400/40 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.6)]';
+      div.innerHTML = `
+        <h4 class="text-2xl md:text-3xl font-black text-white mb-4 tracking-tight">
+          ${game.teamA || 'NIL'} <span class="text-blue-400">${game.scoreA || 0}</span> – <span class="text-blue-400">${game.scoreB || 0}</span> ${game.teamB || 'NIL'}
+        </h4>
+        <div class="text-left text-sm text-gray-300 space-y-1.5 min-h-[120px]">
+          ${(game.events || []).map(e => `
+            <div class="flex justify-between ${e.type === 'goal' ? 'text-green-400 font-semibold' : e.type === 'yellow' ? 'text-yellow-400' : 'text-red-500'}">
+              <span>${e.time || '--'}</span>
+              <span>${(e.type || '').toUpperCase()}: ${e.player || '?'}${e.assist ? ` (A: ${e.assist})` : ''}${e.goalType ? ` (${e.goalType})` : ''}</span>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  let lastGamesSnapshot = null; // For detecting new goals
+
+  // Real-time listener
+  gamesRef.on('value', snap => {
+    const games = snap.val() || [];
+    renderGames(games);
+
+    // Detect NEW unprocessed goals only
+    let hasNewGoal = false;
+    games.forEach((game, idx) => {
+      if (lastGamesSnapshot && lastGamesSnapshot[idx]) {
+        const prevEvents = lastGamesSnapshot[idx].events || [];
+        const currEvents = game.events || [];
+        if (currEvents.length > prevEvents.length) {
+          const newEvent = currEvents[currEvents.length - 1];
+          if (newEvent.type === 'goal' && !newEvent.processed) {
+            hasNewGoal = true;
+            // Mark as processed in DB
+            gamesRef.child(idx).child('events').child(currEvents.length - 1).update({ processed: true });
+          }
+        }
+      }
+    });
+
+    if (hasNewGoal) {
+      const audio = document.getElementById('goal-sound');
+      if (audio) {
+        audio.currentTime = 0;
+        audio.play().catch(e => console.warn('Audio play failed:', e));
+      }
+      showNotification('GOOOAAAL!!!');
+      document.querySelectorAll('#games-container > div').forEach(el => {
+        el.classList.add('animate-pulse');
+        setTimeout(() => el.classList.remove('animate-pulse'), 2000);
+      });
     }
 
-    game.events.push({
-      type, team, player, time, assist, goalType,
-      processed: false  // flag for notification
+    lastGamesSnapshot = games; // Update for next comparison
+  }, err => console.error('Firebase realtime error:', err));
+
+  // Admin button
+  const adminBtn = document.getElementById('admin-btn');
+  if (adminBtn) {
+    adminBtn.onclick = () => {
+      const pinModal = document.getElementById('pin-modal');
+      if (pinModal) pinModal.classList.remove('hidden');
+    };
+  } else {
+    console.error('Pure Stream: #admin-btn not found');
+  }
+
+  const submitPin = document.getElementById('submit-pin');
+  if (submitPin) {
+    submitPin.onclick = () => {
+      const input = document.getElementById('pin-input');
+      if (input && input.value === '3478') {
+        document.getElementById('pin-modal')?.classList.add('hidden');
+        document.getElementById('admin-modal')?.classList.remove('hidden');
+        renderAdminGames();
+      } else {
+        alert('Incorrect PIN');
+      }
+    };
+  }
+
+  function renderAdminGames() {
+    gamesRef.once('value').then(snap => {
+      const games = snap.val() || [];
+      const container = document.getElementById('admin-games');
+      if (!container) return console.error('Pure Stream: #admin-games not found');
+      container.innerHTML = '';
+      games.forEach((game, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'bg-blue-900/40 hover:bg-blue-700/60 border border-blue-500/30 rounded-xl p-6 text-left transition-all';
+        btn.innerHTML = `<div class="font-black text-lg text-white">${game.teamA || 'NIL'} vs ${game.teamB || 'NIL'}</div><div class="text-sm text-gray-400">${game.scoreA || 0} - ${game.scoreB || 0}</div>`;
+        btn.onclick = () => openEditModal(i);
+        container.appendChild(btn);
+      });
+    });
+  }
+
+  let editingIndex = null;
+
+  function openEditModal(index) {
+    editingIndex = index;
+    gamesRef.once('value').then(snap => {
+      const game = (snap.val() || [])[index];
+      if (!game) return;
+      const teamAInput = document.getElementById('teamA');
+      const teamBInput = document.getElementById('teamB');
+      if (teamAInput) teamAInput.value = game.teamA || '';
+      if (teamBInput) teamBInput.value = game.teamB || '';
+      renderEventsList(game.events || []);
+      const modal = document.getElementById('edit-modal');
+      if (modal) modal.classList.remove('hidden');
     });
 
-    gamesRef.set(games);
-    renderEventsList(game.events);
-  });
-};
+    const typeSelect = document.getElementById('event-type');
+    if (typeSelect) {
+      typeSelect.onchange = () => {
+        const goalType = document.getElementById('goal-type');
+        if (goalType) goalType.style.display = typeSelect.value === 'goal' ? 'block' : 'none';
+      };
+    }
+  }
 
-function renderEventsList(events) {
-  document.getElementById('events-list').innerHTML = events.map(e => `
-    <div class="text-sm ${e.type === 'goal' ? 'text-green-400' : e.type === 'yellow' ? 'text-yellow-300' : 'text-red-400'}">
-      ${e.time} – ${e.type}: ${e.player}${e.assist ? ` (assist: ${e.assist})` : ''}${e.goalType ? ` (${e.goalType})` : ''}
-    </div>
-  `).join('');
-}
+  const addEventBtn = document.getElementById('add-event');
+  if (addEventBtn) {
+    addEventBtn.onclick = () => {
+      const type = document.getElementById('event-type')?.value;
+      const team = document.getElementById('event-team')?.value;
+      const player = document.getElementById('event-player')?.value.trim();
+      const time = document.getElementById('event-time')?.value.trim();
+      const assist = document.getElementById('event-assist')?.value.trim();
+      const goalType = type === 'goal' ? document.getElementById('goal-type')?.value : '';
 
-document.getElementById('close-edit').onclick = () => {
-  const teamA = document.getElementById('teamA').value.trim();
-  const teamB = document.getElementById('teamB').value.trim();
+      if (!player || !time) return alert('Player name and time are required');
 
-  gamesRef.once('value').then(snap => {
-    let games = snap.val();
-    games[editingIndex].teamA = teamA || 'NIL';
-    games[editingIndex].teamB = teamB || 'NIL';
-    gamesRef.set(games);
-    document.getElementById('edit-modal').classList.add('hidden');
-  });
-};
+      gamesRef.once('value').then(snap => {
+        let games = snap.val() || [];
+        let game = games[editingIndex];
+        if (!game) return;
 
-document.getElementById('save-btn').onclick = () => {
-  document.getElementById('admin-modal').classList.add('hidden');
-};
+        if (type === 'goal') {
+          if (team === 'A') game.scoreA = (game.scoreA || 0) + 1;
+          else game.scoreB = (game.scoreB || 0) + 1;
+        }
 
-function showNotification(msg) {
-  const notif = document.getElementById('notification');
-  notif.textContent = msg;
-  notif.classList.remove('-translate-y-full');
-  setTimeout(() => notif.classList.add('-translate-y-full'), 4000);
-}
+        game.events = game.events || [];
+        game.events.push({
+          type, team, player, time, assist, goalType,
+          processed: false
+        });
+
+        gamesRef.set(games);
+        renderEventsList(game.events);
+      });
+    };
+  }
+
+  function renderEventsList(events) {
+    const list = document.getElementById('events-list');
+    if (!list) return;
+    list.innerHTML = (events || []).map(e => `
+      <div class="text-sm ${e.type === 'goal' ? 'text-green-400' : e.type === 'yellow' ? 'text-yellow-300' : 'text-red-400'}">
+        ${e.time || '--'} – ${e.type || '?'} : ${e.player || '?'} ${e.assist ? `(assist: ${e.assist})` : ''} ${e.goalType ? `(${e.goalType})` : ''}
+      </div>
+    `).join('');
+  }
+
+  const closeEdit = document.getElementById('close-edit');
+  if (closeEdit) {
+    closeEdit.onclick = () => {
+      const teamA = document.getElementById('teamA')?.value.trim() || 'NIL';
+      const teamB = document.getElementById('teamB')?.value.trim() || 'NIL';
+
+      gamesRef.once('value').then(snap => {
+        let games = snap.val() || [];
+        if (games[editingIndex]) {
+          games[editingIndex].teamA = teamA;
+          games[editingIndex].teamB = teamB;
+          gamesRef.set(games);
+        }
+        const modal = document.getElementById('edit-modal');
+        if (modal) modal.classList.add('hidden');
+      });
+    };
+  }
+
+  const saveBtn = document.getElementById('save-btn');
+  if (saveBtn) {
+    saveBtn.onclick = () => {
+      const modal = document.getElementById('admin-modal');
+      if (modal) modal.classList.add('hidden');
+    };
+  }
+
+  function showNotification(msg) {
+    const notif = document.getElementById('notification');
+    if (!notif) return console.warn('Pure Stream: #notification not found');
+    notif.textContent = msg;
+    notif.classList.remove('-translate-y-full');
+    setTimeout(() => notif.classList.add('-translate-y-full'), 4000);
+  }
+
+  console.log('Pure Stream: Script fully initialized');
+});
 </script>
-
   <script src="dashboard .js"></script>
 </body>
