@@ -353,3 +353,15 @@ body {
     color: #e0e0e0;
     font-family: 'Inter', sans-serif;
 }
+
+
+
+
+
+
+
+  /* Extra animations to match your theme */
+  @keyframes pulse { 0%,100% { opacity:1 } 50% { opacity:0.7 } }
+  .animate-pulse { animation: pulse 1.5s infinite; }
+  .modal.hidden { display: none; }
+
