@@ -1798,30 +1798,30 @@ function updateView(title) {
                 return el;
             }
 
-            function renderGames(games) {
-                const container = getEl('games-container');
-                if (!container) return;
-                container.innerHTML = '';
-                (games || []).forEach(game => {
-                    const div = document.createElement('div');
-                    div.className = 'bg-black/60 border border-blue-500/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:border-blue-400/40 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.6)]';
-                    div.innerHTML = `
-                        <h4 class="text-2xl md:text-3xl font-black text-white mb-4 tracking-tight">
-                            ${game.teamA || 'NIL'} <span class="text-blue-400">${game.scoreA || 0}</span> – 
-                            <span class="text-blue-400">${game.scoreB || 0}</span> ${game.teamB || 'NIL'}
-                        </h4>
-                        <div class="text-left text-sm text-gray-300 space-y-1.5 min-h-[120px]">
-                            ${(game.events || []).map(e => `
-                                <div class="flex justify-between ${e.type === 'goal' ? 'text-green-400 font-semibold' : e.type === 'yellow' ? 'text-yellow-400' : 'text-red-500'}">
-                                    <span>${e.time || '--'}</span>
-                                    <span>${(e.type || '').toUpperCase()}: ${e.player || '?'}${e.assist ? ` (A: ${e.assist})` : ''}${e.goalType ? ` (${e.goalType})` : ''}</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                    `;
-                    container.appendChild(div);
-                });
-            }
+        function renderGames(games) {
+    const container = getEl('games-container');
+    if (!container) return;
+    container.innerHTML = '';
+    (games || []).forEach(game => {
+        const div = document.createElement('div');
+        div.className = 'bg-black/60 border border-blue-500/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:border-blue-400/40 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.6)]';
+        div.innerHTML = `
+            <h4 class="text-2xl md:text-3xl font-black text-white mb-4 tracking-tight">
+                ${game.teamA || 'NIL'} <span class="text-blue-400">${game.scoreA || 0}</span> –
+                <span class="text-blue-400">${game.scoreB || 0}</span> ${game.teamB || 'NIL'}
+            </h4>
+            <div class="text-left text-sm text-gray-300 space-y-1.5 min-h-[120px]">
+                ${(game.events || []).map(e => `
+                    <div class="flex justify-between ${e.type === 'goal' ? 'text-green-400 font-semibold' : e.type === 'yellow' ? 'text-yellow-400' : 'text-red-500'}">
+                        <span>${e.time || '--'}</span>
+                        <span>${(e.type || '').toUpperCase()}: ${e.player || '?'}${e.assist ? ` (A: ${e.assist})` : ''}${e.goalType ? ` (${e.goalType})` : ''}</span>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
 
             let prevGames = null;
             gamesRef.on('value', snap => {
