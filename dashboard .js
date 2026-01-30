@@ -1752,12 +1752,14 @@ function updateView(title) {
 if (title === 'Pure Stream') {
     console.log('Pure Stream view loaded — initializing safely');
 
-    // Wait for DOM to be ready after innerHTML
+    // Wait for DOM to be fully ready after innerHTML injection
     setTimeout(() => {
         // ── SAFE GETTER ────────────────────────────────────────────────
         function get(id) {
             const el = document.getElementById(id);
-            if (!el) console.log(`[Pure Stream] #${id} not found`);
+            if (!el) {
+                console.log(`[Pure Stream] #${id} not found`);
+            }
             return el;
         }
 
@@ -1767,11 +1769,15 @@ if (title === 'Pure Stream') {
             if (!n) return;
             n.textContent = msg;
             n.classList.remove('-translate-y-full');
-            setTimeout(() => n.classList.add('-translate-y-full'), 4000);
+            setTimeout(() => {
+                if (n && n.isConnected) {
+                    n.classList.add('-translate-y-full');
+                }
+            }, 4000);
         }
 
         // ── RENDER GAMES ───────────────────────────────────────────────
-        function render(games) {
+        function renderGames(games) {
             const container = get('games-container');
             if (!container) return;
             container.innerHTML = '';
@@ -1796,7 +1802,7 @@ if (title === 'Pure Stream') {
             });
         }
 
-        // ── RENDER EVENTS LIST IN EDIT MODAL ──────────────────────────
+        // ── RENDER EVENTS LIST (in edit modal) ─────────────────────────
         function renderEventsList(events) {
             const list = get('events-list');
             if (!list) return;
@@ -1833,19 +1839,20 @@ if (title === 'Pure Stream') {
             }
         });
 
+        // ── REALTIME + GOAL DETECTION ──────────────────────────────────
         let prevGames = null;
         gamesRef.on('value', snap => {
             const games = snap.val() || [];
-            render(games);
+            renderGames(games);
 
-            let goal = false;
+            let goalDetected = false;
             if (prevGames) {
                 games.forEach((g, i) => {
                     const p = prevGames[i] || { events: [] };
                     if ((g.events?.length || 0) > (p.events?.length || 0)) {
                         const latest = g.events?.[g.events.length - 1];
                         if (latest?.type === 'goal' && !latest.processed) {
-                            goal = true;
+                            goalDetected = true;
                             gamesRef.child(`${i}/events/${g.events.length - 1}/processed`).set(true);
                         }
                     }
@@ -1853,13 +1860,15 @@ if (title === 'Pure Stream') {
             }
             prevGames = JSON.parse(JSON.stringify(games));
 
-            if (goal) {
+            if (goalDetected) {
                 const audio = get('goal-sound');
                 if (audio) audio.play().catch(() => {});
                 notify('GOOOAAAL!!!');
                 document.querySelectorAll('#games-container > div').forEach(el => {
-                    el.classList.add('animate-pulse');
-                    setTimeout(() => el.classList.remove('animate-pulse'), 2000);
+                    if (el) {
+                        el.classList.add('animate-pulse');
+                        setTimeout(() => el.classList.remove('animate-pulse'), 2000);
+                    }
                 });
             }
         });
@@ -1906,10 +1915,32 @@ if (title === 'Pure Stream') {
             });
         }
 
-        // Add event button
-        const addEventBtn = get('add-event');
-        if (addEventBtn) {
-            addEventBtn.addEventListener('click', () => {
+        // ── ALL BUTTONS WIRED ──────────────────────────────────────────
+        const buttons = {
+            'admin-btn': () => {
+                console.log('ADMIN ACCESS clicked');
+                const pinModal = get('pin-modal');
+                if (pinModal) {
+                    pinModal.classList.remove('hidden');
+                    pinModal.style.display = 'flex';
+                    pinModal.style.opacity = '1';
+                    pinModal.style.visibility = 'visible';
+                    pinModal.style.zIndex = '99999';
+                    console.log('PIN modal forced open');
+                }
+            },
+            'submit-pin': () => {
+                const input = get('pin-input');
+                if (input?.value === '3478') {
+                    get('pin-modal')?.classList.add('hidden');
+                    get('admin-modal')?.classList.remove('hidden');
+                    renderAdminGames();
+                    console.log('Admin modal opened');
+                } else {
+                    alert('Incorrect PIN');
+                }
+            },
+            'add-event': () => {
                 const type = get('event-type')?.value;
                 const team = get('event-team')?.value;
                 const player = get('event-player')?.value?.trim();
@@ -1934,14 +1965,10 @@ if (title === 'Pure Stream') {
 
                     gamesRef.set(games);
                     renderEventsList(game.events);
+                    console.log('Event added');
                 });
-            });
-        }
-
-        // Close edit modal + save teams
-        const closeEditBtn = get('close-edit');
-        if (closeEditBtn) {
-            closeEditBtn.addEventListener('click', () => {
+            },
+            'close-edit': () => {
                 const teamA = get('teamA')?.value?.trim() || 'NIL';
                 const teamB = get('teamB')?.value?.trim() || 'NIL';
 
@@ -1953,42 +1980,28 @@ if (title === 'Pure Stream') {
                         gamesRef.set(games);
                     }
                     get('edit-modal')?.classList.add('hidden');
+                    console.log('Edit modal closed & teams saved');
                 });
-            });
-        }
-
-        // Save & close admin modal
-        const saveBtn = get('save-btn');
-        if (saveBtn) {
-            saveBtn.addEventListener('click', () => {
+            },
+            'save-btn': () => {
                 get('admin-modal')?.classList.add('hidden');
-            });
-        }
+                console.log('Admin modal closed');
+            }
+        };
 
-        // Main admin button flow
-        const adminBtn = get('admin-btn');
-        if (adminBtn) {
-            adminBtn.addEventListener('click', () => {
-                get('pin-modal')?.classList.remove('hidden');
-            });
-        }
+        // Attach all handlers safely
+        Object.entries(buttons).forEach(([id, fn]) => {
+            const btn = get(id);
+            if (btn) {
+                btn.addEventListener('click', fn);
+                console.log(`[Pure Stream] Button #${id} wired`);
+            } else {
+                console.log(`[Pure Stream] Button #${id} missing`);
+            }
+        });
 
-        const submitPin = get('submit-pin');
-        if (submitPin) {
-            submitPin.addEventListener('click', () => {
-                const input = get('pin-input');
-                if (input?.value === '3478') {
-                    get('pin-modal')?.classList.add('hidden');
-                    get('admin-modal')?.classList.remove('hidden');
-                    renderAdminGames();
-                } else {
-                    alert('Incorrect PIN');
-                }
-            });
-        }
-
-        console.log('Pure Stream 100% initialized — everything works');
-    }, 100); // 100ms delay ensures DOM is ready
+        console.log('Pure Stream 100% ready — all features active');
+    }, 100); // 100ms delay — enough for DOM to settle
 }
         mainDisplay.style.opacity = '1';
             startSystemSync();
