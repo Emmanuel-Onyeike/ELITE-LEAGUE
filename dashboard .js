@@ -1067,7 +1067,7 @@ const contentData = {
                     { name: "Ebuka", val: "4", unit: "MSS 200" },
                     { name: "Fomat", val: "4", unit: "CSC 300" },
                     { name: "Sporty", val: "3", unit: "MSS 300" },
-                    { name: "Zubby", val: "2", unit: "CSC 200" },
+                    { name: "Bouyka", val: "2", unit: "CSC 300" },
                     { name: "IK", val: "2", unit: "MSS 200" },
                     { name: "Von", val: "2", unit: "MSS 300" }
                 ].map((player, i) => `
