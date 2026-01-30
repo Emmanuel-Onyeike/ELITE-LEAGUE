@@ -1968,6 +1968,23 @@ if (title === 'Pure Stream') {
                     console.log('Event added');
                 });
             },
+            'admin-btn': () => {
+    console.log('ADMIN button clicked — forcing PIN modal open');
+    const pinModal = get('pin-modal');
+    if (pinModal) {
+        // Remove hidden class
+        pinModal.classList.remove('hidden');
+        // Force every style that could hide it
+        pinModal.style.display = 'flex !important';
+        pinModal.style.opacity = '1 !important';
+        pinModal.style.visibility = 'visible !important';
+        pinModal.style.zIndex = '999999 !important';
+        pinModal.style.pointerEvents = 'auto !important';
+        console.log('PIN modal should now be visible');
+    } else {
+        console.log('PIN modal element not found in DOM — check HTML');
+    }
+},
             'close-edit': () => {
                 const teamA = get('teamA')?.value?.trim() || 'NIL';
                 const teamB = get('teamB')?.value?.trim() || 'NIL';
