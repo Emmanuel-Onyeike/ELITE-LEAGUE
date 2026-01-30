@@ -370,4 +370,27 @@ body {
 }
 .modal:not(.hidden) {
   display: flex !important;
+}/* Make sure hidden actually hides */
+.hidden {
+  display: none !important;
+}
+
+/* Force modals visible when not hidden */
+#pin-modal:not(.hidden),
+#admin-modal:not(.hidden),
+#edit-modal:not(.hidden) {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 9999 !important;
+}
+
+/* Center and style all modals */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
 }
