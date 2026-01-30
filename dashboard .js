@@ -1,4 +1,4 @@
-x
+
 /**
  * MIKOKO LEAGUE - Command Center Core Script
  * Single-Engine Mobile & Desktop Integration
@@ -1587,7 +1587,6 @@ const contentData = {
 
 
 
-    
 'Pure Stream': `
   <div class="animate-in pb-40 px-6 md:px-20 space-y-24">
     <!-- Header -->
@@ -1601,15 +1600,17 @@ const contentData = {
         PURE <br>
         <span class="text-transparent stroke-blue-500" style="-webkit-text-stroke: 1px #3b82f6;">STREAM</span>
       </h3>
+      <!-- ADMIN BUTTON -->
       <button id="admin-btn" class="absolute top-0 right-0 md:right-10 px-6 py-3 bg-blue-600/30 hover:bg-blue-600/50 border border-blue-500/40 rounded-full text-blue-300 font-bold uppercase tracking-wider text-sm transition-all shadow-[0_0_15px_rgba(59,130,246,0.3)]">
         ADMIN ACCESS
       </button>
     </div>
 
+    <!-- Games Grid -->
     <div id="games-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 pt-10"></div>
 
     <!-- PIN Modal -->
-    <div id="pin-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+    <div id="pin-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-[9999] hidden">
       <div class="bg-gray-900/90 border border-blue-500/30 rounded-2xl p-10 max-w-md w-full backdrop-blur-md">
         <h2 class="text-2xl font-black text-white uppercase tracking-widest mb-6 text-center">Admin Authentication</h2>
         <input type="password" id="pin-input" placeholder="Enter PIN" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-5 py-4 text-white text-center text-xl mb-6 focus:outline-none focus:border-blue-400">
@@ -1618,7 +1619,7 @@ const contentData = {
     </div>
 
     <!-- Admin Panel Modal -->
-    <div id="admin-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+    <div id="admin-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-[9999] hidden">
       <div class="bg-gray-900/95 border border-blue-500/30 rounded-3xl p-10 max-w-4xl w-full max-h-[90vh] overflow-y-auto backdrop-blur-lg">
         <div class="flex justify-between items-center mb-8">
           <h2 class="text-3xl font-black text-white uppercase tracking-widest">Pure Stream Admin Control</h2>
@@ -1629,7 +1630,7 @@ const contentData = {
     </div>
 
     <!-- Edit Game Modal -->
-    <div id="edit-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+    <div id="edit-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-[9999] hidden">
       <div class="bg-gray-900/95 border border-blue-500/30 rounded-2xl p-8 max-w-lg w-full backdrop-blur-md">
         <h2 class="text-2xl font-black text-white uppercase tracking-widest mb-6">Edit Match</h2>
         <div class="grid grid-cols-2 gap-4 mb-6">
@@ -1647,7 +1648,7 @@ const contentData = {
             <option value="A">Team A</option>
             <option value="B">Team B</option>
           </select>
-          <input type="text" id="event-player" placeholder="Player Name" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
+          <input type="text" id="event-player" placeholder="Player / Recipient Name" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
           <input type="text" id="event-time" placeholder="Time (e.g. 45'+2')" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
           <input type="text" id="event-assist" placeholder="Assist (optional)" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
           <select id="goal-type" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white" style="display:none;">
@@ -1669,10 +1670,9 @@ const contentData = {
     <!-- Goal Sound -->
     <audio id="goal-sound" preload="auto">
       <source src="https://www.orangefreesounds.com/wp-content/uploads/2016/11/Goal-horn-sound-effect.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
     </audio>
-  </div>
-`,
-
+  </div>`,
 
 
     
