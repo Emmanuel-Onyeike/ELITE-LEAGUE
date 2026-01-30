@@ -353,9 +353,10 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
+<!-- Pure Stream Script -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Pure Stream: DOM fully loaded – initializing script');
+  console.log('Pure Stream: DOM ready – starting initialization');
 
   const firebaseConfig = {
     apiKey: "AIzaSyDtTYEHEdPopiYv9Iq2XYAcXTKk3gzWL_A",
@@ -372,26 +373,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const db = firebase.database();
   const gamesRef = db.ref('pure_stream_games');
 
-  // Initialize 6 games if empty
+  // Init 6 games if missing
   gamesRef.once('value').then(snap => {
     if (!snap.exists()) {
-      const initial = Array(6).fill().map(() => ({
-        teamA: 'NIL', teamB: 'NIL',
-        scoreA: 0, scoreB: 0,
-        events: []
-      }));
+      const initial = Array(6).fill().map(() => ({ teamA: 'NIL', teamB: 'NIL', scoreA: 0, scoreB: 0, events: [] }));
       gamesRef.set(initial);
-      console.log('Pure Stream: Initialized 6 empty games');
+      console.log('Pure Stream: Created initial 6 games');
     }
-  }).catch(err => console.error('Firebase init error:', err));
+  }).catch(err => console.error('Init error:', err));
 
-  // Guarded render function
+  function getEl(id) {
+    const el = document.getElementById(id);
+    if (!el) console.warn(`Pure Stream: Element #${id} not found`);
+    return el;
+  }
+
   function renderGames(games) {
-    const container = document.getElementById('games-container');
-    if (!container) {
-      console.error('Pure Stream: #games-container not found in DOM');
-      return;
-    }
+    const container = getEl('games-container');
+    if (!container) return;
     container.innerHTML = '';
     (games || []).forEach(game => {
       const div = document.createElement('div');
@@ -413,35 +412,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  let lastGamesSnapshot = null; // For detecting new goals
+  let prevGames = null;
 
-  // Real-time listener
   gamesRef.on('value', snap => {
     const games = snap.val() || [];
     renderGames(games);
 
-    // Detect NEW unprocessed goals only
-    let hasNewGoal = false;
-    games.forEach((game, idx) => {
-      if (lastGamesSnapshot && lastGamesSnapshot[idx]) {
-        const prevEvents = lastGamesSnapshot[idx].events || [];
-        const currEvents = game.events || [];
-        if (currEvents.length > prevEvents.length) {
-          const newEvent = currEvents[currEvents.length - 1];
-          if (newEvent.type === 'goal' && !newEvent.processed) {
-            hasNewGoal = true;
-            // Mark as processed in DB
-            gamesRef.child(idx).child('events').child(currEvents.length - 1).update({ processed: true });
+    let newGoalDetected = false;
+    if (prevGames) {
+      games.forEach((game, i) => {
+        const prev = prevGames[i] || { events: [] };
+        if (game.events?.length > prev.events.length) {
+          const latest = game.events[game.events.length - 1];
+          if (latest.type === 'goal' && !latest.processed) {
+            newGoalDetected = true;
+            // Mark as processed
+            gamesRef.child(`${i}/events/${game.events.length - 1}/processed`).set(true);
           }
         }
-      }
-    });
+      });
+    }
+    prevGames = games;
 
-    if (hasNewGoal) {
-      const audio = document.getElementById('goal-sound');
+    if (newGoalDetected) {
+      const audio = getEl('goal-sound');
       if (audio) {
         audio.currentTime = 0;
-        audio.play().catch(e => console.warn('Audio play failed:', e));
+        audio.play().catch(e => console.log('Audio play blocked (user interaction needed?):', e));
       }
       showNotification('GOOOAAAL!!!');
       document.querySelectorAll('#games-container > div').forEach(el => {
@@ -449,28 +446,24 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => el.classList.remove('animate-pulse'), 2000);
       });
     }
-
-    lastGamesSnapshot = games; // Update for next comparison
-  }, err => console.error('Firebase realtime error:', err));
+  });
 
   // Admin button
-  const adminBtn = document.getElementById('admin-btn');
+  const adminBtn = getEl('admin-btn');
   if (adminBtn) {
     adminBtn.onclick = () => {
-      const pinModal = document.getElementById('pin-modal');
-      if (pinModal) pinModal.classList.remove('hidden');
+      const modal = getEl('pin-modal');
+      if (modal) modal.classList.remove('hidden');
     };
-  } else {
-    console.error('Pure Stream: #admin-btn not found');
   }
 
-  const submitPin = document.getElementById('submit-pin');
+  const submitPin = getEl('submit-pin');
   if (submitPin) {
     submitPin.onclick = () => {
-      const input = document.getElementById('pin-input');
-      if (input && input.value === '3478') {
-        document.getElementById('pin-modal')?.classList.add('hidden');
-        document.getElementById('admin-modal')?.classList.remove('hidden');
+      const input = getEl('pin-input');
+      if (input?.value === '3478') {
+        getEl('pin-modal')?.classList.add('hidden');
+        getEl('admin-modal')?.classList.remove('hidden');
         renderAdminGames();
       } else {
         alert('Incorrect PIN');
@@ -481,8 +474,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderAdminGames() {
     gamesRef.once('value').then(snap => {
       const games = snap.val() || [];
-      const container = document.getElementById('admin-games');
-      if (!container) return console.error('Pure Stream: #admin-games not found');
+      const container = getEl('admin-games');
+      if (!container) return;
       container.innerHTML = '';
       games.forEach((game, i) => {
         const btn = document.createElement('button');
@@ -501,33 +494,30 @@ document.addEventListener('DOMContentLoaded', () => {
     gamesRef.once('value').then(snap => {
       const game = (snap.val() || [])[index];
       if (!game) return;
-      const teamAInput = document.getElementById('teamA');
-      const teamBInput = document.getElementById('teamB');
-      if (teamAInput) teamAInput.value = game.teamA || '';
-      if (teamBInput) teamBInput.value = game.teamB || '';
+      getEl('teamA').value = game.teamA || '';
+      getEl('teamB').value = game.teamB || '';
       renderEventsList(game.events || []);
-      const modal = document.getElementById('edit-modal');
-      if (modal) modal.classList.remove('hidden');
+      getEl('edit-modal')?.classList.remove('hidden');
     });
 
-    const typeSelect = document.getElementById('event-type');
+    const typeSelect = getEl('event-type');
     if (typeSelect) {
       typeSelect.onchange = () => {
-        const goalType = document.getElementById('goal-type');
-        if (goalType) goalType.style.display = typeSelect.value === 'goal' ? 'block' : 'none';
+        const gt = getEl('goal-type');
+        if (gt) gt.style.display = typeSelect.value === 'goal' ? 'block' : 'none';
       };
     }
   }
 
-  const addEventBtn = document.getElementById('add-event');
+  const addEventBtn = getEl('add-event');
   if (addEventBtn) {
     addEventBtn.onclick = () => {
-      const type = document.getElementById('event-type')?.value;
-      const team = document.getElementById('event-team')?.value;
-      const player = document.getElementById('event-player')?.value.trim();
-      const time = document.getElementById('event-time')?.value.trim();
-      const assist = document.getElementById('event-assist')?.value.trim();
-      const goalType = type === 'goal' ? document.getElementById('goal-type')?.value : '';
+      const type = getEl('event-type')?.value;
+      const team = getEl('event-team')?.value;
+      const player = getEl('event-player')?.value.trim();
+      const time = getEl('event-time')?.value.trim();
+      const assist = getEl('event-assist')?.value.trim();
+      const goalType = type === 'goal' ? getEl('goal-type')?.value : '';
 
       if (!player || !time) return alert('Player name and time are required');
 
@@ -542,10 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         game.events = game.events || [];
-        game.events.push({
-          type, team, player, time, assist, goalType,
-          processed: false
-        });
+        game.events.push({ type, team, player, time, assist, goalType, processed: false });
 
         gamesRef.set(games);
         renderEventsList(game.events);
@@ -554,20 +541,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderEventsList(events) {
-    const list = document.getElementById('events-list');
+    const list = getEl('events-list');
     if (!list) return;
-    list.innerHTML = (events || []).map(e => `
+    list.innerHTML = events.map(e => `
       <div class="text-sm ${e.type === 'goal' ? 'text-green-400' : e.type === 'yellow' ? 'text-yellow-300' : 'text-red-400'}">
         ${e.time || '--'} – ${e.type || '?'} : ${e.player || '?'} ${e.assist ? `(assist: ${e.assist})` : ''} ${e.goalType ? `(${e.goalType})` : ''}
       </div>
     `).join('');
   }
 
-  const closeEdit = document.getElementById('close-edit');
+  const closeEdit = getEl('close-edit');
   if (closeEdit) {
     closeEdit.onclick = () => {
-      const teamA = document.getElementById('teamA')?.value.trim() || 'NIL';
-      const teamB = document.getElementById('teamB')?.value.trim() || 'NIL';
+      const teamA = getEl('teamA')?.value.trim() || 'NIL';
+      const teamB = getEl('teamB')?.value.trim() || 'NIL';
 
       gamesRef.once('value').then(snap => {
         let games = snap.val() || [];
@@ -576,30 +563,29 @@ document.addEventListener('DOMContentLoaded', () => {
           games[editingIndex].teamB = teamB;
           gamesRef.set(games);
         }
-        const modal = document.getElementById('edit-modal');
-        if (modal) modal.classList.add('hidden');
+        getEl('edit-modal')?.classList.add('hidden');
       });
     };
   }
 
-  const saveBtn = document.getElementById('save-btn');
+  const saveBtn = getEl('save-btn');
   if (saveBtn) {
     saveBtn.onclick = () => {
-      const modal = document.getElementById('admin-modal');
-      if (modal) modal.classList.add('hidden');
+      getEl('admin-modal')?.classList.add('hidden');
     };
   }
 
   function showNotification(msg) {
-    const notif = document.getElementById('notification');
-    if (!notif) return console.warn('Pure Stream: #notification not found');
+    const notif = getEl('notification');
+    if (!notif) return;
     notif.textContent = msg;
     notif.classList.remove('-translate-y-full');
     setTimeout(() => notif.classList.add('-translate-y-full'), 4000);
   }
 
-  console.log('Pure Stream: Script fully initialized');
+  console.log('Pure Stream: Fully initialized');
 });
 </script>
+    
   <script src="dashboard .js"></script>
 </body>
