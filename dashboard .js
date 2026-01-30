@@ -1751,115 +1751,147 @@ function updateView(title) {
 
         setTimeout(() => {
             // Original logic: inject content
-        if (title === 'Pure Stream') {
-    console.log('Pure Stream content injected – attaching safe handlers');
+      if (title === 'Pure Stream') {
+    console.log('Pure Stream loaded – safe init starting');
 
-    // Wait one frame for DOM to update after innerHTML
-    requestAnimationFrame(() => {
-        // Safe getter – logs but never crashes
+    // Delay slightly to ensure DOM is ready after innerHTML
+    setTimeout(() => {
+        // Safe element getter – never crashes
         function ps_get(id) {
             const el = document.getElementById(id);
-            if (!el) {
-                console.log(`[Pure Stream Safe] #${id} not in DOM yet`);
-            }
+            if (!el) console.log(`[Pure Stream] #${id} not found`);
             return el;
         }
 
-        // ── Goal Notification – fully guarded ───────────────────────
-        function ps_showNotification(msg) {
+        // Render games – full HTML restored
+        function ps_render(games) {
+            const container = ps_get('games-container');
+            if (!container) return;
+
+            container.innerHTML = '';
+            (games || []).forEach(game => {
+                const div = document.createElement('div');
+                div.className = 'bg-black/60 border border-blue-500/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:border-blue-400/40 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.6)]';
+                div.innerHTML = `
+                    <h4 class="text-2xl md:text-3xl font-black text-white mb-4 tracking-tight">
+                        ${game.teamA || 'NIL'} <span class="text-blue-400">${game.scoreA || 0}</span> –
+                        <span class="text-blue-400">${game.scoreB || 0}</span> ${game.teamB || 'NIL'}
+                    </h4>
+                    <div class="text-left text-sm text-gray-300 space-y-1.5 min-h-[120px]">
+                        ${(game.events || []).map(e => `
+                            <div class="flex justify-between ${e.type === 'goal' ? 'text-green-400 font-semibold' : e.type === 'yellow' ? 'text-yellow-400' : 'text-red-500'}">
+                                <span>${e.time || '--'}</span>
+                                <span>${(e.type || '').toUpperCase()}: ${e.player || '?'}${e.assist ? ` (A: ${e.assist})` : ''}${e.goalType ? ` (${e.goalType})` : ''}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Notification – fully guarded
+        function ps_notify(msg) {
             const notif = ps_get('notification');
-            if (!notif) return; // ← prevents classList null error
+            if (!notif) return;
 
             notif.textContent = msg;
             notif.classList.remove('-translate-y-full');
             setTimeout(() => {
-                if (notif.isConnected) { // extra safety
+                if (notif && notif.isConnected) {
                     notif.classList.add('-translate-y-full');
                 }
             }, 4000);
         }
 
-        // ── Attach admin button listener – guarded ──────────────────
-        const ps_adminBtn = ps_get('admin-btn');
-        if (ps_adminBtn) {
-            ps_adminBtn.addEventListener('click', () => {
-                const pinModal = ps_get('pin-modal');
-                if (pinModal) {
-                    pinModal.classList.remove('hidden');
-                }
+        // Firebase setup – safe one-time init
+        if (!firebase.apps.length) {
+            firebase.initializeApp({
+                apiKey: "AIzaSyDtTYEHEdPopiYv9Iq2XYAcXTKk3gzWL_A",
+                authDomain: "goteach-1eaa3.firebaseapp.com",
+                projectId: "goteach-1eaa3",
+                storageBucket: "goteach-1eaa3.firebasestorage.app",
+                messagingSenderId: "486448948939",
+                appId: "1:486448948939:web:3058788ea1a134804d1d4e",
+                measurementId: "G-FMSL801KQB",
+                databaseURL: "https://goteach-1eaa3-default-rtdb.firebaseio.com/"
             });
-        } else {
-            console.log('[Pure Stream Safe] Admin button not found – skipping');
         }
 
-        // ── Submit PIN button – guarded ─────────────────────────────
-        const ps_submitPin = ps_get('submit-pin');
-        if (ps_submitPin) {
-            ps_submitPin.addEventListener('click', () => {
-                const pinInput = ps_get('pin-input');
-                if (pinInput?.value === '3478') {
+        const ps_db = firebase.database();
+        const ps_games = ps_db.ref('pure_stream_games');
+
+        // Init if empty
+        ps_games.once('value').then(snap => {
+            if (!snap.exists()) {
+                ps_games.set(Array(6).fill().map(() => ({
+                    teamA: 'NIL', teamB: 'NIL', scoreA: 0, scoreB: 0, events: []
+                })));
+            }
+        }).catch(() => {});
+
+        // Real-time listener
+        let ps_prev = null;
+        ps_games.on('value', snap => {
+            const games = snap.val() || [];
+            ps_render(games);
+
+            let goal = false;
+            if (ps_prev) {
+                games.forEach((g, i) => {
+                    const p = ps_prev[i] || { events: [] };
+                    if ((g.events?.length || 0) > (p.events?.length || 0)) {
+                        const latest = g.events?.[g.events.length - 1];
+                        if (latest?.type === 'goal' && !latest.processed) {
+                            goal = true;
+                            ps_games.child(`${i}/events/${g.events.length - 1}/processed`).set(true);
+                        }
+                    }
+                });
+            }
+            ps_prev = JSON.parse(JSON.stringify(games));
+
+            if (goal) {
+                const audio = ps_get('goal-sound');
+                if (audio) {
+                    audio.currentTime = 0;
+                    audio.play().catch(() => {});
+                }
+                ps_notify('GOOOAAAL!!!');
+
+                document.querySelectorAll('#games-container > div').forEach(el => {
+                    if (el) {
+                        el.classList.add('animate-pulse');
+                        setTimeout(() => el?.classList.remove('animate-pulse'), 2000);
+                    }
+                });
+            }
+        });
+
+        // Admin button – only attach if exists
+        const ps_admin = ps_get('admin-btn');
+        if (ps_admin) {
+            ps_admin.addEventListener('click', () => {
+                ps_get('pin-modal')?.classList.remove('hidden');
+            });
+        }
+
+        const ps_submit = ps_get('submit-pin');
+        if (ps_submit) {
+            ps_submit.addEventListener('click', () => {
+                const input = ps_get('pin-input');
+                if (input?.value === '3478') {
                     ps_get('pin-modal')?.classList.add('hidden');
                     ps_get('admin-modal')?.classList.remove('hidden');
-                    // If you have render admin games logic, call it here
                 } else {
                     alert('Incorrect PIN');
                 }
             });
         }
 
-        // ── Add your other buttons the same way ─────────────────────
-        // Example for add-event:
-        // const ps_addEvent = ps_get('add-event');
-        // if (ps_addEvent) {
-        //     ps_addEvent.addEventListener('click', yourAddEventFunction);
-        // }
-
-        // ── Firebase real-time (only if needed) ─────────────────────
-        // (keep this part only if you want live updates – it's already safe)
-        if (!firebase.apps.length) {
-            firebase.initializeApp({
-                apiKey: "AIzaSyDtTYEHEdPopiYv9Iq2XYAcXTKk3gzWL_A",
-                // ... rest of config ...
-            });
-        }
-
-        const ps_db = firebase.database();
-        const ps_gamesRef = ps_db.ref('pure_stream_games');
-
-        // Optional: init 6 games
-        ps_gamesRef.once('value').then(snap => {
-            if (!snap.exists()) {
-                ps_gamesRef.set(Array(6).fill().map(() => ({
-                    teamA: 'NIL', teamB: 'NIL', scoreA: 0, scoreB: 0, events: []
-                })));
-            }
-        }).catch(() => {});
-
-        // Real-time listener (guarded render)
-        let ps_prev = null;
-        ps_gamesRef.on('value', snap => {
-            const games = snap.val() || [];
-            ps_renderGames(games); // define this function below if needed
-
-            // Goal detection (add back if you want it)
-            // ... your goal logic here ...
-        });
-
-        // Define ps_renderGames if you still want it
-        function ps_renderGames(games) {
-            const container = ps_get('games-container');
-            if (!container) return;
-            container.innerHTML = '';
-            games.forEach(game => {
-                const div = document.createElement('div');
-                div.className = 'bg-black/60 border border-blue-500/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:border-blue-400/40 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.6)]';
-                div.innerHTML = /* your card HTML */;
-                container.appendChild(div);
-            });
-        }
-
-        console.log('Pure Stream: all handlers attached safely');
-    }, 0); // requestAnimationFrame equivalent
+  
+        console.log('Pure Stream: all safe handlers attached');
+    }, 0); // tiny delay to ensure DOM is ready
 }
         mainDisplay.style.opacity = '1';
             startSystemSync();
