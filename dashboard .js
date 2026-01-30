@@ -2974,24 +2974,6 @@ window.closeBroadcastFeedback = function() {
 
 
 /// for the notification
-function showEliteNotification() {
-    const notif = document.getElementById('notification-slide');
-    
-    // Slide In
-    notif.classList.add('active');
-
-    // Slide Out after 6 seconds
-    setTimeout(() => {
-        notif.classList.remove('active');
-    }, 6000);
-}
-
-// Example: Trigger on page load
-window.onload = showEliteNotification;
-// Add this to your JS to link the notification to your preferred modal alert
-document.getElementById('notification-slide').addEventListener('click', () => {
-    openCentralModal("Elite League Details", "You have been promoted to the Platinum tier.");
-});
 
 
 
