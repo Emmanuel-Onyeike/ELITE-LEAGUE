@@ -8,7 +8,7 @@
 const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
-const mainDisplay = document.getElementById('mainDisplay'); 
+const mainDisplay = document.getElementById('mainDisplay');
 const greetingElement = document.getElementById('greeting');
 const viewTitle = document.getElementById('viewTitle');
 
@@ -1895,12 +1895,12 @@ function updateView(title) {
     }
 
     // Mobile sidebar close (keep this outside)
-    if (window.innerWidth < 768 && sidebar && !sidebar.classList.contains('-translate-x-full')) {
-        sidebar.classList.add('-translate-x-full');
-        overlay?.classList.add('hidden');
-    }
+// Correct — no re-declaration
+if (window.innerWidth < 768 && sidebar && !sidebar.classList.contains('-translate-x-full')) {
+    sidebar.classList.add('-translate-x-full');
+    overlay?.classList.add('hidden');
 }
-
+}
 
 // ────────────────────────────────────────────────────────────────
 // INIT
