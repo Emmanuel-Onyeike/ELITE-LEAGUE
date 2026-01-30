@@ -1751,73 +1751,76 @@ function updateView(title) {
 
         setTimeout(() => {
             // Original logic: inject content
-    if (title === 'Pure Stream') {
+  if (title === 'Pure Stream') {
     console.log('Pure Stream loaded – safe init starting');
 
     requestAnimationFrame(() => {
-
-        /* ---------------- SAFE GET ---------------- */
-
+        // ── SAFE GETTER ────────────────────────────────────────────────
         function ps_get(id) {
             const el = document.getElementById(id);
-            if (!el) console.log(`[Pure Stream] #${id} not found`);
+            if (!el) {
+                console.log(`[Pure Stream] #${id} not found`);
+            }
             return el;
         }
 
-        /* ---------------- NOTIFICATION ---------------- */
-
+        // ── NOTIFICATION ───────────────────────────────────────────────
         function ps_notify(msg) {
             const notif = ps_get('notification');
             if (!notif) return;
-
             notif.textContent = msg;
             notif.classList.remove('-translate-y-full');
-
             setTimeout(() => {
-                notif?.classList.add('-translate-y-full');
+                if (notif && notif.isConnected) {
+                    notif.classList.add('-translate-y-full');
+                }
             }, 4000);
         }
 
-        /* ---------------- RENDER GAMES ---------------- */
-
+        // ── RENDER GAMES ───────────────────────────────────────────────
         function ps_render(games) {
             const container = ps_get('games-container');
             if (!container) return;
 
             container.innerHTML = '';
-
             (games || []).forEach(game => {
                 const div = document.createElement('div');
-                div.className =
-                    'bg-black/60 border border-blue-500/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:border-blue-400/40 transition-all';
-
+                div.className = 'bg-black/60 border border-blue-500/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:border-blue-400/40 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.6)]';
                 div.innerHTML = `
-                    <h4 class="text-2xl font-black text-white mb-4">
-                        ${game.teamA || 'NIL'} 
-                        <span class="text-blue-400">${game.scoreA || 0}</span> –
-                        <span class="text-blue-400">${game.scoreB || 0}</span> 
-                        ${game.teamB || 'NIL'}
+                    <h4 class="text-2xl md:text-3xl font-black text-white mb-4 tracking-tight">
+                        ${game.teamA || 'NIL'} <span class="text-blue-400">${game.scoreA || 0}</span> –
+                        <span class="text-blue-400">${game.scoreB || 0}</span> ${game.teamB || 'NIL'}
                     </h4>
-
-                    <div class="text-left text-sm text-gray-300 space-y-1">
+                    <div class="text-left text-sm text-gray-300 space-y-1.5 min-h-[120px]">
                         ${(game.events || []).map(e => `
-                            <div class="flex justify-between
-                                ${e.type === 'goal' ? 'text-green-400 font-semibold' :
-                                  e.type === 'yellow' ? 'text-yellow-400' :
-                                  e.type === 'red' ? 'text-red-500' : ''}">
+                            <div class="flex justify-between ${
+                                e.type === 'goal'   ? 'text-green-400 font-semibold' :
+                                e.type === 'yellow' ? 'text-yellow-400' :
+                                e.type === 'red'    ? 'text-red-500' : ''
+                            }">
                                 <span>${e.time || '--'}</span>
-                                <span>${(e.type || '').toUpperCase()} — ${e.player || '?'}</span>
+                                <span>${(e.type || '').toUpperCase()}: ${e.player || '?'}${e.assist ? ` (A: ${e.assist})` : ''}${e.goalType ? ` (${e.goalType})` : ''}</span>
                             </div>
                         `).join('')}
                     </div>
                 `;
-
                 container.appendChild(div);
             });
         }
 
-        /* ---------------- FIREBASE SAFE INIT ---------------- */
+        // ── RENDER EVENTS LIST (for edit modal) ────────────────────────
+        function ps_renderEventsList(events) {
+            const list = ps_get('events-list');
+            if (!list) return;
 
+            list.innerHTML = (events || []).map(e => `
+                <div class="text-sm ${e.type === 'goal' ? 'text-green-400' : e.type === 'yellow' ? 'text-yellow-300' : 'text-red-400'}">
+                    ${e.time || '--'} – ${e.type || '?'} : ${e.player || '?'} ${e.assist ? `(assist: ${e.assist})` : ''} ${e.goalType ? `(${e.goalType})` : ''}
+                </div>
+            `).join('');
+        }
+
+        // ── FIREBASE SAFE INIT ─────────────────────────────────────────
         if (!firebase.apps.length) {
             firebase.initializeApp({
                 apiKey: "AIzaSyDtTYEHEdPopiYv9Iq2XYAcXTKk3gzWL_A",
@@ -1826,6 +1829,7 @@ function updateView(title) {
                 storageBucket: "goteach-1eaa3.firebasestorage.app",
                 messagingSenderId: "486448948939",
                 appId: "1:486448948939:web:3058788ea1a134804d1d4e",
+                measurementId: "G-FMSL801KQB",
                 databaseURL: "https://goteach-1eaa3-default-rtdb.firebaseio.com/"
             });
         }
@@ -1833,8 +1837,7 @@ function updateView(title) {
         const db = firebase.database();
         const gamesRef = db.ref('pure_stream_games');
 
-        /* ---------------- INIT DEFAULT DATA ---------------- */
-
+        // Init default 6 games if missing
         gamesRef.once('value').then(snap => {
             if (!snap.exists()) {
                 gamesRef.set(
@@ -1849,33 +1852,25 @@ function updateView(title) {
             }
         }).catch(() => {});
 
-        /* ---------------- REALTIME LISTENER ---------------- */
-
+        // ── REALTIME LISTENER + GOAL DETECTION ─────────────────────────
         let prevGames = null;
-
         gamesRef.on('value', snap => {
             const games = snap.val() || [];
-
             ps_render(games);
 
             let goalDetected = false;
-
             if (prevGames) {
                 games.forEach((g, i) => {
                     const prev = prevGames[i] || { events: [] };
-
                     if ((g.events?.length || 0) > (prev.events?.length || 0)) {
-                        const latest = g.events[g.events.length - 1];
-
+                        const latest = g.events?.[g.events.length - 1];
                         if (latest?.type === 'goal' && !latest.processed) {
                             goalDetected = true;
-                            gamesRef.child(`${i}/events/${g.events.length - 1}/processed`)
-                                .set(true);
+                            gamesRef.child(`${i}/events/${g.events.length - 1}/processed`).set(true);
                         }
                     }
                 });
             }
-
             prevGames = JSON.parse(JSON.stringify(games));
 
             if (goalDetected) {
@@ -1884,48 +1879,151 @@ function updateView(title) {
                     audio.currentTime = 0;
                     audio.play().catch(() => {});
                 }
-
                 ps_notify('GOOOAAAL!!!');
 
-                document
-                    .querySelectorAll('#games-container > div')
-                    .forEach(el => {
+                document.querySelectorAll('#games-container > div').forEach(el => {
+                    if (el) {
                         el.classList.add('animate-pulse');
                         setTimeout(() => el.classList.remove('animate-pulse'), 2000);
-                    });
+                    }
+                });
             }
         });
 
-        /* ---------------- SAFE BUTTON HANDLERS ---------------- */
+        // ── FULL ADMIN CONTROLS ────────────────────────────────────────
+        let editingIndex = null;
 
+        // Open edit modal for a specific game
+        function ps_openEdit(index) {
+            editingIndex = index;
+            gamesRef.once('value').then(snap => {
+                const game = (snap.val() || [])[index];
+                if (!game) return;
+
+                ps_get('teamA').value = game.teamA || '';
+                ps_get('teamB').value = game.teamB || '';
+                ps_renderEventsList(game.events || []);
+                ps_get('edit-modal')?.classList.remove('hidden');
+            });
+
+            const typeSelect = ps_get('event-type');
+            if (typeSelect) {
+                typeSelect.onchange = () => {
+                    const gt = ps_get('goal-type');
+                    if (gt) gt.style.display = typeSelect.value === 'goal' ? 'block' : 'none';
+                };
+            }
+        }
+
+        // Render list of games in admin modal
+        function ps_renderAdminGames() {
+            gamesRef.once('value').then(snap => {
+                const games = snap.val() || [];
+                const container = ps_get('admin-games');
+                if (!container) return;
+
+                container.innerHTML = '';
+                games.forEach((game, i) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'bg-blue-900/40 hover:bg-blue-700/60 border border-blue-500/30 rounded-xl p-6 text-left transition-all';
+                    btn.innerHTML = `
+                        <div class="font-black text-lg text-white">${game.teamA || 'NIL'} vs ${game.teamB || 'NIL'}</div>
+                        <div class="text-sm text-gray-400">${game.scoreA || 0} - ${game.scoreB || 0}</div>
+                    `;
+                    btn.onclick = () => ps_openEdit(i);
+                    container.appendChild(btn);
+                });
+            });
+        }
+
+        // Add new event to current game
+        const ps_addEventBtn = ps_get('add-event');
+        if (ps_addEventBtn) {
+            ps_addEventBtn.addEventListener('click', () => {
+                const type = ps_get('event-type')?.value;
+                const team = ps_get('event-team')?.value;
+                const player = ps_get('event-player')?.value?.trim();
+                const time = ps_get('event-time')?.value?.trim();
+                const assist = ps_get('event-assist')?.value?.trim();
+                const goalType = type === 'goal' ? ps_get('goal-type')?.value : '';
+
+                if (!player || !time) {
+                    alert('Player name and time are required');
+                    return;
+                }
+
+                gamesRef.once('value').then(snap => {
+                    let games = snap.val() || [];
+                    let game = games[editingIndex];
+                    if (!game) return;
+
+                    if (type === 'goal') {
+                        if (team === 'A') game.scoreA = (game.scoreA || 0) + 1;
+                        else game.scoreB = (game.scoreB || 0) + 1;
+                    }
+
+                    game.events = game.events || [];
+                    game.events.push({ type, team, player, time, assist, goalType, processed: false });
+
+                    gamesRef.set(games);
+                    ps_renderEventsList(game.events);
+                });
+            });
+        }
+
+        // Close edit modal + save teams
+        const ps_closeEdit = ps_get('close-edit');
+        if (ps_closeEdit) {
+            ps_closeEdit.addEventListener('click', () => {
+                const teamA = ps_get('teamA')?.value?.trim() || 'NIL';
+                const teamB = ps_get('teamB')?.value?.trim() || 'NIL';
+
+                gamesRef.once('value').then(snap => {
+                    let games = snap.val() || [];
+                    if (games[editingIndex]) {
+                        games[editingIndex].teamA = teamA;
+                        games[editingIndex].teamB = teamB;
+                        gamesRef.set(games);
+                    }
+                    ps_get('edit-modal')?.classList.add('hidden');
+                });
+            });
+        }
+
+        // Save & close admin modal
+        const ps_saveBtn = ps_get('save-btn');
+        if (ps_saveBtn) {
+            ps_saveBtn.addEventListener('click', () => {
+                ps_get('admin-modal')?.classList.add('hidden');
+            });
+        }
+
+        // ── ALL BUTTON HANDLERS ────────────────────────────────────────
         const handlers = {
-
             'admin-btn': () => {
                 ps_get('pin-modal')?.classList.remove('hidden');
             },
-
             'submit-pin': () => {
                 const input = ps_get('pin-input');
-
                 if (input?.value === '3478') {
                     ps_get('pin-modal')?.classList.add('hidden');
                     ps_get('admin-modal')?.classList.remove('hidden');
+                    ps_renderAdminGames();  // load admin games list
                 } else {
                     alert('Incorrect PIN');
                 }
-            },
-
-            'close-admin': () => {
-                ps_get('admin-modal')?.classList.add('hidden');
             }
         };
 
-        Object.entries(handlers).forEach(([id, fn]) => {
+        Object.entries(handlers).forEach(([id, handler]) => {
             const el = ps_get(id);
-            if (el) el.addEventListener('click', fn);
+            if (el) {
+                el.addEventListener('click', handler);
+                console.log(`[Pure Stream] Attached click to #${id}`);
+            }
         });
 
-        console.log('Pure Stream FULL init complete — no crash mode active');
+        console.log('Pure Stream FULL init complete — crash-proof mode active');
     });
 }
 
