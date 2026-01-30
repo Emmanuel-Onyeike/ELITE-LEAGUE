@@ -1751,25 +1751,15 @@ function updateView(title) {
 
         setTimeout(() => {
             // Original logic: inject content
-            if (title === 'Player Selection' || title === 'Team Selection') {
-                renderLeagueSystem(title);
-            } else {
-                mainDisplay.innerHTML = (typeof contentData !== 'undefined' && contentData[title])
-                    ? contentData[title]
-                    : `<div class="p-10 text-center"><h2 class="text-white font-black italic">${title}</h2><p class="text-gray-500 text-xs mt-2">DATA NODE OFFLINE</p></div>`;
-            }
+          if (title === 'Pure Stream') {
+    console.log('Pure Stream view ready → activating isolated module');
 
-            // ── Pure Stream special initialization ── only when needed ──
-      if (title === 'Pure Stream') {
-    console.log('Pure Stream view activated – starting isolated init');
-
-    // ── Isolated scope with unique prefix ────────────────────────
-    (function() {
-        // Namespace prefix: ps_ = Pure Stream
-        const ps_namespace = {};
-
-        // Firebase config & init
-        const ps_firebaseConfig = {
+    // ────────────────────────────────────────────────────────────────
+    // ISOLATED PURE STREAM MODULE – zero global pollution
+    // ────────────────────────────────────────────────────────────────
+    (function pureStreamOnlyModule() {
+        // ── Config & Firebase ────────────────────────────────────────
+        const pureStreamOnly_firebaseConfig = {
             apiKey: "AIzaSyDtTYEHEdPopiYv9Iq2XYAcXTKk3gzWL_A",
             authDomain: "goteach-1eaa3.firebaseapp.com",
             projectId: "goteach-1eaa3",
@@ -1780,91 +1770,94 @@ function updateView(title) {
             databaseURL: "https://goteach-1eaa3-default-rtdb.firebaseio.com/"
         };
 
-        // Safe: only initialize once
+        // Safe one-time init
         if (!firebase.apps.length) {
-            firebase.initializeApp(ps_firebaseConfig);
+            firebase.initializeApp(pureStreamOnly_firebaseConfig);
         }
 
-        ps_namespace.db = firebase.database();
-        ps_namespace.gamesRef = ps_namespace.db.ref('pure_stream_games');
+        const pureStreamOnly_db = firebase.database();
+        const pureStreamOnly_gamesRef = pureStreamOnly_db.ref('pure_stream_games');
 
-        // Create initial 6 games if missing
-        ps_namespace.gamesRef.once('value').then(snap => {
-            if (!snap.exists()) {
-                const initialGames = Array(6).fill().map(() => ({
+        // Create 6 empty games if database is empty
+        pureStreamOnly_gamesRef.once('value').then(snapshot => {
+            if (!snapshot.exists()) {
+                const emptyGames = Array(6).fill().map(() => ({
                     teamA: 'NIL',
                     teamB: 'NIL',
                     scoreA: 0,
                     scoreB: 0,
                     events: []
                 }));
-                ps_namespace.gamesRef.set(initialGames);
+                pureStreamOnly_gamesRef.set(emptyGames);
             }
-        }).catch(err => console.error('Pure Stream init failed:', err));
+        }).catch(err => console.warn('Pure Stream DB init failed:', err));
 
-        // Unique safe getter
-        ps_namespace.getElementSafe = function(id) {
-            const el = document.getElementById(id);
-            if (!el) console.warn(`Pure Stream: Element #${id} not found`);
-            return el;
-        };
+        // Safe DOM getter – never crashes
+        function pureStreamOnly_get(id) {
+            const element = document.getElementById(id);
+            if (!element) {
+                console.warn(`Pure Stream: #${id} not present yet`);
+            }
+            return element;
+        }
 
-        // Render games function
-        ps_namespace.renderGamesList = function(games) {
-            const container = ps_namespace.getElementSafe('games-container');
-            if (!container) return;
+        // Render all games
+        function pureStreamOnly_renderGames(gamesData) {
+            const gamesContainer = pureStreamOnly_get('games-container');
+            if (!gamesContainer) return;
 
-            container.innerHTML = '';
-            (games || []).forEach(game => {
-                const card = document.createElement('div');
-                card.className = 'bg-black/60 border border-blue-500/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:border-blue-400/40 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.6)]';
-                card.innerHTML = `
+            gamesContainer.innerHTML = '';
+            (gamesData || []).forEach(singleGame => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'bg-black/60 border border-blue-500/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:border-blue-400/40 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.6)]';
+
+                gameCard.innerHTML = `
                     <h4 class="text-2xl md:text-3xl font-black text-white mb-4 tracking-tight">
-                        ${game.teamA || 'NIL'} <span class="text-blue-400">${game.scoreA || 0}</span> –
-                        <span class="text-blue-400">${game.scoreB || 0}</span> ${game.teamB || 'NIL'}
+                        ${singleGame.teamA || 'NIL'} <span class="text-blue-400">${singleGame.scoreA || 0}</span> –
+                        <span class="text-blue-400">${singleGame.scoreB || 0}</span> ${singleGame.teamB || 'NIL'}
                     </h4>
                     <div class="text-left text-sm text-gray-300 space-y-1.5 min-h-[120px]">
-                        ${(game.events || []).map(event => `
-                            <div class="flex justify-between ${event.type === 'goal' ? 'text-green-400 font-semibold' : event.type === 'yellow' ? 'text-yellow-400' : 'text-red-500'}">
-                                <span>${event.time || '--'}</span>
-                                <span>${(event.type || '').toUpperCase()}: ${event.player || '?'}${event.assist ? ` (A: ${event.assist})` : ''}${event.goalType ? ` (${event.goalType})` : ''}</span>
+                        ${(singleGame.events || []).map(evt => `
+                            <div class="flex justify-between ${evt.type === 'goal' ? 'text-green-400 font-semibold' : evt.type === 'yellow' ? 'text-yellow-400' : 'text-red-500'}">
+                                <span>${evt.time || '--'}</span>
+                                <span>${(evt.type || '').toUpperCase()}: ${evt.player || '?'}${evt.assist ? ` (A: ${evt.assist})` : ''}${evt.goalType ? ` (${evt.goalType})` : ''}</span>
                             </div>
                         `).join('')}
                     </div>
                 `;
-                container.appendChild(card);
+                gamesContainer.appendChild(gameCard);
             });
-        };
+        }
 
-        // Real-time listener + goal detection
-        ps_namespace.previousGames = null;
-        ps_namespace.gamesRef.on('value', snapshot => {
-            const currentGames = snapshot.val() || [];
-            ps_namespace.renderGamesList(currentGames);
+        // Goal detection + notification
+        let pureStreamOnly_previousState = null;
+        pureStreamOnly_gamesRef.on('value', snapshot => {
+            const freshGames = snapshot.val() || [];
+            pureStreamOnly_renderGames(freshGames);
 
-            let goalJustScored = false;
-            if (ps_namespace.previousGames) {
-                currentGames.forEach((game, index) => {
-                    const previous = ps_namespace.previousGames[index] || { events: [] };
-                    if ((game.events?.length || 0) > (previous.events?.length || 0)) {
-                        const newestEvent = game.events?.[game.events.length - 1];
+            let newGoalHappened = false;
+            if (pureStreamOnly_previousState) {
+                freshGames.forEach((currentGame, idx) => {
+                    const oldGame = pureStreamOnly_previousState[idx] || { events: [] };
+                    if ((currentGame.events?.length || 0) > (oldGame.events?.length || 0)) {
+                        const newestEvent = currentGame.events?.[currentGame.events.length - 1];
                         if (newestEvent?.type === 'goal' && !newestEvent.processed) {
-                            goalJustScored = true;
-                            ps_namespace.gamesRef.child(`${index}/events/${game.events.length - 1}/processed`).set(true);
+                            newGoalHappened = true;
+                            pureStreamOnly_gamesRef.child(`${idx}/events/${currentGame.events.length - 1}/processed`).set(true);
                         }
                     }
                 });
             }
 
-            ps_namespace.previousGames = JSON.parse(JSON.stringify(currentGames));
+            pureStreamOnly_previousState = JSON.parse(JSON.stringify(freshGames));
 
-            if (goalJustScored) {
-                const goalAudio = ps_namespace.getElementSafe('goal-sound');
-                if (goalAudio) {
-                    goalAudio.currentTime = 0;
-                    goalAudio.play().catch(e => console.log('Audio play blocked:', e));
+            if (newGoalHappened) {
+                const goalSound = pureStreamOnly_get('goal-sound');
+                if (goalSound) {
+                    goalSound.currentTime = 0;
+                    goalSound.play().catch(err => console.log('Goal sound blocked:', err));
                 }
-                ps_namespace.showGoalNotification('GOOOAAAL!!!');
+                pureStreamOnly_showNotification('GOOOAAAL!!!');
 
                 document.querySelectorAll('#games-container > div').forEach(card => {
                     card.classList.add('animate-pulse');
@@ -1873,49 +1866,48 @@ function updateView(title) {
             }
         });
 
-        // Notification function
-        ps_namespace.showGoalNotification = function(message) {
-            const notificationBar = ps_namespace.getElementSafe('notification');
-            if (!notificationBar) return;
-            notificationBar.textContent = message;
-            notificationBar.classList.remove('-translate-y-full');
-            setTimeout(() => notificationBar.classList.add('-translate-y-full'), 4000);
-        };
+        // Local notification function – no conflict
+        function pureStreamOnly_showNotification(text) {
+            const notifElement = pureStreamOnly_get('notification');
+            if (!notifElement) return;
 
-        // Admin controls – all using unique names
-        const ps_adminButton = ps_namespace.getElementSafe('admin-btn');
-        if (ps_adminButton) {
-            ps_adminButton.onclick = () => {
-                ps_namespace.getElementSafe('pin-modal')?.classList.remove('hidden');
-            };
+            notifElement.textContent = text;
+            notifElement.classList.remove('-translate-y-full');
+            setTimeout(() => {
+                notifElement.classList.add('-translate-y-full');
+            }, 4000);
         }
 
-        const ps_submitPinButton = ps_namespace.getElementSafe('submit-pin');
-        if (ps_submitPinButton) {
-            ps_submitPinButton.onclick = () => {
-                const pinField = ps_namespace.getElementSafe('pin-input');
-                if (pinField?.value === '3478') {
-                    ps_namespace.getElementSafe('pin-modal')?.classList.add('hidden');
-                    ps_namespace.getElementSafe('admin-modal')?.classList.remove('hidden');
-                    // If you have render admin games function, call it here
+        // ── Admin controls – all guarded and prefixed ────────────────
+        const pureStreamOnly_adminBtn = pureStreamOnly_get('admin-btn');
+        if (pureStreamOnly_adminBtn) {
+            pureStreamOnly_adminBtn.addEventListener('click', () => {
+                pureStreamOnly_get('pin-modal')?.classList.remove('hidden');
+            });
+        }
+
+        const pureStreamOnly_submitPin = pureStreamOnly_get('submit-pin');
+        if (pureStreamOnly_submitPin) {
+            pureStreamOnly_submitPin.addEventListener('click', () => {
+                const pinInput = pureStreamOnly_get('pin-input');
+                if (pinInput?.value === '3478') {
+                    pureStreamOnly_get('pin-modal')?.classList.add('hidden');
+                    pureStreamOnly_get('admin-modal')?.classList.remove('hidden');
+                    // If you have admin games rendering, call it here
                 } else {
-                    alert('Incorrect PIN');
+                    alert('Wrong PIN');
                 }
-            };
+            });
         }
 
-        // ── ADD YOUR REMAINING ADMIN LOGIC HERE ──
-        // Examples with ps_ prefix:
-        // const ps_addEventBtn = ps_namespace.getElementSafe('add-event');
-        // if (ps_addEventBtn) { ps_addEventBtn.onclick = () => { ... } }
-        //
-        // const ps_closeEditBtn = ps_namespace.getElementSafe('close-edit');
-        // if (ps_closeEditBtn) { ps_closeEditBtn.onclick = () => { ... } }
+        // Add your other admin buttons the same way:
+        // const pureStreamOnly_addEventBtn = pureStreamOnly_get('add-event');
+        // if (pureStreamOnly_addEventBtn) { ... }
 
-        console.log('Pure Stream: isolated logic fully loaded');
+        console.log('Pure Stream isolated module loaded successfully');
     })();
 }
-            mainDisplay.style.opacity = '1';
+        mainDisplay.style.opacity = '1';
             startSystemSync();
         }, 200);
     }
