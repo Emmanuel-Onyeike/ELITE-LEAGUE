@@ -1760,16 +1760,16 @@ function updateView(title) {
             }
 
             // ── Pure Stream special initialization ── only when needed ──
-          if (title === 'Pure Stream') {
-    console.log('Pure Stream view loaded → starting initialization');
+      if (title === 'Pure Stream') {
+    console.log('Pure Stream view activated – starting isolated init');
 
-    // Wrap everything in an IIFE to isolate scope
+    // ── Isolated scope with unique prefix ────────────────────────
     (function() {
-        // ── Unique prefix for all Pure Stream variables/functions ──
-        const PS = {};  // "Pure Stream" namespace object
+        // Namespace prefix: ps_ = Pure Stream
+        const ps_namespace = {};
 
         // Firebase config & init
-        const psFirebaseConfig = {
+        const ps_firebaseConfig = {
             apiKey: "AIzaSyDtTYEHEdPopiYv9Iq2XYAcXTKk3gzWL_A",
             authDomain: "goteach-1eaa3.firebaseapp.com",
             projectId: "goteach-1eaa3",
@@ -1780,16 +1780,16 @@ function updateView(title) {
             databaseURL: "https://goteach-1eaa3-default-rtdb.firebaseio.com/"
         };
 
-        // Safe init: only initialize if not already done
+        // Safe: only initialize once
         if (!firebase.apps.length) {
-            firebase.initializeApp(psFirebaseConfig);
+            firebase.initializeApp(ps_firebaseConfig);
         }
 
-        PS.db = firebase.database();
-        PS.gamesRef = PS.db.ref('pure_stream_games');
+        ps_namespace.db = firebase.database();
+        ps_namespace.gamesRef = ps_namespace.db.ref('pure_stream_games');
 
-        // Init 6 games if missing
-        PS.gamesRef.once('value').then(snap => {
+        // Create initial 6 games if missing
+        ps_namespace.gamesRef.once('value').then(snap => {
             if (!snap.exists()) {
                 const initialGames = Array(6).fill().map(() => ({
                     teamA: 'NIL',
@@ -1798,118 +1798,123 @@ function updateView(title) {
                     scoreB: 0,
                     events: []
                 }));
-                PS.gamesRef.set(initialGames);
+                ps_namespace.gamesRef.set(initialGames);
             }
         }).catch(err => console.error('Pure Stream init failed:', err));
 
-        // Safe element getter with prefix
-        PS.getEl = function(id) {
+        // Unique safe getter
+        ps_namespace.getElementSafe = function(id) {
             const el = document.getElementById(id);
-            if (!el) console.warn(`Pure Stream: #${id} not found`);
+            if (!el) console.warn(`Pure Stream: Element #${id} not found`);
             return el;
         };
 
-        // Render function
-        PS.renderGames = function(games) {
-            const container = PS.getEl('games-container');
+        // Render games function
+        ps_namespace.renderGamesList = function(games) {
+            const container = ps_namespace.getElementSafe('games-container');
             if (!container) return;
 
             container.innerHTML = '';
             (games || []).forEach(game => {
-                const div = document.createElement('div');
-                div.className = 'bg-black/60 border border-blue-500/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:border-blue-400/40 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.6)]';
-                div.innerHTML = `
+                const card = document.createElement('div');
+                card.className = 'bg-black/60 border border-blue-500/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:border-blue-400/40 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.6)]';
+                card.innerHTML = `
                     <h4 class="text-2xl md:text-3xl font-black text-white mb-4 tracking-tight">
                         ${game.teamA || 'NIL'} <span class="text-blue-400">${game.scoreA || 0}</span> –
                         <span class="text-blue-400">${game.scoreB || 0}</span> ${game.teamB || 'NIL'}
                     </h4>
                     <div class="text-left text-sm text-gray-300 space-y-1.5 min-h-[120px]">
-                        ${(game.events || []).map(e => `
-                            <div class="flex justify-between ${e.type === 'goal' ? 'text-green-400 font-semibold' : e.type === 'yellow' ? 'text-yellow-400' : 'text-red-500'}">
-                                <span>${e.time || '--'}</span>
-                                <span>${(e.type || '').toUpperCase()}: ${e.player || '?'}${e.assist ? ` (A: ${e.assist})` : ''}${e.goalType ? ` (${e.goalType})` : ''}</span>
+                        ${(game.events || []).map(event => `
+                            <div class="flex justify-between ${event.type === 'goal' ? 'text-green-400 font-semibold' : event.type === 'yellow' ? 'text-yellow-400' : 'text-red-500'}">
+                                <span>${event.time || '--'}</span>
+                                <span>${(event.type || '').toUpperCase()}: ${event.player || '?'}${event.assist ? ` (A: ${event.assist})` : ''}${event.goalType ? ` (${event.goalType})` : ''}</span>
                             </div>
                         `).join('')}
                     </div>
                 `;
-                container.appendChild(div);
+                container.appendChild(card);
             });
         };
 
         // Real-time listener + goal detection
-        PS.prevGames = null;
-        PS.gamesRef.on('value', snap => {
-            const games = snap.val() || [];
-            PS.renderGames(games);
+        ps_namespace.previousGames = null;
+        ps_namespace.gamesRef.on('value', snapshot => {
+            const currentGames = snapshot.val() || [];
+            ps_namespace.renderGamesList(currentGames);
 
-            let newGoalDetected = false;
-            if (PS.prevGames) {
-                games.forEach((game, i) => {
-                    const prev = PS.prevGames[i] || { events: [] };
-                    if ((game.events?.length || 0) > (prev.events?.length || 0)) {
-                        const latest = game.events?.[game.events.length - 1];
-                        if (latest?.type === 'goal' && !latest.processed) {
-                            newGoalDetected = true;
-                            PS.gamesRef.child(`${i}/events/${game.events.length - 1}/processed`).set(true);
+            let goalJustScored = false;
+            if (ps_namespace.previousGames) {
+                currentGames.forEach((game, index) => {
+                    const previous = ps_namespace.previousGames[index] || { events: [] };
+                    if ((game.events?.length || 0) > (previous.events?.length || 0)) {
+                        const newestEvent = game.events?.[game.events.length - 1];
+                        if (newestEvent?.type === 'goal' && !newestEvent.processed) {
+                            goalJustScored = true;
+                            ps_namespace.gamesRef.child(`${index}/events/${game.events.length - 1}/processed`).set(true);
                         }
                     }
                 });
             }
-            PS.prevGames = JSON.parse(JSON.stringify(games));
 
-            if (newGoalDetected) {
-                const audio = PS.getEl('goal-sound');
-                if (audio) {
-                    audio.currentTime = 0;
-                    audio.play().catch(e => console.log('Audio blocked:', e));
+            ps_namespace.previousGames = JSON.parse(JSON.stringify(currentGames));
+
+            if (goalJustScored) {
+                const goalAudio = ps_namespace.getElementSafe('goal-sound');
+                if (goalAudio) {
+                    goalAudio.currentTime = 0;
+                    goalAudio.play().catch(e => console.log('Audio play blocked:', e));
                 }
-                PS.showNotification('GOOOAAAL!!!');
+                ps_namespace.showGoalNotification('GOOOAAAL!!!');
 
-                document.querySelectorAll('#games-container > div').forEach(el => {
-                    el.classList.add('animate-pulse');
-                    setTimeout(() => el.classList.remove('animate-pulse'), 2000);
+                document.querySelectorAll('#games-container > div').forEach(card => {
+                    card.classList.add('animate-pulse');
+                    setTimeout(() => card.classList.remove('animate-pulse'), 2000);
                 });
             }
         });
 
         // Notification function
-        PS.showNotification = function(msg) {
-            const notif = PS.getEl('notification');
-            if (!notif) return;
-            notif.textContent = msg;
-            notif.classList.remove('-translate-y-full');
-            setTimeout(() => notif.classList.add('-translate-y-full'), 4000);
+        ps_namespace.showGoalNotification = function(message) {
+            const notificationBar = ps_namespace.getElementSafe('notification');
+            if (!notificationBar) return;
+            notificationBar.textContent = message;
+            notificationBar.classList.remove('-translate-y-full');
+            setTimeout(() => notificationBar.classList.add('-translate-y-full'), 4000);
         };
 
-        // Admin controls (add the rest of your onclicks here too)
-        const adminBtn = PS.getEl('admin-btn');
-        if (adminBtn) {
-            adminBtn.onclick = () => {
-                PS.getEl('pin-modal')?.classList.remove('hidden');
+        // Admin controls – all using unique names
+        const ps_adminButton = ps_namespace.getElementSafe('admin-btn');
+        if (ps_adminButton) {
+            ps_adminButton.onclick = () => {
+                ps_namespace.getElementSafe('pin-modal')?.classList.remove('hidden');
             };
         }
 
-        const submitPin = PS.getEl('submit-pin');
-        if (submitPin) {
-            submitPin.onclick = () => {
-                const input = PS.getEl('pin-input');
-                if (input?.value === '3478') {
-                    PS.getEl('pin-modal')?.classList.add('hidden');
-                    PS.getEl('admin-modal')?.classList.remove('hidden');
-                    // Add renderAdminGames() here if you have it
+        const ps_submitPinButton = ps_namespace.getElementSafe('submit-pin');
+        if (ps_submitPinButton) {
+            ps_submitPinButton.onclick = () => {
+                const pinField = ps_namespace.getElementSafe('pin-input');
+                if (pinField?.value === '3478') {
+                    ps_namespace.getElementSafe('pin-modal')?.classList.add('hidden');
+                    ps_namespace.getElementSafe('admin-modal')?.classList.remove('hidden');
+                    // If you have render admin games function, call it here
                 } else {
                     alert('Incorrect PIN');
                 }
             };
         }
 
-        // ... add your other admin logic here using PS.getEl() ...
-        // e.g. add-event, close-edit, save-btn, openEditModal, etc.
+        // ── ADD YOUR REMAINING ADMIN LOGIC HERE ──
+        // Examples with ps_ prefix:
+        // const ps_addEventBtn = ps_namespace.getElementSafe('add-event');
+        // if (ps_addEventBtn) { ps_addEventBtn.onclick = () => { ... } }
+        //
+        // const ps_closeEditBtn = ps_namespace.getElementSafe('close-edit');
+        // if (ps_closeEditBtn) { ps_closeEditBtn.onclick = () => { ... } }
 
-        console.log('Pure Stream: fully initialized');
+        console.log('Pure Stream: isolated logic fully loaded');
     })();
 }
-
             mainDisplay.style.opacity = '1';
             startSystemSync();
         }, 200);
