@@ -1608,7 +1608,7 @@ const contentData = {
         </button>
     </div>
 
-    <!-- Games Grid – this is where the 6 live matches appear -->
+    <!-- Games Grid -->
     <div id="games-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 pt-10"></div>
 
     <!-- PIN Modal -->
@@ -1672,11 +1672,9 @@ const contentData = {
     <!-- Notification Dropdown -->
     <div id="notification" class="fixed top-0 left-0 right-0 bg-green-600/90 text-white text-center py-4 font-bold uppercase tracking-wider transform -translate-y-full transition-transform duration-500 z-50 shadow-lg"></div>
 
-    <!-- Audio -->
+    <!-- Audio – working link from Orange Free Sounds -->
     <audio id="goal-sound" preload="auto">
-        <!-- Free public goal horn (short clip from Pixabay / similar royalty-free sources) -->
-        <source src="https://cdn.pixabay.com/audio/2023/08/07/audio_3b7d8d7e8e.mp3" type="audio/mpeg">
-        <!-- Alternative: https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-2164.mp3 (coin-like celebration) -->
+        <source src="https://www.orangefreesounds.com/wp-content/uploads/2016/11/Goal-horn-sound-effect.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 </div>`,
