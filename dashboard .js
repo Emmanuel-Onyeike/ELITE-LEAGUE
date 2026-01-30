@@ -1751,60 +1751,73 @@ function updateView(title) {
 
         setTimeout(() => {
             // Original logic: inject content
-      if (title === 'Pure Stream') {
+    if (title === 'Pure Stream') {
     console.log('Pure Stream loaded – safe init starting');
 
-    // Delay slightly to ensure DOM is ready after innerHTML
-    setTimeout(() => {
-        // Safe element getter – never crashes
+    requestAnimationFrame(() => {
+
+        /* ---------------- SAFE GET ---------------- */
+
         function ps_get(id) {
             const el = document.getElementById(id);
             if (!el) console.log(`[Pure Stream] #${id} not found`);
             return el;
         }
 
-        // Render games – full HTML restored
-        function ps_render(games) {
-            const container = ps_get('games-container');
-            if (!container) return;
+        /* ---------------- NOTIFICATION ---------------- */
 
-            container.innerHTML = '';
-            (games || []).forEach(game => {
-                const div = document.createElement('div');
-                div.className = 'bg-black/60 border border-blue-500/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:border-blue-400/40 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.6)]';
-                div.innerHTML = `
-                    <h4 class="text-2xl md:text-3xl font-black text-white mb-4 tracking-tight">
-                        ${game.teamA || 'NIL'} <span class="text-blue-400">${game.scoreA || 0}</span> –
-                        <span class="text-blue-400">${game.scoreB || 0}</span> ${game.teamB || 'NIL'}
-                    </h4>
-                    <div class="text-left text-sm text-gray-300 space-y-1.5 min-h-[120px]">
-                        ${(game.events || []).map(e => `
-                            <div class="flex justify-between ${e.type === 'goal' ? 'text-green-400 font-semibold' : e.type === 'yellow' ? 'text-yellow-400' : 'text-red-500'}">
-                                <span>${e.time || '--'}</span>
-                                <span>${(e.type || '').toUpperCase()}: ${e.player || '?'}${e.assist ? ` (A: ${e.assist})` : ''}${e.goalType ? ` (${e.goalType})` : ''}</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        // Notification – fully guarded
         function ps_notify(msg) {
             const notif = ps_get('notification');
             if (!notif) return;
 
             notif.textContent = msg;
             notif.classList.remove('-translate-y-full');
+
             setTimeout(() => {
-                if (notif && notif.isConnected) {
-                    notif.classList.add('-translate-y-full');
-                }
+                notif?.classList.add('-translate-y-full');
             }, 4000);
         }
 
-        // Firebase setup – safe one-time init
+        /* ---------------- RENDER GAMES ---------------- */
+
+        function ps_render(games) {
+            const container = ps_get('games-container');
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            (games || []).forEach(game => {
+                const div = document.createElement('div');
+                div.className =
+                    'bg-black/60 border border-blue-500/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:border-blue-400/40 transition-all';
+
+                div.innerHTML = `
+                    <h4 class="text-2xl font-black text-white mb-4">
+                        ${game.teamA || 'NIL'} 
+                        <span class="text-blue-400">${game.scoreA || 0}</span> –
+                        <span class="text-blue-400">${game.scoreB || 0}</span> 
+                        ${game.teamB || 'NIL'}
+                    </h4>
+
+                    <div class="text-left text-sm text-gray-300 space-y-1">
+                        ${(game.events || []).map(e => `
+                            <div class="flex justify-between
+                                ${e.type === 'goal' ? 'text-green-400 font-semibold' :
+                                  e.type === 'yellow' ? 'text-yellow-400' :
+                                  e.type === 'red' ? 'text-red-500' : ''}">
+                                <span>${e.time || '--'}</span>
+                                <span>${(e.type || '').toUpperCase()} — ${e.player || '?'}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                container.appendChild(div);
+            });
+        }
+
+        /* ---------------- FIREBASE SAFE INIT ---------------- */
+
         if (!firebase.apps.length) {
             firebase.initializeApp({
                 apiKey: "AIzaSyDtTYEHEdPopiYv9Iq2XYAcXTKk3gzWL_A",
@@ -1813,86 +1826,109 @@ function updateView(title) {
                 storageBucket: "goteach-1eaa3.firebasestorage.app",
                 messagingSenderId: "486448948939",
                 appId: "1:486448948939:web:3058788ea1a134804d1d4e",
-                measurementId: "G-FMSL801KQB",
                 databaseURL: "https://goteach-1eaa3-default-rtdb.firebaseio.com/"
             });
         }
 
-        const ps_db = firebase.database();
-        const ps_games = ps_db.ref('pure_stream_games');
+        const db = firebase.database();
+        const gamesRef = db.ref('pure_stream_games');
 
-        // Init if empty
-        ps_games.once('value').then(snap => {
+        /* ---------------- INIT DEFAULT DATA ---------------- */
+
+        gamesRef.once('value').then(snap => {
             if (!snap.exists()) {
-                ps_games.set(Array(6).fill().map(() => ({
-                    teamA: 'NIL', teamB: 'NIL', scoreA: 0, scoreB: 0, events: []
-                })));
+                gamesRef.set(
+                    Array(6).fill().map(() => ({
+                        teamA: 'NIL',
+                        teamB: 'NIL',
+                        scoreA: 0,
+                        scoreB: 0,
+                        events: []
+                    }))
+                );
             }
         }).catch(() => {});
 
-        // Real-time listener
-        let ps_prev = null;
-        ps_games.on('value', snap => {
+        /* ---------------- REALTIME LISTENER ---------------- */
+
+        let prevGames = null;
+
+        gamesRef.on('value', snap => {
             const games = snap.val() || [];
+
             ps_render(games);
 
-            let goal = false;
-            if (ps_prev) {
+            let goalDetected = false;
+
+            if (prevGames) {
                 games.forEach((g, i) => {
-                    const p = ps_prev[i] || { events: [] };
-                    if ((g.events?.length || 0) > (p.events?.length || 0)) {
-                        const latest = g.events?.[g.events.length - 1];
+                    const prev = prevGames[i] || { events: [] };
+
+                    if ((g.events?.length || 0) > (prev.events?.length || 0)) {
+                        const latest = g.events[g.events.length - 1];
+
                         if (latest?.type === 'goal' && !latest.processed) {
-                            goal = true;
-                            ps_games.child(`${i}/events/${g.events.length - 1}/processed`).set(true);
+                            goalDetected = true;
+                            gamesRef.child(`${i}/events/${g.events.length - 1}/processed`)
+                                .set(true);
                         }
                     }
                 });
             }
-            ps_prev = JSON.parse(JSON.stringify(games));
 
-            if (goal) {
+            prevGames = JSON.parse(JSON.stringify(games));
+
+            if (goalDetected) {
                 const audio = ps_get('goal-sound');
                 if (audio) {
                     audio.currentTime = 0;
                     audio.play().catch(() => {});
                 }
+
                 ps_notify('GOOOAAAL!!!');
 
-                document.querySelectorAll('#games-container > div').forEach(el => {
-                    if (el) {
+                document
+                    .querySelectorAll('#games-container > div')
+                    .forEach(el => {
                         el.classList.add('animate-pulse');
-                        setTimeout(() => el?.classList.remove('animate-pulse'), 2000);
-                    }
-                });
+                        setTimeout(() => el.classList.remove('animate-pulse'), 2000);
+                    });
             }
         });
 
-        // Admin button – only attach if exists
-        const ps_admin = ps_get('admin-btn');
-        if (ps_admin) {
-            ps_admin.addEventListener('click', () => {
-                ps_get('pin-modal')?.classList.remove('hidden');
-            });
-        }
+        /* ---------------- SAFE BUTTON HANDLERS ---------------- */
 
-        const ps_submit = ps_get('submit-pin');
-        if (ps_submit) {
-            ps_submit.addEventListener('click', () => {
+        const handlers = {
+
+            'admin-btn': () => {
+                ps_get('pin-modal')?.classList.remove('hidden');
+            },
+
+            'submit-pin': () => {
                 const input = ps_get('pin-input');
+
                 if (input?.value === '3478') {
                     ps_get('pin-modal')?.classList.add('hidden');
                     ps_get('admin-modal')?.classList.remove('hidden');
                 } else {
                     alert('Incorrect PIN');
                 }
-            });
-        }
+            },
 
-  
-        console.log('Pure Stream: all safe handlers attached');
-    }, 0); // tiny delay to ensure DOM is ready
+            'close-admin': () => {
+                ps_get('admin-modal')?.classList.add('hidden');
+            }
+        };
+
+        Object.entries(handlers).forEach(([id, fn]) => {
+            const el = ps_get(id);
+            if (el) el.addEventListener('click', fn);
+        });
+
+        console.log('Pure Stream FULL init complete — no crash mode active');
+    });
 }
+
         mainDisplay.style.opacity = '1';
             startSystemSync();
         }, 200);
