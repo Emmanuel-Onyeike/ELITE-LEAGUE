@@ -1762,6 +1762,153 @@ function updateView(title) {
             startSystemSync(); 
         }, 200);
     }
+    // ── Pure Stream special initialization ───────────────────────
+        if (title === 'Pure Stream') {
+            console.log('Pure Stream activated → initializing...');
+
+            // Firebase setup
+            const firebaseConfig = {
+                apiKey: "AIzaSyDtTYEHEdPopiYv9Iq2XYAcXTKk3gzWL_A",
+                authDomain: "goteach-1eaa3.firebaseapp.com",
+                projectId: "goteach-1eaa3",
+                storageBucket: "goteach-1eaa3.firebasestorage.app",
+                messagingSenderId: "486448948939",
+                appId: "1:486448948939:web:3058788ea1a134804d1d4e",
+                measurementId: "G-FMSL801KQB",
+                databaseURL: "https://goteach-1eaa3-default-rtdb.firebaseio.com/"
+            };
+
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.database();
+            const gamesRef = db.ref('pure_stream_games');
+
+            // Init 6 games if missing
+            gamesRef.once('value').then(snap => {
+                if (!snap.exists()) {
+                    const initial = Array(6).fill().map(() => ({
+                        teamA: 'NIL', teamB: 'NIL', scoreA: 0, scoreB: 0, events: []
+                    }));
+                    gamesRef.set(initial);
+                }
+            }).catch(err => console.error('Init failed:', err));
+
+            function getEl(id) {
+                const el = document.getElementById(id);
+                if (!el) console.warn(`Pure Stream: #${id} missing`);
+                return el;
+            }
+
+            function renderGames(games) {
+                const container = getEl('games-container');
+                if (!container) return;
+                container.innerHTML = '';
+                (games || []).forEach(game => {
+                    const div = document.createElement('div');
+                    div.className = 'bg-black/60 border border-blue-500/20 rounded-2xl p-6 text-center backdrop-blur-sm hover:border-blue-400/40 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.6)]';
+                    div.innerHTML = `
+                        <h4 class="text-2xl md:text-3xl font-black text-white mb-4 tracking-tight">
+                            ${game.teamA || 'NIL'} <span class="text-blue-400">${game.scoreA || 0}</span> – 
+                            <span class="text-blue-400">${game.scoreB || 0}</span> ${game.teamB || 'NIL'}
+                        </h4>
+                        <div class="text-left text-sm text-gray-300 space-y-1.5 min-h-[120px]">
+                            ${(game.events || []).map(e => `
+                                <div class="flex justify-between ${e.type === 'goal' ? 'text-green-400 font-semibold' : e.type === 'yellow' ? 'text-yellow-400' : 'text-red-500'}">
+                                    <span>${e.time || '--'}</span>
+                                    <span>${(e.type || '').toUpperCase()}: ${e.player || '?'}${e.assist ? ` (A: ${e.assist})` : ''}${e.goalType ? ` (${e.goalType})` : ''}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+
+            let prevGames = null;
+            gamesRef.on('value', snap => {
+                const games = snap.val() || [];
+                renderGames(games);
+
+                let newGoalDetected = false;
+                if (prevGames) {
+                    games.forEach((game, i) => {
+                        const prev = prevGames[i] || { events: [] };
+                        if ((game.events?.length || 0) > (prev.events?.length || 0)) {
+                            const latest = game.events?.[game.events.length - 1];
+                            if (latest?.type === 'goal' && !latest.processed) {
+                                newGoalDetected = true;
+                                gamesRef.child(`${i}/events/${game.events.length - 1}/processed`).set(true);
+                            }
+                        }
+                    });
+                }
+                prevGames = JSON.parse(JSON.stringify(games));
+
+                if (newGoalDetected) {
+                    const audio = getEl('goal-sound');
+                    if (audio) {
+                        audio.currentTime = 0;
+                        audio.play().catch(e => console.log('Audio blocked:', e));
+                    }
+                    showNotification('GOOOAAAL!!!');
+
+                    document.querySelectorAll('#games-container > div').forEach(el => {
+                        el.classList.add('animate-pulse');
+                        setTimeout(() => el.classList.remove('animate-pulse'), 2000);
+                    });
+                }
+            });
+
+            function showNotification(msg) {
+                const notif = getEl('notification');
+                if (!notif) return;
+                notif.textContent = msg;
+                notif.classList.remove('-translate-y-full');
+                setTimeout(() => notif.classList.add('-translate-y-full'), 4000);
+            }
+
+            // Admin controls
+            const adminBtn = getEl('admin-btn');
+            if (adminBtn) {
+                adminBtn.onclick = () => {
+                    getEl('pin-modal')?.classList.remove('hidden');
+                };
+            }
+
+            const submitPin = getEl('submit-pin');
+            if (submitPin) {
+                submitPin.onclick = () => {
+                    const input = getEl('pin-input');
+                    if (input?.value === '3478') {
+                        getEl('pin-modal')?.classList.add('hidden');
+                        getEl('admin-modal')?.classList.remove('hidden');
+                        // render admin games if needed
+                    } else {
+                        alert('Incorrect PIN');
+                    }
+                };
+            }
+
+            // ... add the rest of your admin logic (add-event, close-edit, save-btn) here ...
+        }
+
+        mainDisplay.style.opacity = '1';
+    }, 200);
+
+    // Close mobile sidebar
+    if (window.innerWidth < 768 && sidebar && !sidebar.classList.contains('-translate-x-full')) {
+        sidebar.classList.add('-translate-x-full');
+        overlay?.classList.add('hidden');
+    }
+}
+
+// ────────────────────────────────────────────────────────────────
+// INIT
+// ────────────────────────────────────────────────────────────────
+
+document.addEventListener('DOMContentLoaded', () => {
+    setGreeting();
+    updateView('Overview');
+});
 
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
