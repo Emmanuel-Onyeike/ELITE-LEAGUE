@@ -362,3 +362,12 @@ body {
     .hidden { display: none !important; }
     .animate-in { animation: fadeIn 0.8s ease-out; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.hidden {
+  display: none !important;
+}
+.modal {
+  display: none; /* fallback if JS fails */
+}
+.modal:not(.hidden) {
+  display: flex !important;
+}
