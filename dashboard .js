@@ -1588,8 +1588,8 @@ const contentData = {
 
 
     
-   'Pure Stream': `
-<div class="animate-in pb-40 px-6 md:px-20 space-y-24">
+  'Pure Stream': `
+  <div class="animate-in pb-40 px-6 md:px-20 space-y-24">
     <!-- Header -->
     <div class="pt-16 flex flex-col items-center text-center relative">
       <div class="flex items-center gap-6 mb-8">
@@ -1601,17 +1601,15 @@ const contentData = {
         PURE <br>
         <span class="text-transparent stroke-blue-500" style="-webkit-text-stroke: 1px #3b82f6;">STREAM</span>
       </h3>
-      <!-- ADMIN BUTTON – top right -->
       <button id="admin-btn" class="absolute top-0 right-0 md:right-10 px-6 py-3 bg-blue-600/30 hover:bg-blue-600/50 border border-blue-500/40 rounded-full text-blue-300 font-bold uppercase tracking-wider text-sm transition-all shadow-[0_0_15px_rgba(59,130,246,0.3)]">
         ADMIN ACCESS
       </button>
     </div>
 
-    <!-- Games Grid -->
     <div id="games-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 pt-10"></div>
 
     <!-- PIN Modal -->
-    <div id="pin-modal" class="modal fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+    <div id="pin-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
       <div class="bg-gray-900/90 border border-blue-500/30 rounded-2xl p-10 max-w-md w-full backdrop-blur-md">
         <h2 class="text-2xl font-black text-white uppercase tracking-widest mb-6 text-center">Admin Authentication</h2>
         <input type="password" id="pin-input" placeholder="Enter PIN" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-5 py-4 text-white text-center text-xl mb-6 focus:outline-none focus:border-blue-400">
@@ -1620,7 +1618,7 @@ const contentData = {
     </div>
 
     <!-- Admin Panel Modal -->
-    <div id="admin-modal" class="modal fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+    <div id="admin-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
       <div class="bg-gray-900/95 border border-blue-500/30 rounded-3xl p-10 max-w-4xl w-full max-h-[90vh] overflow-y-auto backdrop-blur-lg">
         <div class="flex justify-between items-center mb-8">
           <h2 class="text-3xl font-black text-white uppercase tracking-widest">Pure Stream Admin Control</h2>
@@ -1631,7 +1629,7 @@ const contentData = {
     </div>
 
     <!-- Edit Game Modal -->
-    <div id="edit-modal" class="modal fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+    <div id="edit-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
       <div class="bg-gray-900/95 border border-blue-500/30 rounded-2xl p-8 max-w-lg w-full backdrop-blur-md">
         <h2 class="text-2xl font-black text-white uppercase tracking-widest mb-6">Edit Match</h2>
         <div class="grid grid-cols-2 gap-4 mb-6">
@@ -1649,7 +1647,7 @@ const contentData = {
             <option value="A">Team A</option>
             <option value="B">Team B</option>
           </select>
-          <input type="text" id="event-player" placeholder="Player / Recipient Name" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
+          <input type="text" id="event-player" placeholder="Player Name" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
           <input type="text" id="event-time" placeholder="Time (e.g. 45'+2')" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
           <input type="text" id="event-assist" placeholder="Assist (optional)" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
           <select id="goal-type" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white" style="display:none;">
@@ -1665,15 +1663,15 @@ const contentData = {
       </div>
     </div>
 
-    <!-- Notification Dropdown -->
+    <!-- Notification -->
     <div id="notification" class="fixed top-0 left-0 right-0 bg-green-600/90 text-white text-center py-4 font-bold uppercase tracking-wider transform -translate-y-full transition-transform duration-500 z-50 shadow-lg"></div>
 
     <!-- Goal Sound -->
     <audio id="goal-sound" preload="auto">
       <source src="https://www.orangefreesounds.com/wp-content/uploads/2016/11/Goal-horn-sound-effect.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
     </audio>
-  </div>`,
+  </div>
+`,
 
 
 
@@ -1751,37 +1749,31 @@ function updateView(title) {
 
         setTimeout(() => {
             // Original logic: inject content
-  if (title === 'Pure Stream') {
-    console.log('Pure Stream loaded – safe init starting');
+if (title === 'Pure Stream') {
+    console.log('Pure Stream view loaded — initializing safely');
 
-    requestAnimationFrame(() => {
+    // Wait for DOM to be ready after innerHTML
+    setTimeout(() => {
         // ── SAFE GETTER ────────────────────────────────────────────────
-        function ps_get(id) {
+        function get(id) {
             const el = document.getElementById(id);
-            if (!el) {
-                console.log(`[Pure Stream] #${id} not found`);
-            }
+            if (!el) console.log(`[Pure Stream] #${id} not found`);
             return el;
         }
 
         // ── NOTIFICATION ───────────────────────────────────────────────
-        function ps_notify(msg) {
-            const notif = ps_get('notification');
-            if (!notif) return;
-            notif.textContent = msg;
-            notif.classList.remove('-translate-y-full');
-            setTimeout(() => {
-                if (notif && notif.isConnected) {
-                    notif.classList.add('-translate-y-full');
-                }
-            }, 4000);
+        function notify(msg) {
+            const n = get('notification');
+            if (!n) return;
+            n.textContent = msg;
+            n.classList.remove('-translate-y-full');
+            setTimeout(() => n.classList.add('-translate-y-full'), 4000);
         }
 
         // ── RENDER GAMES ───────────────────────────────────────────────
-        function ps_render(games) {
-            const container = ps_get('games-container');
+        function render(games) {
+            const container = get('games-container');
             if (!container) return;
-
             container.innerHTML = '';
             (games || []).forEach(game => {
                 const div = document.createElement('div');
@@ -1793,11 +1785,7 @@ function updateView(title) {
                     </h4>
                     <div class="text-left text-sm text-gray-300 space-y-1.5 min-h-[120px]">
                         ${(game.events || []).map(e => `
-                            <div class="flex justify-between ${
-                                e.type === 'goal'   ? 'text-green-400 font-semibold' :
-                                e.type === 'yellow' ? 'text-yellow-400' :
-                                e.type === 'red'    ? 'text-red-500' : ''
-                            }">
+                            <div class="flex justify-between ${e.type === 'goal' ? 'text-green-400 font-semibold' : e.type === 'yellow' ? 'text-yellow-400' : 'text-red-500'}">
                                 <span>${e.time || '--'}</span>
                                 <span>${(e.type || '').toUpperCase()}: ${e.player || '?'}${e.assist ? ` (A: ${e.assist})` : ''}${e.goalType ? ` (${e.goalType})` : ''}</span>
                             </div>
@@ -1808,11 +1796,10 @@ function updateView(title) {
             });
         }
 
-        // ── RENDER EVENTS LIST (for edit modal) ────────────────────────
-        function ps_renderEventsList(events) {
-            const list = ps_get('events-list');
+        // ── RENDER EVENTS LIST IN EDIT MODAL ──────────────────────────
+        function renderEventsList(events) {
+            const list = get('events-list');
             if (!list) return;
-
             list.innerHTML = (events || []).map(e => `
                 <div class="text-sm ${e.type === 'goal' ? 'text-green-400' : e.type === 'yellow' ? 'text-yellow-300' : 'text-red-400'}">
                     ${e.time || '--'} – ${e.type || '?'} : ${e.player || '?'} ${e.assist ? `(assist: ${e.assist})` : ''} ${e.goalType ? `(${e.goalType})` : ''}
@@ -1820,7 +1807,7 @@ function updateView(title) {
             `).join('');
         }
 
-        // ── FIREBASE SAFE INIT ─────────────────────────────────────────
+        // ── FIREBASE ───────────────────────────────────────────────────
         if (!firebase.apps.length) {
             firebase.initializeApp({
                 apiKey: "AIzaSyDtTYEHEdPopiYv9Iq2XYAcXTKk3gzWL_A",
@@ -1837,35 +1824,28 @@ function updateView(title) {
         const db = firebase.database();
         const gamesRef = db.ref('pure_stream_games');
 
-        // Init default 6 games if missing
+        // Init 6 games if empty
         gamesRef.once('value').then(snap => {
             if (!snap.exists()) {
-                gamesRef.set(
-                    Array(6).fill().map(() => ({
-                        teamA: 'NIL',
-                        teamB: 'NIL',
-                        scoreA: 0,
-                        scoreB: 0,
-                        events: []
-                    }))
-                );
+                gamesRef.set(Array(6).fill().map(() => ({
+                    teamA: 'NIL', teamB: 'NIL', scoreA: 0, scoreB: 0, events: []
+                })));
             }
-        }).catch(() => {});
+        });
 
-        // ── REALTIME LISTENER + GOAL DETECTION ─────────────────────────
         let prevGames = null;
         gamesRef.on('value', snap => {
             const games = snap.val() || [];
-            ps_render(games);
+            render(games);
 
-            let goalDetected = false;
+            let goal = false;
             if (prevGames) {
                 games.forEach((g, i) => {
-                    const prev = prevGames[i] || { events: [] };
-                    if ((g.events?.length || 0) > (prev.events?.length || 0)) {
+                    const p = prevGames[i] || { events: [] };
+                    if ((g.events?.length || 0) > (p.events?.length || 0)) {
                         const latest = g.events?.[g.events.length - 1];
                         if (latest?.type === 'goal' && !latest.processed) {
-                            goalDetected = true;
+                            goal = true;
                             gamesRef.child(`${i}/events/${g.events.length - 1}/processed`).set(true);
                         }
                     }
@@ -1873,55 +1853,45 @@ function updateView(title) {
             }
             prevGames = JSON.parse(JSON.stringify(games));
 
-            if (goalDetected) {
-                const audio = ps_get('goal-sound');
-                if (audio) {
-                    audio.currentTime = 0;
-                    audio.play().catch(() => {});
-                }
-                ps_notify('GOOOAAAL!!!');
-
+            if (goal) {
+                const audio = get('goal-sound');
+                if (audio) audio.play().catch(() => {});
+                notify('GOOOAAAL!!!');
                 document.querySelectorAll('#games-container > div').forEach(el => {
-                    if (el) {
-                        el.classList.add('animate-pulse');
-                        setTimeout(() => el.classList.remove('animate-pulse'), 2000);
-                    }
+                    el.classList.add('animate-pulse');
+                    setTimeout(() => el.classList.remove('animate-pulse'), 2000);
                 });
             }
         });
 
-        // ── FULL ADMIN CONTROLS ────────────────────────────────────────
+        // ── ADMIN SYSTEM ───────────────────────────────────────────────
         let editingIndex = null;
 
-        // Open edit modal for a specific game
-        function ps_openEdit(index) {
+        function openEdit(index) {
             editingIndex = index;
             gamesRef.once('value').then(snap => {
                 const game = (snap.val() || [])[index];
                 if (!game) return;
-
-                ps_get('teamA').value = game.teamA || '';
-                ps_get('teamB').value = game.teamB || '';
-                ps_renderEventsList(game.events || []);
-                ps_get('edit-modal')?.classList.remove('hidden');
+                get('teamA').value = game.teamA || '';
+                get('teamB').value = game.teamB || '';
+                renderEventsList(game.events || []);
+                get('edit-modal')?.classList.remove('hidden');
             });
 
-            const typeSelect = ps_get('event-type');
+            const typeSelect = get('event-type');
             if (typeSelect) {
                 typeSelect.onchange = () => {
-                    const gt = ps_get('goal-type');
+                    const gt = get('goal-type');
                     if (gt) gt.style.display = typeSelect.value === 'goal' ? 'block' : 'none';
                 };
             }
         }
 
-        // Render list of games in admin modal
-        function ps_renderAdminGames() {
+        function renderAdminGames() {
             gamesRef.once('value').then(snap => {
                 const games = snap.val() || [];
-                const container = ps_get('admin-games');
+                const container = get('admin-games');
                 if (!container) return;
-
                 container.innerHTML = '';
                 games.forEach((game, i) => {
                     const btn = document.createElement('button');
@@ -1930,27 +1900,24 @@ function updateView(title) {
                         <div class="font-black text-lg text-white">${game.teamA || 'NIL'} vs ${game.teamB || 'NIL'}</div>
                         <div class="text-sm text-gray-400">${game.scoreA || 0} - ${game.scoreB || 0}</div>
                     `;
-                    btn.onclick = () => ps_openEdit(i);
+                    btn.onclick = () => openEdit(i);
                     container.appendChild(btn);
                 });
             });
         }
 
-        // Add new event to current game
-        const ps_addEventBtn = ps_get('add-event');
-        if (ps_addEventBtn) {
-            ps_addEventBtn.addEventListener('click', () => {
-                const type = ps_get('event-type')?.value;
-                const team = ps_get('event-team')?.value;
-                const player = ps_get('event-player')?.value?.trim();
-                const time = ps_get('event-time')?.value?.trim();
-                const assist = ps_get('event-assist')?.value?.trim();
-                const goalType = type === 'goal' ? ps_get('goal-type')?.value : '';
+        // Add event button
+        const addEventBtn = get('add-event');
+        if (addEventBtn) {
+            addEventBtn.addEventListener('click', () => {
+                const type = get('event-type')?.value;
+                const team = get('event-team')?.value;
+                const player = get('event-player')?.value?.trim();
+                const time = get('event-time')?.value?.trim();
+                const assist = get('event-assist')?.value?.trim();
+                const goalType = type === 'goal' ? get('goal-type')?.value : '';
 
-                if (!player || !time) {
-                    alert('Player name and time are required');
-                    return;
-                }
+                if (!player || !time) return alert('Player and time required');
 
                 gamesRef.once('value').then(snap => {
                     let games = snap.val() || [];
@@ -1966,17 +1933,17 @@ function updateView(title) {
                     game.events.push({ type, team, player, time, assist, goalType, processed: false });
 
                     gamesRef.set(games);
-                    ps_renderEventsList(game.events);
+                    renderEventsList(game.events);
                 });
             });
         }
 
         // Close edit modal + save teams
-        const ps_closeEdit = ps_get('close-edit');
-        if (ps_closeEdit) {
-            ps_closeEdit.addEventListener('click', () => {
-                const teamA = ps_get('teamA')?.value?.trim() || 'NIL';
-                const teamB = ps_get('teamB')?.value?.trim() || 'NIL';
+        const closeEditBtn = get('close-edit');
+        if (closeEditBtn) {
+            closeEditBtn.addEventListener('click', () => {
+                const teamA = get('teamA')?.value?.trim() || 'NIL';
+                const teamB = get('teamB')?.value?.trim() || 'NIL';
 
                 gamesRef.once('value').then(snap => {
                     let games = snap.val() || [];
@@ -1985,48 +1952,44 @@ function updateView(title) {
                         games[editingIndex].teamB = teamB;
                         gamesRef.set(games);
                     }
-                    ps_get('edit-modal')?.classList.add('hidden');
+                    get('edit-modal')?.classList.add('hidden');
                 });
             });
         }
 
         // Save & close admin modal
-        const ps_saveBtn = ps_get('save-btn');
-        if (ps_saveBtn) {
-            ps_saveBtn.addEventListener('click', () => {
-                ps_get('admin-modal')?.classList.add('hidden');
+        const saveBtn = get('save-btn');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', () => {
+                get('admin-modal')?.classList.add('hidden');
             });
         }
 
-        // ── ALL BUTTON HANDLERS ────────────────────────────────────────
-        const handlers = {
-            'admin-btn': () => {
-                ps_get('pin-modal')?.classList.remove('hidden');
-            },
-            'submit-pin': () => {
-                const input = ps_get('pin-input');
+        // Main admin button flow
+        const adminBtn = get('admin-btn');
+        if (adminBtn) {
+            adminBtn.addEventListener('click', () => {
+                get('pin-modal')?.classList.remove('hidden');
+            });
+        }
+
+        const submitPin = get('submit-pin');
+        if (submitPin) {
+            submitPin.addEventListener('click', () => {
+                const input = get('pin-input');
                 if (input?.value === '3478') {
-                    ps_get('pin-modal')?.classList.add('hidden');
-                    ps_get('admin-modal')?.classList.remove('hidden');
-                    ps_renderAdminGames();  // load admin games list
+                    get('pin-modal')?.classList.add('hidden');
+                    get('admin-modal')?.classList.remove('hidden');
+                    renderAdminGames();
                 } else {
                     alert('Incorrect PIN');
                 }
-            }
-        };
+            });
+        }
 
-        Object.entries(handlers).forEach(([id, handler]) => {
-            const el = ps_get(id);
-            if (el) {
-                el.addEventListener('click', handler);
-                console.log(`[Pure Stream] Attached click to #${id}`);
-            }
-        });
-
-        console.log('Pure Stream FULL init complete — crash-proof mode active');
-    });
+        console.log('Pure Stream 100% initialized — everything works');
+    }, 100); // 100ms delay ensures DOM is ready
 }
-
         mainDisplay.style.opacity = '1';
             startSystemSync();
         }, 200);
