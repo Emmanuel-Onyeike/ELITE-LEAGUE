@@ -1610,63 +1610,6 @@ const contentData = {
       </button>
     </div>
 
-    <!-- Games Grid -->
-    <div id="games-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 pt-10"></div>
-
-    <!-- PIN Modal -->
-    <div id="pin-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-[9999] hidden">
-      <div class="bg-gray-900/90 border border-blue-500/30 rounded-2xl p-10 max-w-md w-full backdrop-blur-md">
-        <h2 class="text-2xl font-black text-white uppercase tracking-widest mb-6 text-center">Admin Authentication</h2>
-        <input type="password" id="pin-input" placeholder="Enter PIN" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-5 py-4 text-white text-center text-xl mb-6 focus:outline-none focus:border-blue-400">
-        <button id="submit-pin" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold uppercase tracking-wider py-4 rounded-lg transition-all">Verify</button>
-      </div>
-    </div>
-
-    <!-- Admin Panel Modal -->
-    <div id="admin-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-[9999] hidden">
-      <div class="bg-gray-900/95 border border-blue-500/30 rounded-3xl p-10 max-w-4xl w-full max-h-[90vh] overflow-y-auto backdrop-blur-lg">
-        <div class="flex justify-between items-center mb-8">
-          <h2 class="text-3xl font-black text-white uppercase tracking-widest">Pure Stream Admin Control</h2>
-          <button id="save-btn" class="px-8 py-3 bg-green-600/70 hover:bg-green-600 border border-green-400/40 rounded-full text-white font-bold uppercase tracking-wider transition-all">Save & Close</button>
-        </div>
-        <div id="admin-games" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-      </div>
-    </div>
-
-    <!-- Edit Game Modal -->
-    <div id="edit-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-[9999] hidden">
-      <div class="bg-gray-900/95 border border-blue-500/30 rounded-2xl p-8 max-w-lg w-full backdrop-blur-md">
-        <h2 class="text-2xl font-black text-white uppercase tracking-widest mb-6">Edit Match</h2>
-        <div class="grid grid-cols-2 gap-4 mb-6">
-          <input type="text" id="teamA" placeholder="Team A Name" class="bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400">
-          <input type="text" id="teamB" placeholder="Team B Name" class="bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400">
-        </div>
-        <h3 class="text-lg font-bold text-blue-400 uppercase tracking-wider mb-4">Add Event</h3>
-        <div class="space-y-4">
-          <select id="event-type" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
-            <option value="goal">Goal</option>
-            <option value="yellow">Yellow Card</option>
-            <option value="red">Red Card</option>
-          </select>
-          <select id="event-team" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
-            <option value="A">Team A</option>
-            <option value="B">Team B</option>
-          </select>
-          <input type="text" id="event-player" placeholder="Player / Recipient Name" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
-          <input type="text" id="event-time" placeholder="Time (e.g. 45'+2')" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
-          <input type="text" id="event-assist" placeholder="Assist (optional)" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white">
-          <select id="goal-type" class="w-full bg-black/50 border border-blue-500/40 rounded-lg px-4 py-3 text-white" style="display:none;">
-            <option value="normal">Normal Goal</option>
-            <option value="penalty">Penalty</option>
-            <option value="free-kick">Free Kick</option>
-            <option value="own-goal">Own Goal</option>
-          </select>
-          <button id="add-event" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold uppercase tracking-wider py-4 rounded-lg transition-all">Add Event</button>
-        </div>
-        <div id="events-list" class="mt-8 space-y-3 text-gray-300 text-sm"></div>
-        <button id="close-edit" class="mt-8 w-full bg-gray-700 hover:bg-gray-600 text-white font-bold uppercase tracking-wider py-4 rounded-lg transition-all">Save Teams & Close</button>
-      </div>
-    </div>
 
     <!-- Notification -->
     <div id="notification" class="fixed top-0 left-0 right-0 bg-green-600/90 text-white text-center py-4 font-bold uppercase tracking-wider transform -translate-y-full transition-transform duration-500 z-50 shadow-lg"></div>
