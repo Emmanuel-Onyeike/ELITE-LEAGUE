@@ -1041,7 +1041,7 @@ const contentData = {
                 
                 <div class="grid grid-cols-2 gap-8 mt-12 w-full pt-8 border-t border-white/5">
                     <div class="text-center">
-                        <span class="block text-4xl font-black text-white">07</span>
+                        <span class="block text-4xl font-black text-white">10</span>
                         <span class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-1">Gls</span>
                     </div>
                     <div class="text-center border-l border-white/5">
