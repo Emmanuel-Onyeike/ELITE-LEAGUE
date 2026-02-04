@@ -233,8 +233,8 @@ const contentData = {
     ${[
 
  
- 
-  { rank: 1, team: "CSC-400", mp: 4, w: 4, d: 0, l: 0, gf: 22, ga: 8,  gd: "+14", pts: 12, crown: true },
+
+  { rank: 1, team: "CSC-400", mp: 5, w: 5, d: 0, l: 0, gf: 28, ga: 12, gd: "+16", pts: 15, crown: true },
 
   { rank: 2, team: "MSS-200", mp: 5, w: 2, d: 2, l: 1, gf: 23, ga: 17, gd: "+6",  pts: 8 },
 
@@ -252,7 +252,7 @@ const contentData = {
 
   { rank: 9, team: "LAW-100", mp: 4, w: 1, d: 0, l: 3, gf: 17, ga: 22, gd: "-5",  pts: 3 },
 
-  { rank: 10, team: "LAW-400", mp: 1, w: 0, d: 1, l: 0, gf: 4, ga: 4, gd: "0", pts: 1 },
+  { rank: 10, team: "LAW-400", mp: 2, w: 0, d: 1, l: 1, gf: 8, ga: 10, gd: "-2", pts: 1 },
 
   { rank: 11, team: "LAW-500", mp: 1, w: 0, d: 0, l: 1, gf: 4, ga: 7, gd: "-3", pts: 0 }
 
