@@ -549,14 +549,14 @@ const contentData = {
 
         <div class="grid gap-5">
             ${[
-                { id: 1, home: "CSC-300 (3)", away: "LAW-500 (0)" },
-                { id: 2, home: "MSS-300", away: "LAW-100" },
-                { id: 3, home: "CSC-300", away: "MSS-300" },
-              { id: 4, home: "LAW-100 (4)", away: "MSS-100 (5)" },
-               { id: 5, home: "LAW-200 (3)", away: "MSS-200 (2)" },
-                 { id: 6, home: "CSC-400 (10)", away: "LAW-200 (2)" },
-                { id: 7, home: "CSC-300 (4)", away: "LAW-400 (4)" },
-                { id: 8, home: "MSS-300", away: "LAW-500" }
+                { id: 1, home: "No Data" },
+                { id: 2, home: "No Data" },
+                { id: 3, home: "No Data" },
+              { id: 4, home: "No Data" },
+               { id: 5, home: "No Data" },
+                 { id: 6, home: "No Data" },
+                { id: 7, home: "No Data" },
+                { id: 8, home: "No Data" }
                 
             ].map((match) => `
                 <div class="p-6 bg-[#030816] border border-blue-500/10 rounded-[2.5rem] transition-all hover:border-blue-500/30 group">
@@ -626,10 +626,10 @@ const contentData = {
                     <table class="w-full min-w-[300px]">
                         <tbody class="divide-y divide-white/[0.02]">
                             ${[
-                                 { name: "Halaand", val: "7" },
+                                 { name: "Halaand", val: "10" },
                                 { name: "Chukwuemeka", val: "6" },
                                  { name: "Ororo", val: "6" },
-                                { name: "Dior", val: "5" },
+                                { name: "Dior", val: "6" },
                                 { name: "Ebuka", val: "4" }
                               
                             ].map((player, i) => `
@@ -670,8 +670,8 @@ const contentData = {
                         <tbody class="divide-y divide-white/[0.02]">
                             ${[
                                          { name: "Hassan", val: "6" },
+                                   { name: "Noble", val: "7" },
                                 { name: "Chukwuemeka", val: "6" },
-                                { name: "Noble", val: "5" },
                                 { name: "OBI", val: "4" },
                                 { name: "Mello", val: "3" }
                            
@@ -1060,16 +1060,17 @@ const contentData = {
 
             <div class="space-y-4">
                 ${[
-                     { name: "Halaand", val: "7", unit: "CSC 400" },
+                    { name: "Halaand", val: "10", unit: "CSC 400" },
                     { name: "Chukwuemeka", val: "6", unit: "CSC 100" },
-                      { name: "Ororo", val: "6", unit: "LAW 200" },
-                    { name: "Christian Dior", val: "5", unit: "NUR 200" },
+                    { name: "Ororo", val: "6", unit: "LAW 200" },
+                    { name: "Bouyka", val: "6", unit: "CSC 300" },
+                    { name: "Christian Dior", val: "6", unit: "CSC 400" },
+                    { name: "Fomat", val: "6", unit: "CSC 300" },
+                       { name: "Von", val: "4", unit: "MSS 300" },
                     { name: "Ebuka", val: "4", unit: "MSS 200" },
-                    { name: "Fomat", val: "4", unit: "CSC 300" },
                     { name: "Sporty", val: "3", unit: "MSS 300" },
-                    { name: "Bouyka", val: "2", unit: "CSC 300" },
-                    { name: "IK", val: "2", unit: "MSS 200" },
-                    { name: "Von", val: "2", unit: "MSS 300" }
+                    { name: "IK", val: "2", unit: "MSS 200" }
+                 
                 ].map((player, i) => `
                     <div class="flex items-center justify-between p-6 md:p-8 bg-white/[0.01] border border-white/5 rounded-[2.5rem] group hover:bg-blue-600/[0.03] hover:border-blue-500/20 transition-all duration-500">
                         <div class="flex items-center gap-6">
