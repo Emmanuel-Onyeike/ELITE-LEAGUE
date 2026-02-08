@@ -231,33 +231,27 @@ const contentData = {
                     </thead>
           <tbody class="text-gray-300 font-bold divide-y divide-white/[0.03]">
     ${[
-
- 
-
   { rank: 1, team: "CSC-400", mp: 5, w: 5, d: 0, l: 0, gf: 28, ga: 12, gd: "+16", pts: 15, crown: true },
 
-  { rank: 2, team: "MSS-200", mp: 5, w: 2, d: 2, l: 1, gf: 23, ga: 17, gd: "+6",  pts: 8 },
+  { rank: 2, team: "MSS-200", mp: 5, w: 2, d: 2, l: 1, gf: 23, ga: 17, gd: "+6", pts: 8 },
 
-  { rank: 3, team: "CSC-300", mp: 4, w: 2, d: 1, l: 1, gf: 15, ga: 13, gd: "+2",  pts: 7 },
+  { rank: 3, team: "MSS-300", mp: 4, w: 2, d: 1, l: 1, gf: 20, ga: 14, gd: "+6", pts: 7 },
 
-  { rank: 4, team: "LAW-200", mp: 4, w: 2, d: 1, l: 1, gf: 17, ga: 23, gd: "-6",  pts: 7 },
+  { rank: 4, team: "CSC-300", mp: 5, w: 2, d: 1, l: 2, gf: 17, ga: 18, gd: "-1", pts: 7 },
 
-  { rank: 5, team: "CSC-100", mp: 5, w: 2, d: 0, l: 3, gf: 16, ga: 17, gd: "-1",  pts: 6 },
+  { rank: 5, team: "LAW-200", mp: 4, w: 2, d: 1, l: 1, gf: 17, ga: 23, gd: "-6", pts: 7 },
 
-  { rank: 6, team: "MSS-100", mp: 5, w: 2, d: 0, l: 3, gf: 14, ga: 18, gd: "-4",  pts: 6 },
+  { rank: 6, team: "CSC-100", mp: 5, w: 2, d: 0, l: 3, gf: 16, ga: 17, gd: "-1", pts: 6 },
 
-  { rank: 7, team: "CSC-200", mp: 5, w: 2, d: 0, l: 3, gf: 17, ga: 26, gd: "-9",  pts: 6 },
+  { rank: 7, team: "MSS-100", mp: 5, w: 2, d: 0, l: 3, gf: 14, ga: 18, gd: "-4", pts: 6 },
 
-  { rank: 8, team: "MSS-300", mp: 3, w: 1, d: 1, l: 1, gf: 15, ga: 12, gd: "+3",  pts: 4 },
+  { rank: 8, team: "CSC-200", mp: 5, w: 2, d: 0, l: 3, gf: 17, ga: 26, gd: "-9", pts: 6 },
 
-  { rank: 9, team: "LAW-100", mp: 4, w: 1, d: 0, l: 3, gf: 17, ga: 22, gd: "-5",  pts: 3 },
+  { rank: 9, team: "LAW-100", mp: 4, w: 1, d: 0, l: 3, gf: 17, ga: 22, gd: "-5", pts: 3 },
 
   { rank: 10, team: "LAW-400", mp: 2, w: 0, d: 1, l: 1, gf: 8, ga: 10, gd: "-2", pts: 1 },
 
   { rank: 11, team: "LAW-500", mp: 1, w: 0, d: 0, l: 1, gf: 4, ga: 7, gd: "-3", pts: 0 }
-
-
-
     ].map((data) => `
         <tr class="hover:bg-blue-600/[0.03] transition-colors group">
             <td class="py-5 pl-8">
