@@ -426,7 +426,7 @@ const contentData = {
                         <span class="text-[9px] text-blue-500 font-black italic uppercase">League Leader #1</span>
                         <i class="fas fa-lock text-[10px] text-gray-700"></i>
                     </div>
-                    <p class="text-white font-black uppercase italic text-lg tracking-tight">TBD UNIT</p>
+                    <p class="text-white font-black uppercase italic text-lg tracking-tight">CSC 400</p>
                 </div>
 
                 <div class="flex justify-center">
@@ -440,7 +440,7 @@ const contentData = {
                         <span class="text-[9px] text-blue-500 font-black italic uppercase">Qualifier #4</span>
                         <i class="fas fa-lock text-[10px] text-gray-700"></i>
                     </div>
-                    <p class="text-white font-black uppercase italic text-lg tracking-tight">TBD UNIT</p>
+                    <p class="text-white font-black uppercase italic text-lg tracking-tight">MSS 300</p>
                 </div>
             </div>
 
@@ -469,7 +469,7 @@ const contentData = {
                         <span class="text-[9px] text-blue-500 font-black italic uppercase">Runner Up #2</span>
                         <i class="fas fa-lock text-[10px] text-gray-700"></i>
                     </div>
-                    <p class="text-white font-black uppercase italic text-lg tracking-tight">TBD UNIT</p>
+                    <p class="text-white font-black uppercase italic text-lg tracking-tight">CSC 300</p>
                 </div>
 
                 <div class="flex justify-center">
@@ -483,7 +483,7 @@ const contentData = {
                         <span class="text-[9px] text-blue-500 font-black italic uppercase">Qualifier #3</span>
                         <i class="fas fa-lock text-[10px] text-gray-700"></i>
                     </div>
-                    <p class="text-white font-black uppercase italic text-lg tracking-tight">TBD UNIT</p>
+                    <p class="text-white font-black uppercase italic text-lg tracking-tight">MSS 200</p>
                 </div>
             </div>
 
