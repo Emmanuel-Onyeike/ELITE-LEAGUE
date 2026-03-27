@@ -746,111 +746,58 @@ CIT DERBY
     </div>`,
 
 'Stake': `
-    <div class="space-y-8 animate-in pb-20 px-4 max-w-7xl mx-auto">
-        <div class="flex justify-between items-center bg-white/5 border border-white/10 p-6 rounded-[2rem] backdrop-blur-xl">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-400 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20">
-                    <i class="fas fa-user-shield text-white text-xl"></i>
-                </div>
-                <div>
-                    <span class="block text-[10px] text-gray-500 font-black uppercase tracking-widest">Operator ID</span>
-                    <span class="block text-sm font-black text-white italic">NXXT_USER_01</span>
-                </div>
-            </div>
+    <div class="space-y-6 animate-in pb-20 px-4 max-w-7xl mx-auto">
+        <div class="flex justify-between items-center bg-white/5 border border-white/10 p-6 rounded-[2.5rem] backdrop-blur-md">
+            <h3 class="text-xl font-black italic text-white uppercase tracking-tighter">Stake <span class="text-blue-500">Market</span></h3>
             <div class="text-right">
-                <span class="block text-[10px] text-blue-500 font-black uppercase tracking-[0.3em] mb-1">Total Balance</span>
-                <div class="flex items-center gap-3">
-                    <span class="text-2xl md:text-3xl font-black text-white tracking-tighter italic">₦250,000.00</span>
-                    <button class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-xs text-white hover:rotate-180 transition-transform duration-500">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
+                <span class="block text-[9px] text-gray-500 font-black uppercase tracking-widest">Available Credit</span>
+                <span id="balanceText" class="text-2xl font-black text-white italic">₦250,000.00</span>
             </div>
         </div>
 
-        <div class="grid lg:grid-cols-3 gap-8">
-            <div class="lg:col-span-2 space-y-6">
-                <div class="relative p-8 bg-gradient-to-br from-[#050d24] to-[#020617] border border-blue-500/20 rounded-[3rem] overflow-hidden">
-                    <div class="absolute top-4 right-6 flex items-center gap-2">
-                        <span class="relative flex h-2 w-2">
-                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                          <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-                        </span>
-                        <span class="text-[10px] text-red-500 font-black uppercase tracking-widest">Live: 84'</span>
-                    </div>
-
-                    <div class="flex justify-between items-center text-center">
-                        <div class="flex-1 group">
-                            <img src="CSC 400.jpeg" class="w-20 h-20 mx-auto object-contain mb-4 drop-shadow-[0_0_15px_rgba(37,99,235,0.3)]">
-                            <h4 class="text-xl font-black text-white italic uppercase tracking-tighter">CSC 400</h4>
-                        </div>
-                        <div class="flex flex-col gap-2 px-6">
-                            <span class="text-5xl font-black text-white italic tracking-tighter">3 - 0</span>
-                            <span class="text-[10px] text-gray-500 font-bold uppercase tracking-[0.4em]">Full Time Result</span>
-                        </div>
-                        <div class="flex-1 opacity-60">
-                            <img src="CSC 300.jpeg" class="w-20 h-20 mx-auto object-contain mb-4 filter grayscale">
-                            <h4 class="text-xl font-black text-white italic uppercase tracking-tighter">CSC 300</h4>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white/5 border border-white/5 rounded-[2.5rem] p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <h5 class="text-xs font-black text-blue-400 uppercase tracking-widest italic">1X2 Full Time</h5>
-                        <span class="text-[9px] text-gray-600">Market ID: 882910</span>
-                    </div>
-                    <div class="grid grid-cols-3 gap-4">
-                        <button onclick="selectOdd('CSC 400', 1.05)" class="flex flex-col items-center py-6 bg-blue-600/10 border border-blue-500/20 rounded-3xl hover:bg-blue-600 transition-all group">
-                            <span class="text-[10px] text-blue-500 group-hover:text-white font-black">1</span>
-                            <span class="text-2xl font-black text-white italic">1.05</span>
-                        </button>
-                        <button class="flex flex-col items-center py-6 bg-zinc-900 rounded-3xl opacity-50 cursor-not-allowed">
-                            <span class="text-[10px] text-gray-500 font-black">X</span>
-                            <span class="text-2xl font-black text-white italic">12.0</span>
-                        </button>
-                        <button class="flex flex-col items-center py-6 bg-zinc-900 rounded-3xl opacity-50 cursor-not-allowed">
-                            <span class="text-[10px] text-gray-500 font-black">2</span>
-                            <span class="text-2xl font-black text-white italic">45.0</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-[#030816] border border-white/10 rounded-[2.5rem] p-6 flex flex-col h-fit sticky top-8">
-                <div class="flex justify-between items-center mb-8">
-                    <h4 class="text-sm font-black text-white uppercase tracking-widest italic">Bet Slip</h4>
-                    <span class="px-2 py-1 bg-blue-600 text-[10px] font-black rounded-lg">1</span>
-                </div>
-
-                <div class="space-y-4 mb-8">
-                    <div class="p-4 bg-white/5 rounded-2xl border-l-4 border-blue-500">
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-[11px] font-black text-white uppercase tracking-tighter italic">CSC 400 Win</span>
-                            <button class="text-gray-500 hover:text-red-500"><i class="fas fa-times text-xs"></i></button>
-                        </div>
-                        <span class="text-[9px] text-gray-500 uppercase font-bold tracking-widest">CIT DERBY // MATCHDAY 01</span>
-                        <div class="flex justify-between mt-3">
-                            <span class="text-blue-500 font-black italic">Odds: 1.05</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="space-y-4 border-t border-white/10 pt-6">
-                    <div class="flex justify-between text-[11px] font-bold text-gray-400">
-                        <span>STAKE AMOUNT</span>
-                        <span class="text-white">₦10,000.00</span>
-                    </div>
-                    <div class="flex justify-between text-[11px] font-bold text-gray-400">
-                        <span>POTENTIAL WIN</span>
-                        <span class="text-green-500 font-black">₦10,500.00</span>
+        <div class="grid lg:grid-cols-2 gap-6">
+            ${games.map(game => `
+                <div class="p-6 bg-[#030816] border border-white/5 rounded-[2.5rem] relative overflow-hidden">
+                    <div class="flex justify-between mb-4">
+                        <span class="px-3 py-1 bg-blue-600/20 text-blue-500 text-[9px] font-black rounded-lg uppercase tracking-widest">${game.type}</span>
+                        <span class="text-[9px] text-gray-500 font-bold uppercase italic">Starts: ${new Date(game.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
                     </div>
                     
-                    <button onclick="triggerStakeModal()" class="w-full py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-black uppercase tracking-[0.3em] italic text-xs shadow-xl shadow-blue-600/20 transition-all active:scale-95">
-                        Place Stake
-                    </button>
+                    <div class="flex justify-between items-center mb-8">
+                        <div class="text-center w-1/3">
+                            <span class="block text-lg font-black text-white italic tracking-tighter uppercase">${game.home}</span>
+                            <span class="text-[8px] text-gray-600 uppercase">Home</span>
+                        </div>
+                        <span class="text-blue-500 font-black italic">VS</span>
+                        <div class="text-center w-1/3">
+                            <span class="block text-lg font-black text-white italic tracking-tighter uppercase opacity-60">${game.away}</span>
+                            <span class="text-[8px] text-gray-600 uppercase">Away</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-3 mb-6">
+                        <button onclick="selectBet('${game.home}', 'Home', ${game.odds.home})" class="py-4 bg-white/5 hover:bg-blue-600 rounded-2xl border border-white/5 transition-all text-center">
+                            <span class="block text-[8px] text-gray-500 font-black">1</span>
+                            <span class="text-sm font-black text-white">${game.odds.home}</span>
+                        </button>
+                        <button class="py-4 bg-white/5 rounded-2xl border border-white/5 opacity-40 cursor-not-allowed">
+                            <span class="block text-[8px] text-gray-500 font-black">X</span>
+                            <span class="text-sm font-black text-white">${game.odds.draw}</span>
+                        </button>
+                        <button onclick="selectBet('${game.away}', 'Away', ${game.odds.away})" class="py-4 bg-white/5 hover:bg-cyan-600 rounded-2xl border border-white/5 transition-all text-center">
+                            <span class="block text-[8px] text-gray-500 font-black">2</span>
+                            <span class="text-sm font-black text-white">${game.odds.away}</span>
+                        </button>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <input id="stakeInput" type="number" placeholder="Amount" class="flex-1 bg-black border border-white/10 rounded-xl px-4 text-xs text-white focus:border-blue-500 outline-none">
+                        <button onclick="placeStake()" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-black uppercase italic text-[10px] rounded-xl transition-all">
+                            Confirm Stake
+                        </button>
+                    </div>
                 </div>
-            </div>
+            `).join('')}
         </div>
     </div>
 `,
@@ -3064,4 +3011,63 @@ function closeStakeModal() {
 function selectOdd(team, odd) {
     // Logic to update the sidebar betslip could go here
     console.log(`Selected ${team} with odds ${odd}`);
+}
+// State Management
+let userBalance = 250000.00;
+let activeTickets = [];
+let selectedOdd = null;
+let stakeAmount = 0;
+
+const games = [
+    { id: 'v-01', type: 'Virtual', home: 'CSC 400', away: 'CSC 300', time: '2026-03-27T23:30:00', odds: { home: 1.15, draw: 8.0, away: 25.0 } },
+    { id: 'm-01', type: 'Main', home: 'CSC 400', away: 'CSC 300', time: '2026-03-28T15:00:00', odds: { home: 1.05, draw: 12.5, away: 45.0 } }
+];
+
+function placeStake() {
+    stakeAmount = parseFloat(document.getElementById('stakeInput').value);
+    
+    if (isNaN(stakeAmount) || stakeAmount <= 0) return alert("Enter a valid amount");
+    if (stakeAmount > userBalance) return alert("Insufficient Credit");
+    if (!selectedOdd) return alert("Select an outcome first");
+
+    // Deduct Balance
+    userBalance -= stakeAmount;
+    updateBalanceDisplay();
+
+    // Create Ticket
+    const newTicket = {
+        id: `TXN-${Math.floor(Math.random() * 90000)}`,
+        match: `${selectedOdd.home} vs ${selectedOdd.away}`,
+        pick: selectedOdd.pick,
+        odd: selectedOdd.val,
+        stake: stakeAmount,
+        potential: (stakeAmount * selectedOdd.val).toFixed(2),
+        status: 'Pending',
+        timestamp: new Date().toLocaleTimeString()
+    };
+
+    activeTickets.push(newTicket);
+    triggerStakeModal(newTicket);
+    showTicketButton();
+}
+
+function updateBalanceDisplay() {
+    const el = document.getElementById('balanceText');
+    if (el) el.innerText = `₦${userBalance.toLocaleString()}`;
+}
+function processResults() {
+    activeTickets.forEach(ticket => {
+        if (ticket.status === 'Pending') {
+            // Simulated Logic for demonstration
+            let win = Math.random() > 0.2; // 80% chance for CSC 400
+            if (win) {
+                ticket.status = 'WON';
+                userBalance += parseFloat(ticket.potential);
+            } else {
+                ticket.status = 'LOST';
+            }
+        }
+    });
+    updateBalanceDisplay();
+    renderTickets();
 }
