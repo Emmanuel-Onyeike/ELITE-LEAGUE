@@ -800,7 +800,8 @@ CIT DERBY
             `).join('')}
         </div>
     </div>
-`,
+    ` // End of Stake string
+}; // End of views object
 
   'Highlights': `
     <div class="space-y-12 animate-in pb-24 px-6 md:px-10">
