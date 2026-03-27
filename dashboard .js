@@ -746,7 +746,79 @@ CIT DERBY
     </div>`,
 
 
+'Stake': `
+    <div class="space-y-8 animate-in pb-20 px-4">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 px-2">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-2 h-2 bg-yellow-500 rounded-full animate-pulse shadow-[0_0_8px_#eab308]"></div>
+                    <span class="text-[10px] text-yellow-500 font-black uppercase tracking-[0.4em]">Exchange Active: CIT Derby</span>
+                </div>
+                <h3 class="text-3xl md:text-4xl font-black italic uppercase tracking-tighter text-white">Stake <span class="text-blue-500">Market</span></h3>
+            </div>
+            
+            <div class="flex flex-col items-end gap-1">
+                <span class="text-[9px] text-gray-500 font-black uppercase tracking-[0.3em]">Available Credit</span>
+                <div class="px-6 py-3 bg-blue-600/10 border border-blue-500/20 rounded-2xl flex items-center gap-4">
+                    <i class="fas fa-wallet text-blue-500"></i>
+                    <span class="text-xl font-black italic text-white tracking-tighter">₦250,000.00</span>
+                </div>
+            </div>
+        </div>
 
+        <div class="grid gap-6">
+            <div class="p-8 bg-[#030816] border border-blue-500/10 rounded-[3rem] relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 blur-3xl rounded-full"></div>
+
+                <div class="flex flex-col lg:flex-row items-center justify-between gap-10">
+                    <div class="flex items-center gap-6 lg:gap-12 text-center lg:text-left">
+                        <div class="flex flex-col items-center lg:items-start">
+                            <span class="text-2xl md:text-4xl font-black text-white italic tracking-tighter uppercase">CSC 400</span>
+                            <span class="text-[9px] text-blue-500 font-bold uppercase tracking-widest mt-1 italic">Technicians (Home)</span>
+                        </div>
+                        <span class="text-blue-500 font-black italic text-xl">VS</span>
+                        <div class="flex flex-col items-center lg:items-start">
+                            <span class="text-2xl md:text-4xl font-black text-white italic tracking-tighter uppercase opacity-60">CSC 300</span>
+                            <span class="text-[9px] text-cyan-500 font-bold uppercase tracking-widest mt-1 italic">Arbitrators (Away)</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-3 w-full lg:w-auto">
+                        <button onclick="confirmStake('CSC 400 (Home)')" class="flex-1 lg:w-32 py-4 bg-zinc-900/50 hover:bg-blue-600 border border-white/5 hover:border-blue-400 rounded-2xl transition-all group/odd">
+                            <span class="block text-[10px] text-gray-500 group-hover/odd:text-white font-black uppercase mb-1">1 (Home)</span>
+                            <span class="text-xl font-black text-blue-500 group-hover/odd:text-white italic">1.05</span>
+                        </button>
+                        <button onclick="confirmStake('Draw')" class="flex-1 lg:w-32 py-4 bg-zinc-900/50 hover:bg-zinc-800 border border-white/5 rounded-2xl transition-all group/odd">
+                            <span class="block text-[10px] text-gray-500 group-hover/odd:text-white font-black uppercase mb-1">X (Draw)</span>
+                            <span class="text-xl font-black text-white italic">12.50</span>
+                        </button>
+                        <button onclick="confirmStake('CSC 300 (Away)')" class="flex-1 lg:w-32 py-4 bg-zinc-900/50 hover:bg-cyan-600 border border-white/5 hover:border-cyan-400 rounded-2xl transition-all group/odd">
+                            <span class="block text-[10px] text-gray-500 group-hover/odd:text-white font-black uppercase mb-1">2 (Away)</span>
+                            <span class="text-xl font-black text-cyan-500 group-hover/odd:text-white italic">45.00</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-10 pt-6 border-t border-white/5 flex flex-wrap gap-3 items-center justify-between">
+                    <div class="flex gap-2">
+                         <span class="px-4 py-2 bg-white/5 rounded-xl text-[10px] text-gray-400 font-black uppercase tracking-widest cursor-not-allowed border border-white/5">Over 2.5 (1.10)</span>
+                         <span class="px-4 py-2 bg-white/5 rounded-xl text-[10px] text-gray-400 font-black uppercase tracking-widest cursor-not-allowed border border-white/5">GG/BTTS (2.45)</span>
+                    </div>
+                    
+                    <button class="text-[10px] text-blue-500 font-black uppercase tracking-[0.2em] italic flex items-center gap-2 hover:translate-x-1 transition-transform">
+                        More Markets (142+) <i class="fas fa-chevron-right text-[8px]"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-center text-white/20 text-[9px] uppercase font-bold tracking-[0.5em] pt-10">
+            Automated Stake Verification // Encryption: Active
+        </p>
+    </div>
+`,
+
+    
 
   'Highlights': `
     <div class="space-y-12 animate-in pb-24 px-6 md:px-10">
