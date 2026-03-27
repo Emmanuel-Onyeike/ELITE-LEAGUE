@@ -425,7 +425,22 @@
         </button>
     </div>
 </div>
-    
+    <button id="ticketBtn" onclick="toggleTicketOverlay()" class="hidden fixed bottom-8 right-8 w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white shadow-2xl shadow-blue-600/40 z-[90] hover:scale-110 transition-transform">
+    <i class="fas fa-receipt text-xl"></i>
+    <span id="ticketCount" class="absolute -top-1 -right-1 w-6 h-6 bg-white text-blue-600 text-[10px] font-black rounded-full flex items-center justify-center border-2 border-blue-600">0</span>
+</button>
+
+<div id="ticketOverlay" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4">
+    <div class="w-full max-w-lg bg-[#020617] border border-white/10 rounded-[3rem] p-8 overflow-y-auto max-h-[80vh]">
+        <div class="flex justify-between items-center mb-8">
+            <h4 class="text-xl font-black text-white italic uppercase italic">My <span class="text-blue-500">Tickets</span></h4>
+            <button onclick="toggleTicketOverlay()" class="text-gray-500"><i class="fas fa-times"></i></button>
+        </div>
+        
+        <div id="ticketList" class="space-y-4">
+            </div>
+    </div>
+</div>
 </main>
  <!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
