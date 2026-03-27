@@ -751,7 +751,7 @@ CIT DERBY
             <h3 class="text-xl font-black italic text-white uppercase tracking-tighter">Stake <span class="text-blue-500">Market</span></h3>
             <div class="text-right">
                 <span class="block text-[9px] text-gray-500 font-black uppercase tracking-widest">Available Credit</span>
-                <span id="balanceText" class="text-2xl font-black text-white italic">₦250,000.00</span>
+                <span id="balanceText" class="text-2xl font-black text-white italic">₦${userBalance.toLocaleString()}</span>
             </div>
         </div>
 
@@ -776,30 +776,28 @@ CIT DERBY
                     </div>
 
                     <div class="grid grid-cols-3 gap-3 mb-6">
-                        <button onclick="selectBet('${game.home}', 'Home', ${game.odds.home})" class="py-4 bg-white/5 hover:bg-blue-600 rounded-2xl border border-white/5 transition-all text-center">
-                            <span class="block text-[8px] text-gray-500 font-black">1</span>
+                        <button onclick="selectBet('${game.id}', '${game.home}', 'Home', ${game.odds.home})" class="py-4 bg-white/5 hover:bg-blue-600 rounded-2xl border border-white/5 transition-all text-center group">
+                            <span class="block text-[8px] text-gray-500 group-hover:text-white/50 font-black">1</span>
                             <span class="text-sm font-black text-white">${game.odds.home}</span>
                         </button>
-                        <button class="py-4 bg-white/5 rounded-2xl border border-white/5 opacity-40 cursor-not-allowed">
+                        <button class="py-4 bg-white/5 rounded-2xl border border-white/5 opacity-40 cursor-not-allowed text-center">
                             <span class="block text-[8px] text-gray-500 font-black">X</span>
                             <span class="text-sm font-black text-white">${game.odds.draw}</span>
                         </button>
-                        <button onclick="selectBet('${game.away}', 'Away', ${game.odds.away})" class="py-4 bg-white/5 hover:bg-cyan-600 rounded-2xl border border-white/5 transition-all text-center">
-                            <span class="block text-[8px] text-gray-500 font-black">2</span>
+                        <button onclick="selectBet('${game.id}', '${game.away}', 'Away', ${game.odds.away})" class="py-4 bg-white/5 hover:bg-cyan-600 rounded-2xl border border-white/5 transition-all text-center group">
+                            <span class="block text-[8px] text-gray-500 group-hover:text-white/50 font-black">2</span>
                             <span class="text-sm font-black text-white">${game.odds.away}</span>
                         </button>
                     </div>
 
                     <div class="flex gap-2">
-                        <input id="stakeInput" type="number" placeholder="Amount" class="flex-1 bg-black border border-white/10 rounded-xl px-4 text-xs text-white focus:border-blue-500 outline-none">
-                        <button onclick="placeStake()" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-black uppercase italic text-[10px] rounded-xl transition-all">
+                        <input id="stakeInput-${game.id}" type="number" placeholder="Amount" class="flex-1 bg-black border border-white/10 rounded-xl px-4 text-xs text-white focus:border-blue-500 outline-none">
+                        <button onclick="placeStake('${game.id}')" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-black uppercase italic text-[10px] rounded-xl transition-all shadow-lg shadow-blue-600/10">
                             Confirm Stake
                         </button>
                     </div>
                 </div>
             `).join('')}
- </div>
-            </div>
         </div>
     </div>
 `,
