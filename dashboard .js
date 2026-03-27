@@ -3004,8 +3004,15 @@ window.closeBroadcastFeedback = function() {
 
 
 
-
-/// for the notification
-
-
-
+///// for the stake
+function confirmStake(selection) {
+    // This is the specific modal request from your prompt
+    alert(`
+        STAKED SUCCESSFUL!
+        ---------------------------
+        Market: CIT DERBY
+        Prediction: ${selection}
+        
+        CHECK LATER FOR REWARD IF GAME ENTER. ENJOY.
+    `);
+}
