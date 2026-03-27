@@ -67,48 +67,64 @@ const contentData = {
             </div>
         </div>
 
-        <div class="relative overflow-hidden md:rounded-[4rem] border-y md:border border-blue-500/10 bg-[#020617]">
-            <div class="absolute top-0 left-1/4 w-64 h-64 bg-blue-600/10 blur-[120px] rounded-full"></div>
-            <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-cyan-600/10 blur-[120px] rounded-full"></div>
+        <div class="relative overflow-hidden md:rounded-[4rem] border-y md:border border-blue-500/10 bg-[#020617] p-8">
+    <div class="absolute top-0 left-1/4 w-64 h-64 bg-blue-600/10 blur-[120px] rounded-full"></div>
+    <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-cyan-600/10 blur-[120px] rounded-full"></div>
 
-            <div class="relative z-10 py-16 px-6 flex flex-col items-center">
-                <div class="w-full max-w-5xl flex flex-col md:flex-row items-center justify-between gap-12 md:gap-4">
-                    
-                    <div class="flex flex-col items-center group order-1">
-                        <div class="relative mb-6 transform group-hover:scale-110 transition-transform duration-500">
-                            <div class="absolute -inset-8 bg-blue-600/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                            <div class="relative w-32 h-32 md:w-44 md:h-44 bg-gradient-to-tr from-zinc-900 to-black rounded-[3rem] border border-blue-500/20 flex items-center justify-center p-6 shadow-2xl">
-                                <img src="CSC 400.jpeg" alt="CSC" class="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(37,99,235,0.4)]">
-                            </div>
-                            <div class="absolute -bottom-2 -right-2 w-10 h-10 bg-blue-600 rounded-2xl flex items-center justify-center border-4 border-[#020617]">
-                                <i class="fas fa-code text-white text-xs"></i>
-                            </div>
-                        </div>
-                        <h4 class="text-3xl font-black text-white italic tracking-tighter uppercase">CSC 400</h4>
-                        <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.3em] mt-2">The Technicians</span>
+    <div class="relative z-10 py-12 px-6 flex flex-col items-center">
+        <div class="w-full max-w-5xl flex flex-col md:flex-row items-center justify-between gap-12 md:gap-4 mb-16">
+            
+            <div class="flex flex-col items-center group order-1">
+                <div class="relative mb-6 transform group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute -inset-8 bg-blue-600/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative w-32 h-32 md:w-44 md:h-44 bg-gradient-to-tr from-zinc-900 to-black rounded-[3rem] border border-blue-500/20 flex items-center justify-center p-6 shadow-2xl">
+                        <img src="CSC 400.jpeg" alt="CSC" class="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(37,99,235,0.4)]">
                     </div>
-
-                    <div class="flex flex-row md:flex-col items-center gap-6 order-2">
-                        <div class="hidden md:block h-20 w-[1px] bg-gradient-to-b from-transparent via-blue-500/50 to-transparent"></div>
-                        <div class="bg-white text-black px-6 py-2 rounded-full font-black text-sm italic shadow-[0_0_30px_rgba(255,255,255,0.1)]">VS</div>
-                        <div class="hidden md:block h-20 w-[1px] bg-gradient-to-t from-transparent via-blue-500/50 to-transparent"></div>
+                    <div class="absolute -bottom-2 -right-2 w-10 h-10 bg-blue-600 rounded-2xl flex items-center justify-center border-4 border-[#020617]">
+                        <i class="fas fa-code text-white text-xs"></i>
                     </div>
-
-                    <div class="flex flex-col items-center group order-3">
-                        <div class="relative mb-6 transform group-hover:scale-110 transition-transform duration-500">
-                            <div class="absolute -inset-8 bg-cyan-600/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                            <div class="relative w-32 h-32 md:w-44 md:h-44 bg-gradient-to-tr from-zinc-900 to-black rounded-[3rem] border border-cyan-500/20 flex items-center justify-center p-6 shadow-2xl">
-                                <img src="LAW 500.jpeg" alt="LAW" class="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(34,211,238,0.4)]">
-                            </div>
-                            <div class="absolute -bottom-2 -left-2 w-10 h-10 bg-cyan-500 rounded-2xl flex items-center justify-center border-4 border-[#020617]">
-                                <i class="fas fa-gavel text-white text-xs"></i>
-                            </div>
-                        </div>
-                        <h4 class="text-3xl font-black text-white italic tracking-tighter uppercase">LAW 500</h4>
-                        <span class="text-[10px] text-cyan-400 font-black uppercase tracking-[0.3em] mt-2">The Arbitrators</span>
-                    </div>
-
                 </div>
+                <h4 class="text-3xl font-black text-white italic tracking-tighter uppercase">CSC 400</h4>
+                <span class="text-[10px] text-blue-500 font-black uppercase tracking-[0.3em] mt-2">The Technicians</span>
+            </div>
+
+            <div class="flex flex-row md:flex-col items-center gap-6 order-2">
+                <div class="hidden md:block h-20 w-[1px] bg-gradient-to-b from-transparent via-blue-500/50 to-transparent"></div>
+                <div class="bg-white text-black px-6 py-2 rounded-full font-black text-sm italic shadow-[0_0_30px_rgba(255,255,255,0.1)]">VS</div>
+                <div class="hidden md:block h-20 w-[1px] bg-gradient-to-t from-transparent via-blue-500/50 to-transparent"></div>
+            </div>
+
+            <div class="flex flex-col items-center group order-3">
+                <div class="relative mb-6 transform group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute -inset-8 bg-cyan-600/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative w-32 h-32 md:w-44 md:h-44 bg-gradient-to-tr from-zinc-900 to-black rounded-[3rem] border border-cyan-500/20 flex items-center justify-center p-6 shadow-2xl">
+                        <img src="CSC 300.jpeg" alt="LAW" class="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(34,211,238,0.4)]">
+                    </div>
+                    <div class="absolute -bottom-2 -left-2 w-10 h-10 bg-cyan-500 rounded-2xl flex items-center justify-center border-4 border-[#020617]">
+                        <i class="fas fa-gavel text-white text-xs"></i>
+                    </div>
+                </div>
+                <h4 class="text-3xl font-black text-white italic tracking-tighter uppercase">CSC 300</h4>
+                <span class="text-[10px] text-cyan-400 font-black uppercase tracking-[0.3em] mt-2">The Arbitrators</span>
+            </div>
+        </div>
+
+        <div class="w-full max-w-2xl flex flex-col items-center">
+            <div class="flex justify-between w-full mb-3 px-2">
+                <span class="text-blue-500 font-black text-xs uppercase tracking-widest">95% Prob.</span>
+                <span class="text-white/40 font-black text-[10px] uppercase tracking-[0.4em]">Win Probability</span>
+                <span class="text-cyan-500 font-black text-xs uppercase tracking-widest">5% Prob.</span>
+            </div>
+            
+            <div class="w-full h-3 bg-zinc-900 rounded-full overflow-hidden flex border border-white/5 p-[2px]">
+                <div class="h-full bg-gradient-to-r from-blue-700 to-blue-500 rounded-full shadow-[0_0_15px_rgba(37,99,235,0.6)]" style="width: 95%"></div>
+                <div class="h-full bg-cyan-900/50 rounded-full" style="width: 5%"></div>
+            </div>
+            
+            <p class="mt-6 text-white/30 text-[9px] uppercase font-bold tracking-[0.5em] text-center">Calculated based on technical dominance</p>
+        </div>
+    </div>
+</div>
 <div class="mt-16 flex flex-col items-center gap-4">
 <p class="text-[11px] font-extrabold uppercase tracking-[0.45em] 
            bg-gradient-to-r from-red-600 via-black to-blue-600 
