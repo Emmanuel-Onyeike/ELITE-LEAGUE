@@ -798,6 +798,8 @@ CIT DERBY
                     </div>
                 </div>
             `).join('')}
+ </div>
+            </div>
         </div>
     </div>
 `,
