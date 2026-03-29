@@ -29,11 +29,6 @@ const views = {
                     <h4 class="text-2xl font-bold text-white italic uppercase tracking-tighter">NXXT_PLAYER</h4>
                     <p class="text-slate-500 text-sm mt-2">Historic 42 Goal Payload.</p>
                 </div>
-                <div class="min-w-[320px] p-10 rounded-[3rem] bg-white/5 border border-white/5">
-                    <i class="fas fa-shield-halved text-slate-500 text-4xl mb-6"></i>
-                    <h4 class="text-2xl font-bold text-slate-300 italic uppercase tracking-tighter">VOLT_UNITS</h4>
-                    <p class="text-slate-500 text-sm mt-2">Elite Defense Award 2025.</p>
-                </div>
             </div>
         </div>`,
 
@@ -46,14 +41,6 @@ const views = {
                     <span class="text-xl font-bold text-blue-400">12 GOALS</span>
                 </div>
                 <div class="record-row flex justify-between items-center">
-                    <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Active Win Streak</span>
-                    <span class="text-xl font-bold text-green-400">08 WINS</span>
-                </div>
-                <div class="record-row flex justify-between items-center">
-                    <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Total 2026 Goals</span>
-                    <span class="text-xl font-bold text-white">194</span>
-                </div>
-                <div class="record-row flex justify-between items-center">
                     <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">System Latency</span>
                     <span class="text-xl font-bold text-amber-500">12ms</span>
                 </div>
@@ -62,7 +49,7 @@ const views = {
 
     'Database': `
         <div class="view-active h-full flex flex-col">
-            <h2 class="text-5xl font-bold text-white italic tracking-tighter mb-8 text-center md:text-left">UPLINK_DB</h2>
+            <h2 class="text-5xl font-bold text-white italic tracking-tighter mb-8">UPLINK_DB</h2>
             <div class="flex-1 bg-black/40 rounded-[2.5rem] border border-white/5 overflow-y-auto no-scrollbar font-mono text-[11px]">
                 <div class="grid grid-cols-4 p-6 border-b border-white/10 text-blue-500 font-black tracking-widest uppercase sticky top-0 bg-[#0a0a0a]">
                     <span>Entry_UUID</span><span>Status</span><span>Region</span><span>Action</span>
@@ -70,27 +57,17 @@ const views = {
                 <div class="grid grid-cols-4 p-6 border-b border-white/5 hover:bg-white/5">
                     <span>PKT_MAR_29_01</span><span class="text-green-500">VERIFIED</span><span>PORT_HARCOURT</span><span class="text-blue-400 underline cursor-pointer">FETCH</span>
                 </div>
-                <div class="grid grid-cols-4 p-6 border-b border-white/5 hover:bg-white/5">
-                    <span>PKT_MAR_29_02</span><span class="text-yellow-500">PENDING</span><span>ENUGU_NODE_X</span><span class="text-blue-400 underline cursor-pointer">FETCH</span>
-                </div>
-                <div class="grid grid-cols-4 p-6 border-b border-white/5 hover:bg-white/5">
-                    <span>AUTH_V26_99</span><span class="text-green-500">SECURE</span><span>MAIN_UPLINK</span><span class="text-blue-400 underline cursor-pointer">FETCH</span>
-                </div>
             </div>
         </div>`
 };
 
-/**
- * Updates the main viewport with a specific view
- * @param {string} viewName 
- */
 function updateView(viewName) {
     const container = document.getElementById('contentInjection');
-    
-    // Update Dock Item Styling
+    if (!container) return;
+
+    // Update Dock Styling
     document.querySelectorAll('.dock-item').forEach(item => {
         item.classList.remove('active');
-        // Match the title attribute or data-title
         if (item.getAttribute('data-title') === viewName) item.classList.add('active');
     });
 
@@ -106,17 +83,25 @@ function updateView(viewName) {
     }, 250);
 }
 
-// HUD Clock Logic
 function startClock() {
     const clock = document.getElementById('digitalClock');
+    if (!clock) return;
     setInterval(() => {
         const now = new Date();
         clock.innerText = now.toTimeString().split(' ')[0];
     }, 1000);
 }
 
-// Initialization
-window.addEventListener('DOMContentLoaded', () => {
+// 2026 BOOT SEQUENCE
+function initDashboard() {
+    console.log("Elite Quantum OS: Booting...");
     startClock();
-    updateView('Overview'); // Load home by default
-});
+    updateView('Overview');
+}
+
+// Ensure the script runs regardless of how it's loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDashboard);
+} else {
+    initDashboard();
+}
