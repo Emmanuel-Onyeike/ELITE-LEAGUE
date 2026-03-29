@@ -135,19 +135,42 @@
             </div>
         </div>
 
-        <div class="lg:col-span-3 order-3">
-            <div class="glass-panel h-[450px] rounded-[2rem] p-6 flex flex-col">
-                <div class="flex items-center justify-between mb-4 border-b border-white/5 pb-4">
-                    <h4 class="font-sync text-[9px] text-blue-500 tracking-widest uppercase">System_Logs</h4>
-                    <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
-                </div>
-                <div id="systemLogs" class="flex-1 overflow-y-auto font-mono text-[10px] space-y-2 text-gray-500 custom-scrollbar">
-                    <p class="text-blue-400">> Initiating system boot...</p>
-                    <p>> Loading department protocols...</p>
-                    <p>> CSC_400_Standings: LOADED</p>
-                </div>
+<div class="lg:col-span-3 order-3">
+    <div class="glass-panel h-[450px] rounded-[2rem] p-6 flex flex-col border-blue-500/30 shadow-[0_0_30px_rgba(59,130,246,0.1)]">
+        <div class="flex items-center justify-between mb-4 border-b border-white/5 pb-4">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-microchip text-blue-500 text-[10px]"></i>
+                <h4 class="font-sync text-[9px] text-blue-500 tracking-widest uppercase">Elite_Neural_Log</h4>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-[7px] font-sync text-blue-400 animate-pulse">LIVE_FEED</span>
+        </div>
+        
+        <div id="systemLogs" class="flex-1 overflow-y-auto font-mono text-[10px] space-y-3 custom-scrollbar pr-2">
+            <div class="p-3 bg-blue-600/5 border-l-2 border-blue-600 rounded-r-lg mb-4">
+                <p class="text-blue-400 font-bold">[RECORD_FOUND]</p>
+                <p class="text-gray-300 italic">CSC 400: 8-0-0 STREAK</p>
+                <p class="text-[9px] text-gray-500 mt-1">Status: Unbeaten in Elite League History</p>
+            </div>
+
+            <p class="text-blue-400">> Booting Season II Protocols...</p>
+            <p class="text-green-500">> Syncing 2025 Trophy Data: CSC 400 [CHAMPIONS]</p>
+            <p class="text-gray-500">> Analyzing 8-Match Win Streak... [OPTIMIZED]</p>
+            <p class="text-cyan-400">> No bugs found in CSC 400 tactical grid.</p>
+            <p class="text-gray-500">> Preparing for October Renaissance...</p>
+        </div>
+        
+        <div class="mt-4 pt-4 border-t border-white/5 grid grid-cols-2 gap-2">
+            <div class="text-center">
+                <p class="text-blue-500 font-sync text-[10px]">100%</p>
+                <p class="text-[7px] text-gray-600 uppercase">Win Rate</p>
+            </div>
+            <div class="text-center">
+                <p class="text-blue-500 font-sync text-[10px]">∞</p>
+                <p class="text-[7px] text-gray-600 uppercase">Legacy</p>
             </div>
         </div>
+    </div>
+</div>
     </main>
 
     <div id="aiModal" class="fixed inset-0 z-[500] flex items-center justify-center hidden bg-black/90 backdrop-blur-3xl p-4">
@@ -222,52 +245,88 @@
             logs.scrollTop = logs.scrollHeight;
         }
 
-        // --- 4. PRELOADER LOGIC ---
-        let lp = 0;
-        const lInterval = setInterval(() => {
-            lp += Math.floor(Math.random() * 15);
-            if(lp >= 100) {
-                lp = 100; clearInterval(lInterval);
-                setTimeout(() => {
-                    document.getElementById('loader').style.opacity = '0';
-                    setTimeout(() => document.getElementById('loader').style.display = 'none', 1000);
-                    addLog("Kernel fully loaded. Welcome, Admin Zuby.");
-                }, 800);
-            }
-            document.getElementById('loadBar').style.width = lp + '%';
-            document.getElementById('loadCounter').innerText = lp + '%';
-        }, 150);
+    // --- 4. PRELOADER LOGIC (CHAMPION EDITION) ---
+    let lp = 0;
+    const loadSteps = [
+        "Initializing Neural Link...",
+        "Fetching 2025 Match History...",
+        "Validating CSC 400 Undefeated Record...", // Custom Step
+        "8-Win Streak Verified.", // Custom Step
+        "Elite Season II Core Ready."
+    ];
 
-        // --- 5. AI INTEL CORE ---
-        function toggleAI() {
-            const modal = document.getElementById('aiModal');
-            modal.classList.toggle('hidden');
-            addLog(modal.classList.contains('hidden') ? "AI Core Hibernating" : "AI Core Accessed");
-        }
-
-        function sendQuery() {
-            const input = document.getElementById('aiInput');
-            const chat = document.getElementById('aiChat');
-            const type = document.getElementById('typing');
-            if(!input.value.trim()) return;
-
-            addLog(`Querying: "${input.value.substring(0,15)}..."`);
-            chat.innerHTML += `<div class="flex justify-end"><div class="bg-blue-600 p-5 rounded-[2rem] rounded-br-none text-white max-w-[85%] shadow-xl font-medium">${input.value}</div></div>`;
-            const q = input.value.toLowerCase();
-            input.value = "";
-            chat.scrollTop = chat.scrollHeight;
-            type.classList.remove('hidden');
-
+    const lInterval = setInterval(() => {
+        lp += Math.floor(Math.random() * 15);
+        if(lp >= 100) {
+            lp = 100; clearInterval(lInterval);
             setTimeout(() => {
-                type.classList.add('hidden');
-                let res = "System could not parse request. Try 'October Standings' or 'Player Stats'.";
-                if(q.includes('october') || q.includes('season')) res = "Season II Kickoff is confirmed for 15.10.2026. Data shows 12 Departments registered.";
-                else if(q.includes('zuby')) res = "Admin Zuby: Found in database as Level 400 Captain & Founder. Stats: 99 Speed, 99 Vision.";
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => document.getElementById('loader').style.display = 'none', 1000);
                 
-                chat.innerHTML += `<div class="flex gap-4"><div class="w-10 h-10 rounded-xl bg-blue-900/20 flex items-center justify-center flex-shrink-0"><i class="fas fa-robot text-blue-500"></i></div><div class="bg-white/5 p-5 rounded-[2rem] rounded-bl-none border border-white/5 text-blue-100 max-w-[85%]">${res}</div></div>`;
-                chat.scrollTop = chat.scrollHeight;
-            }, 1500);
+                // Sequential Logs on Start
+                addLog("Kernel fully loaded. Welcome, Admin Zuby.");
+                setTimeout(() => addLog("LEGACY DETECTED: CSC 400 Champions (2025)"), 600);
+                setTimeout(() => addLog("STREAK STATUS: 8 Matches, 0 Defeats."), 1200);
+            }, 800);
         }
+        document.getElementById('loadBar').style.width = lp + '%';
+        document.getElementById('loadCounter').innerText = lp + '%';
+        
+        // Update text based on progress
+        const stepIndex = Math.floor((lp / 100) * loadSteps.length);
+        if(loadSteps[stepIndex]) document.getElementById('loadText').innerText = loadSteps[stepIndex];
+    }, 150);
+
+    // --- 5. AI INTEL CORE (LEGACY AWARE) ---
+    function toggleAI() {
+        const modal = document.getElementById('aiModal');
+        modal.classList.toggle('hidden');
+        addLog(modal.classList.contains('hidden') ? "AI Core Hibernating" : "AI Core Accessed");
+    }
+
+    function sendQuery() {
+        const input = document.getElementById('aiInput');
+        const chat = document.getElementById('aiChat');
+        const type = document.getElementById('typing');
+        if(!input.value.trim()) return;
+
+        addLog(`Querying: "${input.value.substring(0,15)}..."`);
+        chat.innerHTML += `<div class="flex justify-end"><div class="bg-blue-600 p-5 rounded-[2rem] rounded-br-none text-white max-w-[85%] shadow-xl font-medium">${input.value}</div></div>`;
+        
+        const q = input.value.toLowerCase();
+        input.value = "";
+        chat.scrollTop = chat.scrollHeight;
+        type.classList.remove('hidden');
+
+        setTimeout(() => {
+            type.classList.remove('hidden'); // Ensure visible during processing
+            let res = "System could not parse request. Try 'October Standings' or 'Player Stats'.";
+            
+            // --- CUSTOM LOGIC FOR CSC 400 & CHAMPIONS ---
+            if(q.includes('csc 400') || q.includes('8 win') || q.includes('undefeated')) {
+                res = "<b>CHAMPION PROTOCOL ACTIVATED:</b> CSC 400 holds the absolute record in ELITE 2025. 8 matches, 8 wins, 0 losses. A statistically perfect performance. They remain the team to beat in 2026.";
+                addLog("CRITICAL: Champion data retrieved.");
+            } 
+            else if(q.includes('october') || q.includes('season')) {
+                res = "Season II Kickoff is confirmed for 15.10.2026. The grid is resetting, but the CSC 400 legacy remains the benchmark.";
+            }
+            else if(q.includes('zuby')) {
+                res = "Admin Zuby: Found in database as Level 400 Captain & Founder. The architect of the 8-win streak. Stats: 99 Vision, 99 Tactical Execution.";
+            }
+
+            type.classList.add('hidden');
+            chat.innerHTML += `
+                <div class="flex gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-blue-900/20 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-robot text-blue-500"></i>
+                    </div>
+                    <div class="bg-white/5 p-5 rounded-[2rem] rounded-bl-none border border-white/5 text-blue-100 max-w-[85%] shadow-2xl">
+                        ${res}
+                    </div>
+                </div>`;
+            chat.scrollTop = chat.scrollHeight;
+        }, 1500);
+    }
 
         // --- 6. GLOBAL KEYBOARD ---
         document.addEventListener('keydown', (e) => { if(e.key === 'Escape') document.getElementById('aiModal').classList.add('hidden'); });
