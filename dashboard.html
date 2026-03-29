@@ -4,53 +4,285 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ELITE // QUANTUM 2026</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="dashboard.css">
-</head>
-<body class="bg-[#050505] text-slate-300 overflow-hidden">
 
-    <div class="fixed inset-0 pointer-events-none">
-        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-600/10 blur-[150px] rounded-full"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-600/10 blur-[150px] rounded-full"></div>
+    <style>
+        :root {
+            --accent: #3b82f6;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #020202;
+            color: #cbd5e1;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* --- QUANTUM GLASS EFFECTS --- */
+        .glass-panel {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            backdrop-blur: 60px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- THE DOCK NAVIGATION --- */
+        .dock-container {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+
+        .dock {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem;
+            border-radius: 2.5rem;
+            background: rgba(10, 10, 10, 0.85);
+            border: 1px solid var(--border);
+            backdrop-blur: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .dock-item {
+            width: 54px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 1.25rem;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 1.3rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .dock-item:hover {
+            transform: translateY(-12px) scale(1.15);
+            color: white;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .dock-item.active {
+            background: white;
+            color: black;
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+        }
+
+        /* --- ANIMATIONS --- */
+        #contentInjection {
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        #contentInjection.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .record-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            transition: 0.3s;
+        }
+
+        .record-card:hover {
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        /* Hide Scrollbars */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-blue-600/10 blur-[140px] rounded-full"></div>
+        <div class="absolute bottom-[-10%] right-[-20%] w-[50%] h-[50%] bg-indigo-600/10 blur-[140px] rounded-full"></div>
     </div>
 
-    <header class="fixed top-0 inset-x-0 h-20 flex items-center justify-between px-12 z-50 backdrop-blur-md border-b border-white/5">
+    <header class="fixed top-0 inset-x-0 h-20 flex items-center justify-between px-10 z-50 border-b border-white/5 backdrop-blur-md">
         <div class="flex items-center gap-6">
-            <div class="text-white font-black tracking-tighter text-xl italic underline decoration-blue-500 decoration-4 underline-offset-8">ELITE26</div>
-            <div class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[9px] font-mono tracking-widest text-blue-400">SESSION_MAR_2026</div>
+            <h1 class="text-white font-black tracking-tighter text-xl italic uppercase">Elite<span class="text-blue-500">26</span></h1>
+            <div class="h-4 w-[1px] bg-white/10"></div>
+            <p class="text-[9px] font-mono tracking-[0.3em] text-blue-400 font-bold uppercase">Uplink: Port Harcourt Node</p>
         </div>
-        <div class="flex items-center gap-4 text-[10px] font-bold text-slate-500 font-mono">
-            <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> UPLINK_STABLE</span>
-            <div class="h-4 w-[1px] bg-white/10 mx-2"></div>
+        <div class="flex items-center gap-6 font-mono text-[10px] font-bold text-slate-500">
+            <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                <span>SYSTEM_OK</span>
+            </div>
             <span id="digitalClock">00:00:00</span>
         </div>
     </header>
 
-    <main class="relative h-screen flex flex-col items-center justify-center p-8">
-        <div id="mainDisplay" class="w-full max-w-6xl h-[70vh] glass-panel rounded-[4rem] p-12 overflow-hidden flex flex-col relative">
-            <div class="absolute top-10 right-12 opacity-10 select-none pointer-events-none">
-                <i class="fas fa-microchip text-[12rem] text-white"></i>
+    <main class="relative h-screen flex items-center justify-center p-6 md:p-12">
+        <div id="mainDisplay" class="w-full max-w-6xl h-[70vh] glass-panel rounded-[3.5rem] p-10 md:p-16 overflow-hidden flex flex-col relative">
+            
+            <div class="absolute bottom-10 right-12 opacity-[0.03] select-none pointer-events-none">
+                <i class="fas fa-shield-halved text-[15rem] text-white"></i>
             </div>
-<div id="mainDisplay" class="glass-panel ...">
-    <div id="contentInjection"></div> 
-</div>
+
+            <div id="contentInjection" class="h-full flex flex-col">
+                <div class="m-auto text-center">
+                    <p class="text-blue-500 animate-pulse font-mono uppercase tracking-widest text-xs">Initializing Quantum Core...</p>
+                </div>
+            </div>
+
+        </div>
     </main>
 
     <div class="dock-container">
         <div class="dock">
-            <div onclick="updateView('Overview')" class="dock-item active" data-title="Overview"><i class="fas fa-layer-group"></i></div>
+            <div onclick="renderView('Overview')" class="dock-item" data-id="Overview" title="Overview"><i class="fas fa-home"></i></div>
             <div class="w-[1px] h-6 bg-white/10 mx-1"></div>
-            <div onclick="updateView('Hall of Fame')" class="dock-item" data-title="Hall of Fame"><i class="fas fa-crown"></i></div>
-            <div onclick="updateView('Records')" class="dock-item" data-title="Records"><i class="fas fa-chart-line"></i></div>
-            <div onclick="updateView('Database')" class="dock-item" data-title="Database"><i class="fas fa-server"></i></div>
+            <div onclick="renderView('Hall of Fame')" class="dock-item" data-id="Hall of Fame" title="Hall of Fame"><i class="fas fa-crown"></i></div>
+            <div onclick="renderView('Records')" class="dock-item" data-id="Records" title="Records"><i class="fas fa-scroll"></i></div>
+            <div onclick="renderView('Database')" class="dock-item" data-id="Database" title="Database"><i class="fas fa-database"></i></div>
             <div class="w-[1px] h-6 bg-white/10 mx-1"></div>
-            <div onclick="updateView('Stake')" class="dock-item text-amber-500" data-title="Stake"><i class="fas fa-coins"></i></div>
-            <div onclick="updateView('Payment')" class="dock-item text-emerald-500" data-title="Payment"><i class="fas fa-credit-card"></i></div>
+            <div onclick="renderView('Stake')" class="dock-item text-amber-500" data-id="Stake" title="Stake"><i class="fas fa-coins"></i></div>
+            <div onclick="renderView('Payment')" class="dock-item text-emerald-500" data-id="Payment" title="Payment"><i class="fas fa-credit-card"></i></div>
         </div>
     </div>
 
-    <script src="dashboard.js"></script>
+    <script>
+        /**
+         * 2026 QUANTUM DATA OBJECT
+         */
+        const DATA_HUB = {
+            'Overview': `
+                <div class="my-auto max-w-2xl">
+                    <p class="text-blue-500 font-bold tracking-[0.5em] text-[10px] mb-4 uppercase font-mono">Quantum_Terminal_v2.6</p>
+                    <h2 class="text-6xl md:text-8xl font-bold text-white tracking-tighter leading-[0.85] mb-6 italic uppercase">System<br>Ready.</h2>
+                    <p class="text-slate-400 text-lg leading-relaxed mb-10 font-light max-w-md">2026 session metrics are active. All university nodes are synchronized for March operations.</p>
+                    <div class="flex gap-4">
+                        <button class="px-10 py-4 bg-blue-600 text-white font-bold rounded-full text-[10px] uppercase tracking-[0.2em] shadow-xl shadow-blue-600/30 hover:scale-105 transition-transform">Sync Uplink</button>
+                        <button class="px-10 py-4 bg-white/5 border border-white/10 text-white font-bold rounded-full text-[10px] uppercase tracking-[0.2em] hover:bg-white/10 transition-all">Audit Logs</button>
+                    </div>
+                </div>`,
+
+            'Hall of Fame': `
+                <div class="h-full flex flex-col">
+                    <h2 class="text-5xl font-bold text-white italic tracking-tighter mb-10 uppercase">Hall_of_Fame</h2>
+                    <div class="flex gap-6 overflow-x-auto pb-10 no-scrollbar">
+                        <div class="min-w-[320px] p-10 rounded-[3rem] bg-gradient-to-br from-amber-500/10 to-transparent border border-amber-500/20">
+                            <i class="fas fa-crown text-amber-500 text-4xl mb-6"></i>
+                            <h4 class="text-2xl font-bold text-white italic uppercase tracking-tighter">CSC_TITANS</h4>
+                            <p class="text-slate-500 text-sm mt-2">2025 Undefeated Season MVP.</p>
+                        </div>
+                        <div class="min-w-[320px] p-10 rounded-[3rem] bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/20">
+                            <i class="fas fa-medal text-blue-500 text-4xl mb-6"></i>
+                            <h4 class="text-2xl font-bold text-white italic uppercase tracking-tighter">NXXT_PLAYER</h4>
+                            <p class="text-slate-500 text-sm mt-2">Historic 42 Goal Payload.</p>
+                        </div>
+                        <div class="min-w-[320px] p-10 rounded-[3rem] bg-white/5 border border-white/5 opacity-50">
+                            <i class="fas fa-lock text-slate-500 text-4xl mb-6"></i>
+                            <h4 class="text-2xl font-bold text-slate-300 italic uppercase tracking-tighter">2026_ENTRY</h4>
+                            <p class="text-slate-500 text-sm mt-2">Slot Awaiting Final Roster.</p>
+                        </div>
+                    </div>
+                </div>`,
+
+            'Records': `
+                <div class="h-full flex flex-col">
+                    <h2 class="text-5xl font-bold text-white italic tracking-tighter mb-8 uppercase">Global_Records</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl">
+                        <div class="record-card flex justify-between items-center">
+                            <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Single Match Max</span>
+                            <span class="text-xl font-bold text-blue-400 italic">12 GOALS</span>
+                        </div>
+                        <div class="record-card flex justify-between items-center">
+                            <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Active win streak</span>
+                            <span class="text-xl font-bold text-green-400 italic">08 WINS</span>
+                        </div>
+                        <div class="record-card flex justify-between items-center">
+                            <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Total 2026 Goals</span>
+                            <span class="text-xl font-bold text-white">194</span>
+                        </div>
+                        <div class="record-card flex justify-between items-center">
+                            <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Latency</span>
+                            <span class="text-xl font-bold text-amber-500">14ms</span>
+                        </div>
+                    </div>
+                </div>`,
+
+            'Database': `
+                <div class="h-full flex flex-col">
+                    <h2 class="text-5xl font-bold text-white italic tracking-tighter mb-8 uppercase">Uplink_DB</h2>
+                    <div class="flex-1 bg-black/40 rounded-[2.5rem] border border-white/5 overflow-y-auto no-scrollbar font-mono text-[11px]">
+                        <div class="grid grid-cols-4 p-6 border-b border-white/10 text-blue-500 font-black tracking-widest uppercase sticky top-0 bg-[#0a0a0a]">
+                            <span>Entry_ID</span><span>Status</span><span>Region</span><span>Data</span>
+                        </div>
+                        <div class="grid grid-cols-4 p-6 border-b border-white/5 hover:bg-white/5 transition-all">
+                            <span>PKT_MAR_01</span><span class="text-green-500">SYNCED</span><span>ENUGU_N1</span><span class="text-blue-400 cursor-pointer underline uppercase">Fetch</span>
+                        </div>
+                        <div class="grid grid-cols-4 p-6 border-b border-white/5 hover:bg-white/5 transition-all">
+                            <span>PKT_MAR_02</span><span class="text-yellow-500">PENDING</span><span>PH_NODE_04</span><span class="text-blue-400 underline cursor-pointer uppercase">Fetch</span>
+                        </div>
+                        <div class="grid grid-cols-4 p-6 border-b border-white/5 hover:bg-white/5 transition-all">
+                            <span>PKT_MAR_03</span><span class="text-green-500">SYNCED</span><span>MAIN_AUTH</span><span class="text-blue-400 underline cursor-pointer uppercase">Fetch</span>
+                        </div>
+                    </div>
+                </div>`
+        };
+
+        /**
+         * VIEW CONTROLLER
+         */
+        function renderView(viewName) {
+            const container = document.getElementById('contentInjection');
+            if (!container) return;
+
+            // Update UI Active State
+            document.querySelectorAll('.dock-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-id') === viewName) item.classList.add('active');
+            });
+
+            // Transition Logic
+            container.classList.remove('active');
+            
+            setTimeout(() => {
+                container.innerHTML = DATA_HUB[viewName] || DATA_HUB['Overview'];
+                container.classList.add('active');
+            }, 200);
+        }
+
+        /**
+         * HUD CLOCK
+         */
+        function startClock() {
+            const display = document.getElementById('digitalClock');
+            setInterval(() => {
+                const now = new Date();
+                display.innerText = now.toTimeString().split(' ')[0];
+            }, 1000);
+        }
+
+        /**
+         * SYSTEM BOOT
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Elite 2026: Quantum Boot Sequence Initiated...");
+            startClock();
+            renderView('Overview'); // Force initial render
+        });
+
+    </script>
 </body>
 </html>
