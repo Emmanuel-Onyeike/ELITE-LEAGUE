@@ -3,162 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELITE // COMMAND CENTER 2026</title>
+    <title>ELITE // QUANTUM 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Orbitron:wght@400;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="dashboard.css">
 </head>
-<body class="bg-[#020617] text-slate-200 selection:bg-blue-500/30">
+<body class="bg-[#050505] text-slate-300 overflow-hidden">
 
-    <header class="lg:hidden flex items-center justify-between px-6 py-4 bg-[#030816]/90 backdrop-blur-xl border-b border-blue-500/20 sticky top-0 z-[100]">
-        <div class="flex items-center gap-3">
-            <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center font-black text-white italic shadow-lg shadow-blue-600/20">E</div>
-            <span class="font-orb tracking-tighter font-black text-sm">ELITE_OS_2026</span>
+    <div class="fixed inset-0 pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-600/10 blur-[150px] rounded-full"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-600/10 blur-[150px] rounded-full"></div>
+    </div>
+
+    <header class="fixed top-0 inset-x-0 h-20 flex items-center justify-between px-12 z-50 backdrop-blur-md border-b border-white/5">
+        <div class="flex items-center gap-6">
+            <div class="text-white font-black tracking-tighter text-xl italic underline decoration-blue-500 decoration-4 underline-offset-8">ELITE26</div>
+            <div class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[9px] font-mono tracking-widest text-blue-400">SESSION_MAR_2026</div>
         </div>
-        <button id="menuBtn" class="text-blue-400 text-xl"><i class="fas fa-bars-staggered"></i></button>
+        <div class="flex items-center gap-4 text-[10px] font-bold text-slate-500 font-mono">
+            <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> UPLINK_STABLE</span>
+            <div class="h-4 w-[1px] bg-white/10 mx-2"></div>
+            <span id="digitalClock">00:00:00</span>
+        </div>
     </header>
 
-    <aside id="sidebar" class="fixed inset-y-0 left-0 w-72 bg-[#030816] border-r border-blue-500/10 z-[110] flex flex-col transform -translate-x-full lg:translate-x-0 transition-all duration-500 ease-in-out">
-        <div class="p-8 h-full flex flex-col">
-            <div class="flex items-center gap-3 mb-10">
-                <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center shadow-2xl shadow-blue-500/20">
-                    <i class="fas fa-shield-halved text-white"></i>
-                </div>
-                <div>
-                    <h2 class="font-orb text-xl font-black tracking-tighter text-white">ELITE</h2>
-                    <p class="text-[8px] font-mono text-blue-500 tracking-[0.3em] font-bold">2026_MAR_UPLINK</p>
-                </div>
+    <main class="relative h-screen flex flex-col items-center justify-center p-8">
+        <div id="mainDisplay" class="w-full max-w-6xl h-[70vh] glass-panel rounded-[4rem] p-12 overflow-hidden flex flex-col relative">
+            <div class="absolute top-10 right-12 opacity-10 select-none pointer-events-none">
+                <i class="fas fa-microchip text-[12rem] text-white"></i>
             </div>
 
-            <nav class="flex-1 space-y-1 custom-scroll overflow-y-auto pr-2">
-                <p class="nav-label">Core Systems</p>
-                <a href="#" class="nav-link active" onclick="updateView('Overview')">
-                    <i class="fas fa-columns"></i> <span>Overview</span>
-                </a>
-                <a href="#" class="nav-link" onclick="updateView('Standings')">
-                    <i class="fas fa-trophy"></i> <span>Standings</span>
-                </a>
-                
-                <p class="nav-label mt-6">Financials</p>
-                <a href="#" class="nav-link" onclick="updateView('Stake')">
-                    <i class="fas fa-coins text-yellow-500"></i> <span>Stake Market</span>
-                </a>
-                <a href="#" class="nav-link text-green-400" onclick="updateView('Payment')">
-                    <i class="fas fa-wallet"></i> <span>Elite Payment</span>
-                </a>
-
-                <p class="nav-label mt-6">Legacy & Archives</p>
-                <a href="#" class="nav-link group" onclick="updateView('Hall of Fame')">
-                    <i class="fas fa-crown text-amber-500 group-hover:animate-pulse"></i> <span>Hall of Fame</span>
-                </a>
-                <a href="#" class="nav-link" onclick="updateView('Records')">
-                    <i class="fas fa-scroll text-blue-400"></i> <span>Global Records</span>
-                </a>
-
-                <p class="nav-label mt-6">System Data</p>
-                <a href="#" class="nav-link" onclick="updateView('Database')">
-                    <i class="fas fa-database text-cyan-400"></i> <span>Uplink Database</span>
-                </a>
-            </nav>
-
-            <div class="mt-8 p-5 bg-slate-950/50 border border-white/5 rounded-2xl">
-                <div class="flex items-center gap-3">
-                    <div class="relative w-10 h-10">
-                        <div class="absolute inset-0 bg-blue-500/20 blur-lg rounded-full animate-pulse"></div>
-                        <div class="relative w-full h-full rounded-full bg-slate-800 border border-blue-500/30 flex items-center justify-center">
-                            <i class="fas fa-user-shield text-blue-400"></i>
-                        </div>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-[10px] font-black text-white truncate uppercase italic tracking-wider">Supreme_Controller</p>
-                        <p class="text-[8px] text-blue-500/80 font-mono">NODE_CSC_7.4</p>
-                    </div>
+            <div id="contentInjection" class="view-active h-full flex flex-col">
                 </div>
-            </div>
         </div>
-    </aside>
-
-    <main class="lg:ml-72 min-h-screen transition-all">
-        
-        <header class="p-8 md:p-12">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                <div class="animate-in fade-in duration-700">
-                    <h1 id="greeting" class="font-orb text-4xl md:text-6xl font-black text-white italic tracking-tighter uppercase leading-none">
-                        ELITE_<span class="text-blue-500">SYSTEM</span>
-                    </h1>
-                    <p class="text-slate-500 font-mono text-[10px] mt-4 flex items-center gap-3 uppercase tracking-widest">
-                        <span class="flex h-2 w-2 relative">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                        </span>
-                        Network Stability: 99.4% // 29-MAR-2026
-                    </p>
-                </div>
-                <div class="flex gap-4">
-                    <button class="action-btn" onclick="openAdmin()"><i class="fas fa-microchip"></i> AUTHENTICATE</button>
-                    <button class="action-btn primary" onclick="openBroadcast()"><i class="fas fa-bolt"></i> NEW_PACKET</button>
-                </div>
-            </div>
-        </header>
-
-        <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 px-8 md:px-12 mb-10">
-            <div class="stat-card">
-                <p class="stat-label">Tactical Units</p>
-                <h3 class="stat-value">11 <small>Teams</small></h3>
-                <div class="stat-bar bg-blue-500/20 w-full h-1 mt-4 rounded-full overflow-hidden">
-                    <div class="bg-blue-500 w-3/4 h-full"></div>
-                </div>
-            </div>
-            <div class="stat-card">
-                <p class="stat-label">Combat History</p>
-                <h3 class="stat-value">38 <small>Matches</small></h3>
-                <div class="stat-bar bg-cyan-500/20 w-full h-1 mt-4 rounded-full overflow-hidden">
-                    <div class="bg-cyan-500 w-1/2 h-full"></div>
-                </div>
-            </div>
-            <div class="stat-card">
-                <p class="stat-label">Payload Success</p>
-                <h3 class="stat-value text-amber-500">190 <small>Goals</small></h3>
-                <div class="stat-bar bg-amber-500/20 w-full h-1 mt-4 rounded-full overflow-hidden">
-                    <div class="bg-amber-500 w-full h-full animate-pulse"></div>
-                </div>
-            </div>
-            <div class="stat-card active border-blue-500/40">
-                <p class="stat-label">Uplink Status</p>
-                <h3 class="stat-value text-blue-400 animate-pulse">ACTIVE</h3>
-                <p class="text-[8px] font-mono mt-4 text-slate-500">SECURE_TUNNEL_ESTABLISHED</p>
-            </div>
-        </section>
-
-        <section class="px-8 md:px-12 pb-12">
-            <div id="mainDisplay" class="relative bg-slate-900/40 border border-blue-500/10 rounded-[3rem] p-10 min-h-[500px] backdrop-blur-2xl transition-all duration-500 shadow-2xl overflow-hidden">
-                <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none"></div>
-                
-                <div class="absolute top-6 left-10 text-[9px] font-mono text-blue-500/40 uppercase tracking-[0.4em]">Terminal_X-4.0</div>
-                <div class="absolute bottom-6 right-10 text-[9px] font-mono text-blue-500/40 uppercase tracking-[0.4em]">Elite_OS_v26.03</div>
-
-                <div class="flex flex-col items-center justify-center h-full text-center space-y-6">
-                    <div class="w-24 h-24 rounded-3xl border border-blue-500/20 flex items-center justify-center bg-blue-500/5">
-                        <i class="fas fa-terminal text-4xl text-blue-500 animate-pulse"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-orb text-white text-xl font-black italic tracking-tighter uppercase">Initializing Command Interface...</h4>
-                        <p class="text-slate-500 font-mono text-[10px] mt-2 uppercase tracking-widest">Select an uplink node from the sidebar to begin.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <div id="authorityAlert" class="fixed inset-0 z-[9999] hidden flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl">
-        <div class="bg-zinc-950 border-2 border-red-600 w-full max-w-[400px] rounded-[3.5rem] p-10 text-center shadow-[0_0_80px_rgba(239,68,68,0.2)]">
-            <div class="relative w-24 h-24 mx-auto mb-8 bg-red-600 rounded-full flex items-center justify-center border-4 border-black">
-                <i class="fas fa-shield-alt text-white text-3xl"></i>
-            </div>
-            <h2 class="text-3xl font-black italic uppercase tracking-tighter text-white mb-3">System <span class="text-red-500">Alert</span></h2>
-            <p id="alertMessage" class="text-gray-400 text-[11px] font-bold uppercase tracking-[0.2em] leading-relaxed mb-10">Awaiting Supreme Confirmation.</p>
-            <button onclick="closeAuthorityAlert()" class="w-full py-5 bg-red-600 hover:bg-red-500 text-white font-black uppercase tracking-[0.4em] rounded-2xl transition-all active:scale-95">Acknowledge</button>
+    <div class="dock-container">
+        <div class="dock">
+            <div onclick="updateView('Overview')" class="dock-item active" data-title="Overview"><i class="fas fa-layer-group"></i></div>
+            <div class="w-[1px] h-6 bg-white/10 mx-1"></div>
+            <div onclick="updateView('Hall of Fame')" class="dock-item" data-title="Hall of Fame"><i class="fas fa-crown"></i></div>
+            <div onclick="updateView('Records')" class="dock-item" data-title="Records"><i class="fas fa-chart-line"></i></div>
+            <div onclick="updateView('Database')" class="dock-item" data-title="Database"><i class="fas fa-server"></i></div>
+            <div class="w-[1px] h-6 bg-white/10 mx-1"></div>
+            <div onclick="updateView('Stake')" class="dock-item text-amber-500" data-title="Stake"><i class="fas fa-coins"></i></div>
+            <div onclick="updateView('Payment')" class="dock-item text-emerald-500" data-title="Payment"><i class="fas fa-credit-card"></i></div>
         </div>
     </div>
 
