@@ -3,155 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELITE LEAGUE 2026 // NEW SEASON RISE</title>
+    <title>ELITE LEAGUE 2026 // NEURAL TERMINAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body class="bg-[#01030a] text-white overflow-x-hidden custom-scrollbar">
-
-    <div id="loader" class="fixed inset-0 z-[1000] bg-[#01030a] flex items-center justify-center transition-transform duration-1000">
-        <div class="text-center">
-            <div class="relative">
-                <div class="w-20 h-20 border-4 border-blue-900/30 border-t-blue-500 rounded-full animate-spin mb-4 mx-auto"></div>
-                <div class="absolute inset-0 flex items-center justify-center font-sync text-[8px] text-blue-500 animate-pulse">2026</div>
-            </div>
-            <p class="font-sync font-bold text-[10px] tracking-[0.5em] text-blue-700 animate-pulse uppercase">Initializing New Season</p>
-        </div>
-    </div>
-
-    <div class="relative z-[100] bg-blue-600/10 border-b border-white/5 backdrop-blur-md py-2 overflow-hidden">
-        <div class="flex whitespace-nowrap animate-marquee items-center gap-12">
-            <span class="text-[9px] font-sync font-bold italic uppercase"><span class="text-blue-500 mr-2">●</span> DEFENDING CHAMPIONS: CSC 400 (CLASS OF 2025)</span>
-            <span class="text-[9px] font-sync font-bold italic uppercase text-gray-500"><span class="text-blue-400 mr-2">●</span> 2026 SEASON KICKOFF: MARCH 23</span>
-            <span class="text-[9px] font-sync font-bold italic uppercase"><span class="text-blue-500 mr-2">●</span> NEW REGISTRATIONS: OPEN FOR ALL DEPARTMENTS</span>
-            <span class="text-[9px] font-sync font-bold italic uppercase text-gray-500"><span class="text-blue-500 mr-2">●</span> ELITE TERMINAL V3.0 ONLINE</span>
-        </div>
-    </div>
-
-    <div class="fixed inset-0 z-0">
-        <div class="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-900/15 rounded-full blur-[150px]"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-cyan-800/5 rounded-full blur-[120px]"></div>
-        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none"></div>
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#01030a_95%)]"></div>
-    </div>
-
-    <main class="relative z-10 min-h-screen w-full flex flex-col items-center pt-10 md:pt-20 pb-20 px-4">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --p-blue: #3b82f6; --p-dark: #01030a; --p-glass: rgba(255, 255, 255, 0.03); }
+        body { font-family: 'Inter', sans-serif; background: var(--p-dark); color: white; overflow-x: hidden; scroll-behavior: smooth; }
+        .font-sync { font-family: 'Syncopate', sans-serif; }
         
-        <div class="w-full max-w-7xl flex justify-between items-center mb-12 md:absolute md:top-14 md:px-10">
-            <div class="flex items-center gap-3 bg-white/[0.03] px-5 py-2.5 rounded-full border border-white/10 backdrop-blur-md">
-                <div class="w-2 h-2 bg-blue-500 rounded-full animate-ping shadow-[0_0_12px_#3b82f6]"></div>
-                <span class="font-sync text-[8px] md:text-[10px] tracking-[0.3em] text-white font-bold uppercase">2026 SEASON PREVIEW</span>
-            </div>
-            <div class="hidden md:flex flex-col items-end">
-                <span class="text-[10px] text-blue-500 font-sync font-black uppercase tracking-widest">NXXT // ARCHITECTURE</span>
-                <span class="text-[8px] text-gray-600 font-sync uppercase tracking-[0.5em]">GOU ATHLETICS HUB</span>
+        /* --- ANIMATIONS --- */
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .animate-marquee { display: flex; animation: marquee 25s linear infinite; }
+        
+        @keyframes scanline { 0% { bottom: 100%; } 80% { bottom: 100%; } 100% { bottom: -100%; } }
+        .scanline { position: absolute; width: 100%; height: 100px; z-index: 5; background: linear-gradient(0deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%); animation: scanline 6s linear infinite; }
+
+        /* --- UI ELEMENTS --- */
+        .glass-panel { background: var(--p-glass); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .outline-text { -webkit-text-stroke: 1px var(--p-blue); color: transparent; }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--p-blue); border-radius: 10px; }
+        
+        #loader { transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1); }
+        .loader-up { transform: translateY(-100%); }
+
+        /* --- CHAT BUBBLES --- */
+        .chat-ai { border-bottom-left-radius: 2px !important; }
+        .chat-user { border-bottom-right-radius: 2px !important; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2); }
+    </style>
+</head>
+<body class="custom-scrollbar">
+
+    <div id="loader" class="fixed inset-0 z-[1000] bg-[#01030a] flex flex-col items-center justify-center">
+        <div class="relative mb-8">
+            <div class="w-24 h-24 border-[3px] border-blue-900/20 border-t-blue-500 rounded-full animate-spin"></div>
+            <div class="absolute inset-0 flex items-center justify-center font-sync text-[10px] text-blue-400">2026</div>
+        </div>
+        <div class="text-center space-y-2">
+            <p id="loadText" class="font-sync text-[9px] tracking-[0.6em] text-blue-800 uppercase italic">Decrypting Season Assets</p>
+            <div class="w-48 h-[2px] bg-blue-950 mx-auto overflow-hidden">
+                <div id="loadBar" class="h-full bg-blue-500 w-0 transition-all duration-500"></div>
             </div>
         </div>
+    </div>
 
-        <div class="relative mb-12 group mt-8">
-            <div class="absolute inset-0 bg-blue-600/10 blur-[100px] rounded-full group-hover:bg-blue-600/20 transition-all duration-700"></div>
-            <div class="relative w-48 h-48 md:w-64 md:h-64 border border-white/10 rounded-full flex items-center justify-center p-4 backdrop-blur-lg">
-                <div class="w-full h-full bg-[#01030a] rounded-full flex items-center justify-center shadow-[0_0_50px_rgba(0,0,0,1)] border border-blue-900/40 relative overflow-hidden group-hover:border-blue-400 transition-colors duration-500">
-                    <img src="elite logo.png" alt="Elite Logo" class="w-2/3 h-2/3 object-contain z-10 drop-shadow-[0_0_20px_rgba(59,130,246,0.6)] group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-950/60 to-transparent"></div>
-                </div>
-                <div class="absolute top-0 left-0 w-3 h-3 bg-cyan-400 rounded-full blur-[1px] animate-orbit origin-[96px_96px] md:origin-[128px_128px]"></div>
+    <nav class="relative z-[100] bg-blue-600/5 border-b border-white/5 backdrop-blur-xl py-4 overflow-hidden">
+        <div class="animate-marquee items-center gap-16">
+            <span class="text-[9px] font-sync font-bold flex-shrink-0"><i class="fas fa-bolt text-blue-500 mr-2"></i> DEFENDING KINGS: CSC 400</span>
+            <span class="text-[9px] font-sync font-bold text-gray-500 flex-shrink-0 italic"><i class="fas fa-calendar mr-2"></i> KICKOFF: MARCH 23, 2026</span>
+            <span class="text-[9px] font-sync font-bold flex-shrink-0"><i class="fas fa-shield-halved text-blue-500 mr-2"></i> NEW TRANSFERS ACTIVE</span>
+            <span class="text-[9px] font-sync font-bold text-gray-500 flex-shrink-0 italic"><i class="fas fa-satellite mr-2"></i> LIVE FROM GOU ARENA</span>
+            <span class="text-[9px] font-sync font-bold flex-shrink-0"><i class="fas fa-bolt text-blue-500 mr-2"></i> DEFENDING KINGS: CSC 400</span>
+        </div>
+    </nav>
+
+    <main class="relative z-10 pt-24 px-6 max-w-7xl mx-auto flex flex-col items-center min-h-screen">
+        <div class="scanline"></div>
+        
+        <div class="w-full flex justify-between items-center mb-24">
+            <div class="glass-panel px-6 py-3 rounded-full flex items-center gap-4">
+                <div class="w-2 h-2 bg-blue-500 rounded-full animate-ping"></div>
+                <span class="text-[9px] font-sync tracking-widest">SERVER_01: ONLINE</span>
             </div>
+            <button onclick="toggleAI()" class="group flex items-center gap-4 hover:opacity-70 transition-all">
+                <span class="text-[9px] font-sync text-blue-500 text-right hidden md:block uppercase tracking-tighter">Query<br>Intel Core</span>
+                <i class="fas fa-robot text-xl text-blue-500 bg-blue-500/10 p-4 rounded-2xl border border-blue-500/20"></i>
+            </button>
         </div>
 
-        <div class="text-center animate-in w-full max-w-5xl px-2">
-            <h1 class="text-7xl md:text-[11rem] font-black font-sync italic tracking-tighter leading-none mb-4 uppercase">
-                ELITE <span class="text-transparent outline-text-blue">2026</span>
+        <div class="text-center relative">
+            <div class="absolute inset-0 bg-blue-600/10 blur-[150px] rounded-full pointer-events-none"></div>
+            <h1 class="text-[14vw] md:text-[12rem] font-black font-sync italic leading-[0.85] tracking-tighter uppercase mb-6">
+                ELITE <span class="outline-text">2026</span>
             </h1>
-            <p class="font-sync text-[9px] md:text-[12px] tracking-[0.8em] text-blue-500 uppercase mb-16 animate-pulse">The Return of the Gladiators</p>
+            <p class="font-sync text-[11px] md:text-[16px] tracking-[0.9em] text-blue-500 uppercase mb-12">Departmental Glory Revived</p>
+            
+            <div id="countdown" class="grid grid-cols-4 gap-4 max-w-md mx-auto mb-20 font-sync">
+                <div class="glass-panel p-4 rounded-2xl"><div id="days" class="text-2xl font-bold">00</div><div class="text-[7px] text-gray-500">DAYS</div></div>
+                <div class="glass-panel p-4 rounded-2xl"><div id="hours" class="text-2xl font-bold">00</div><div class="text-[7px] text-gray-500">HRS</div></div>
+                <div class="glass-panel p-4 rounded-2xl"><div id="mins" class="text-2xl font-bold">00</div><div class="text-[7px] text-gray-500">MINS</div></div>
+                <div class="glass-panel p-4 rounded-2xl"><div id="secs" class="text-2xl font-bold">00</div><div class="text-[7px] text-gray-500">SECS</div></div>
+            </div>
 
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-32 px-4">
-                <button onclick="initializeElite(event)" class="elite-btn-2026 w-full sm:w-auto min-w-[300px]">
-                    <span class="relative z-10 flex items-center justify-center gap-3 tracking-[0.5em] font-bold">
-                        ENTER HUB <i class="fas fa-microchip text-[12px]"></i>
-                    </span>
-                    <div class="btn-glow"></div>
+            <div class="flex flex-col md:flex-row gap-8 justify-center items-center">
+                <button onclick="initializeElite(event)" class="w-72 py-6 bg-blue-600 rounded-2xl font-sync text-[10px] tracking-[0.4em] hover:bg-blue-500 transition-all shadow-[0_20px_50px_rgba(37,99,235,0.3)]">
+                    INITIALIZE HUB
                 </button>
-                <a href="vote.html" class="glass-btn w-full sm:w-auto min-w-[200px] py-4 px-8 rounded-xl border border-white/10 font-sync text-[10px] tracking-widest hover:bg-white hover:text-black transition-all">
+                <a href="#" class="w-72 py-6 glass-panel rounded-2xl font-sync text-[10px] tracking-[0.4em] hover:bg-white hover:text-black transition-all">
                     VOTING PORTAL
                 </a>
             </div>
         </div>
+    </main>
 
-        <div class="w-full max-w-6xl mb-32">
-            <h3 class="font-sync text-center text-[10px] text-blue-400 tracking-[0.6em] uppercase mb-12 flex items-center justify-center gap-4">
-                <span class="h-[1px] w-12 bg-blue-900"></span>
-                Defending Champions 2025
-                <span class="h-[1px] w-12 bg-blue-900"></span>
-            </h3>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div class="lg:col-span-7 glass-card p-1 bg-gradient-to-r from-blue-600/40 to-transparent overflow-hidden rounded-[2.5rem]">
-                    <div class="bg-[#01030a] rounded-[2.4rem] overflow-hidden relative group">
-                        <img src="CSC 400.jpeg" alt="CSC 400 Team" class="w-full h-[450px] object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#01030a] via-transparent to-transparent"></div>
-                        <div class="absolute bottom-10 left-10">
-                            <h2 class="text-5xl font-black italic font-sync leading-none">CSC 400</h2>
-                            <p class="text-blue-500 font-sync text-[10px] tracking-widest mt-2 uppercase">Kings of the 2025 Arena</p>
-                        </div>
-                        <div class="absolute top-6 right-6 flex flex-col items-center">
-                            <i class="fas fa-trophy text-4xl text-blue-500 drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"></i>
-                            <span class="font-sync text-[8px] mt-2 tracking-widest">GOLD MEDAL</span>
-                        </div>
+    <div id="aiModal" class="fixed inset-0 z-[500] flex items-center justify-center hidden bg-black/90 backdrop-blur-2xl p-4">
+        <div class="glass-panel w-full max-w-2xl rounded-[3rem] h-[80vh] flex flex-col overflow-hidden border-blue-500/20">
+            <div class="p-8 border-b border-white/5 flex justify-between items-center bg-blue-900/5">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/20">
+                        <i class="fas fa-brain text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-sync text-[11px] font-bold text-blue-500 tracking-widest uppercase">Elite_Intel_v3</h4>
+                        <p class="text-[9px] text-gray-500 uppercase mt-1 italic">Authorized Personnel Only</p>
                     </div>
                 </div>
-                
-                <div class="lg:col-span-5 space-y-6">
-                    <div class="glass-card p-8 border-l-4 border-blue-500 bg-blue-900/5">
-                        <h4 class="text-white font-sync text-xs font-bold tracking-widest mb-4 uppercase italic">2025 Statistics</h4>
-                        <div class="space-y-4">
-                            <div class="flex justify-between border-b border-white/5 pb-2">
-                                <span class="text-[10px] text-gray-400 font-sync">Matches Won</span>
-                                <span class="text-[10px] font-black italic text-blue-400">UNDEEFEATED</span>
-                            </div>
-                            <div class="flex justify-between border-b border-white/5 pb-2">
-                                <span class="text-[10px] text-gray-400 font-sync">Goals Scored</span>
-                                <span class="text-[10px] font-black italic text-blue-400">42</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-[10px] text-gray-400 font-sync">Final Score</span>
-                                <span class="text-[10px] font-black italic text-blue-400">10 - 2 (vs LAW 200)</span>
-                            </div>
-                        </div>
+                <button onclick="toggleAI()" class="w-12 h-12 rounded-full hover:bg-white/5 flex items-center justify-center"><i class="fas fa-times text-xl"></i></button>
+            </div>
+
+            <div id="aiChat" class="flex-1 overflow-y-auto p-8 space-y-8 custom-scrollbar">
+                <div class="flex gap-4 items-start">
+                    <div class="w-10 h-10 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-robot text-blue-500"></i>
                     </div>
-                    <p class="text-[11px] text-gray-500 font-inter italic leading-relaxed px-4">
-                        "CSC 400 demonstrated unprecedented tactical discipline throughout the 2025 season. They remain the team to beat as we enter the 2026 campaign."
-                    </p>
+                    <div class="bg-white/5 p-6 rounded-[2rem] chat-ai border border-white/5 max-w-[85%]">
+                        <p class="text-[13px] leading-relaxed text-blue-100">Welcome to the 2026 Season Grid. I hold technical data on CSC, LAW, and MSS departments. Ask me anything about the levels or the founder Zuby. ⚽🔥</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="typing" class="hidden px-10 py-3 text-[10px] font-sync text-blue-400 animate-pulse uppercase italic tracking-widest">Neural_Syncing...</div>
+
+            <div class="p-8 bg-black/40 border-t border-white/5">
+                <div id="emojiBox" class="flex gap-3 mb-5 overflow-x-auto pb-2 custom-scrollbar"></div>
+                <div class="relative group">
+                    <input type="text" id="aiInput" placeholder="Analyze Department (e.g., LAW 500)..." 
+                        class="w-full bg-white/5 border border-white/10 rounded-2xl py-6 px-8 focus:outline-none focus:border-blue-500 transition-all text-sm font-medium">
+                    <button onclick="sendQuery()" class="absolute right-3 top-1/2 -translate-y-1/2 w-14 h-14 bg-blue-600 rounded-xl flex items-center justify-center hover:bg-blue-400 shadow-xl transition-all active:scale-95">
+                        <i class="fas fa-paper-plane text-sm"></i>
+                    </button>
                 </div>
             </div>
         </div>
+    </div>
 
-        </main>
+    <script>
+        // --- DATA HUB ---
+        const INTEL = {
+            csc: {
+                "100": ["CSC 100L! 💻 Code Kings of the freshers. Fast counters and technical flair!", "CSC 100 represent! 🌟 New logic on the pitch. No bug in their attack!"],
+                "400": ["CSC 400! 🏆 The DEFENDING CHAMPIONS. 42 goals in 2025. Unstoppable code lords.", "CSC 400 Level! 😎 Tactical discipline like a clean algorithm. The team to beat."]
+            },
+            law: {
+                "100": ["LAW 100L! 🔴⚫ Freshers with massive hunger. They play with pure justice on their side!", "LAW 100 Level represent! ⚖️ Fearless play causing huge upsets this season."],
+                "500": ["LAW 500L! 🏆 The Generals. Pure veterans with tactical mastery sharp pass knife.", "LAW 500 Level! 😎 Final year energy. They don't see defense, they see targets."]
+            }
+        };
 
-    <style>
-        .outline-text-blue {
-            -webkit-text-stroke: 1px #3b82f6;
-            color: transparent;
+        const emojis = ['⚽', '🏆', '🔥', '💪', '⚡', '🌟', '👀', '🚀', '💀', '💯'];
+
+        // --- PRELOADER LOGIC ---
+        let loadPercent = 0;
+        const loadInt = setInterval(() => {
+            loadPercent += Math.floor(Math.random() * 15);
+            if (loadPercent >= 100) {
+                loadPercent = 100;
+                clearInterval(loadInt);
+                setTimeout(() => document.getElementById('loader').classList.add('loader-up'), 1000);
+            }
+            document.getElementById('loadBar').style.width = loadPercent + '%';
+            if (loadPercent > 30) document.getElementById('loadText').innerText = "Analyzing Roster Arrays";
+            if (loadPercent > 70) document.getElementById('loadText').innerText = "Linking Neural Interface";
+        }, 150);
+
+        // --- COUNTDOWN TIMER ---
+        const kickoff = new Date("March 23, 2026 00:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = kickoff - now;
+            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById('secs').innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        }, 1000);
+
+        // --- AI CHAT LOGIC ---
+        function toggleAI() {
+            const m = document.getElementById('aiModal');
+            m.classList.toggle('hidden');
+            if(!m.classList.contains('hidden')) document.getElementById('aiInput').focus();
         }
-        
-        .elite-btn-2026 {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-            padding: 20px 40px;
-            border-radius: 15px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 40px rgba(59,130,246,0.3);
+
+        function sendQuery() {
+            const input = document.getElementById('aiInput');
+            const chat = document.getElementById('aiChat');
+            const typing = document.getElementById('typing');
+            const val = input.value.trim();
+            if(!val) return;
+
+            chat.innerHTML += `<div class="flex justify-end mb-6"><div class="bg-blue-600 p-5 rounded-[2rem] chat-user text-sm max-w-[80%]">${val}</div></div>`;
+            input.value = "";
+            chat.scrollTop = chat.scrollHeight;
+            typing.classList.remove('hidden');
+
+            setTimeout(() => {
+                typing.classList.add('hidden');
+                const q = val.toLowerCase();
+                let res = "";
+
+                const match = q.match(/(csc|law|mss)\s?(\d00)/i);
+                if (match) {
+                    const [_, d, l] = match;
+                    if(INTEL[d] && INTEL[d][l]) res = INTEL[d][l][Math.floor(Math.random()*INTEL[d][l].length)];
+                }
+
+                if(!res) {
+                    if(q.includes('zuby')) res = "Founder Zuby build the Elite League as a stage for warriors. Legend things!";
+                    else if(q.includes('win')) res = "My sensors predict a clash between CSC tactical speed and LAW veteran defense. Stay locked!";
+                    else res = "Fascinating query. Specify a department (LAW, CSC) or ask about the Glory Cup.";
+                }
+
+                chat.innerHTML += `
+                    <div class="flex gap-4 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0"><i class="fas fa-robot text-blue-500"></i></div>
+                        <div class="bg-white/5 p-6 rounded-[2rem] chat-ai border border-white/5 text-[13px] text-blue-100 max-w-[80%]">${res}</div>
+                    </div>
+                `;
+                chat.scrollTop = chat.scrollHeight;
+            }, 1200);
         }
 
-        .elite-btn-2026:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 50px rgba(59,130,246,0.5);
-            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+        function initializeElite(e) {
+            e.currentTarget.innerHTML = `<i class="fas fa-spinner animate-spin mr-2"></i> SYNCING...`;
+            setTimeout(() => {
+                document.body.style.opacity = '0';
+                document.body.style.transition = 'opacity 1s';
+                setTimeout(() => window.location.href = "dashboard.html", 1000);
+            }, 1500);
         }
-    </style>
 
+        // --- EMOJI INIT ---
+        emojis.forEach(emo => {
+            const b = document.createElement('button');
+            b.innerText = emo; b.className = "hover:scale-125 transition-transform p-1 text-xl";
+            b.onclick = () => { document.getElementById('aiInput').value += emo; document.getElementById('aiInput').focus(); };
+            document.getElementById('emojiBox').appendChild(b);
+        });
+
+        document.getElementById('aiInput').addEventListener('keypress', (e) => { if(e.key === 'Enter') sendQuery(); });
+        document.addEventListener('keydown', (e) => { if(e.key === 'Escape') document.getElementById('aiModal').classList.add('hidden'); });
+    </script>
 </body>
 </html>
