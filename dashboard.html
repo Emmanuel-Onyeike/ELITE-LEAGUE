@@ -364,105 +364,332 @@
                         <span>SIGNAL: 100%</span>
                     </div>
                 </div>`,
+'Leaderboard': `
+                <div class="animate-in h-full flex flex-col">
+                    <div class="flex justify-between items-end mb-8">
+                        <div>
+                            <h2 class="text-4xl font-black text-white italic tracking-tighter uppercase">Stat_Leaders</h2>
+                            <p class="text-[10px] font-mono text-white/30 mt-1 uppercase">Top 10 Player Performance Matrix</p>
+                        </div>
+                        <div class="status-pill text-yellow-500 border-yellow-500/20">AWAITING_KICKOFF</div>
+                    </div>
 
-            'Leaderboard': `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    <div>
-                        <h3 class="text-xl font-black italic mb-6 text-cyan-400 uppercase tracking-tighter border-l-4 border-cyan-400 pl-4">Golden_Boot</h3>
-                        <div class="space-y-3">
-                            <div class="neural-card p-5 flex justify-between items-center"><span class="font-bold">Alpha_User</span><span class="font-mono text-cyan-400">24 G</span></div>
-                            <div class="neural-card p-5 flex justify-between items-center opacity-60"><span class="font-bold">Mic_Dev</span><span class="font-mono text-white/60">19 G</span></div>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-black italic mb-6 text-indigo-400 uppercase tracking-tighter border-l-4 border-indigo-400 pl-4">Assist_Matrix</h3>
-                        <div class="space-y-3">
-                            <div class="neural-card p-5 flex justify-between items-center"><span class="font-bold">Tech_Lord</span><span class="font-mono text-indigo-400">12 A</span></div>
-                        </div>
-                    </div>
-                </div>`,
-
-            'Feed': `
-                <div class="max-w-2xl">
-                    <h2 class="text-4xl font-black text-white italic tracking-tighter mb-10 uppercase">Neural_Live_Feed</h2>
-                    <div class="space-y-8 relative before:absolute before:left-[11px] before:top-0 before:bottom-0 before:w-[1px] before:bg-white/10">
-                        <div class="relative pl-10">
-                            <div class="absolute left-0 top-1 w-6 h-6 bg-black border-2 border-cyan-400 rounded-full flex items-center justify-center"><div class="w-1.5 h-1.5 bg-cyan-400 rounded-full"></div></div>
-                            <span class="text-[9px] font-mono text-cyan-400 uppercase">Just Now</span>
-                            <p class="text-white font-bold mt-1">BREAKING: CSC Titans node upgrade confirmed for semi-finals.</p>
-                        </div>
-                        <div class="relative pl-10">
-                            <div class="absolute left-0 top-1 w-6 h-6 bg-black border-2 border-white/10 rounded-full"></div>
-                            <span class="text-[9px] font-mono text-white/30 uppercase">14m ago</span>
-                            <p class="text-white/60 mt-1">Match node Port Harcourt secured at 98% integrity.</p>
-                        </div>
-                    </div>
-                </div>`,
-
-            'Stake': `
-                <div>
-                    <h2 class="text-4xl font-black text-white italic tracking-tighter mb-8 uppercase">Stake_Market_v4</h2>
-                    <div class="bg-cyan-500/5 border border-cyan-500/20 p-8 rounded-[30px] mb-8">
-                        <div class="flex justify-between items-center mb-6">
-                            <span class="text-[10px] font-mono font-bold text-cyan-400 uppercase">Live Market Multiplier</span>
-                            <span class="text-4xl font-black text-white italic">x2.88</span>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <button class="bg-cyan-500 text-black py-4 rounded-xl font-black text-[10px] uppercase tracking-widest">Deploy Stake</button>
-                            <button class="bg-white/5 text-white py-4 rounded-xl font-black text-[10px] uppercase tracking-widest">Node Analytics</button>
-                        </div>
-                    </div>
-                    <div class="neural-card p-4 font-mono text-[10px] flex justify-between text-white/40">
-                        <span>TRANSACTION_ID: 0x492...</span><span>VAL: ₦50,000</span><span class="text-green-400">CONFIRMED</span>
-                    </div>
-                </div>`,
-
-            'Post Center': `
-                <div class="max-w-2xl">
-                    <h2 class="text-4xl font-black text-white italic tracking-tighter mb-8 uppercase">Dispatch_Protocol</h2>
-                    <div class="neural-card p-8 border-cyan-500/20">
-                        <textarea class="w-full bg-transparent border-b border-white/10 p-4 font-mono text-sm text-white focus:outline-none focus:border-cyan-400 h-32 mb-6" placeholder="BROADCAST_MESSAGE..."></textarea>
-                        <div class="flex justify-between items-center">
-                            <div class="flex gap-4 text-white/30 text-sm">
-                                <i class="fas fa-camera cursor-pointer hover:text-white"></i><i class="fas fa-link cursor-pointer hover:text-white"></i>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 overflow-y-auto no-scrollbar pb-10">
+                        <div>
+                            <h3 class="flex justify-between items-center text-sm font-black italic mb-6 text-cyan-400 uppercase tracking-widest border-l-4 border-cyan-400 pl-4 bg-cyan-400/5 py-2 pr-4">
+                                <span>Golden_Boot</span>
+                                <i class="fas fa-fire-alt text-[10px]"></i>
+                            </h3>
+                            <div class="space-y-2">
+                                ${Array(10).fill(0).map((_, i) => `
+                                    <div class="neural-card p-4 flex justify-between items-center opacity-40 border-dashed">
+                                        <div class="flex items-center gap-4">
+                                            <span class="font-mono text-[10px] text-white/20">${(i + 1).toString().padStart(2, '0')}</span>
+                                            <span class="text-[11px] font-bold text-white/30 uppercase tracking-tighter">Node_Vacant</span>
+                                        </div>
+                                        <span class="font-mono text-cyan-400/30 text-[10px]">0_GOALS</span>
+                                    </div>
+                                `).join('')}
                             </div>
-                            <button class="bg-cyan-400 text-black px-10 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-white transition-all">Broadcast</button>
+                        </div>
+
+                        <div>
+                            <h3 class="flex justify-between items-center text-sm font-black italic mb-6 text-indigo-400 uppercase tracking-widest border-l-4 border-indigo-400 pl-4 bg-indigo-400/5 py-2 pr-4">
+                                <span>Assist_Matrix</span>
+                                <i class="fas fa-sync text-[10px]"></i>
+                            </h3>
+                            <div class="space-y-2">
+                                ${Array(10).fill(0).map((_, i) => `
+                                    <div class="neural-card p-4 flex justify-between items-center opacity-40 border-dashed">
+                                        <div class="flex items-center gap-4">
+                                            <span class="font-mono text-[10px] text-white/20">${(i + 1).toString().padStart(2, '0')}</span>
+                                            <span class="text-[11px] font-bold text-white/30 uppercase tracking-tighter">Node_Vacant</span>
+                                        </div>
+                                        <span class="font-mono text-indigo-400/30 text-[10px]">0_ASISTS</span>
+                                    </div>
+                                `).join('')}
+                            </div>
                         </div>
                     </div>
                 </div>`,
 
-            'Records': `
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="neural-card p-8 text-center"><h4 class="text-[9px] text-white/30 mb-2 uppercase font-mono">Fastest Goal</h4><span class="text-2xl font-black italic">0.42s</span></div>
-                    <div class="neural-card p-8 text-center"><h4 class="text-[9px] text-white/30 mb-2 uppercase font-mono">Clean Sheets</h4><span class="text-2xl font-black italic">14 Matches</span></div>
-                    <div class="neural-card p-8 text-center"><h4 class="text-[9px] text-white/30 mb-2 uppercase font-mono">Win Streak</h4><span class="text-2xl font-black italic">09 Games</span></div>
+           'Feed': `
+                <div class="h-full flex flex-col items-center justify-center max-w-2xl mx-auto animate-in">
+                    <div class="relative mb-12">
+                        <div class="w-32 h-32 border border-white/5 rounded-full flex items-center justify-center">
+                            <div class="w-24 h-24 border border-cyan-400/20 rounded-full animate-ping"></div>
+                            <i class="fas fa-satellite-dish text-2xl text-white/10 absolute"></i>
+                        </div>
+                        <div class="absolute inset-0 border-t-2 border-cyan-400/40 rounded-full animate-spin [animation-duration:3s]"></div>
+                    </div>
+
+                    <div class="text-center">
+                        <h2 class="text-3xl font-black text-white italic tracking-tighter uppercase mb-3">
+                            Neural_Feed_Idle
+                        </h2>
+                        <p class="text-[10px] font-mono text-cyan-400/50 uppercase tracking-[0.3em] mb-8">
+                            Scanning for broadcast signals...
+                        </p>
+                    </div>
+
+                    <div class="w-full space-y-4 opacity-20">
+                        <div class="p-4 border border-dashed border-white/20 rounded-2xl flex gap-4 items-center">
+                            <div class="w-2 h-2 bg-white/20 rounded-full"></div>
+                            <div class="h-2 w-3/4 bg-white/10 rounded-full"></div>
+                        </div>
+                        <div class="p-4 border border-dashed border-white/10 rounded-2xl flex gap-4 items-center">
+                            <div class="w-2 h-2 bg-white/20 rounded-full"></div>
+                            <div class="h-2 w-1/2 bg-white/10 rounded-full"></div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 py-2 px-6 bg-white/[0.02] border border-white/5 rounded-full">
+                        <span class="text-[8px] font-mono text-white/20 uppercase tracking-[0.5em] animate-pulse">
+                            Awaiting Match Node Uplink
+                        </span>
+                    </div>
+                </div>`,
+            'Stake': `
+                <div class="h-full flex flex-col items-center justify-center animate-in">
+                    <div class="relative mb-10">
+                        <div class="w-40 h-40 border border-white/5 rounded-[40px] flex items-center justify-center bg-white/[0.01] rotate-45">
+                            <div class="w-full h-full border-2 border-cyan-400/20 rounded-[40px] animate-pulse flex items-center justify-center -rotate-45">
+                                <i class="fas fa-hammer text-3xl text-white/10"></i>
+                            </div>
+                        </div>
+                        <div class="absolute -top-4 -left-4 w-6 h-6 border-t-2 border-l-2 border-cyan-400"></div>
+                        <div class="absolute -bottom-4 -right-4 w-6 h-6 border-b-2 border-r-2 border-cyan-400"></div>
+                    </div>
+
+                    <div class="text-center max-w-md">
+                        <h2 class="text-4xl font-black text-white italic tracking-tighter uppercase mb-4">
+                            Market_Under_Build
+                        </h2>
+                        <p class="text-[10px] font-mono text-white/30 uppercase tracking-[0.25em] leading-relaxed mb-10">
+                            The staking engine is undergoing <span class="text-cyan-400">Calibration_Sequence_04</span>. Liquidity nodes and multiplier algorithms are currently offline.
+                        </p>
+                    </div>
+
+                    <div class="w-full max-w-sm bg-white/5 h-1.5 rounded-full overflow-hidden mb-6">
+                        <div class="h-full bg-cyan-400 w-2/3 animate-[pulse_2s_infinite]"></div>
+                    </div>
+
+                    <div class="w-full max-w-md neural-card p-4 font-mono text-[9px] flex justify-between items-center opacity-20 grayscale border-dashed">
+                        <span>SYSTEM_ID: 0xNULL...</span>
+                        <span class="flex items-center gap-2">
+                            <span class="w-2 h-2 bg-white/20 rounded-full"></span>
+                            MARKET_LOCKED
+                        </span>
+                    </div>
+
+                    <div class="mt-8 flex gap-4">
+                        <div class="status-pill text-[8px] text-white/20 border-white/10 uppercase">v4.0_STABLE_BUILD</div>
+                        <div class="status-pill text-[8px] text-cyan-400/40 border-cyan-400/10 uppercase font-bold">EST_LINK: APRIL_2026</div>
+                    </div>
+                </div>`,
+           'Post Center': `
+                <div class="h-full flex flex-col items-center justify-center max-w-2xl mx-auto animate-in">
+                    <div class="relative mb-10 group">
+                        <div class="absolute inset-0 bg-red-500/10 blur-2xl rounded-full group-hover:bg-red-500/20 transition-all duration-700"></div>
+                        <div class="relative w-28 h-28 border border-white/5 rounded-3xl flex items-center justify-center bg-black/40 backdrop-blur-md">
+                            <i class="fas fa-shield-alt text-3xl text-white/5"></i>
+                            <div class="absolute top-[-5px] right-[-5px] flex h-3 w-3">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <h2 class="text-4xl font-black text-white italic tracking-tighter uppercase mb-4">
+                            Dispatch_Locked
+                        </h2>
+                        <p class="text-[10px] font-mono text-white/30 uppercase tracking-[0.3em] leading-relaxed max-w-sm mb-12">
+                            Global broadcast uplink is currently <span class="text-red-500">DEACTIVATED</span>. Message routing will resume upon season initialization.
+                        </p>
+                    </div>
+
+                    <div class="w-full neural-card p-8 opacity-20 border-dashed cursor-not-allowed">
+                        <div class="h-4 w-1/3 bg-white/10 rounded-full mb-6"></div>
+                        <div class="h-24 w-full border border-white/5 rounded-2xl mb-6 bg-white/[0.02]"></div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex gap-4">
+                                <div class="w-8 h-8 rounded-lg bg-white/5"></div>
+                                <div class="w-8 h-8 rounded-lg bg-white/5"></div>
+                            </div>
+                            <div class="h-10 w-32 bg-white/10 rounded-xl"></div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 flex items-center gap-3 font-mono text-[8px] text-white/20 uppercase tracking-[0.4em]">
+                        <i class="fas fa-lock text-[10px]"></i>
+                        <span>Awaiting_Admin_Auth_Signal</span>
+                    </div>
+                </div>`,
+           'Records': `
+                <div class="animate-in h-full flex flex-col">
+                    <div class="flex justify-between items-end mb-8">
+                        <div>
+                            <h2 class="text-4xl font-black text-white italic tracking-tighter uppercase">Elite_Archives</h2>
+                            <p class="text-[10px] font-mono text-cyan-400 mt-1 uppercase tracking-[0.2em]">Legacy Data // Faculty Champions</p>
+                        </div>
+                        <div class="status-pill text-white/40 border-white/10 italic">HISTORY_LOG_01</div>
+                    </div>
+
+                    <div class="neural-card p-1 bg-gradient-to-r from-cyan-500/20 via-transparent to-transparent mb-8">
+                        <div class="bg-black/40 p-8 rounded-[22px] flex flex-col md:flex-row justify-between items-center gap-6">
+                            <div class="flex items-center gap-6">
+                                <div class="w-20 h-20 bg-cyan-400/10 rounded-2xl flex items-center justify-center border border-cyan-400/30">
+                                    <i class="fas fa-trophy text-3xl text-cyan-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-3xl font-black italic text-white uppercase tracking-tighter">CSC_400 TITANS</h3>
+                                    <p class="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">Elite League 2025 Champions</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-8 text-center">
+                                <div><p class="text-[9px] text-white/30 uppercase font-mono">Status</p><p class="text-xl font-black italic text-green-400 uppercase">Unbeaten</p></div>
+                                <div><p class="text-[9px] text-white/30 uppercase font-mono">P/W</p><p class="text-xl font-black italic text-white uppercase">8/8</p></div>
+                                <div><p class="text-[9px] text-white/30 uppercase font-mono">Points</p><p class="text-xl font-black italic text-white uppercase">24</p></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="neural-card p-8 flex flex-col items-center justify-center border-dashed opacity-40">
+                            <h4 class="text-[9px] text-white/30 mb-4 uppercase font-mono tracking-widest text-center">2026_Fastest_Goal</h4>
+                            <span class="text-3xl font-black italic text-white">--.--s</span>
+                        </div>
+                        <div class="neural-card p-8 flex flex-col items-center justify-center border-dashed opacity-40">
+                            <h4 class="text-[9px] text-white/30 mb-4 uppercase font-mono tracking-widest text-center">2026_Clean_Sheets</h4>
+                            <span class="text-3xl font-black italic text-white">00</span>
+                        </div>
+                        <div class="neural-card p-8 flex flex-col items-center justify-center border-dashed opacity-40">
+                            <h4 class="text-[9px] text-white/30 mb-4 uppercase font-mono tracking-widest text-center">2026_Win_Streak</h4>
+                            <span class="text-3xl font-black italic text-white">00</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-auto pt-10 font-mono text-[8px] text-white/20 uppercase tracking-[0.5em] text-center">
+                        Verified Archival Data // CSC_Node_Historical_Service
+                    </div>
                 </div>`,
 
-            'Database': `
-                <div>
-                    <h2 class="text-4xl font-black text-white italic tracking-tighter mb-8 uppercase">System_Nodes</h2>
-                    <div class="neural-card overflow-hidden">
-                        <table class="w-full font-mono text-[11px] text-left">
-                            <thead class="bg-white/5 text-cyan-400">
-                                <tr><th class="p-6">NODE_ID</th><th class="p-6">PROTOCOL</th><th class="p-6">LATENCY</th><th class="p-6">STATUS</th></tr>
+           'Database': `
+                <div class="animate-in h-full flex flex-col">
+                    <div class="flex justify-between items-end mb-8">
+                        <div>
+                            <h2 class="text-4xl font-black text-white italic tracking-tighter uppercase">System_Registry</h2>
+                            <p class="text-[10px] font-mono text-cyan-400 mt-1 uppercase tracking-[0.2em]">Node_Authority: CSC_400_TITANS</p>
+                        </div>
+                        <div class="flex gap-2 font-mono text-[8px] text-white/30">
+                            <span>ENCRYPTION: ACTIVE</span>
+                            <span class="text-cyan-400">●</span>
+                            <span>AUTH_LEVEL: ROOT</span>
+                        </div>
+                    </div>
+
+                    <div class="neural-card overflow-hidden border-white/10 bg-black/60">
+                        <table class="w-full font-mono text-[10px] text-left">
+                            <thead class="bg-white/5 text-cyan-400/60 uppercase tracking-widest border-b border-white/10">
+                                <tr>
+                                    <th class="p-6">Registry_ID</th>
+                                    <th class="p-6">Squad_Authority</th>
+                                    <th class="p-6">Access_Key</th>
+                                    <th class="p-6">Sync_Status</th>
+                                </tr>
                             </thead>
-                            <tbody>
-                                <tr class="border-t border-white/5"><td class="p-6">PORT_H_ALPHA</td><td class="p-6 italic">SECURE_L3</td><td class="p-6">12ms</td><td class="p-6 text-green-500 font-bold">ACTIVE</td></tr>
-                                <tr class="border-t border-white/5"><td class="p-6">ENUGU_BRAVO</td><td class="p-6 italic">SECURE_L2</td><td class="p-6">45ms</td><td class="p-6 text-yellow-500 font-bold">SYNCING</td></tr>
+                            <tbody class="divide-y divide-white/[0.03] text-white/70">
+                                <tr class="bg-cyan-400/[0.03] group hover:bg-cyan-400/10 transition-all">
+                                    <td class="p-6 text-cyan-400 font-bold">PORT_H_ALPHA</td>
+                                    <td class="p-6">
+                                        <div class="flex flex-col">
+                                            <span class="text-white font-black italic">CSC_400 TITANS</span>
+                                            <span class="text-[8px] opacity-40 italic">2025_CHAMPION_RECORD_HOLDER</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-6 italic font-bold text-white/40">MASTER_NODE_L3</td>
+                                    <td class="p-6">
+                                        <div class="flex items-center gap-2">
+                                            <span class="w-1.5 h-1.5 bg-cyan-400 rounded-full shadow-[0_0_8px_#22d3ee]"></span>
+                                            <span class="text-cyan-400 font-bold">STABLE</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                <tr class="hover:bg-white/5 transition-all">
+                                    <td class="p-6">ENUGU_BRAVO</td>
+                                    <td class="p-6 font-black italic">LAW_500 SENIORS</td>
+                                    <td class="p-6 italic opacity-30">RESTRICTED_L2</td>
+                                    <td class="p-6 flex items-center gap-2 opacity-50">
+                                        <span class="w-1.5 h-1.5 bg-yellow-500 rounded-full animate-pulse"></span>
+                                        <span>SYNCING</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-white/5 transition-all">
+                                    <td class="p-6">LAGOS_GAMMA</td>
+                                    <td class="p-6 font-black italic">MSS_400 TYCOONS</td>
+                                    <td class="p-6 italic opacity-30">READ_ONLY_L1</td>
+                                    <td class="p-6 flex items-center gap-2 opacity-50">
+                                        <span class="w-1.5 h-1.5 bg-red-500 rounded-full opacity-40"></span>
+                                        <span>OFFLINE</span>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
+
+                    <div class="mt-8 grid grid-cols-2 gap-4">
+                        <div class="p-4 border border-white/5 rounded-2xl flex justify-between items-center opacity-40">
+                            <span class="text-[8px] font-mono uppercase tracking-widest text-white/30">Registry_Size</span>
+                            <span class="text-xs font-black italic text-white">4.2 GB</span>
+                        </div>
+                        <div class="p-4 border border-white/5 rounded-2xl flex justify-between items-center opacity-40">
+                            <span class="text-[8px] font-mono uppercase tracking-widest text-white/30">Node_Uptime</span>
+                            <span class="text-xs font-black italic text-white text-green-400">99.9%</span>
+                        </div>
+                    </div>
                 </div>`,
 
-            'Payment': `
-                <div class="max-w-xl">
-                    <h2 class="text-4xl font-black text-white italic tracking-tighter mb-8 uppercase">Wallet_Interface</h2>
-                    <div class="neural-card p-10 bg-gradient-to-br from-cyan-500/10 to-transparent">
-                        <span class="text-[10px] text-white/40 uppercase font-mono">Total Available Balance</span>
-                        <h3 class="text-5xl font-black text-white italic mt-2">₦1,240,000</h3>
-                        <div class="mt-8 grid grid-cols-2 gap-4">
-                            <button class="bg-white text-black py-4 rounded-xl font-bold text-[10px] uppercase tracking-widest">Withdraw</button>
-                            <button class="border border-white/10 text-white py-4 rounded-xl font-bold text-[10px] uppercase tracking-widest">Fund Node</button>
+          'Payment': `
+                <div class="h-full flex flex-col items-center justify-center max-w-xl mx-auto animate-in">
+                    <div class="relative mb-10">
+                        <div class="absolute inset-0 bg-cyan-500/5 blur-3xl rounded-full"></div>
+                        <div class="relative w-32 h-32 border border-white/10 rounded-[40px] flex items-center justify-center bg-black/40 backdrop-blur-xl">
+                            <i class="fas fa-wallet text-3xl text-white/5"></i>
+                            <div class="absolute inset-2 border border-cyan-400/20 rounded-[32px] animate-pulse"></div>
+                        </div>
+                    </div>
+
+                    <div class="text-center w-full">
+                        <h2 class="text-4xl font-black text-white italic tracking-tighter mb-4 uppercase">
+                            Wallet_Offline
+                        </h2>
+                        
+                        <div class="neural-card p-10 bg-white/[0.02] border-dashed border-white/10 mb-8 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-4">
+                                <span class="text-[8px] font-mono text-white/20 uppercase tracking-widest italic">Node: Port_H_Alpha</span>
+                            </div>
+                            
+                            <span class="text-[10px] text-white/20 uppercase font-mono tracking-[0.3em]">Total_Available_Balance</span>
+                            <h3 class="text-6xl font-black text-white italic mt-4 tracking-tighter opacity-10">₦0.00</h3>
+                            
+                            <div class="mt-10 grid grid-cols-2 gap-4">
+                                <button class="bg-white/5 text-white/20 py-5 rounded-2xl font-black text-[9px] uppercase tracking-widest cursor-not-allowed border border-white/5">
+                                    Withdraw_Link
+                                </button>
+                                <button class="bg-white/5 text-white/20 py-5 rounded-2xl font-black text-[9px] uppercase tracking-widest cursor-not-allowed border border-white/5">
+                                    Fund_Gateway
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-center gap-3 py-3 px-6 bg-white/[0.03] border border-white/5 rounded-full inline-block">
+                            <span class="w-1.5 h-1.5 bg-yellow-500 rounded-full animate-pulse shadow-[0_0_8px_#eab308]"></span>
+                            <span class="text-[8px] font-mono text-white/40 uppercase tracking-[0.4em]">
+                                Awaiting_Paystack_Initialization
+                            </span>
                         </div>
                     </div>
                 </div>`
