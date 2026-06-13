@@ -285,9 +285,8 @@ body {
     <script>
         // Sample data for dashboard
         const views = {
- 
-  'Overview': `
-    <div class="max-w-7xl mx-auto space-y-12">
+ 'Overview': `
+      <div class="max-w-7xl mx-auto space-y-12">
         <!-- HERO SECTION -->
         <div class="flex flex-col lg:flex-row gap-8 items-start">
             <div class="flex-1">
@@ -317,39 +316,38 @@ body {
             </div>
         </div>
 
-        <!-- DASHBOARD STATS: Bento Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            ${[
-                {label: 'TOTAL WINS', val: '8', icon: 'fa-check', color: 'emerald'},
-                {label: 'NEXT KICKOFF', val: 'OCT 15', icon: 'fa-futbol', color: 'amber'},
-                {label: 'LEAGUE RANK', val: '1ST', icon: 'fa-trophy', color: 'cyan'},
-                {label: 'TEAM VIBE', val: '98%', icon: 'fa-users', color: 'purple'},
-                {label: 'POINTS', val: '48', icon: 'fa-star', color: 'violet'}
-            ].map(stat => \`
-                <div class="bg-white/5 border border-white/5 rounded-3xl p-6">
-                    <div class="text-[9px] text-white/40 font-bold tracking-widest mb-2">\${stat.label}</div>
-                    <div class="text-3xl font-bold">\${stat.val}</div>
-                </div>
-            \`).join('')}
-        </div>
+            <!-- DASHBOARD STATS: Bento Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                ${[
+                    {label: 'WINS', val: '8', icon: 'fa-check', color: 'emerald'},
+                    {label: 'KICKOFF', val: 'OCT 15', icon: 'fa-futbol', color: 'amber'},
+                    {label: 'RANK', val: '1ST', icon: 'fa-trophy', color: 'cyan'},
+                    {label: 'ATTENDANCE', val: '98%', icon: 'fa-users', color: 'purple'},
+                    {label: 'POINTS', val: '48', icon: 'fa-star', color: 'violet'}
+                ].map(stat => `
+                    <div class="bg-white/5 border border-white/5 rounded-3xl p-6 hover:border-white/20 transition-all">
+                        <div class="text-[9px] text-white/40 font-bold tracking-widest mb-2">${stat.label}</div>
+                        <div class="text-3xl font-bold">${stat.val}</div>
+                    </div>
+                `).join('')}
+            </div>
 
-        <!-- QUICK ACTIONS -->
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            ${[
-                {title: 'Fixtures', icon: 'fa-calendar-days', view: 'Fixtures'},
-                {title: 'Live Updates', icon: 'fa-broadcast-tower', view: 'Live Feed'},
-                {title: 'Standings', icon: 'fa-trophy', view: 'Standings'},
-                {title: 'Leaderboard', icon: 'fa-ranking-star', view: 'Leaderboard'}
-            ].map(item => \`
-                <button onclick="switchView('\${item.view}')" class="bg-white/5 border border-white/5 p-6 rounded-3xl text-left hover:bg-cyan-500/10 transition-all group">
-                    <i class="fa-solid \${item.icon} text-xl mb-4 opacity-50 group-hover:text-cyan-400 group-hover:opacity-100 transition-all"></i>
-                    <div class="font-bold text-sm tracking-wider uppercase">\${item.title}</div>
-                </button>
-            \`).join('')}
+            <!-- QUICK ACTIONS -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                ${[
+                    {title: 'Fixtures', icon: 'fa-calendar-days', view: 'Fixtures'},
+                    {title: 'Live Feed', icon: 'fa-broadcast-tower', view: 'Live Feed'},
+                    {title: 'Standings', icon: 'fa-trophy', view: 'Standings'},
+                    {title: 'Database', icon: 'fa-database', view: 'Database'}
+                ].map(item => `
+                    <button onclick="switchView('${item.view}')" class="bg-white/5 border border-white/5 p-6 rounded-3xl text-left hover:bg-white/10 transition-all group">
+                        <i class="fa-solid ${item.icon} text-xl mb-4 opacity-50 group-hover:opacity-100 transition-opacity"></i>
+                        <div class="font-bold text-sm tracking-wider uppercase">${item.title}</div>
+                    </button>
+                `).join('')}
+            </div>
         </div>
-    </div>
-`,
-
+    `,
             'Standings': `
                 <div class="max-w-6xl mx-auto">
                     <h2 class="font-grotesk text-5xl font-bold tracking-tighter mb-8">LEAGUE STANDINGS</h2>
