@@ -1,19 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elite League | Season 2</title>
+    <title>Elite League S2 | Tactical Football</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        nxxtBlue: {
-                            DEFAULT: '#2563eb', // Electric Blue
-                            dark: '#1e3a8a',
-                        },
+                        nxxtBlue: { DEFAULT: '#2563eb', dark: '#1e3a8a' },
                         nxxtDark: '#020617',
                     }
                 }
@@ -23,64 +20,70 @@
 </head>
 <body class="bg-nxxtDark text-white font-sans selection:bg-nxxtBlue">
 
-    <!-- Landing Hero -->
-    <main class="relative flex flex-col items-center justify-center min-h-screen px-6 text-center">
-        
-        <!-- Status Badge -->
-        <div class="mb-8">
-            <span class="px-4 py-1 text-[10px] font-bold tracking-widest text-nxxtBlue uppercase border border-nxxtBlue/30 rounded-full bg-nxxtBlue/10">
-                Season 2 • Official Launch
-            </span>
+    <!-- Nav -->
+    <nav class="fixed w-full z-50 bg-nxxtDark/80 backdrop-blur-md border-b border-white/10 px-6 py-4 flex justify-between items-center">
+        <div class="text-xl font-black tracking-tighter">ELITE<span class="text-nxxtBlue">S2</span></div>
+        <a href="/dashboard" class="bg-nxxtBlue hover:bg-blue-500 px-5 py-2 rounded-lg font-bold text-sm transition-all">Dashboard</a>
+    </nav>
+
+    <!-- Hero -->
+    <header class="relative min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20">
+        <div class="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-nxxtDark to-nxxtDark"></div>
+        <div class="relative z-10 max-w-3xl">
+            <h1 class="text-5xl md:text-8xl font-black uppercase mb-6 leading-none">
+                The Pitch Awaits. <br><span class="text-nxxtBlue">Season 2</span>
+            </h1>
+            <p class="text-slate-400 text-lg md:text-xl mb-8">Precision. Power. Performance. The Elite League returns for its second chapter.</p>
+            <a href="#structure" class="px-8 py-4 bg-white text-nxxtDark font-black rounded-lg hover:bg-slate-200 transition-colors">Explore Season Structure</a>
         </div>
+    </header>
 
-        <!-- Heading -->
-        <h1 class="text-6xl md:text-9xl font-black mb-6 uppercase tracking-tight">
-            Elite <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">League</span>
-        </h1>
-        
-        <p class="max-w-xl mb-10 text-lg md:text-xl text-slate-400">
-            The ultimate campus football experience. Track fixtures, manage squads, and claim the title.
-        </p>
-
-        <!-- CTA -->
-        <div class="flex gap-4">
-            <button onclick="document.getElementById('modal').classList.remove('hidden')" 
-                    class="px-8 py-4 font-bold text-white transition bg-nxxtBlue rounded-lg hover:bg-blue-500 hover:scale-[1.02] active:scale-[0.98]">
-                Register Team
-            </button>
-            <button class="px-8 py-4 font-bold transition bg-slate-800/50 border border-slate-700 rounded-lg hover:bg-slate-800">
-                View Schedule
-            </button>
-        </div>
-
-        <!-- Metrics -->
-        <div class="grid grid-cols-3 gap-8 mt-20 border-t border-slate-800 pt-8 w-full max-w-2xl">
-            <div>
-                <div class="text-3xl font-bold">12</div>
-                <div class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Teams</div>
+    <!-- Season 1 Winner -->
+    <section class="py-20 px-6 max-w-5xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-12 items-center bg-slate-900/50 p-6 md:p-12 rounded-3xl border border-white/5">
+            <div class="space-y-4">
+                <span class="text-nxxtBlue font-bold tracking-widest text-xs uppercase">Legacy</span>
+                <h2 class="text-4xl font-black">Reigning Champions</h2>
+                <p class="text-slate-400 leading-relaxed">
+                    Season 1 saw the rise of the <strong>Titans FC</strong>. With a record-breaking defense and a lethal counter-attack, they etched their names into the Elite League history books. Will they hold the crown, or will a new challenger emerge?
+                </p>
             </div>
-            <div>
-                <div class="text-3xl font-bold">48</div>
-                <div class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Fixtures</div>
-            </div>
-            <div>
-                <div class="text-3xl font-bold">98%</div>
-                <div class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Attendance</div>
+            <div class="h-64 md:h-80 w-full rounded-2xl overflow-hidden bg-slate-800 relative">
+                 <img src="https://static.vecteezy.com/system/resources/thumbnails/074/013/768/small/a-person-in-silhouette-holds-a-shining-trophy-against-a-vibrant-golden-sunset-sky-celebrating-victory-photo.jpg" alt="Winner holding trophy" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity">
             </div>
         </div>
-    </main>
+    </section>
 
-    <!-- Centered Modal Alert -->
-    <div id="modal" class="hidden fixed inset-0 flex items-center justify-center p-4 bg-nxxtDark/90 backdrop-blur-md z-50">
-        <div class="w-full max-w-sm p-8 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl">
-            <h3 class="text-xl font-bold mb-2">Registration Status</h3>
-            <p class="mb-6 text-slate-400">Season 2 registration is currently locked. The portal will open for team submissions on the 20th.</p>
-            <button onclick="document.getElementById('modal').classList.add('hidden')" 
-                    class="w-full py-3 font-bold text-white transition bg-nxxtBlue rounded-lg hover:bg-blue-500">
-                Acknowledge
-            </button>
+    <!-- Structure -->
+    <section id="structure" class="py-20 px-6 max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-black mb-4">Season 2 Structure</h2>
+            <p class="text-slate-400">A refined format for maximum competition.</p>
         </div>
-    </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="p-8 bg-slate-900 border border-white/5 rounded-2xl hover:border-nxxtBlue transition-colors">
+                <div class="text-nxxtBlue text-3xl mb-4">01</div>
+                <h3 class="text-xl font-bold mb-2">Group Stage</h3>
+                <p class="text-slate-400 text-sm">Teams are drawn into two elite groups. Top two from each group advance to the knockout phase.</p>
+            </div>
+            <div class="p-8 bg-slate-900 border border-white/5 rounded-2xl hover:border-nxxtBlue transition-colors">
+                <div class="text-nxxtBlue text-3xl mb-4">02</div>
+                <h3 class="text-xl font-bold mb-2">The Knockouts</h3>
+                <p class="text-slate-400 text-sm">High-stakes single elimination matches. No second chances. Pure intensity.</p>
+            </div>
+            <div class="p-8 bg-slate-900 border border-white/5 rounded-2xl hover:border-nxxtBlue transition-colors">
+                <div class="text-nxxtBlue text-3xl mb-4">03</div>
+                <h3 class="text-xl font-bold mb-2">Grand Finale</h3>
+                <p class="text-slate-400 text-sm">The ultimate showdown at the main stadium to decide the Season 2 champions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 text-center border-t border-white/10">
+        <p class="text-slate-500 text-sm uppercase tracking-widest font-bold">© 2026 Elite League • Powered by Tech Nxxt</p>
+    </footer>
 
 </body>
 </html>
