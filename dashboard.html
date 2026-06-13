@@ -285,136 +285,77 @@ body {
     <script>
         // Sample data for dashboard
         const views = {
-            'Overview': `
-                <div class="max-w-7xl mx-auto">
-                    <!-- HERO -->
-                    <div class="flex flex-col lg:flex-row gap-10 items-end mb-12">
-                        <div class="flex-1">
-                            <div class="inline-flex items-center gap-2 bg-white/5 px-5 py-2 rounded-3xl text-sm mb-6">
-                                <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                                ALL SYSTEMS OPERATIONAL
-                            </div>
-                            <h1 class="font-grotesk text-7xl lg:text-8xl font-bold tracking-tighter leading-none mb-4">
-                                ELITE<br>COMMAND CENTER
-                            </h1>
-                            <p class="text-2xl text-white/60 max-w-md">
-                                Welcome back, Commander. The 2026 season is about to ignite.
-                            </p>
-                        </div>
-                        
-                        <!-- Live Status -->
-                        <div class="bg-white/5 border border-white/10 rounded-3xl p-8 w-full lg:w-96">
-                            <div class="flex justify-between items-start mb-8">
-                                <div>
-                                    <div class="text-cyan-400 text-xs font-mono tracking-widest">NEXT MATCH</div>
-                                    <div class="text-4xl font-bold mt-1">CSC 400 vs LAW 500</div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="text-5xl font-bold text-emerald-400">27</div>
-                                    <div class="text-xs uppercase tracking-widest">DAYS</div>
-                                </div>
-                            </div>
-                            
-                            <button onclick="alert('Opening full game page in new tab...')" 
-                                    class="w-full py-5 bg-cyan-400 hover:bg-white text-zinc-950 font-bold rounded-3xl text-sm tracking-widest transition">
-                                WATCH LIVE NOW
-                            </button>
-                        </div>
+ 
+    'Overview': `
+        <div class="max-w-7xl mx-auto space-y-12">
+            <!-- HERO SECTION -->
+            <div class="flex flex-col lg:flex-row gap-8 items-start">
+                <div class="flex-1">
+                    <div class="inline-flex items-center gap-2 bg-white/5 border border-white/5 px-4 py-1.5 rounded-full text-[10px] tracking-[0.2em] font-bold text-emerald-400 mb-6">
+                        <div class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></div>
+                        ALL SYSTEMS OPERATIONAL
                     </div>
-
-                    <!-- DASHBOARD STATS -->
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                        <div class="stat-card rounded-3xl p-8">
-                            <div class="flex justify-between">
-                                <div>
-                                    <div class="text-xs text-white/50">WINS</div>
-                                    <div class="text-6xl font-bold text-white mt-3">8</div>
-                                </div>
-                                <div class="text-6xl text-emerald-400/20">✓</div>
-                            </div>
-                            <div class="mt-8 h-2 bg-white/10 rounded-full overflow-hidden">
-                                <div class="h-full w-[100%] bg-emerald-400 rounded-full"></div>
-                            </div>
+                    <h1 class="font-grotesk text-5xl lg:text-7xl font-bold tracking-tighter leading-[0.9] mb-6">
+                        ELITE<br><span class="text-white/30">COMMAND CENTER</span>
+                    </h1>
+                    <p class="text-lg text-white/50 max-w-sm">Welcome back, Commander. The 2026 tactical deployment is ready for input.</p>
+                </div>
+                
+                <!-- LIVE STATUS WIDGET -->
+                <div class="w-full lg:w-96 bg-gradient-to-br from-white/5 to-transparent border border-white/5 rounded-3xl p-6">
+                    <div class="text-[9px] text-cyan-400 font-bold tracking-[0.2em] uppercase mb-1">Next Scheduled Event</div>
+                    <div class="text-2xl font-bold mb-6">CSC 400 vs LAW 500</div>
+                    <div class="flex items-end justify-between">
+                        <div>
+                            <span class="text-4xl font-bold text-emerald-400">27</span>
+                            <span class="text-[10px] text-white/40 ml-1">DAYS TILL KICKOFF</span>
                         </div>
-                        
-                        <div class="stat-card rounded-3xl p-8">
-                            <div class="flex justify-between">
-                                <div>
-                                    <div class="text-xs text-white/50">NEXT KICKOFF</div>
-                                    <div class="text-3xl font-bold mt-2">OCT 15</div>
-                                </div>
-                                <div class="text-6xl text-amber-400/20">⚽</div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-card rounded-3xl p-8">
-                            <div class="flex justify-between">
-                                <div>
-                                    <div class="text-xs text-white/50">CURRENT RANK</div>
-                                    <div class="text-6xl font-bold text-cyan-400 mt-3">1ST</div>
-                                </div>
-                                <div class="text-6xl text-cyan-400/20">🏆</div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-card rounded-3xl p-8">
-                            <div class="flex justify-between">
-                                <div>
-                                    <div class="text-xs text-white/50">ATTENDANCE</div>
-                                    <div class="text-6xl font-bold mt-3">98.7%</div>
-                                </div>
-                                <div class="text-6xl text-purple-400/20">👥</div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-card rounded-3xl p-8">
-                            <div class="flex justify-between">
-                                <div>
-                                    <div class="text-xs text-white/50">POINTS</div>
-                                    <div class="text-6xl font-bold mt-3">48</div>
-                                </div>
-                                <div class="text-6xl text-violet-400/20">⭐</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- QUICK LINKS -->
-                    <div class="mt-16">
-                        <div class="text-sm uppercase tracking-widest text-white/40 mb-6 flex items-center gap-3">
-                            <div class="flex-1 h-px bg-white/10"></div>
-                            QUICK ACTIONS
-                            <div class="flex-1 h-px bg-white/10"></div>
-                        </div>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                            <button onclick="switchView('Fixtures')" 
-                                    class="view-card p-8 rounded-3xl text-left hover:scale-105 transition">
-                                <div class="text-4xl mb-4">📅</div>
-                                <div class="font-bold text-lg">View Fixtures</div>
-                                <div class="text-sm text-white/50 mt-1">All upcoming matches</div>
-                            </button>
-                            <button onclick="switchView('Live Feed')" 
-                                    class="view-card p-8 rounded-3xl text-left hover:scale-105 transition">
-                                <div class="text-4xl mb-4">📺</div>
-                                <div class="font-bold text-lg">Live Broadcast</div>
-                                <div class="text-sm text-white/50 mt-1">Watch the games now</div>
-                            </button>
-                            <button onclick="switchView('Standings')" 
-                                    class="view-card p-8 rounded-3xl text-left hover:scale-105 transition">
-                                <div class="text-4xl mb-4">🏆</div>
-                                <div class="font-bold text-lg">Current Table</div>
-                                <div class="text-sm text-white/50 mt-1">Full league standings</div>
-                            </button>
-                            <button onclick="switchView('Leaderboard')" 
-                                    class="view-card p-8 rounded-3xl text-left hover:scale-105 transition">
-                                <div class="text-4xl mb-4">🥇</div>
-                                <div class="font-bold text-lg">Top Scorers</div>
-                                <div class="text-sm text-white/50 mt-1">Player of the year</div>
-                            </button>
-                        </div>
+                        <button onclick="console.log('Deploying...')" class="bg-white text-zinc-950 px-6 py-3 rounded-xl text-[11px] font-bold hover:bg-cyan-400 transition-colors uppercase tracking-widest">
+                            Deploy View
+                        </button>
                     </div>
                 </div>
-            `,
-            
+            </div>
+
+            <!-- DASHBOARD STATS: Bento Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                ${[
+                    {label: 'WINS', val: '8', icon: 'fa-check', color: 'emerald'},
+                    {label: 'KICKOFF', val: 'OCT 15', icon: 'fa-futbol', color: 'amber'},
+                    {label: 'RANK', val: '1ST', icon: 'fa-trophy', color: 'cyan'},
+                    {label: 'ATTENDANCE', val: '98%', icon: 'fa-users', color: 'purple'},
+                    {label: 'POINTS', val: '48', icon: 'fa-star', color: 'violet'}
+                ].map(stat => `
+                    <div class="bg-white/5 border border-white/5 rounded-3xl p-6 hover:border-white/20 transition-all">
+                        <div class="text-[9px] text-white/40 font-bold tracking-widest mb-2">${stat.label}</div>
+                        <div class="text-3xl font-bold">${stat.val}</div>
+                    </div>
+                `).join('')}
+            </div>
+
+            <!-- QUICK ACTIONS -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                ${[
+                    {title: 'Fixtures', icon: 'fa-calendar-days', view: 'Fixtures'},
+                    {title: 'Live Feed', icon: 'fa-broadcast-tower', view: 'Live Feed'},
+                    {title: 'Standings', icon: 'fa-trophy', view: 'Standings'},
+                    {title: 'Database', icon: 'fa-database', view: 'Database'}
+                ].map(item => `
+                    <button onclick="switchView('${item.view}')" class="bg-white/5 border border-white/5 p-6 rounded-3xl text-left hover:bg-white/10 transition-all group">
+                        <i class="fa-solid ${item.icon} text-xl mb-4 opacity-50 group-hover:opacity-100 transition-opacity"></i>
+                        <div class="font-bold text-sm tracking-wider uppercase">${item.title}</div>
+                    </button>
+                `).join('')}
+            </div>
+        </div>
+    `,
+    'Standings': `<div class="max-w-7xl mx-auto"><h2 class="text-2xl font-bold">Standings</h2><p class="text-white/50">System loading...</p></div>`,
+    'Fixtures': `<div class="max-w-7xl mx-auto"><h2 class="text-2xl font-bold">Fixtures</h2><p class="text-white/50">System loading...</p></div>`,
+    'Leaderboard': `<div class="max-w-7xl mx-auto"><h2 class="text-2xl font-bold">Leaderboard</h2><p class="text-white/50">System loading...</p></div>`,
+    'Live Feed': `<div class="max-w-7xl mx-auto"><h2 class="text-2xl font-bold">Live Feed</h2><p class="text-white/50">System loading...</p></div>`,
+    'Records': `<div class="max-w-7xl mx-auto"><h2 class="text-2xl font-bold">Records</h2><p class="text-white/50">System loading...</p></div>`,
+    'Database': `<div class="max-w-7xl mx-auto"><h2 class="text-2xl font-bold">Database</h2><p class="text-white/50">System loading...</p></div>`
+};
             'Standings': `
                 <div class="max-w-6xl mx-auto">
                     <h2 class="font-grotesk text-5xl font-bold tracking-tighter mb-8">LEAGUE STANDINGS</h2>
