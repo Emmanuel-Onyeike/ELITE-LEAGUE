@@ -97,43 +97,46 @@ body {
 </head>
 <body class="bg-zinc-950 text-white">
     <!-- HEADER -->
-    <header class="fixed top-0 left-0 right-0 z-50 h-16 bg-zinc-950/90 backdrop-blur-2xl border-b border-white/10 flex items-center px-6">
-        <div class="flex items-center justify-between w-full">
-            <!-- MOBILE MENU BUTTON -->
-            <button onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 flex items-center justify-center text-2xl">
-                <i class="fa-solid fa-bars"></i>
+   <header class="fixed top-0 left-0 right-0 z-50 h-16 bg-zinc-950/80 backdrop-blur-xl border-b border-white/5 flex items-center px-4 lg:px-8">
+    <div class="flex items-center justify-between w-full max-w-7xl mx-auto">
+        
+        <!-- LEFT: Menu & Logo -->
+        <div class="flex items-center gap-4">
+            <!-- Mobile Menu Toggle -->
+            <button onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 flex items-center justify-center hover:bg-white/5 rounded-lg transition-colors">
+                <i class="fa-solid fa-bars text-xl"></i>
             </button>
 
-            <!-- LOGO -->
+            <!-- Logo -->
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 bg-cyan-400 flex items-center justify-center rounded-2xl">
-                    <i class="fa-solid fa-crown text-zinc-950 text-xl"></i>
+                <div class="w-8 h-8 bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center rounded-xl">
+                    <i class="fa-solid fa-crown text-cyan-400 text-sm"></i>
                 </div>
-                <div>
-                    <span class="font-grotesk text-2xl tracking-tighter font-semibold">ELITE</span>
-                    <span class="text-[10px] text-cyan-400 tracking-[4px] block -mt-1">COMMAND CENTER</span>
-                </div>
-            </div>
-
-            <!-- RIGHT SIDE -->
-            <div class="flex items-center gap-6">
-                <!-- CLOCK -->
-                <div id="clock" class="font-mono text-sm font-medium text-white/70">00:00:00</div>
-                
-                <!-- USER -->
-                <div class="flex items-center gap-3">
-                    <div class="text-right">
-                        <div class="text-sm font-medium">Admin Zuby</div>
-                        <div class="text-[10px] text-emerald-400">ONLINE • PORT HARCOURT NODE</div>
-                    </div>
-                    <div class="w-9 h-9 bg-white/10 rounded-2xl flex items-center justify-center">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
+                <div class="hidden sm:block">
+                    <span class="font-grotesk text-lg tracking-tighter font-bold text-white">ELITE</span>
+                    <span class="text-[9px] text-cyan-400 tracking-[0.2em] block -mt-1 uppercase">S2 Command</span>
                 </div>
             </div>
         </div>
-    </header>
 
+        <!-- CENTER: Desktop Navigation (Hidden on mobile) -->
+        <nav class="hidden lg:flex items-center gap-8 text-[11px] font-bold tracking-[0.2em] uppercase text-white/50">
+            <a href="#" class="hover:text-white transition-colors">Dashboard</a>
+            <a href="#" class="hover:text-white transition-colors">Fixtures</a>
+            <a href="#" class="hover:text-white transition-colors">Stats</a>
+            <a href="#" class="hover:text-white transition-colors">Admin</a>
+        </nav>
+
+        <!-- RIGHT: Clock & Utility -->
+        <div class="flex items-center gap-4">
+            <div id="clock" class="font-mono text-xs font-medium text-white/40 tabular-nums">00:00:00</div>
+            <div class="w-px h-4 bg-white/10 hidden sm:block"></div>
+            <button class="hidden sm:flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-cyan-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-circle text-[8px]"></i> Active Node
+            </button>
+        </div>
+    </div>
+</header>
     <div class="flex pt-16 h-screen">
         <!-- SIDEBAR (PC) -->
         <aside id="sidebar" class="sidebar hidden lg:flex flex-col w-72 border-r border-white/10 overflow-y-auto">
