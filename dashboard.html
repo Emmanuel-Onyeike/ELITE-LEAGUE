@@ -606,5 +606,65 @@ body {
             console.log('%cELITE COMMAND CENTER v2.6 loaded successfully', 'color:#22d3ee; font-family:monospace');
         };
     </script>
+      <script>
+     const leagueData = {
+    'A': [
+        {team: 'FACIT-100', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
+        {team: 'FACIT-200', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
+        {team: 'FACIT-300', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
+        {team: 'FACIT-400', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0}
+    ],
+    'B': [
+        {team: 'LAW-100', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
+        {team: 'LAW-200', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
+        {team: 'LAW-300', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
+        {team: 'LAW-400', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
+        {team: 'LAW-500', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0}
+    ],
+    'C': [
+        {team: 'MSS-100', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
+        {team: 'MSS-200', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
+        {team: 'MSS-300', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
+        {team: 'MSS-400', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0}
+    ],
+    'D': [
+        {team: 'NASES-100', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
+        {team: 'NASES-200', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
+        {team: 'NASES-300', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
+        {team: 'NASES-400', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0}
+    ],
+    'E': [
+        {team: 'EDUARTS-100', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
+        {team: 'EDUARTS-200', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
+        {team: 'EDUARTS-300', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
+        {team: 'EDUARTS-400', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0}
+    ]
+};
+
+        function switchGroup(id) {
+            document.querySelectorAll('.group-container').forEach(el => el.classList.add('hidden'));
+            document.getElementById('group-' + id).classList.remove('hidden');
+            
+            const tbody = document.getElementById('body-' + id);
+            tbody.innerHTML = leagueData[id].map(row => \`
+                <tr class="hover:bg-white/5 transition-colors">
+                    <td class="p-4 flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center border border-white/10 overflow-hidden">
+                            <i class="fa-solid fa-shield-halved text-[10px] text-white/40"></i>
+                        </div>
+                        <span class="font-bold">\${row.team}</span>
+                    </td>
+                    <td class="p-4 text-center font-mono">\${row.mp}</td>
+                    <td class="p-4 text-center font-mono">\${row.w}</td>
+                    <td class="p-4 text-center font-mono">\${row.d}</td>
+                    <td class="p-4 text-center font-mono">\${row.l}</td>
+                    <td class="p-4 text-center font-mono">\${row.gf}</td>
+                    <td class="p-4 text-center font-mono">\${row.ga}</td>
+                    <td class="p-4 text-center font-mono">\${row.gd}</td>
+                    <td class="p-4 text-center font-bold font-mono text-cyan-400">\${row.pts}</td>
+                </tr>
+            \`).join('');
+        }
+    </script>
 </body>
 </html>
