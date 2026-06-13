@@ -3,368 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELITE LEAGUE // NEURAL OMNI-TERMINAL</title>
+    <title>ELITE LEAGUE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Orbitron:wght@400;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
-    
+   
     <style>
-        :root { 
-            --p-blue: #3b82f6; 
-            --p-cyan: #22d3ee; 
-            --p-dark: #02040a; 
-            --p-glass: rgba(255, 255, 255, 0.01);
-            --p-border: rgba(59, 130, 246, 0.2);
+        :root {
+            --p-blue: #3b82f6;
+            --p-cyan: #22d3ee;
+            --p-dark: #0a0a0a;
+            --p-glass: rgba(255, 255, 255, 0.02);
+            --p-border: rgba(59, 130, 246, 0.25);
         }
-
-        body { 
-            font-family: 'JetBrains Mono', monospace; 
-            background: var(--p-dark); 
-            color: white; 
-            overflow-x: hidden; 
-            scroll-behavior: smooth;
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #0a0a0a;
+            color: white;
+            overflow-x: hidden;
         }
-
         .font-sync { font-family: 'Syncopate', sans-serif; }
         .font-orb { font-family: 'Orbitron', sans-serif; }
-
-        /* --- ADVANCED LAYERED BACKGROUND --- */
-        #bgCanvas { position: fixed; inset: 0; z-index: -2; opacity: 0.4; pointer-events: none; }
         
-        .mesh-gradient {
-            position: fixed; inset: 0; z-index: -1;
-            background: 
-                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(34, 211, 238, 0.1) 0px, transparent 50%);
-            filter: blur(80px);
-        }
-
-        /* --- NEUROMORPHIC HUD ELEMENTS --- */
-        .hud-border {
-            border: 1px solid var(--p-border);
-            position: relative;
-            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+        /* Clean modern HUD */
+        .hud {
+            background: rgba(255,255,255,0.02);
             backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
         }
-
-        .hud-border::before {
-            content: ''; position: absolute; top: -1px; left: -1px; width: 20px; height: 20px;
-            border-top: 2px solid var(--p-blue); border-left: 2px solid var(--p-blue);
+        .btn {
+            background: linear-gradient(90deg, #3b82f6, #22d3ee);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .hud-border::after {
-            content: ''; position: absolute; bottom: -1px; right: -1px; width: 20px; height: 20px;
-            border-bottom: 2px solid var(--p-cyan); border-right: 2px solid var(--p-cyan);
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgb(59 130 246 / 0.3);
         }
-
-        /* --- SCANLINE EFFECT --- */
-        .scanline {
-            width: 100%; height: 2px; background: rgba(59, 130, 246, 0.1);
-            position: absolute; top: 0; left: 0; z-index: 10;
-            animation: scan 8s linear infinite;
+        .glitch {
+            animation: glitch 400ms infinite;
         }
-
-        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
-
-        /* --- TEXT STYLING --- */
-        .glitch-text {
-            text-transform: uppercase;
-            font-weight: 900;
-            text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.025em -0.05em 0 rgba(0,255,0,0.75), 0.025em 0.05em 0 rgba(0,0,255,0.75);
-            animation: glitch 500ms infinite;
-        }
-
         @keyframes glitch {
-            0% { text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.025em -0.05em 0 rgba(0,255,0,0.75), 0.025em 0.05em 0 rgba(0,0,255,0.75); }
-            14% { text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.025em -0.05em 0 rgba(0,255,0,0.75), 0.025em 0.05em 0 rgba(0,0,255,0.75); }
-            15% { text-shadow: -0.05em -0.025em 0 rgba(255,0,0,0.75), 0.025em 0.025em 0 rgba(0,255,0,0.75), -0.05em -0.05em 0 rgba(0,0,255,0.75); }
-            49% { text-shadow: -0.05em -0.025em 0 rgba(255,0,0,0.75), 0.025em 0.025em 0 rgba(0,255,0,0.75), -0.05em -0.05em 0 rgba(0,0,255,0.75); }
-            50% { text-shadow: 0.025em 0.05em 0 rgba(255,0,0,0.75), 0.05em 0 0 rgba(0,255,0,0.75), 0 -0.05em 0 rgba(0,0,255,0.75); }
-            100% { text-shadow: -0.025em 0 0 rgba(255,0,0,0.75), -0.025em -0.025em 0 rgba(0,255,0,0.75), -0.025em -0.05em 0 rgba(0,0,255,0.75); }
+            0% { text-shadow: 0 0 10px #ff0000; }
+            20% { text-shadow: 0 0 10px #00ff00; }
+            40% { text-shadow: 0 0 10px #0000ff; }
         }
-
-        /* --- MARQUEE --- */
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .animate-marquee { display: flex; animation: marquee 30s linear infinite; white-space: nowrap; }
-
-        /* --- BUTTONS --- */
-        .btn-neural {
-            background: linear-gradient(90deg, #3b82f6, #06b6d4);
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
-            transition: 0.3s;
+        
+        /* Simple canvas background */
+        #bgCanvas {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            opacity: 0.35;
         }
-
-        .btn-neural:hover { transform: skewX(-5deg) scale(1.05); filter: brightness(1.2); }
-
-        ::-webkit-scrollbar { width: 4px; background: #000; }
-        ::-webkit-scrollbar-thumb { background: var(--p-blue); border-radius: 10px; }
     </style>
 </head>
-<body>
-
+<body class="bg-black text-white">
     <canvas id="bgCanvas"></canvas>
-    <div class="mesh-gradient"></div>
-    <div class="scanline"></div>
 
-    <div id="loader" class="fixed inset-0 z-[2000] bg-black flex flex-col items-center justify-center transition-all duration-1000">
-        <div class="mb-10 relative">
-            <div class="w-40 h-40 border-l-2 border-blue-500 rounded-full animate-spin"></div>
-            <div class="absolute inset-0 flex items-center justify-center font-orb text-xs tracking-widest text-blue-400">SYNCING_CORE</div>
-        </div>
-        <div class="w-64">
-            <div class="flex justify-between text-[10px] mb-2 text-blue-500 font-mono">
-                <span id="loadText">CSC_400_LEGACY...</span>
-                <span id="loadCounter">0%</span>
+    <!-- Top Nav -->
+    <div class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-trophy text-3xl text-yellow-400"></i>
+                <div>
+                    <h1 class="font-orb text-3xl tracking-tighter">ELITE LEAGUE</h1>
+                    <p class="text-[10px] text-blue-400 tracking-[3px] -mt-1">2026 SEASON</p>
+                </div>
             </div>
-            <div class="h-1 bg-white/5 w-full"><div id="loadBar" class="h-full bg-blue-500 w-0 transition-all duration-300"></div></div>
+            <div class="text-sm text-gray-400 font-mono">CSC 400 • UNDEFEATED</div>
+            <div class="flex items-center gap-8 text-sm">
+                <a href="#" onclick="showCountdown()" class="hover:text-blue-400 transition">COUNTDOWN</a>
+                <a href="#" onclick="toggleChat()" class="hover:text-blue-400 transition">CHAT</a>
+                <a href="#" class="hover:text-blue-400 transition">STANDINGS</a>
+            </div>
         </div>
     </div>
 
-    <div class="fixed top-0 w-full z-[100] border-b border-white/5 bg-black/50 backdrop-blur-xl">
-        <div class="animate-marquee py-3 items-center gap-20">
-            <span class="text-[9px] font-sync font-bold"><i class="fas fa-microchip text-blue-500 mr-2"></i> CSC 400: UNDEFEATED [8-0-0]</span>
-            <span class="text-[9px] font-sync font-bold text-gray-400"><i class="fas fa-trophy text-yellow-500 mr-2"></i> REIGNING KINGS: ELITE 2025</span>
-            <span class="text-[9px] font-sync font-bold"><i class="fas fa-calendar-alt text-cyan-400 mr-2"></i> NEXT KICKOFF: OCT 15, 2026</span>
-            <span class="text-[9px] font-sync font-bold text-gray-400 italic">"NO BUG IN OUR DEFENSE"</span>
-            <span class="text-[9px] font-sync font-bold"><i class="fas fa-microchip text-blue-500 mr-2"></i> CSC 400: UNDEFEATED [8-0-0]</span>
-        </div>
-    </div>
-
-    <main class="relative pt-24 pb-12 px-6 max-w-[1700px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        
-        <div class="lg:col-span-3 space-y-6">
-            <div class="hud-border p-6 rounded-tr-[3rem] rounded-bl-[3rem]">
-                <h3 class="font-sync text-[10px] text-blue-500 mb-6 tracking-[0.2em]">DEFENDING_KINGS</h3>
-                <div class="relative group">
-                    <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80&w=500" class="rounded-xl grayscale hover:grayscale-0 transition-all duration-700 opacity-40">
-                    <div class="absolute inset-0 bg-blue-600/10 mix-blend-overlay"></div>
-                    <div class="absolute bottom-4 left-4">
-                        <p class="font-orb text-2xl font-black italic italic">CSC 400</p>
-                        <p class="text-[9px] font-mono text-cyan-400">UNDEFEATED CHAMPIONS 2025</p>
-                    </div>
-                </div>
-                <div class="mt-6 space-y-4 font-mono text-[10px]">
-                    <div class="flex justify-between border-b border-white/5 pb-2">
-                        <span class="text-gray-500">WIN_STREAK</span>
-                        <span class="text-blue-400">8 MATCHES</span>
-                    </div>
-                    <div class="flex justify-between border-b border-white/5 pb-2">
-                        <span class="text-gray-500">TOTAL_LOSS</span>
-                        <span class="text-red-500">0.00%</span>
-                    </div>
-                    <div class="flex justify-between border-b border-white/5 pb-2">
-                        <span class="text-gray-500">CAPTAIN</span>
-                        <span class="text-white">OBI_404</span>
-                    </div>
-                </div>
+    <main class="pt-24 pb-12 px-6 max-w-7xl mx-auto">
+        <!-- Hero -->
+        <div class="text-center mb-16">
+            <div class="inline-flex items-center gap-2 bg-white/5 px-6 py-2 rounded-full text-sm mb-6">
+                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                LIVE • UPCOMING GAMES
             </div>
+            <h1 class="font-orb text-8xl md:text-[9rem] leading-none tracking-tighter glitch">
+                ELITE<br>2026
+            </h1>
+            <p class="text-2xl text-gray-300 mt-4 font-sync">The most watched league in the country</p>
+        </div>
 
-            <div class="hud-border p-5 rounded-xl border-cyan-500/20">
-                <p class="font-mono text-[9px] text-gray-500 uppercase mb-3">Live_Ticker</p>
-                <div class="bg-blue-500/5 p-3 border border-blue-500/10 rounded-lg">
-                    <p class="text-[10px] text-blue-300 leading-relaxed italic italic">"System logs verify CSC 400 remains the benchmark of departmental dominance."</p>
-                </div>
+        <!-- Countdown -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-md mx-auto mb-16">
+            <div class="hud rounded-3xl p-8 text-center">
+                <div id="days" class="font-orb text-6xl font-bold text-blue-400">00</div>
+                <div class="text-xs uppercase tracking-widest mt-1 text-gray-500">DAYS</div>
+            </div>
+            <div class="hud rounded-3xl p-8 text-center">
+                <div id="hours" class="font-orb text-6xl font-bold text-blue-400">00</div>
+                <div class="text-xs uppercase tracking-widest mt-1 text-gray-500">HOURS</div>
+            </div>
+            <div class="hud rounded-3xl p-8 text-center">
+                <div id="mins" class="font-orb text-6xl font-bold text-blue-400">00</div>
+                <div class="text-xs uppercase tracking-widest mt-1 text-gray-500">MINS</div>
+            </div>
+            <div class="hud rounded-3xl p-8 text-center">
+                <div id="secs" class="font-orb text-6xl font-bold text-blue-400">00</div>
+                <div class="text-xs uppercase tracking-widest mt-1 text-gray-500">SECS</div>
             </div>
         </div>
 
-        <div class="lg:col-span-6 space-y-10 text-center">
-            <div class="relative">
-                <h1 class="font-orb text-[14vw] lg:text-[10rem] font-black leading-none italic glitch-text tracking-tighter">
-                    ELITE <span class="text-blue-500">2026</span>
-                </h1>
-                <p class="font-sync text-xs lg:text-sm tracking-[1.5em] text-gray-500 mt-4 uppercase">Neural Sports Renaissance</p>
-            </div>
-
-            <div id="countdown" class="grid grid-cols-4 gap-4">
-                <div class="hud-border py-8 rounded-2xl">
-                    <div id="days" class="font-orb text-4xl lg:text-6xl font-black mb-2">00</div>
-                    <div class="text-[8px] font-sync text-blue-500 tracking-widest">DAYS</div>
-                </div>
-                <div class="hud-border py-8 rounded-2xl">
-                    <div id="hours" class="font-orb text-4xl lg:text-6xl font-black mb-2">00</div>
-                    <div class="text-[8px] font-sync text-blue-500 tracking-widest">HRS</div>
-                </div>
-                <div class="hud-border py-8 rounded-2xl">
-                    <div id="mins" class="font-orb text-4xl lg:text-6xl font-black mb-2">00</div>
-                    <div class="text-[8px] font-sync text-blue-500 tracking-widest">MINS</div>
-                </div>
-                <div class="hud-border py-8 rounded-2xl">
-                    <div id="secs" class="font-orb text-4xl lg:text-6xl font-black mb-2">00</div>
-                    <div class="text-[8px] font-sync text-blue-500 tracking-widest">SECS</div>
-                </div>
-            </div>
-
-            <div class="flex justify-center gap-8 pt-6">
-            <div class="flex flex-wrap justify-center gap-4 pt-8">
-    <button onclick="toggleAI()" class="btn-neural px-8 py-5 font-sync text-[9px] font-bold tracking-[0.3em] shadow-[0_10px_30px_rgba(59,130,246,0.2)]">
-        INITIALIZE_INTEL
-    </button>
-
-    <a href="dashboard.html" class="hud-border px-8 py-5 font-sync text-[9px] font-bold tracking-[0.3em] hover:bg-blue-500 hover:text-black transition-all flex items-center gap-2">
-        <i class="fas fa-columns text-[10px]"></i> DASHBOARD_OS
-    </a>
-
-    <a href="vote.html" class="hud-border px-8 py-5 font-sync text-[9px] font-bold tracking-[0.3em] hover:bg-cyan-400 hover:text-black transition-all flex items-center gap-2">
-        <i class="fas fa-vote-yea text-[10px]"></i> VOTING_SECURE
-    </a>
-
-    <button class="hud-border px-8 py-5 font-sync text-[9px] font-bold tracking-[0.3em] hover:border-purple-500 hover:text-purple-400 transition-all rounded-r-3xl flex items-center gap-2">
-        <i class="fas fa-bolt text-[10px]"></i> VITE_CORE
-    </button>
-</div>
-            </div>
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap justify-center gap-4 mb-20">
+            <button onclick="toggleChat()" 
+                    class="btn px-10 py-6 text-sm font-bold tracking-widest rounded-2xl flex items-center gap-3">
+                <i class="fa-solid fa-comment-dots"></i>
+                START CHAT
+            </button>
+            <a href="#" 
+               class="px-10 py-6 text-sm font-bold tracking-widest rounded-2xl border border-white/30 hover:border-blue-400 transition flex items-center gap-3">
+                <i class="fa-solid fa-ticket"></i>
+                BUY TICKETS
+            </a>
+            <a href="#" 
+               class="px-10 py-6 text-sm font-bold tracking-widest rounded-2xl border border-white/30 hover:border-blue-400 transition flex items-center gap-3">
+                <i class="fa-solid fa-chart-line"></i>
+                STANDINGS
+            </a>
         </div>
 
-        <div class="lg:col-span-3 space-y-6">
-            <div class="hud-border p-6 h-[500px] flex flex-col rounded-tl-[3rem] rounded-br-[3rem]">
-                <div class="flex items-center gap-3 mb-6 border-b border-white/5 pb-4">
-                    <div class="w-3 h-3 bg-blue-500 animate-ping"></div>
-                    <h4 class="font-sync text-[10px] text-blue-500 tracking-widest uppercase">Kernel_Logs</h4>
-                </div>
-                <div id="systemLogs" class="flex-1 overflow-y-auto font-mono text-[9px] space-y-3 pr-2 custom-scrollbar text-gray-500">
-                    <p class="text-blue-400 font-bold">> [SYSTEM_BOOT_SUCCESS]</p>
-                    <p class="text-blue-200">> Legacy match data found: ELITE_2025</p>
-                    <p class="text-green-500">> CSC 400: UNDEFEATED [RECORD_SYNCED]</p>
-                    <p class="text-white/40">> Analyzing 8-0-0 win streak... 100% Efficiency.</p>
+        <!-- Simple Info -->
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="hud rounded-3xl p-8">
+                <h3 class="font-sync text-blue-400 text-xs tracking-widest mb-4">THIS SEASON</h3>
+                <div class="space-y-6">
+                    <div>
+                        <div class="text-4xl font-bold text-white">CSC 400</div>
+                        <div class="text-emerald-400 text-sm">8-0-0 • CHAMPIONS 2025</div>
+                    </div>
+                    <div class="text-sm text-gray-400">
+                        Next game • October 15, 2026
+                    </div>
                 </div>
             </div>
 
-            <div class="hud-border p-6 rounded-2xl text-center">
-                <p class="text-[8px] font-sync text-gray-500 mb-4 uppercase">Network_Load</p>
-                <div class="flex justify-center gap-2">
-                    <div class="w-1 h-8 bg-blue-500 animate-[bounce_1s_infinite]"></div>
-                    <div class="w-1 h-12 bg-blue-400 animate-[bounce_1.2s_infinite]"></div>
-                    <div class="w-1 h-6 bg-cyan-500 animate-[bounce_0.8s_infinite]"></div>
-                    <div class="w-1 h-10 bg-blue-600 animate-[bounce_1.5s_infinite]"></div>
+            <div class="hud rounded-3xl p-8">
+                <h3 class="font-sync text-blue-400 text-xs tracking-widest mb-4">FEATURED</h3>
+                <div class="text-3xl font-bold mb-2">CSC 400</div>
+                <p class="text-gray-400 leading-relaxed">
+                    The undisputed kings of the league. 
+                    Zero losses. Full support for every home game.
+                </p>
+            </div>
+
+            <div class="hud rounded-3xl p-8 flex flex-col">
+                <div class="flex-1">
+                    <h3 class="font-sync text-blue-400 text-xs tracking-widest mb-4">QUICK LINKS</h3>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex gap-3 hover:text-blue-400 cursor-pointer">
+                            <i class="fa-solid fa-play text-blue-500 mt-0.5"></i>
+                            <div>Watch Live Games</div>
+                        </li>
+                        <li class="flex gap-3 hover:text-blue-400 cursor-pointer">
+                            <i class="fa-solid fa-ticket text-blue-500 mt-0.5"></i>
+                            <div>Official Tickets</div>
+                        </li>
+                        <li class="flex gap-3 hover:text-blue-400 cursor-pointer">
+                            <i class="fa-solid fa-users text-blue-500 mt-0.5"></i>
+                            <div>Join the Community</div>
+                        </li>
+                    </ul>
                 </div>
+                <div class="text-[10px] text-gray-500 mt-8">© 2026 ELITE LEAGUE • ALL RIGHTS RESERVED</div>
             </div>
         </div>
     </main>
 
-    <div id="aiModal" class="fixed inset-0 z-[500] flex items-center justify-center hidden bg-black/95 backdrop-blur-2xl p-6">
-        <div class="hud-border w-full max-w-2xl h-[80vh] flex flex-col overflow-hidden rounded-[2rem] border-blue-500/20">
-            <div class="p-8 border-b border-white/5 flex justify-between items-center bg-blue-900/5">
+    <!-- Chat Modal -->
+    <div id="chatModal" class="hidden fixed inset-0 bg-black/90 z-[999] flex items-center justify-center p-6">
+        <div class="hud w-full max-w-2xl rounded-3xl overflow-hidden">
+            <div class="p-6 border-b border-white/10 flex items-center justify-between bg-white/5">
                 <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 border border-blue-500 flex items-center justify-center rounded-lg shadow-[0_0_15px_rgba(59,130,246,0.5)]">
-                        <i class="fas fa-brain text-blue-400"></i>
+                    <div class="w-9 h-9 bg-blue-500/20 rounded-2xl flex items-center justify-center">
+                        <i class="fa-solid fa-headset text-2xl"></i>
                     </div>
-                    <span class="font-orb text-sm tracking-widest text-blue-500 font-black">INTEL_CORE_V4</span>
+                    <div>
+                        <div class="font-bold">LEAGUE CHAT</div>
+                        <div class="text-xs text-emerald-400">LIVE • 247 ACTIVE</div>
+                    </div>
                 </div>
-                <button onclick="toggleAI()" class="text-gray-500 hover:text-white transition-colors"><i class="fas fa-times text-xl"></i></button>
+                <button onclick="toggleChat()" class="text-3xl hover:text-red-400">✕</button>
             </div>
             
-            <div id="aiChat" class="flex-1 overflow-y-auto p-10 space-y-8 font-mono text-sm custom-scrollbar"></div>
+            <div id="chatLog" class="h-96 overflow-y-auto p-6 space-y-6 text-sm font-mono"></div>
             
-            <div id="typing" class="hidden px-10 py-2 text-[9px] font-sync text-blue-500 animate-pulse uppercase">Thinking_Neural...</div>
-            
-            <div class="p-8 bg-black/50 border-t border-white/5">
-                <div class="relative">
-                    <input type="text" id="aiInput" placeholder="QUERY CHAMPION DATA..." class="w-full bg-white/5 border border-white/10 rounded-xl py-5 px-8 focus:outline-none focus:border-blue-500 transition-all font-mono text-xs placeholder:text-gray-700">
-                    <button onclick="sendQuery()" class="absolute right-3 top-1/2 -translate-y-1/2 bg-blue-600 px-6 py-3 rounded-lg hover:bg-cyan-500 transition-all">
-                        <i class="fas fa-paper-plane text-xs"></i>
-                    </button>
+            <div class="p-6 border-t border-white/10 bg-white/5">
+                <div class="flex gap-3">
+                    <input id="chatInput" 
+                           type="text" 
+                           placeholder="Type a message..." 
+                           class="flex-1 bg-black border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-blue-400">
+                    <button onclick="sendMessage()" 
+                            class="btn px-8 rounded-2xl text-sm">SEND</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // --- 1. NEURAL CANVAS GRID ---
+        // Canvas background
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
         let points = [];
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
         function initCanvas() {
-            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
             points = [];
-            for(let i=0; i<100; i++) points.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, vx: Math.random()-0.5, vy: Math.random()-0.5});
-        }
-        function draw() {
-            ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.strokeStyle = 'rgba(59, 130, 246, 0.05)'; ctx.lineWidth = 0.5;
-            points.forEach((p, i) => {
-                p.x += p.vx; p.y += p.vy;
-                if(p.x<0 || p.x>canvas.width) p.vx *= -1; if(p.y<0 || p.y>canvas.height) p.vy *= -1;
-                ctx.beginPath(); ctx.arc(p.x, p.y, 1, 0, Math.PI*2); ctx.stroke();
-            });
-            requestAnimationFrame(draw);
-        }
-        initCanvas(); draw(); window.onresize = initCanvas;
-
-        // --- 2. TIMER SYSTEM: OCT 15 2026 ---
-        const target = new Date("October 15, 2026 00:00:00").getTime();
-        setInterval(() => {
-            const d = target - new Date().getTime();
-            document.getElementById('days').innerText = Math.floor(d / 86400000).toString().padStart(2,'0');
-            document.getElementById('hours').innerText = Math.floor((d % 86400000) / 3600000).toString().padStart(2,'0');
-            document.getElementById('mins').innerText = Math.floor((d % 3600000) / 60000).toString().padStart(2,'0');
-            document.getElementById('secs').innerText = Math.floor((d % 60000) / 1000).toString().padStart(2,'0');
-        }, 1000);
-
-        // --- 3. SYSTEM LOGS ---
-        function addLog(msg) {
-            const logs = document.getElementById('systemLogs');
-            const p = document.createElement('p');
-            p.className = "border-l border-blue-500/20 pl-2 opacity-0 transition-opacity duration-500";
-            p.innerText = `[${new Date().toLocaleTimeString('en-GB')}] > ${msg}`;
-            logs.appendChild(p);
-            setTimeout(() => p.style.opacity = "1", 50);
-            logs.scrollTop = logs.scrollHeight;
-        }
-
-        // --- 4. PRELOADER & STARTUP ---
-        let lp = 0;
-        const lInt = setInterval(() => {
-            lp += Math.floor(Math.random() * 20);
-            if(lp >= 100) {
-                lp = 100; clearInterval(lInt);
-                setTimeout(() => {
-                    document.getElementById('loader').style.opacity = '0';
-                    setTimeout(() => {
-                        document.getElementById('loader').style.display = 'none';
-                        addLog("ELITE LEAGUE v4.0 ONLINE");
-                        addLog("UNDEFEATED STREAK: CSC 400 (8-0-0)");
-                    }, 1000);
-                }, 800);
+            for (let i = 0; i < 80; i++) {
+                points.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: Math.random() * 1 - 0.5,
+                    vy: Math.random() * 1 - 0.5
+                });
             }
-            document.getElementById('loadBar').style.width = lp + '%';
-            document.getElementById('loadCounter').innerText = lp + '%';
-        }, 100);
-
-        // --- 5. AI INTEL CORE ---
-        function toggleAI() {
-            document.getElementById('aiModal').classList.toggle('hidden');
-            addLog("AI_INTEL_CORE: SESSIONS_INITIALIZED");
         }
-
-        function sendQuery() {
-            const input = document.getElementById('aiInput');
-            const chat = document.getElementById('aiChat');
-            const type = document.getElementById('typing');
-            if(!input.value.trim()) return;
-
-            chat.innerHTML += `<div class="flex justify-end mb-6"><div class="hud-border p-5 rounded-2xl rounded-tr-none text-blue-100 max-w-[80%] border-blue-500/30 font-mono">${input.value}</div></div>`;
-            const q = input.value.toLowerCase();
-            input.value = "";
-            chat.scrollTop = chat.scrollHeight;
-            type.classList.remove('hidden');
-
-            setTimeout(() => {
-                type.classList.add('hidden');
-                let res = "QUERY_FAILURE: Data not found. Try 'CHAMPION RECORD' or 'SEASON II'.";
+        
+        function drawCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = 'rgba(59, 130, 246, 0.08)';
+            ctx.lineWidth = 1;
+            
+            points.forEach((p, i) => {
+                p.x += p.vx;
+                p.y += p.vy;
                 
-                if(q.includes('csc 400') || q.includes('8 win') || q.includes('undefeated') || q.includes('champion')) {
-                    res = "<span class='text-blue-400 font-bold'>CHAMPION LOG DETECTED:</span> CSC 400 secured the ELITE 2025 crown with an unprecedented 8-match win streak. Zero defeats. Maximum departmental glory.";
-                    addLog("LEGACY_DATA_PULL: CSC 400 Champions.");
-                } else if(q.includes('zuby')) {
-                    res = "IDENT_VERIFIED: Admin Zuby. Founder of Elite League. Current Level 400 Commander. Legacy Rating: 100/100.";
-                } else if(q.includes('october') || q.includes('season')) {
-                    res = "SEASON II KICKOFF: 15.10.2026. All departmental logic units must recalibrate for high-intensity competition.";
-                }
-
-                chat.innerHTML += `<div class="flex gap-4 mb-6"><div class="w-10 h-10 border border-blue-500 flex items-center justify-center rounded-lg flex-shrink-0"><i class="fas fa-robot text-blue-500 text-xs"></i></div><div class="hud-border p-5 rounded-2xl rounded-tl-none text-gray-300 max-w-[80%]">${res}</div></div>`;
-                chat.scrollTop = chat.scrollHeight;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+                ctx.stroke();
+            });
+            
+            requestAnimationFrame(drawCanvas);
+        }
+        
+        // Countdown
+        const targetDate = new Date("October 15, 2026 00:00:00").getTime();
+        setInterval(() => {
+            const now = Date.now();
+            const diff = targetDate - now;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('mins').textContent = String(mins).padStart(2, '0');
+            document.getElementById('secs').textContent = String(secs).padStart(2, '0');
+        }, 1000);
+        
+        // Chat
+        let chatMessages = [
+            "System: Welcome to ELITE LEAGUE 2026 chat.",
+            "Admin: CSC 400 is looking strong this season!",
+            "Fan: Who’s your pick for next game?"
+        ];
+        
+        function renderChat() {
+            const log = document.getElementById('chatLog');
+            log.innerHTML = '';
+            chatMessages.forEach(msg => {
+                const div = document.createElement('div');
+                div.className = 'flex gap-3';
+                div.innerHTML = `<span class="text-blue-400">></span><span>${msg}</span>`;
+                log.appendChild(div);
+            });
+            log.scrollTop = log.scrollHeight;
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            if (!input.value.trim()) return;
+            
+            chatMessages.push(`You: ${input.value}`);
+            renderChat();
+            input.value = '';
+            
+            // Auto reply
+            setTimeout(() => {
+                chatMessages.push(`System: Thanks for your message!`);
+                renderChat();
             }, 1200);
         }
+        
+        function toggleChat() {
+            const modal = document.getElementById('chatModal');
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                renderChat();
+            }
+        }
+        
+        function showCountdown() {
+            alert("The countdown to kickoff is live above. October 15, 2026 is when the season begins!");
+        }
+        
+        // Initialize everything
+        window.onload = () => {
+            resizeCanvas();
+            initCanvas();
+            drawCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Demo chat messages
+            renderChat();
+            
+            // Demo log
+            console.log('%cELITE LEAGUE ready. Clean version loaded.', 'color:#22d3ee; font-family:monospace');
+        };
     </script>
 </body>
 </html>
