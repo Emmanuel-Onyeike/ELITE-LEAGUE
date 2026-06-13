@@ -321,31 +321,38 @@ body {
 </div>
         </div>
 
-           // UPDATED DASHBOARD SECTION
+          
 <div class="max-w-7xl mx-auto space-y-12">
     <!-- HERO SECTION (Kept as before) -->
     
     <!-- LEAGUE STATISTICS: Bento Grid (5 Cards) -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        ${[
-            {label: 'TEAMS', val: '21', icon: 'fa-shield'},
-            {label: 'GROUPS', val: '5', icon: 'fa-layer-group'},
-            {label: 'GOALS', val: '0', icon: 'fa-futbol'},
-            {label: 'MATCHES', val: '0', icon: 'fa-calendar-days'},
-            {label: 'TOTAL PLAYERS', val: '273', icon: 'fa-users'}
-        ].map(stat => `
-            <div class="bg-white/5 border border-white/5 rounded-3xl p-6">
-                <div class="text-[9px] text-white/40 font-bold tracking-widest mb-2">${stat.label}</div>
-                <div class="text-3xl font-bold">${stat.val}</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+    ${[
+        {label: 'TEAMS', val: '21', icon: 'fa-shield'},
+        {label: 'GROUPS', val: '5', icon: 'fa-layer-group'},
+        {label: 'GOALS', val: '0', icon: 'fa-futbol'},
+        {label: 'MATCHES', val: '0', icon: 'fa-calendar-days'},
+        {label: 'PLAYERS', val: '273', icon: 'fa-users'},
+        {label: 'OFFICIALS', val: '9', icon: 'fa-user-tie'}
+    ].map(stat => `
+        <div class="group relative bg-white/5 border border-white/10 rounded-3xl p-6 overflow-hidden hover:border-cyan-500/50 transition-all duration-300">
+            <!-- Tactical accent glow -->
+            <div class="absolute -top-10 -right-10 w-20 h-20 bg-cyan-500/10 blur-3xl rounded-full group-hover:bg-cyan-500/20 transition-all"></div>
+            
+            <div class="relative flex items-center justify-between mb-4">
+                <div class="text-[9px] text-white/40 font-bold tracking-widest uppercase">${stat.label}</div>
+                <i class="fa-solid ${stat.icon} text-white/20 group-hover:text-cyan-400 transition-colors duration-300"></i>
             </div>
-        `).join('')}
-    </div>
+            <div class="relative text-3xl font-bold font-mono group-hover:text-cyan-400 transition-colors duration-300">${stat.val}</div>
+        </div>
+    `).join('')}
+</div>s
 
     <!-- NEWS & UPDATES SECTION -->
     <div class="space-y-6">
         <div class="flex items-center justify-between">
             <div class="text-xs font-bold text-white/40 tracking-[0.2em] uppercase">League Updates</div>
-            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-white/5 text-[10px]">9</div>
+            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-white/5 text-[10px]">0</div>
         </div>
         
         <!-- Empty State News Container -->
