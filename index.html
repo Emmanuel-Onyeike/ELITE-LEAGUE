@@ -3,331 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELITE LEAGUE</title>
+    <title>Elite League | Season 2</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Orbitron:wght@400;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
-   
-    <style>
-        :root {
-            --p-blue: #3b82f6;
-            --p-cyan: #22d3ee;
-            --p-dark: #0a0a0a;
-            --p-glass: rgba(255, 255, 255, 0.02);
-            --p-border: rgba(59, 130, 246, 0.25);
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nxxtBlue: {
+                            DEFAULT: '#2563eb', // Electric Blue
+                            dark: '#1e3a8a',
+                        },
+                        nxxtDark: '#020617',
+                    }
+                }
+            }
         }
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            background: #0a0a0a;
-            color: white;
-            overflow-x: hidden;
-        }
-        .font-sync { font-family: 'Syncopate', sans-serif; }
-        .font-orb { font-family: 'Orbitron', sans-serif; }
-        
-        /* Clean modern HUD */
-        .hud {
-            background: rgba(255,255,255,0.02);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-        }
-        .btn {
-            background: linear-gradient(90deg, #3b82f6, #22d3ee);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 25px -5px rgb(59 130 246 / 0.3);
-        }
-        .glitch {
-            animation: glitch 400ms infinite;
-        }
-        @keyframes glitch {
-            0% { text-shadow: 0 0 10px #ff0000; }
-            20% { text-shadow: 0 0 10px #00ff00; }
-            40% { text-shadow: 0 0 10px #0000ff; }
-        }
-        
-        /* Simple canvas background */
-        #bgCanvas {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            opacity: 0.35;
-        }
-    </style>
+    </script>
 </head>
-<body class="bg-black text-white">
-    <canvas id="bgCanvas"></canvas>
+<body class="bg-nxxtDark text-white font-sans selection:bg-nxxtBlue">
 
-    <!-- Top Nav -->
-    <div class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur-xl">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <i class="fa-solid fa-trophy text-3xl text-yellow-400"></i>
-                <div>
-                    <h1 class="font-orb text-3xl tracking-tighter">ELITE LEAGUE</h1>
-                    <p class="text-[10px] text-blue-400 tracking-[3px] -mt-1">2026 SEASON</p>
-                </div>
-            </div>
-            <div class="text-sm text-gray-400 font-mono">CSC 400 • UNDEFEATED</div>
-            <div class="flex items-center gap-8 text-sm">
-                <a href="#" onclick="showCountdown()" class="hover:text-blue-400 transition">COUNTDOWN</a>
-                <a href="#" onclick="toggleChat()" class="hover:text-blue-400 transition">CHAT</a>
-                <a href="#" class="hover:text-blue-400 transition">STANDINGS</a>
-            </div>
-        </div>
-    </div>
-
-    <main class="pt-24 pb-12 px-6 max-w-7xl mx-auto">
-        <!-- Hero -->
-        <div class="text-center mb-16">
-            <div class="inline-flex items-center gap-2 bg-white/5 px-6 py-2 rounded-full text-sm mb-6">
-                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                LIVE • UPCOMING GAMES
-            </div>
-            <h1 class="font-orb text-8xl md:text-[9rem] leading-none tracking-tighter glitch">
-                ELITE<br>2026
-            </h1>
-            <p class="text-2xl text-gray-300 mt-4 font-sync">The most watched league in the country</p>
+    <!-- Landing Hero -->
+    <main class="relative flex flex-col items-center justify-center min-h-screen px-6 text-center">
+        
+        <!-- Status Badge -->
+        <div class="mb-8">
+            <span class="px-4 py-1 text-[10px] font-bold tracking-widest text-nxxtBlue uppercase border border-nxxtBlue/30 rounded-full bg-nxxtBlue/10">
+                Season 2 • Official Launch
+            </span>
         </div>
 
-        <!-- Countdown -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-md mx-auto mb-16">
-            <div class="hud rounded-3xl p-8 text-center">
-                <div id="days" class="font-orb text-6xl font-bold text-blue-400">00</div>
-                <div class="text-xs uppercase tracking-widest mt-1 text-gray-500">DAYS</div>
-            </div>
-            <div class="hud rounded-3xl p-8 text-center">
-                <div id="hours" class="font-orb text-6xl font-bold text-blue-400">00</div>
-                <div class="text-xs uppercase tracking-widest mt-1 text-gray-500">HOURS</div>
-            </div>
-            <div class="hud rounded-3xl p-8 text-center">
-                <div id="mins" class="font-orb text-6xl font-bold text-blue-400">00</div>
-                <div class="text-xs uppercase tracking-widest mt-1 text-gray-500">MINS</div>
-            </div>
-            <div class="hud rounded-3xl p-8 text-center">
-                <div id="secs" class="font-orb text-6xl font-bold text-blue-400">00</div>
-                <div class="text-xs uppercase tracking-widest mt-1 text-gray-500">SECS</div>
-            </div>
-        </div>
+        <!-- Heading -->
+        <h1 class="text-6xl md:text-9xl font-black mb-6 uppercase tracking-tight">
+            Elite <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">League</span>
+        </h1>
+        
+        <p class="max-w-xl mb-10 text-lg md:text-xl text-slate-400">
+            The ultimate campus football experience. Track fixtures, manage squads, and claim the title.
+        </p>
 
-        <!-- Action Buttons -->
-        <div class="flex flex-wrap justify-center gap-4 mb-20">
-            <button onclick="toggleChat()" 
-                    class="btn px-10 py-6 text-sm font-bold tracking-widest rounded-2xl flex items-center gap-3">
-                <i class="fa-solid fa-comment-dots"></i>
-                START CHAT
+        <!-- CTA -->
+        <div class="flex gap-4">
+            <button onclick="document.getElementById('modal').classList.remove('hidden')" 
+                    class="px-8 py-4 font-bold text-white transition bg-nxxtBlue rounded-lg hover:bg-blue-500 hover:scale-[1.02] active:scale-[0.98]">
+                Register Team
             </button>
-            <a href="#" 
-               class="px-10 py-6 text-sm font-bold tracking-widest rounded-2xl border border-white/30 hover:border-blue-400 transition flex items-center gap-3">
-                <i class="fa-solid fa-ticket"></i>
-                BUY TICKETS
-            </a>
-            <a href="#" 
-               class="px-10 py-6 text-sm font-bold tracking-widest rounded-2xl border border-white/30 hover:border-blue-400 transition flex items-center gap-3">
-                <i class="fa-solid fa-chart-line"></i>
-                STANDINGS
-            </a>
+            <button class="px-8 py-4 font-bold transition bg-slate-800/50 border border-slate-700 rounded-lg hover:bg-slate-800">
+                View Schedule
+            </button>
         </div>
 
-        <!-- Simple Info -->
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="hud rounded-3xl p-8">
-                <h3 class="font-sync text-blue-400 text-xs tracking-widest mb-4">THIS SEASON</h3>
-                <div class="space-y-6">
-                    <div>
-                        <div class="text-4xl font-bold text-white">CSC 400</div>
-                        <div class="text-emerald-400 text-sm">8-0-0 • CHAMPIONS 2025</div>
-                    </div>
-                    <div class="text-sm text-gray-400">
-                        Next game • October 15, 2026
-                    </div>
-                </div>
+        <!-- Metrics -->
+        <div class="grid grid-cols-3 gap-8 mt-20 border-t border-slate-800 pt-8 w-full max-w-2xl">
+            <div>
+                <div class="text-3xl font-bold">12</div>
+                <div class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Teams</div>
             </div>
-
-            <div class="hud rounded-3xl p-8">
-                <h3 class="font-sync text-blue-400 text-xs tracking-widest mb-4">FEATURED</h3>
-                <div class="text-3xl font-bold mb-2">CSC 400</div>
-                <p class="text-gray-400 leading-relaxed">
-                    The undisputed kings of the league. 
-                    Zero losses. Full support for every home game.
-                </p>
+            <div>
+                <div class="text-3xl font-bold">48</div>
+                <div class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Fixtures</div>
             </div>
-
-            <div class="hud rounded-3xl p-8 flex flex-col">
-                <div class="flex-1">
-                    <h3 class="font-sync text-blue-400 text-xs tracking-widest mb-4">QUICK LINKS</h3>
-                    <ul class="space-y-4 text-sm">
-                        <li class="flex gap-3 hover:text-blue-400 cursor-pointer">
-                            <i class="fa-solid fa-play text-blue-500 mt-0.5"></i>
-                            <div>Watch Live Games</div>
-                        </li>
-                        <li class="flex gap-3 hover:text-blue-400 cursor-pointer">
-                            <i class="fa-solid fa-ticket text-blue-500 mt-0.5"></i>
-                            <div>Official Tickets</div>
-                        </li>
-                        <li class="flex gap-3 hover:text-blue-400 cursor-pointer">
-                            <i class="fa-solid fa-users text-blue-500 mt-0.5"></i>
-                            <div>Join the Community</div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="text-[10px] text-gray-500 mt-8">© 2026 ELITE LEAGUE • ALL RIGHTS RESERVED</div>
+            <div>
+                <div class="text-3xl font-bold">98%</div>
+                <div class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Attendance</div>
             </div>
         </div>
     </main>
 
-    <!-- Chat Modal -->
-    <div id="chatModal" class="hidden fixed inset-0 bg-black/90 z-[999] flex items-center justify-center p-6">
-        <div class="hud w-full max-w-2xl rounded-3xl overflow-hidden">
-            <div class="p-6 border-b border-white/10 flex items-center justify-between bg-white/5">
-                <div class="flex items-center gap-4">
-                    <div class="w-9 h-9 bg-blue-500/20 rounded-2xl flex items-center justify-center">
-                        <i class="fa-solid fa-headset text-2xl"></i>
-                    </div>
-                    <div>
-                        <div class="font-bold">LEAGUE CHAT</div>
-                        <div class="text-xs text-emerald-400">LIVE • 247 ACTIVE</div>
-                    </div>
-                </div>
-                <button onclick="toggleChat()" class="text-3xl hover:text-red-400">✕</button>
-            </div>
-            
-            <div id="chatLog" class="h-96 overflow-y-auto p-6 space-y-6 text-sm font-mono"></div>
-            
-            <div class="p-6 border-t border-white/10 bg-white/5">
-                <div class="flex gap-3">
-                    <input id="chatInput" 
-                           type="text" 
-                           placeholder="Type a message..." 
-                           class="flex-1 bg-black border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-blue-400">
-                    <button onclick="sendMessage()" 
-                            class="btn px-8 rounded-2xl text-sm">SEND</button>
-                </div>
-            </div>
+    <!-- Centered Modal Alert -->
+    <div id="modal" class="hidden fixed inset-0 flex items-center justify-center p-4 bg-nxxtDark/90 backdrop-blur-md z-50">
+        <div class="w-full max-w-sm p-8 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl">
+            <h3 class="text-xl font-bold mb-2">Registration Status</h3>
+            <p class="mb-6 text-slate-400">Season 2 registration is currently locked. The portal will open for team submissions on the 20th.</p>
+            <button onclick="document.getElementById('modal').classList.add('hidden')" 
+                    class="w-full py-3 font-bold text-white transition bg-nxxtBlue rounded-lg hover:bg-blue-500">
+                Acknowledge
+            </button>
         </div>
     </div>
 
-    <script>
-        // Canvas background
-        const canvas = document.getElementById('bgCanvas');
-        const ctx = canvas.getContext('2d');
-        let points = [];
-        
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        
-        function initCanvas() {
-            points = [];
-            for (let i = 0; i < 80; i++) {
-                points.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    vx: Math.random() * 1 - 0.5,
-                    vy: Math.random() * 1 - 0.5
-                });
-            }
-        }
-        
-        function drawCanvas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.strokeStyle = 'rgba(59, 130, 246, 0.08)';
-            ctx.lineWidth = 1;
-            
-            points.forEach((p, i) => {
-                p.x += p.vx;
-                p.y += p.vy;
-                
-                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
-                ctx.stroke();
-            });
-            
-            requestAnimationFrame(drawCanvas);
-        }
-        
-        // Countdown
-        const targetDate = new Date("October 15, 2026 00:00:00").getTime();
-        setInterval(() => {
-            const now = Date.now();
-            const diff = targetDate - now;
-            
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const secs = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('days').textContent = String(days).padStart(2, '0');
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('mins').textContent = String(mins).padStart(2, '0');
-            document.getElementById('secs').textContent = String(secs).padStart(2, '0');
-        }, 1000);
-        
-        // Chat
-        let chatMessages = [
-            "System: Welcome to ELITE LEAGUE 2026 chat.",
-            "Admin: CSC 400 is looking strong this season!",
-            "Fan: Who’s your pick for next game?"
-        ];
-        
-        function renderChat() {
-            const log = document.getElementById('chatLog');
-            log.innerHTML = '';
-            chatMessages.forEach(msg => {
-                const div = document.createElement('div');
-                div.className = 'flex gap-3';
-                div.innerHTML = `<span class="text-blue-400">></span><span>${msg}</span>`;
-                log.appendChild(div);
-            });
-            log.scrollTop = log.scrollHeight;
-        }
-        
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            if (!input.value.trim()) return;
-            
-            chatMessages.push(`You: ${input.value}`);
-            renderChat();
-            input.value = '';
-            
-            // Auto reply
-            setTimeout(() => {
-                chatMessages.push(`System: Thanks for your message!`);
-                renderChat();
-            }, 1200);
-        }
-        
-        function toggleChat() {
-            const modal = document.getElementById('chatModal');
-            modal.classList.toggle('hidden');
-            if (!modal.classList.contains('hidden')) {
-                renderChat();
-            }
-        }
-        
-        function showCountdown() {
-            alert("The countdown to kickoff is live above. October 15, 2026 is when the season begins!");
-        }
-        
-        // Initialize everything
-        window.onload = () => {
-            resizeCanvas();
-            initCanvas();
-            drawCanvas();
-            window.addEventListener('resize', resizeCanvas);
-            
-            // Demo chat messages
-            renderChat();
-            
-            // Demo log
-            console.log('%cELITE LEAGUE ready. Clean version loaded.', 'color:#22d3ee; font-family:monospace');
-        };
-    </script>
 </body>
 </html>
