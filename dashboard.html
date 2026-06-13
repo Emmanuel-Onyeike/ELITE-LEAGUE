@@ -370,66 +370,57 @@ body {
 
 
             /// this is for standings////
-          'Standings': `
+  'Standings': `
     <div class="max-w-7xl mx-auto space-y-8">
-        <!-- HEADER & GROUP SELECTOR -->
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-            <div>
-                <h2 class="font-grotesk text-5xl font-bold tracking-tighter">LEAGUE STANDINGS</h2>
-                <p class="text-white/40 mt-2 tracking-widest text-xs uppercase">Live Competition Data</p>
-            </div>
-            <!-- Group Tabs -->
-            <div class="flex bg-white/5 p-1 rounded-2xl border border-white/5">
-                ${['A', 'B', 'C', 'D', 'E'].map(g => `
-                    <button class="px-6 py-2 rounded-xl text-sm font-bold ${g === 'A' ? 'bg-cyan-500 text-zinc-950' : 'hover:bg-white/5'} transition-all">
-                        GROUP ${g}
-                    </button>
-                `).join('')}
-            </div>
+        <div>
+            <h2 class="font-grotesk text-4xl font-bold tracking-tighter">LEAGUE STANDINGS</h2>
+            <p class="text-white/40 mt-1 tracking-widest text-[10px] uppercase">Independent Group Metrics</p>
         </div>
 
-        <!-- TABLE -->
-        <div class="bg-zinc-900/50 border border-white/10 rounded-3xl overflow-hidden backdrop-blur-xl">
-            <div class="overflow-x-auto">
-                <table class="w-full">
-                    <thead>
-                        <tr class="border-b border-white/10 text-[10px] uppercase tracking-[0.2em] text-white/40">
-                            <th class="text-left p-6">Rank</th>
-                            <th class="text-left p-6">Team</th>
-                            <th class="text-center p-6">P</th>
-                            <th class="text-center p-6">W</th>
-                            <th class="text-center p-6">D</th>
-                            <th class="text-center p-6">L</th>
-                            <th class="text-center p-6">GD</th>
-                            <th class="text-right p-6">Pts</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-white/5">
-                        ${[
-                            {rank: '01', team: 'CSC 400', p: '12', w: '12', d: '0', l: '0', gd: '+48', pts: '36', tag: 'CHAMPIONS'},
-                            {rank: '02', team: 'CSC 300', p: '12', w: '8', d: '3', l: '1', gd: '+29', pts: '27', tag: ''},
-                            {rank: '03', team: 'CSC 200', p: '12', w: '7', d: '4', l: '1', gd: '+22', pts: '25', tag: ''}
-                        ].map(row => `
-                            <tr class="hover:bg-cyan-500/5 cursor-pointer transition-all group">
-                                <td class="p-6 text-3xl font-bold font-mono text-cyan-400/50 group-hover:text-cyan-400">${row.rank}</td>
-                                <td class="p-6">
-                                    <div class="font-bold text-lg">${row.team}</div>
-                                    ${row.tag ? `<div class="text-[9px] text-emerald-400 font-bold tracking-widest uppercase">${row.tag}</div>` : ''}
-                                </td>
-                                <td class="text-center p-6 font-mono">${row.p}</td>
-                                <td class="text-center p-6 font-mono text-emerald-400">${row.w}</td>
-                                <td class="text-center p-6 font-mono">${row.d}</td>
-                                <td class="text-center p-6 font-mono">${row.l}</td>
-                                <td class="text-center p-6 font-mono text-cyan-400">${row.gd}</td>
-                                <td class="text-right p-6 text-2xl font-bold font-mono">${row.pts}</td>
+        <!-- TACTICAL NAVIGATION -->
+        <div class="grid grid-cols-2 lg:grid-cols-5 gap-3">
+            ${['A', 'B', 'C', 'D', 'E'].map(id => `
+                <button onclick="switchGroup('${id}')" 
+                        class="bg-white/5 border border-white/10 p-4 rounded-2xl text-left hover:border-cyan-500/50 transition-all">
+                    <div class="text-xs font-bold text-cyan-400 mb-1">GROUP ${id}</div>
+                    <div class="text-[9px] text-white/40 uppercase tracking-wider">Deploy Metrics</div>
+                </button>
+            `).join('')}
+        </div>
+
+        <!-- INDEPENDENT GROUP CONTAINERS -->
+        <div id="standings-wrapper">
+            ${['A', 'B', 'C', 'D', 'E'].map(id => `
+                <div id="group-${id}" class="group-container hidden bg-zinc-900 border border-white/5 rounded-3xl overflow-hidden">
+                    <div class="p-6 border-b border-white/5 flex justify-between items-center">
+                        <h3 class="font-bold text-lg">GROUP ${id} PERFORMANCE</h3>
+                        <span class="text-[10px] text-white/40 uppercase tracking-widest">Live Feed</span>
+                    </div>
+                    <table class="w-full text-xs">
+                        <thead>
+                            <tr class="text-white/30 uppercase tracking-[0.2em] bg-white/5">
+                                <th class="p-4 text-left">Team</th>
+                                <th class="p-4 text-center">MP</th>
+                                <th class="p-4 text-center">W</th>
+                                <th class="p-4 text-center">D</th>
+                                <th class="p-4 text-center">L</th>
+                                <th class="p-4 text-center">GF</th>
+                                <th class="p-4 text-center">GA</th>
+                                <th class="p-4 text-center">GD</th>
+                                <th class="p-4 text-center text-cyan-400">PTS</th>
                             </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody id="body-${id}" class="divide-y divide-white/5">
+                            <!-- Data injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            `).join('')}
         </div>
     </div>
-`,
+
+  
+ `,
             
             'Fixtures': `
                 <div class="max-w-4xl mx-auto">
