@@ -10,7 +10,7 @@
             theme: {
                 extend: {
                     colors: {
-                        nxxtBlue: { DEFAULT: '#2563eb', dark: '#1e3a8a' },
+                        nxxtBlue: { DEFAULT: '#2563eb', hover: '#3b82f6' },
                         nxxtDark: '#020617',
                     }
                 }
@@ -18,71 +18,82 @@
         }
     </script>
 </head>
-<body class="bg-nxxtDark text-white font-sans selection:bg-nxxtBlue">
+<body class="bg-nxxtDark text-white font-sans selection:bg-nxxtBlue selection:text-white">
 
     <!-- Nav -->
-    <nav class="fixed w-full z-50 bg-nxxtDark/80 backdrop-blur-md border-b border-white/10 px-6 py-4 flex justify-between items-center">
+    <nav class="fixed w-full z-50 bg-nxxtDark/50 backdrop-blur-xl border-b border-white/5 px-6 py-5 flex justify-between items-center">
         <div class="text-xl font-black tracking-tighter">ELITE<span class="text-nxxtBlue">S2</span></div>
-        <a href="/dashboard" class="bg-nxxtBlue hover:bg-blue-500 px-5 py-2 rounded-lg font-bold text-sm transition-all">Dashboard</a>
+        <a href="/dashboard" class="relative group overflow-hidden bg-white/5 hover:bg-nxxtBlue border border-white/10 px-6 py-2 rounded-full font-bold text-xs tracking-widest transition-all">
+            <span class="relative z-10">DASHBOARD</span>
+        </a>
     </nav>
 
     <!-- Hero -->
-    <header class="relative min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20">
-        <div class="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-nxxtDark to-nxxtDark"></div>
-        <div class="relative z-10 max-w-3xl">
-            <h1 class="text-5xl md:text-8xl font-black uppercase mb-6 leading-none">
-                The Pitch Awaits. <br><span class="text-nxxtBlue">Season 2</span>
+    <header class="relative min-h-[90vh] flex flex-col items-center justify-center text-center px-4 pt-20 overflow-hidden">
+        <!-- Abstract Glow Background -->
+        <div class="absolute top-0 -left-20 w-[500px] h-[500px] bg-nxxtBlue/20 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-0 -right-20 w-[500px] h-[500px] bg-blue-900/20 rounded-full blur-[120px]"></div>
+        
+        <div class="relative z-10 max-w-4xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-nxxtBlue/30 bg-nxxtBlue/10 mb-8">
+                <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-nxxtBlue opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-nxxtBlue"></span></span>
+                <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-nxxtBlue">Season 2 Registration Open</span>
+            </div>
+            <h1 class="text-6xl md:text-9xl font-black uppercase mb-8 leading-[0.9] tracking-tighter">
+                The Pitch <br/><span class="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">Awaits.</span>
             </h1>
-            <p class="text-slate-400 text-lg md:text-xl mb-8">Precision. Power. Performance. The Elite League returns for its second chapter.</p>
-            <a href="#structure" class="px-8 py-4 bg-white text-nxxtDark font-black rounded-lg hover:bg-slate-200 transition-colors">Explore Season Structure</a>
+            <p class="text-slate-400 text-lg md:text-xl mb-10 max-w-xl mx-auto">Tactical precision meets raw competition. Prepare your squad for the most advanced iteration of the Elite League yet.</p>
+            <a href="#structure" class="px-10 py-4 bg-white text-nxxtDark font-black rounded-lg hover:bg-nxxtBlue hover:text-white transition-all duration-300 shadow-[0_0_40px_-10px_rgba(37,99,235,0.5)]">
+                VIEW FORMAT
+            </a>
         </div>
     </header>
 
     <!-- Season 1 Winner -->
-    <section class="py-20 px-6 max-w-5xl mx-auto">
-        <div class="grid md:grid-cols-2 gap-12 items-center bg-slate-900/50 p-6 md:p-12 rounded-3xl border border-white/5">
-            <div class="space-y-4">
-                <span class="text-nxxtBlue font-bold tracking-widest text-xs uppercase">Legacy</span>
-                <h2 class="text-4xl font-black">Reigning Champions</h2>
-                <p class="text-slate-400 leading-relaxed">
-                    Season 1 saw the rise of the <strong>Titans FC</strong>. With a record-breaking defense and a lethal counter-attack, they etched their names into the Elite League history books. Will they hold the crown, or will a new challenger emerge?
-                </p>
+    <section class="py-32 px-6 max-w-7xl mx-auto">
+        <div class="relative grid md:grid-cols-2 gap-16 items-center p-1 bg-[linear-gradient(180deg,_rgba(255,255,255,0.05)_0%,_rgba(255,255,255,0)_100%)] rounded-[2rem]">
+            <div class="bg-nxxtDark p-12 rounded-[1.9rem]">
+                <span class="text-nxxtBlue font-bold tracking-[0.3em] text-[10px] uppercase mb-4 block">Legacy / S1</span>
+                <h2 class="text-5xl font-black mb-6 tracking-tighter">Titans FC<br/><span class="text-white/30">Dominance</span></h2>
+                <p class="text-slate-400 leading-relaxed mb-8">Season 1 wasn't just a win; it was a statement. With a record-breaking defense, Titans FC set the blueprint. The trophy isn't just metal; it's the standard for Season 2.</p>
             </div>
-            <div class="h-64 md:h-80 w-full rounded-2xl overflow-hidden bg-slate-800 relative">
-                 <img src="https://static.vecteezy.com/system/resources/thumbnails/074/013/768/small/a-person-in-silhouette-holds-a-shining-trophy-against-a-vibrant-golden-sunset-sky-celebrating-victory-photo.jpg" alt="Winner holding trophy" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity">
+            <div class="pr-6">
+                <div class="h-96 w-full rounded-3xl overflow-hidden relative shadow-2xl group border border-white/5">
+                    <div class="absolute inset-0 bg-nxxtBlue/20 group-hover:bg-transparent transition-all duration-500"></div>
+                    <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80&w=800" alt="Victory" class="w-full h-full object-cover">
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Structure -->
-    <section id="structure" class="py-20 px-6 max-w-5xl mx-auto">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl font-black mb-4">Season 2 Structure</h2>
-            <p class="text-slate-400">A refined format for maximum competition.</p>
-        </div>
+    <section id="structure" class="py-32 px-6 max-w-7xl mx-auto border-t border-white/5">
+        <h2 class="text-5xl font-black mb-20 text-center tracking-tighter">Structure <span class="text-white/20">S2</span></h2>
 
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="p-8 bg-slate-900 border border-white/5 rounded-2xl hover:border-nxxtBlue transition-colors">
-                <div class="text-nxxtBlue text-3xl mb-4">01</div>
-                <h3 class="text-xl font-bold mb-2">Group Stage</h3>
-                <p class="text-slate-400 text-sm">Teams are drawn into two elite groups. Top two from each group advance to the knockout phase.</p>
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div class="group p-10 bg-white/5 rounded-3xl border border-white/5 hover:border-nxxtBlue transition-all duration-500">
+                <div class="text-nxxtBlue text-4xl font-black mb-6">01.</div>
+                <h3 class="text-2xl font-bold mb-4">Group Stages</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Round-robin format designed to test endurance and tactical depth. Only the top two advance.</p>
             </div>
-            <div class="p-8 bg-slate-900 border border-white/5 rounded-2xl hover:border-nxxtBlue transition-colors">
-                <div class="text-nxxtBlue text-3xl mb-4">02</div>
-                <h3 class="text-xl font-bold mb-2">The Knockouts</h3>
-                <p class="text-slate-400 text-sm">High-stakes single elimination matches. No second chances. Pure intensity.</p>
+            <!-- Card 2 -->
+            <div class="group p-10 bg-white/5 rounded-3xl border border-white/5 hover:border-nxxtBlue transition-all duration-500">
+                <div class="text-nxxtBlue text-4xl font-black mb-6">02.</div>
+                <h3 class="text-2xl font-bold mb-4">Knockouts</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Single elimination. High-pressure atmosphere where one mistake ends the campaign.</p>
             </div>
-            <div class="p-8 bg-slate-900 border border-white/5 rounded-2xl hover:border-nxxtBlue transition-colors">
-                <div class="text-nxxtBlue text-3xl mb-4">03</div>
-                <h3 class="text-xl font-bold mb-2">Grand Finale</h3>
-                <p class="text-slate-400 text-sm">The ultimate showdown at the main stadium to decide the Season 2 champions.</p>
+            <!-- Card 3 -->
+            <div class="group p-10 bg-white/5 rounded-3xl border border-white/5 hover:border-nxxtBlue transition-all duration-500">
+                <div class="text-nxxtBlue text-4xl font-black mb-6">03.</div>
+                <h3 class="text-2xl font-bold mb-4">Grand Finale</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">The ultimate stage. Neutral venue, full production, and a legacy to be written.</p>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="py-12 text-center border-t border-white/10">
-        <p class="text-slate-500 text-sm uppercase tracking-widest font-bold">© 2026 Elite League • Powered by Tech Nxxt</p>
+    <footer class="py-20 text-center border-t border-white/5">
+        <p class="text-slate-600 text-[10px] uppercase tracking-[0.4em] font-bold">© 2026 Elite League • Tech Nxxt Tactical Systems</p>
     </footer>
 
 </body>
