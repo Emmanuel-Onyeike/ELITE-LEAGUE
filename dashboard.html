@@ -137,59 +137,63 @@ body {
         </div>
     </div>
 </header>
-    <div class="flex pt-16 h-screen">
-        <!-- SIDEBAR (PC) -->
-        <aside id="sidebar" class="sidebar hidden lg:flex flex-col w-72 border-r border-white/10 overflow-y-auto">
-            <div class="p-6 flex-1">
-                <nav class="space-y-1">
-                    <a onclick="switchView('Overview')" class="nav-link active flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm font-medium cursor-pointer">
-                        <i class="fa-solid fa-house w-5"></i>
-                        <span>Overview</span>
-                    </a>
-                    <a onclick="switchView('Standings')" class="nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm font-medium cursor-pointer">
-                        <i class="fa-solid fa-trophy w-5"></i>
-                        <span>Standings</span>
-                    </a>
-                    <a onclick="switchView('Fixtures')" class="nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm font-medium cursor-pointer">
-                        <i class="fa-solid fa-calendar-days w-5"></i>
-                        <span>Fixtures</span>
-                    </a>
-                    <a onclick="switchView('Leaderboard')" class="nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm font-medium cursor-pointer">
-                        <i class="fa-solid fa-ranking-star w-5"></i>
-                        <span>Leaderboard</span>
-                    </a>
-                    <a onclick="switchView('Live Feed')" class="nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm font-medium cursor-pointer">
-                        <i class="fa-solid fa-broadcast-tower w-5"></i>
-                        <span>Live Feed</span>
-                    </a>
-                    <a onclick="switchView('Records')" class="nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm font-medium cursor-pointer">
-                        <i class="fa-solid fa-bookmark w-5"></i>
-                        <span>Records</span>
-                    </a>
-                    <a onclick="switchView('Database')" class="nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm font-medium cursor-pointer">
-                        <i class="fa-solid fa-database w-5"></i>
-                        <span>Database</span>
-                    </a>
-                </nav>
-            </div>
-            
-            <!-- BOTTOM BAR -->
-            <div class="p-6 border-t border-white/10">
-                <div class="bg-zinc-900 rounded-3xl p-4 text-xs">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="text-emerald-400 font-medium">● LIVE</div>
-                        <div class="font-mono text-[10px]">NEXT KICKOFF</div>
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="switchView('Fixtures')" 
-                                class="flex-1 bg-white/5 hover:bg-white/10 transition py-3 rounded-2xl text-sm font-medium">
-                            VIEW GAMES
-                        </button>
-                    </div>
+    
+   <aside id="sidebar" class="sidebar hidden lg:flex flex-col w-72 border-r border-white/5 bg-zinc-950/50 backdrop-blur-3xl">
+    <div class="p-6 flex-1">
+        <div class="mb-8 px-4">
+            <span class="text-[9px] font-bold tracking-[0.2em] text-white/30 uppercase">Core Systems</span>
+        </div>
+        
+        <nav class="space-y-1.5">
+            <!-- Example of enhanced link styling -->
+            <a onclick="switchView('Overview')" class="nav-link active flex items-center gap-4 px-5 py-3 rounded-2xl text-[13px] font-bold cursor-pointer transition-all">
+                <i class="fa-solid fa-house text-[14px] opacity-70"></i>
+                <span>Overview</span>
+            </a>
+            <a onclick="switchView('Standings')" class="nav-link flex items-center gap-4 px-5 py-3 rounded-2xl text-[13px] font-medium text-white/60 hover:text-white cursor-pointer transition-all">
+                <i class="fa-solid fa-trophy text-[14px] opacity-50"></i>
+                <span>Standings</span>
+            </a>
+            <a onclick="switchView('Fixtures')" class="nav-link flex items-center gap-4 px-5 py-3 rounded-2xl text-[13px] font-medium text-white/60 hover:text-white cursor-pointer transition-all">
+                <i class="fa-solid fa-calendar-days text-[14px] opacity-50"></i>
+                <span>Fixtures</span>
+            </a>
+            <a onclick="switchView('Leaderboard')" class="nav-link flex items-center gap-4 px-5 py-3 rounded-2xl text-[13px] font-medium text-white/60 hover:text-white cursor-pointer transition-all">
+                <i class="fa-solid fa-ranking-star text-[14px] opacity-50"></i>
+                <span>Leaderboard</span>
+            </a>
+            <div class="my-4 border-t border-white/5"></div>
+            <a onclick="switchView('Live Feed')" class="nav-link flex items-center gap-4 px-5 py-3 rounded-2xl text-[13px] font-medium text-white/60 hover:text-white cursor-pointer transition-all">
+                <i class="fa-solid fa-broadcast-tower text-[14px] opacity-50"></i>
+                <span>Live Feed</span>
+            </a>
+            <a onclick="switchView('Records')" class="nav-link flex items-center gap-4 px-5 py-3 rounded-2xl text-[13px] font-medium text-white/60 hover:text-white cursor-pointer transition-all">
+                <i class="fa-solid fa-bookmark text-[14px] opacity-50"></i>
+                <span>Records</span>
+            </a>
+            <a onclick="switchView('Database')" class="nav-link flex items-center gap-4 px-5 py-3 rounded-2xl text-[13px] font-medium text-white/60 hover:text-white cursor-pointer transition-all">
+                <i class="fa-solid fa-database text-[14px] opacity-50"></i>
+                <span>Database</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- BOTTOM BAR: Refined to look like a terminal widget -->
+    <div class="p-6 border-t border-white/5">
+        <div class="bg-gradient-to-br from-white/5 to-transparent rounded-3xl p-5 border border-white/5">
+            <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2 text-emerald-400 text-[10px] font-bold tracking-widest uppercase">
+                    <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span></span>
+                    Live Link
                 </div>
             </div>
-        </aside>
-
+            <p class="text-[10px] text-white/40 mb-4 leading-relaxed uppercase tracking-wider">Next match: Faculty Derby Series</p>
+            <button onclick="switchView('Fixtures')" class="w-full bg-white text-zinc-950 py-2.5 rounded-xl text-[11px] font-bold hover:bg-cyan-400 transition-colors uppercase tracking-widest">
+                Deploy Matchview
+            </button>
+        </div>
+    </div>
+</aside>
         <!-- MAIN CONTENT -->
         <main class="flex-1 flex flex-col overflow-hidden">
             <!-- CONTENT AREA -->
