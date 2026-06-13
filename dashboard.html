@@ -10,15 +10,13 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
         
         :root {
-            --primary: #2563eb;
-            --primary-glow: rgba(37, 99, 235, 0.3);
-            --bg-dark: #020617;
-            --border-color: rgba(255, 255, 255, 0.08);
+            --primary: #22d3ee;
+            --accent: #eab308;
         }
         
         body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: var(--bg-dark);
+            font-family: 'Inter', system_ui, sans-serif;
+            background: #0a0a0a;
             color: #f1f5f9;
             overflow: hidden;
             height: 100vh;
@@ -29,153 +27,163 @@
         /* SIDEBAR */
         .sidebar {
             width: 280px;
-            background: rgba(2, 6, 23, 0.8);
-            backdrop-filter: blur(20px);
-            border-right: 1px solid var(--border-color);
+            background: rgba(10, 10, 10, 0.95);
+            border-right: 1px solid #27272a;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .nav-link {
-            position: relative;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .nav-link:hover {
-            background: rgba(37, 99, 235, 0.05);
-            padding-left: 2rem;
+            background: rgba(34, 211, 238, 0.1);
+            transform: translateX(8px);
         }
         
         .nav-link.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 20px var(--primary-glow);
+            background: #22d3ee;
+            color: #0a0a0a;
+            font-weight: 600;
+            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.3);
+        }
+        
+        /* MOBILE MENU */
+        .mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* CONTENT */
+        .main-content {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .view-active {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         /* VIEW CARDS */
         .view-card {
-            background: linear-gradient(165deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
-            border: 1px solid var(--border-color);
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .view-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 30px -10px var(--primary-glow);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+            border-color: #22d3ee;
         }
         
-        /* STAT CARDS */
+        /* DASHBOARD STATS */
         .stat-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05);
-            backdrop-filter: blur(8px);
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .stat-card:hover {
-            background: rgba(255,255,255,0.04);
-            border-color: rgba(37, 99, 235, 0.5);
+            transform: scale(1.03);
+            border-color: #eab308;
         }
         
-        /* ANIMATIONS */
-        .view-active {
-            animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        /* CLOCK */
+        #clock {
+            font-variant-numeric: tabular-nums;
         }
-        
-        @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* SCROLLBAR */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
     </style>
 </head>
 <body class="bg-zinc-950 text-white">
     <!-- HEADER -->
-    <header class="fixed top-0 left-0 right-0 z-50 h-16 bg-zinc-950/80 backdrop-blur-xl border-b border-white/5 flex items-center px-4 lg:px-8">
-        <div class="flex items-center justify-between w-full max-w-7xl mx-auto">
-            <div class="flex items-center gap-4">
-                <button onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 flex items-center justify-center hover:bg-white/5 rounded-lg transition-colors">
-                    <i class="fa-solid fa-bars text-xl"></i>
-                </button>
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center rounded-xl">
-                        <i class="fa-solid fa-crown text-cyan-400 text-sm"></i>
-                    </div>
-                    <div class="hidden sm:block">
-                        <span class="font-grotesk text-lg tracking-tighter font-bold text-white">ELITE</span>
-                        <span class="text-[9px] text-cyan-400 tracking-[0.2em] block -mt-1 uppercase">S2 Command</span>
-                    </div>
+    <header class="fixed top-0 left-0 right-0 z-50 h-16 bg-zinc-950/90 backdrop-blur-2xl border-b border-white/10 flex items-center px-6">
+        <div class="flex items-center justify-between w-full">
+            <!-- MOBILE MENU BUTTON -->
+            <button onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 flex items-center justify-center text-2xl">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <!-- LOGO -->
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-cyan-400 flex items-center justify-center rounded-2xl">
+                    <i class="fa-solid fa-crown text-zinc-950 text-xl"></i>
+                </div>
+                <div>
+                    <span class="font-grotesk text-2xl tracking-tighter font-semibold">ELITE</span>
+                    <span class="text-[10px] text-cyan-400 tracking-[4px] block -mt-1">COMMAND CENTER</span>
                 </div>
             </div>
-            <div class="flex items-center gap-4">
-                <div id="clock" class="font-mono text-xs font-medium text-white/40 tabular-nums">00:00:00</div>
+
+            <!-- RIGHT SIDE -->
+            <div class="flex items-center gap-6">
+                <!-- CLOCK -->
+                <div id="clock" class="font-mono text-sm font-medium text-white/70">00:00:00</div>
+                
+                <!-- USER -->
+                <div class="flex items-center gap-3">
+                    <div class="text-right">
+                        <div class="text-sm font-medium">Admin Zuby</div>
+                        <div class="text-[10px] text-emerald-400">ONLINE • PORT HARCOURT NODE</div>
+                    </div>
+                    <div class="w-9 h-9 bg-white/10 rounded-2xl flex items-center justify-center">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
-    <div class="flex h-screen w-full overflow-hidden pt-16">
-        <!-- SIDEBAR -->
-        <aside id="sidebar" class="sidebar hidden lg:flex flex-col w-72 border-r border-white/5 bg-zinc-950/50 backdrop-blur-3xl">
+    <div class="flex pt-16 h-screen">
+        <!-- SIDEBAR (PC) -->
+        <aside id="sidebar" class="sidebar hidden lg:flex flex-col w-72 border-r border-white/10 overflow-y-auto">
             <div class="p-6 flex-1">
-                <div class="mb-8 px-4">
-                    <span class="text-[9px] font-bold tracking-[0.2em] text-white/30 uppercase">Core Systems</span>
-                </div>
-                <nav class="space-y-1.5">
-                    <a onclick="switchView('Overview')" class="nav-link active flex items-center gap-4 px-5 py-3 rounded-2xl text-[13px] font-bold cursor-pointer transition-all">
-                        <i class="fa-solid fa-house text-[14px] opacity-70"></i>
+                <nav class="space-y-1">
+                    <a onclick="switchView('Overview')" class="nav-link active flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm font-medium cursor-pointer">
+                        <i class="fa-solid fa-house w-5"></i>
                         <span>Overview</span>
                     </a>
-                    <a onclick="switchView('Standings')" class="nav-link flex items-center gap-4 px-5 py-3 rounded-2xl text-[13px] font-medium text-white/60 hover:text-white cursor-pointer transition-all">
-                        <i class="fa-solid fa-trophy text-[14px] opacity-50"></i>
+                    <a onclick="switchView('Standings')" class="nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm font-medium cursor-pointer">
+                        <i class="fa-solid fa-trophy w-5"></i>
                         <span>Standings</span>
                     </a>
-                    <a onclick="switchView('Fixtures')" class="nav-link flex items-center gap-4 px-5 py-3 rounded-2xl text-[13px] font-medium text-white/60 hover:text-white cursor-pointer transition-all">
-                        <i class="fa-solid fa-calendar-days text-[14px] opacity-50"></i>
+                    <a onclick="switchView('Fixtures')" class="nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm font-medium cursor-pointer">
+                        <i class="fa-solid fa-calendar-days w-5"></i>
                         <span>Fixtures</span>
                     </a>
-                    <a onclick="switchView('Leaderboard')" class="nav-link flex items-center gap-4 px-5 py-3 rounded-2xl text-[13px] font-medium text-white/60 hover:text-white cursor-pointer transition-all">
-                        <i class="fa-solid fa-ranking-star text-[14px] opacity-50"></i>
+                    <a onclick="switchView('Leaderboard')" class="nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm font-medium cursor-pointer">
+                        <i class="fa-solid fa-ranking-star w-5"></i>
                         <span>Leaderboard</span>
                     </a>
-                    <div class="my-4 border-t border-white/5"></div>
-                    <a onclick="switchView('Live Feed')" class="nav-link flex items-center gap-4 px-5 py-3 rounded-2xl text-[13px] font-medium text-white/60 hover:text-white cursor-pointer transition-all">
-                        <i class="fa-solid fa-broadcast-tower text-[14px] opacity-50"></i>
+                    <a onclick="switchView('Live Feed')" class="nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm font-medium cursor-pointer">
+                        <i class="fa-solid fa-broadcast-tower w-5"></i>
                         <span>Live Feed</span>
                     </a>
-                    <a onclick="switchView('Records')" class="nav-link flex items-center gap-4 px-5 py-3 rounded-2xl text-[13px] font-medium text-white/60 hover:text-white cursor-pointer transition-all">
-                        <i class="fa-solid fa-bookmark text-[14px] opacity-50"></i>
+                    <a onclick="switchView('Records')" class="nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm font-medium cursor-pointer">
+                        <i class="fa-solid fa-bookmark w-5"></i>
                         <span>Records</span>
                     </a>
-                    <a onclick="switchView('Database')" class="nav-link flex items-center gap-4 px-5 py-3 rounded-2xl text-[13px] font-medium text-white/60 hover:text-white cursor-pointer transition-all">
-                        <i class="fa-solid fa-database text-[14px] opacity-50"></i>
+                    <a onclick="switchView('Database')" class="nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm font-medium cursor-pointer">
+                        <i class="fa-solid fa-database w-5"></i>
                         <span>Database</span>
                     </a>
                 </nav>
             </div>
             
             <!-- BOTTOM BAR -->
-            <div class="p-6 border-t border-white/5 bg-zinc-950/20">
-                <div class="relative w-full overflow-hidden bg-gradient-to-br from-white/5 to-white/0 rounded-3xl p-5 border border-white/10 group">
-                    <div class="absolute -inset-0.5 bg-cyan-500/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="relative z-10">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="flex items-center gap-2 text-emerald-400 text-[10px] font-bold tracking-widest uppercase">
-                                <span class="relative flex h-2 w-2">
-                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-                                </span>
-                                Live Link
-                            </div>
-                        </div>
-                        <p class="text-[10px] text-white/50 mb-4 leading-relaxed uppercase tracking-wider">Next match: Faculty Derby Series</p>
-                        <button onclick="switchView('Fixtures')" class="w-full bg-white text-zinc-950 py-3 rounded-xl text-[10px] font-black hover:bg-cyan-400 transition-all uppercase tracking-[0.2em] shadow-lg">
-                            Deploy Matchview
+            <div class="p-6 border-t border-white/10">
+                <div class="bg-zinc-900 rounded-3xl p-4 text-xs">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-emerald-400 font-medium">● LIVE</div>
+                        <div class="font-mono text-[10px]">NEXT KICKOFF</div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="switchView('Fixtures')" 
+                                class="flex-1 bg-white/5 hover:bg-white/10 transition py-3 rounded-2xl text-sm font-medium">
+                            VIEW GAMES
                         </button>
                     </div>
                 </div>
@@ -183,236 +191,264 @@
         </aside>
 
         <!-- MAIN CONTENT -->
-        <main class="flex-1 flex flex-col h-full bg-[#020617] relative overflow-hidden">
-            <div id="content" class="relative flex-1 p-6 md:p-10 overflow-y-auto scroll-smooth">
-                <div class="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-700">
-                    <!-- Views injected here -->
-                </div>
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <!-- CONTENT AREA -->
+            <div id="content" class="flex-1 p-6 md:p-10 overflow-y-auto">
+                <!-- Dynamically injected views -->
             </div>
         </main>
     </div>
 
     <!-- MOBILE MENU MODAL -->
-    <div id="mobileMenu" class="hidden fixed inset-0 z-[999] flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-zinc-950/80 backdrop-blur-sm" onclick="toggleMobileMenu()"></div>
-        <div class="relative w-full max-w-sm bg-zinc-900 border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
+    <div id="mobileMenu" onclick="if(event.target.id === 'mobileMenu') toggleMobileMenu()" 
+         class="hidden fixed inset-0 bg-black/90 z-[999] flex items-end lg:hidden">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="bg-zinc-900 w-full rounded-t-3xl max-h-[85vh] overflow-hidden">
             <div class="p-6 border-b border-white/10 flex items-center justify-between">
-                <div class="flex flex-col">
-                    <span class="font-grotesk text-xl font-bold tracking-tighter">ELITE COMMAND</span>
-                    <span class="text-[9px] text-cyan-400 uppercase tracking-[0.2em]">System Navigation</span>
-                </div>
-                <button onclick="toggleMobileMenu()" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors">
-                    <i class="fa-solid fa-xmark text-sm"></i>
-                </button>
+                <div class="font-grotesk text-2xl font-semibold">ELITE MENU</div>
+                <button onclick="toggleMobileMenu()" class="text-3xl">✕</button>
             </div>
+            
             <div class="p-4">
-                <nav class="space-y-1">
-                    <a onclick="switchView('Overview');toggleMobileMenu()" class="flex items-center gap-4 px-5 py-4 hover:bg-cyan-500/10 rounded-2xl text-[15px] font-bold transition-all group">
-                        <i class="fa-solid fa-house w-6 text-white/50 group-hover:text-cyan-400 transition-colors"></i>
+                <nav class="space-y-2">
+                    <a onclick="switchView('Overview');toggleMobileMenu()" 
+                       class="flex items-center gap-4 px-6 py-5 hover:bg-white/5 rounded-3xl text-lg font-medium">
+                        <i class="fa-solid fa-house w-6"></i>
                         <span>Overview</span>
                     </a>
-                    <a onclick="switchView('Standings');toggleMobileMenu()" class="flex items-center gap-4 px-5 py-4 hover:bg-cyan-500/10 rounded-2xl text-[15px] font-bold transition-all group">
-                        <i class="fa-solid fa-trophy w-6 text-white/50 group-hover:text-cyan-400 transition-colors"></i>
+                    <a onclick="switchView('Standings');toggleMobileMenu()" 
+                       class="flex items-center gap-4 px-6 py-5 hover:bg-white/5 rounded-3xl text-lg font-medium">
+                        <i class="fa-solid fa-trophy w-6"></i>
                         <span>Standings</span>
                     </a>
-                    <a onclick="switchView('Fixtures');toggleMobileMenu()" class="flex items-center gap-4 px-5 py-4 hover:bg-cyan-500/10 rounded-2xl text-[15px] font-bold transition-all group">
-                        <i class="fa-solid fa-calendar-days w-6 text-white/50 group-hover:text-cyan-400 transition-colors"></i>
+                    <a onclick="switchView('Fixtures');toggleMobileMenu()" 
+                       class="flex items-center gap-4 px-6 py-5 hover:bg-white/5 rounded-3xl text-lg font-medium">
+                        <i class="fa-solid fa-calendar-days w-6"></i>
                         <span>Fixtures</span>
                     </a>
-                    <a onclick="switchView('Leaderboard');toggleMobileMenu()" class="flex items-center gap-4 px-5 py-4 hover:bg-cyan-500/10 rounded-2xl text-[15px] font-bold transition-all group">
-                        <i class="fa-solid fa-ranking-star w-6 text-white/50 group-hover:text-cyan-400 transition-colors"></i>
+                    <a onclick="switchView('Leaderboard');toggleMobileMenu()" 
+                       class="flex items-center gap-4 px-6 py-5 hover:bg-white/5 rounded-3xl text-lg font-medium">
+                        <i class="fa-solid fa-ranking-star w-6"></i>
                         <span>Leaderboard</span>
                     </a>
-                    <a onclick="switchView('Live Feed');toggleMobileMenu()" class="flex items-center gap-4 px-5 py-4 hover:bg-cyan-500/10 rounded-2xl text-[15px] font-bold transition-all group">
-                        <i class="fa-solid fa-broadcast-tower w-6 text-white/50 group-hover:text-cyan-400 transition-colors"></i>
+                    <a onclick="switchView('Live Feed');toggleMobileMenu()" 
+                       class="flex items-center gap-4 px-6 py-5 hover:bg-white/5 rounded-3xl text-lg font-medium">
+                        <i class="fa-solid fa-broadcast-tower w-6"></i>
                         <span>Live Feed</span>
                     </a>
-                    <a onclick="switchView('Records');toggleMobileMenu()" class="flex items-center gap-4 px-5 py-4 hover:bg-cyan-500/10 rounded-2xl text-[15px] font-bold transition-all group">
-                        <i class="fa-solid fa-bookmark w-6 text-white/50 group-hover:text-cyan-400 transition-colors"></i>
+                    <a onclick="switchView('Records');toggleMobileMenu()" 
+                       class="flex items-center gap-4 px-6 py-5 hover:bg-white/5 rounded-3xl text-lg font-medium">
+                        <i class="fa-solid fa-bookmark w-6"></i>
                         <span>Records</span>
                     </a>
-                    <a onclick="switchView('Database');toggleMobileMenu()" class="flex items-center gap-4 px-5 py-4 hover:bg-cyan-500/10 rounded-2xl text-[15px] font-bold transition-all group">
-                        <i class="fa-solid fa-database w-6 text-white/50 group-hover:text-cyan-400 transition-colors"></i>
+                    <a onclick="switchView('Database');toggleMobileMenu()" 
+                       class="flex items-center gap-4 px-6 py-5 hover:bg-white/5 rounded-3xl text-lg font-medium">
+                        <i class="fa-solid fa-database w-6"></i>
                         <span>Database</span>
                     </a>
                 </nav>
             </div>
-            <div class="px-6 py-4 border-t border-white/5 bg-white/5 flex justify-between items-center text-[10px] text-white/40 uppercase tracking-widest">
-                <span>CSC 400</span>
-                <span>2026 // Ops</span>
+            
+            <div class="p-6 text-center text-xs text-white/30">
+                CSC 400 • Undefeated • 2026
             </div>
         </div>
     </div>
 
     <script>
+        // Sample data for dashboard
         const views = {
             'Overview': `
-                <div class="max-w-7xl mx-auto space-y-12">
-                    <div class="flex flex-col lg:flex-row gap-8 items-start">
+                <div class="max-w-7xl mx-auto">
+                    <!-- HERO -->
+                    <div class="flex flex-col lg:flex-row gap-10 items-end mb-12">
                         <div class="flex-1">
-                            <div class="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/20 px-4 py-1.5 rounded-full text-[10px] tracking-[0.2em] font-bold text-cyan-400 mb-6">
-                                <div class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse"></div>
-                                SEASON ACTIVE
+                            <div class="inline-flex items-center gap-2 bg-white/5 px-5 py-2 rounded-3xl text-sm mb-6">
+                                <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                                ALL SYSTEMS OPERATIONAL
                             </div>
-                            <h1 class="font-grotesk text-5xl lg:text-7xl font-bold tracking-tighter leading-[0.9] mb-6">
-                                PLAYER<br><span class="text-white/30">DASHBOARD</span>
+                            <h1 class="font-grotesk text-7xl lg:text-8xl font-bold tracking-tighter leading-none mb-4">
+                                ELITE<br>COMMAND CENTER
                             </h1>
-                            <p class="text-lg text-white/50 max-w-sm">Welcome back. Stay updated on your league performance, upcoming fixtures, and team standings.</p>
+                            <p class="text-2xl text-white/60 max-w-md">
+                                Welcome back, Commander. The 2026 season is about to ignite.
+                            </p>
                         </div>
-                        <div class="w-full lg:w-96 bg-white/5 border border-white/10 rounded-3xl p-6 flex flex-col justify-between">
-                            <div>
-                                <div class="text-[9px] text-white/40 font-bold tracking-[0.2em] uppercase mb-1">Your Next Fixture</div>
-                                <div class="text-2xl font-bold mb-6 tracking-tight">NIL vs NIL</div>
-                            </div>
-                            <div class="flex items-end justify-between">
-                                <div class="flex flex-col">
-                                    <span class="text-3xl font-bold text-white/20">--</span>
-                                    <span class="text-[10px] text-white/20 uppercase tracking-widest">Awaiting Schedule</span>
+                        
+                        <!-- Live Status -->
+                        <div class="bg-white/5 border border-white/10 rounded-3xl p-8 w-full lg:w-96">
+                            <div class="flex justify-between items-start mb-8">
+                                <div>
+                                    <div class="text-cyan-400 text-xs font-mono tracking-widest">NEXT MATCH</div>
+                                    <div class="text-4xl font-bold mt-1">CSC 400 vs LAW 500</div>
                                 </div>
-                                <button onclick="switchView('Fixtures')" class="bg-white/5 border border-white/10 text-white/50 px-6 py-3 rounded-xl text-[11px] font-bold hover:bg-white/10 transition-colors uppercase tracking-widest">
-                                    Check Calendar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        ${[
-                            {label: 'TEAMS', val: '21', icon: 'fa-shield'},
-                            {label: 'GROUPS', val: '5', icon: 'fa-layer-group'},
-                            {label: 'GOALS', val: '0', icon: 'fa-futbol'},
-                            {label: 'MATCHES', val: '0', icon: 'fa-calendar-days'},
-                            {label: 'PLAYERS', val: '273', icon: 'fa-users'},
-                            {label: 'OFFICIALS', val: '9', icon: 'fa-user-tie'}
-                        ].map(stat => `
-                            <div class="group relative bg-white/5 border border-white/10 rounded-3xl p-6 overflow-hidden hover:border-cyan-500/50 transition-all duration-300">
-                                <div class="absolute -top-10 -right-10 w-20 h-20 bg-cyan-500/10 blur-3xl rounded-full group-hover:bg-cyan-500/20 transition-all"></div>
-                                <div class="relative flex items-center justify-between mb-4">
-                                    <div class="text-[9px] text-white/40 font-bold tracking-widest uppercase">${stat.label}</div>
-                                    <i class="fa-solid ${stat.icon} text-white/20 group-hover:text-cyan-400 transition-colors duration-300"></i>
+                                <div class="text-right">
+                                    <div class="text-5xl font-bold text-emerald-400">27</div>
+                                    <div class="text-xs uppercase tracking-widest">DAYS</div>
                                 </div>
-                                <div class="relative text-3xl font-bold font-mono group-hover:text-cyan-400 transition-colors duration-300">${stat.val}</div>
                             </div>
-                        `).join('')}
-                    </div>
-
-                    <div class="space-y-6">
-                        <div class="flex items-center justify-between">
-                            <div class="text-xs font-bold text-white/40 tracking-[0.2em] uppercase">League Updates</div>
-                        </div>
-                        <div class="bg-white/5 border border-dashed border-white/10 rounded-3xl p-12 text-center flex flex-col items-center">
-                            <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center text-2xl mb-4">
-                                <i class="fa-solid fa-newspaper text-white/20"></i>
-                            </div>
-                            <div class="font-bold text-lg mb-1">No Updates Yet</div>
-                            <p class="text-white/40 text-sm max-w-xs">League officials haven't posted any updates. Check back later for match news and announcements.</p>
-                        </div>
-                    </div>
-                </div>
-            `,
-
-            'Standings': `
-                <div class="max-w-7xl mx-auto space-y-8">
-                    <div>
-                        <h2 class="font-grotesk text-4xl font-bold tracking-tighter">LEAGUE STANDINGS</h2>
-                        <p class="text-white/40 mt-1 tracking-widest text-[10px] uppercase">Independent Group Metrics</p>
-                    </div>
-                    <div class="grid grid-cols-2 lg:grid-cols-5 gap-3">
-                        ${['A', 'B', 'C', 'D', 'E'].map(id => `
-                            <button onclick="switchGroup('${id}')"
-                                    class="bg-white/5 border border-white/10 p-4 rounded-2xl text-left hover:border-cyan-500/50 transition-all">
-                                <div class="text-xs font-bold text-cyan-400 mb-1">GROUP ${id}</div>
-                                <div class="text-[9px] text-white/40 uppercase tracking-wider">Deploy Metrics</div>
+                            
+                            <button onclick="alert('Opening full game page in new tab...')" 
+                                    class="w-full py-5 bg-cyan-400 hover:bg-white text-zinc-950 font-bold rounded-3xl text-sm tracking-widest transition">
+                                WATCH LIVE NOW
                             </button>
-                        `).join('')}
+                        </div>
                     </div>
-                    <div id="standings-wrapper">
-                        ${['A', 'B', 'C', 'D', 'E'].map(id => `
-                            <div id="group-${id}" class="group-container hidden bg-zinc-900 border border-white/5 rounded-3xl overflow-hidden">
-                                <div class="p-6 border-b border-white/5 flex justify-between items-center">
-                                    <h3 class="font-bold text-lg">GROUP ${id} PERFORMANCE</h3>
+
+                    <!-- DASHBOARD STATS -->
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                        <div class="stat-card rounded-3xl p-8">
+                            <div class="flex justify-between">
+                                <div>
+                                    <div class="text-xs text-white/50">WINS</div>
+                                    <div class="text-6xl font-bold text-white mt-3">8</div>
                                 </div>
-                                <table class="w-full text-xs">
-                                    <thead>
-                                        <tr class="text-white/30 uppercase tracking-[0.2em] bg-white/5">
-                                            <th class="p-4 text-left">Team</th>
-                                            <th class="p-4 text-center">MP</th>
-                                            <th class="p-4 text-center">W</th>
-                                            <th class="p-4 text-center">D</th>
-                                            <th class="p-4 text-center">L</th>
-                                            <th class="p-4 text-center">GF</th>
-                                            <th class="p-4 text-center">GA</th>
-                                            <th class="p-4 text-center">GD</th>
-                                            <th class="p-4 text-center text-cyan-400">PTS</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="body-${id}" class="divide-y divide-white/5">
-                                    </tbody>
-                                </table>
+                                <div class="text-6xl text-emerald-400/20">✓</div>
                             </div>
-                        `).join('')}
+                            <div class="mt-8 h-2 bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full w-[100%] bg-emerald-400 rounded-full"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card rounded-3xl p-8">
+                            <div class="flex justify-between">
+                                <div>
+                                    <div class="text-xs text-white/50">NEXT KICKOFF</div>
+                                    <div class="text-3xl font-bold mt-2">OCT 15</div>
+                                </div>
+                                <div class="text-6xl text-amber-400/20">⚽</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card rounded-3xl p-8">
+                            <div class="flex justify-between">
+                                <div>
+                                    <div class="text-xs text-white/50">CURRENT RANK</div>
+                                    <div class="text-6xl font-bold text-cyan-400 mt-3">1ST</div>
+                                </div>
+                                <div class="text-6xl text-cyan-400/20">🏆</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card rounded-3xl p-8">
+                            <div class="flex justify-between">
+                                <div>
+                                    <div class="text-xs text-white/50">ATTENDANCE</div>
+                                    <div class="text-6xl font-bold mt-3">98.7%</div>
+                                </div>
+                                <div class="text-6xl text-purple-400/20">👥</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card rounded-3xl p-8">
+                            <div class="flex justify-between">
+                                <div>
+                                    <div class="text-xs text-white/50">POINTS</div>
+                                    <div class="text-6xl font-bold mt-3">48</div>
+                                </div>
+                                <div class="text-6xl text-violet-400/20">⭐</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- QUICK LINKS -->
+                    <div class="mt-16">
+                        <div class="text-sm uppercase tracking-widest text-white/40 mb-6 flex items-center gap-3">
+                            <div class="flex-1 h-px bg-white/10"></div>
+                            QUICK ACTIONS
+                            <div class="flex-1 h-px bg-white/10"></div>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                            <button onclick="switchView('Fixtures')" 
+                                    class="view-card p-8 rounded-3xl text-left hover:scale-105 transition">
+                                <div class="text-4xl mb-4">📅</div>
+                                <div class="font-bold text-lg">View Fixtures</div>
+                                <div class="text-sm text-white/50 mt-1">All upcoming matches</div>
+                            </button>
+                            <button onclick="switchView('Live Feed')" 
+                                    class="view-card p-8 rounded-3xl text-left hover:scale-105 transition">
+                                <div class="text-4xl mb-4">📺</div>
+                                <div class="font-bold text-lg">Live Broadcast</div>
+                                <div class="text-sm text-white/50 mt-1">Watch the games now</div>
+                            </button>
+                            <button onclick="switchView('Standings')" 
+                                    class="view-card p-8 rounded-3xl text-left hover:scale-105 transition">
+                                <div class="text-4xl mb-4">🏆</div>
+                                <div class="font-bold text-lg">Current Table</div>
+                                <div class="text-sm text-white/50 mt-1">Full league standings</div>
+                            </button>
+                            <button onclick="switchView('Leaderboard')" 
+                                    class="view-card p-8 rounded-3xl text-left hover:scale-105 transition">
+                                <div class="text-4xl mb-4">🥇</div>
+                                <div class="font-bold text-lg">Top Scorers</div>
+                                <div class="text-sm text-white/50 mt-1">Player of the year</div>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <script>
-                    const leagueData = {
-                        'A': [
-                            {team: 'FACIT-100', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
-                            {team: 'FACIT-200', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
-                            {team: 'FACIT-300', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
-                            {team: 'FACIT-400', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0}
-                        ],
-                        'B': [
-                            {team: 'LAW-100', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
-                            {team: 'LAW-200', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
-                            {team: 'LAW-300', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
-                            {team: 'LAW-400', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
-                            {team: 'LAW-500', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0}
-                        ],
-                        'C': [
-                            {team: 'MSS-100', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
-                            {team: 'MSS-200', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
-                            {team: 'MSS-300', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
-                            {team: 'MSS-400', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0}
-                        ],
-                        'D': [
-                            {team: 'NASES-100', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
-                            {team: 'NASES-200', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
-                            {team: 'NASES-300', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
-                            {team: 'NASES-400', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0}
-                        ],
-                        'E': [
-                            {team: 'EDUARTS-100', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
-                            {team: 'EDUARTS-200', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
-                            {team: 'EDUARTS-300', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0},
-                            {team: 'EDUARTS-400', mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0}
-                        ]
-                    };
-                    function switchGroup(id) {
-                        document.querySelectorAll('.group-container').forEach(el => el.classList.add('hidden'));
-                        document.getElementById('group-' + id).classList.remove('hidden');
-                        const tbody = document.getElementById('body-' + id);
-                        tbody.innerHTML = leagueData[id].map(row => `
-                            <tr class="hover:bg-white/5 transition-colors">
-                                <td class="p-4 flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center border border-white/10 overflow-hidden">
-                                        <i class="fa-solid fa-shield-halved text-[10px] text-white/40"></i>
-                                    </div>
-                                    <span class="font-bold">${row.team}</span>
-                                </td>
-                                <td class="p-4 text-center font-mono">${row.mp}</td>
-                                <td class="p-4 text-center font-mono">${row.w}</td>
-                                <td class="p-4 text-center font-mono">${row.d}</td>
-                                <td class="p-4 text-center font-mono">${row.l}</td>
-                                <td class="p-4 text-center font-mono">${row.gf}</td>
-                                <td class="p-4 text-center font-mono">${row.ga}</td>
-                                <td class="p-4 text-center font-mono">${row.gd}</td>
-                                <td class="p-4 text-center font-bold font-mono text-cyan-400">${row.pts}</td>
-                            </tr>
-                        `).join('');
-                    }
-                </script>
             `,
-
+            
+            'Standings': `
+                <div class="max-w-6xl mx-auto">
+                    <h2 class="font-grotesk text-5xl font-bold tracking-tighter mb-8">LEAGUE STANDINGS</h2>
+                    <div class="bg-zinc-900 rounded-3xl overflow-hidden">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="border-b border-white/10">
+                                    <th class="text-left p-6 font-mono text-xs text-white/50">RANK</th>
+                                    <th class="text-left p-6 font-mono text-xs text-white/50">TEAM</th>
+                                    <th class="text-center p-6 font-mono text-xs text-white/50">P</th>
+                                    <th class="text-center p-6 font-mono text-xs text-white/50">W</th>
+                                    <th class="text-center p-6 font-mono text-xs text-white/50">D</th>
+                                    <th class="text-center p-6 font-mono text-xs text-white/50">L</th>
+                                    <th class="text-center p-6 font-mono text-xs text-white/50">GD</th>
+                                    <th class="text-right p-6 font-mono text-xs text-white/50">PTS</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/10">
+                                <tr onclick="alert('Viewing CSC 400 details...')" class="hover:bg-white/5 cursor-pointer transition">
+                                    <td class="p-6 text-4xl font-bold text-cyan-400">01</td>
+                                    <td class="p-6">
+                                        <div class="font-bold text-xl">CSC 400</div>
+                                        <div class="text-xs text-emerald-400">Undefeated Champions 2025</div>
+                                    </td>
+                                    <td class="text-center p-6">12</td>
+                                    <td class="text-center p-6 text-emerald-400">12</td>
+                                    <td class="text-center p-6">0</td>
+                                    <td class="text-center p-6">0</td>
+                                    <td class="text-center p-6 text-emerald-400">+48</td>
+                                    <td class="text-right p-6 font-bold text-3xl">36</td>
+                                </tr>
+                                <tr onclick="alert('Viewing CSC 300 details...')" class="hover:bg-white/5 cursor-pointer transition">
+                                    <td class="p-6 text-4xl font-bold text-white/60">02</td>
+                                    <td class="p-6">
+                                        <div class="font-bold text-xl">CSC 300</div>
+                                    </td>
+                                    <td class="text-center p-6">12</td>
+                                    <td class="text-center p-6">8</td>
+                                    <td class="text-center p-6">3</td>
+                                    <td class="text-center p-6">1</td>
+                                    <td class="text-center p-6">+29</td>
+                                    <td class="text-right p-6 font-bold text-3xl">27</td>
+                                </tr>
+                                <tr onclick="alert('Viewing CSC 200 details...')" class="hover:bg-white/5 cursor-pointer transition">
+                                    <td class="p-6 text-4xl font-bold text-white/60">03</td>
+                                    <td class="p-6">
+                                        <div class="font-bold text-xl">CSC 200</div>
+                                    </td>
+                                    <td class="text-center p-6">12</td>
+                                    <td class="text-center p-6">7</td>
+                                    <td class="text-center p-6">4</td>
+                                    <td class="text-center p-6">1</td>
+                                    <td class="text-center p-6">+22</td>
+                                    <td class="text-right p-6 font-bold text-3xl">25</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `,
+            
             'Fixtures': `
                 <div class="max-w-4xl mx-auto">
                     <h2 class="font-grotesk text-5xl font-bold tracking-tighter mb-10">UPCOMING FIXTURES</h2>
@@ -432,7 +468,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <button onclick="alert('Opening ticket shop...')" class="px-10 py-5 bg-white text-zinc-950 font-bold rounded-3xl">BUY TICKETS</button>
+                            <button onclick="alert('Opening ticket shop...')" 
+                                    class="px-10 py-5 bg-white text-zinc-950 font-bold rounded-3xl">BUY TICKETS</button>
                         </div>
                         <div class="bg-zinc-900 rounded-3xl p-8 flex gap-8 items-center">
                             <div class="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-3xl flex items-center justify-center text-5xl flex-shrink-0">⚽</div>
@@ -449,12 +486,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <button onclick="alert('Opening ticket shop...')" class="px-10 py-5 bg-white text-zinc-950 font-bold rounded-3xl">BUY TICKETS</button>
+                            <button onclick="alert('Opening ticket shop...')" 
+                                    class="px-10 py-5 bg-white text-zinc-950 font-bold rounded-3xl">BUY TICKETS</button>
                         </div>
                     </div>
                 </div>
             `,
-
+            
             'Leaderboard': `
                 <div class="max-w-4xl mx-auto">
                     <h2 class="font-grotesk text-5xl font-bold tracking-tighter mb-10">TOP SCORERS</h2>
@@ -486,7 +524,7 @@
                     </div>
                 </div>
             `,
-
+            
             'Live Feed': `
                 <div class="max-w-3xl mx-auto text-center">
                     <h2 class="font-grotesk text-5xl font-bold tracking-tighter mb-10">LIVE BROADCAST</h2>
@@ -499,7 +537,7 @@
                     </div>
                 </div>
             `,
-
+            
             'Records': `
                 <div class="max-w-4xl mx-auto">
                     <h2 class="font-grotesk text-5xl font-bold tracking-tighter mb-12">ALL-TIME RECORDS</h2>
@@ -519,7 +557,7 @@
                     </div>
                 </div>
             `,
-
+            
             'Database': `
                 <div class="max-w-5xl mx-auto">
                     <h2 class="font-grotesk text-5xl font-bold tracking-tighter mb-8">FULL DATABASE</h2>
@@ -555,12 +593,15 @@
         function switchView(viewName) {
             const container = document.getElementById('content');
             const contentHTML = views[viewName] || views['Overview'];
+            
             container.innerHTML = `
                 <div class="view-active">${contentHTML}</div>
             `;
+            
+            // Update active sidebar
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(viewName)) {
+                if (link.getAttribute('onclick').includes(viewName)) {
                     link.classList.add('active');
                 }
             });
@@ -570,10 +611,10 @@
             const clockEl = document.getElementById('clock');
             setInterval(() => {
                 const now = new Date();
-                clockEl.textContent = now.toLocaleTimeString('en-GB', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
+                clockEl.textContent = now.toLocaleTimeString('en-GB', { 
+                    hour: '2-digit', 
+                    minute: '2-digit', 
+                    second: '2-digit' 
                 });
             }, 1000);
         }
@@ -583,9 +624,12 @@
             menu.classList.toggle('hidden');
         }
 
+        // Initialize
         window.onload = function() {
             startClock();
             switchView('Overview');
+            
+            // Tailwind script already loaded via CDN
             console.log('%cELITE COMMAND CENTER v2.6 loaded successfully', 'color:#22d3ee; font-family:monospace');
         };
     </script>
